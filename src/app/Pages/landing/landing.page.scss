@@ -1,603 +1,1011 @@
-
+// #efefff#f5f5ff#eaedff
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+}
 ::-webkit-scrollbar {
     display: none;
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-
-.wrapper {
+.main {
+    display: flex;
     height: 100%;
     width: 100%;
-    max-width: 100%;
-    margin: auto;
-    transition: 2s;
-    -moz-transition: 2s;
-    -webkit-transition: 2s;
-    -o-transition: 2s;
-    background: #efefff;
-    display: flex;
-
+    -moz-transition: all 2s;
+    -webkit-transition: all 2s;
+    -o-transition: all 2s;
+    transition: all 2s;
+    
 }
-
-.aside-menu {
+  .aside-container {
+    padding: .5em;
     height: 100%;
-    flex-basis: 10%;
     background: #D66E53;
     display: flex;
     flex-direction: column;
-    padding: 5px;
     align-items: center;
 }
-.profile-container {
-    color: #fff;
-    font-weight: 600;
-    font-size: 100%;
-}
-
 .profile {
     height: 10vh;
-    width: 10vh; 
+    width: 10vh;
     border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
     overflow: hidden;
-    
-
     
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-    
-       
     }
 }
-.btn-notication {
-    --background: red;
+ .profile-container {
+    display: flex;
 }
-
-
-.container {
-    flex-basis: 90%;
+.content-container {
     height: 100%;
-    background: #f5f5ff;
+    flex: 1;
+    background: #efefff;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    
 }
-
-
 .header {
-    
-    padding: .1em;
-    height: 10%;
-
-
-}
-.wrap-tattoos {
+    flex-basis: 10%;
     display: flex;
-    flex-direction: row;
-    height: 30%;
-    flex-wrap: nowrap;
-    width: auto;
-    position: relative;
-    -webkit-overflow-scrolling: touch;
-    overflow: scroll;
     
-
-    &::before {
-        height: 1px;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        background: rgb(213, 213, 255);
-        content: '';
-
-    }
-
+    //border: 1px solid #D66E53;
 }
-.add-tattoo-container, .tattoo-list-container {
-    min-width: 19%;
-    min-height: 100%;
-    
-    //padding: .1em;
-
+.first-header , .paragragh{
+    margin: 0 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: #686868;
+    font-size: 4vh;
 }
-.card, .tatto-list{
-    background: #eaedff;
-    width: 100%;
+.edit-delete {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
     height: 100%;
-    border-radius: 7px;
-    
-}
-.card {
+    flex-direction: column;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset 3px 6px 12px #e1e5fc;
-    border-radius: 7px;
-    transform: scale(.90);
-
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.205);
 }
-.tatto-list {
-    width: 100%;
-    max-width: 60vw;
+article > * {
+    margin: 4% !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: scroll;
+    cursor: pointer;
+}
+.paragragh {
+    font-size: 2vh;
+    color: #fff;
+    padding: .5em;
+}
+.scroll-container {
+    flex-basis: 40%;
+    //border: 2px solid #D66E53;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-y: hidden;
+    overflow-x: auto;
+    position: relative;
+  &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: rgb(222, 217, 255);
+
+  }  
+  
+}
+.tattoo-image-booking {
+    width: 40%;
     height: 100%;
     overflow: hidden;
-    position: relative;
-    transition: all 600ms;
-    transform: scale(.90);
-
+    border-radius: 6px;
     img {
-        width: 100%;
         height: 100%;
+        width: 100%;
         object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
     }
 }
-.controller {
+.info-booking {
+    padding: .5em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #686868;
+    h4 {
+        font-weight: bold;
+        font-size: 2.5vh;
+        margin: 0 !important;
+    }
+    p {
+        font-size: 2vh;
+        margin: 1% !important;
+
+    }
+}
+.call-booking {
     position: absolute;
-    width: 100%;
     top: 0;
-    left: 0;
-    height: 0;
-    background-color: red;
-    z-index: 10;
-    color: #fff;
-    display: none;
-}
-
-.tatto-list:hover{
-    transform: scale(1); 
-    
-  
-
-}
-.tatto-list:hover .controller {
-    display: block;
-}
-.tatto-list:hover img  {
-    filter: brightness(20%);
-}
-
-
-.h1-header {
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #5a5a5a;
-    margin-left: 1%;
-  font-size: 3vh;
-}
-.booking-header{
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #5a5a5a;
-    margin-left: 1%;
-    font-size: 2vh;
-}
-
-
-.booking {
-    flex: 1;
-    //background: red;
     height: 100%;
-    padding: 1em;
+    right: -2.5vh;
+    display: flex;
+    align-items: center;
+    ion-fab-button {
+        height: 5vh;
+        width: 5vh;
 
-    .booking-card {
-        max-width: 100%;
-        margin: 0 auto;
-        height: 100%;
-        width: 100%;
-        position: relative;
-        //background: #eaedff;
-        overflow: auto;
-        .card-list {
-            height: 20%;
-            width: 90%;
-            background: rgb(255, 255, 255);
-            border-radius: 7px;
-            position: relative;
-            display: flex;
-            //overflow: hidden;
-          
-            .info {
-                font-size: 100%;
-                margin-left: .5em;
-                padding: .5em;
-                color: #5a5a5a;
-                h3 {
-                    font-size: 2vh; 
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    font-weight: bold;
-                    margin-top: 0 !important;
-                }
-                p {
-                    font-size: 1.5vh;
-                    margin: 0 !important;
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                }
-            }
-            margin: 4%;
-
-            .tattoo-image {
-                width: 30%;
-                height: 100%;
-                overflow: hidden;
-                
-                img {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 7px;
-                    object-fit: cover;
-                }
-            }
-            .call-btn {
-                position: absolute;
-                right: -2.5vh;
-                top: 0;
-                height: 100%;
-                //border: 1px solid #D66E53;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-            }
-        }
     }
-
-    .booking-card-empty {
-        display: flex;
-        max-width: 100%;
-        margin: 0 auto;
-        height: 100%;
-        width: 100%;
-        background: #eaedff;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 1px 6px 16px rgba(196, 196, 196, 0.048);
-    }
-
 }
-
-
-.analytics {
-    height: 100%;
+.default {
     display: flex;
     justify-content: center;
-    align-content: center;
     align-items: center;
-   
-    flex: 1;
-    .gragh {
-        height: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+    .ion-fab-button {
+        box-shadow: none;
+
     }
 }
 
-.booking-analytics-container {
+.add-tattoo, .default {
+    flex: 0 0 19%;
+    height: 80%;
+    margin: 1%;
+    background: #eaedff;
+    border-radius: 6px;
+    transition: all 200ms;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
+    overflow: hidden;
+    position: relative;
+}
+.add-tattoo:hover {
+    transform: scale(1.1);
+}
+.add-tattoo:hover img {
+    filter: brightness(30%);
+}
+
+.sub-container {
+    flex-basis: 50%;
+    //background: red;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap-reverse;
-    justify-content: space-between;
-    height: 60%;
-    width: 100%;
-    overflow: auto;
-  
 }
-
-.analytics {
+.booking-container {
     flex: 1;
+    display: flex;
+    padding: .5em;
+}
+.booking-list {
+    border-radius: 6px;
+    position: relative;
+    margin: 2%;
+    background: #fff;
+    display: flex;
+    flex: 1;
+    height: 30%;
+   
+
+}
+.analytics-container {
+    flex: 1;
+    
     padding: 1em;
-   .graph {
-    background: url('../../../assets/02b44c93bb534cff763336ee76df94a3.jpg');
-   }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.graghs {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
+    
+}
 
+.tattoo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    
+}
 
+.info-tattoo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    color: #fff;
+    display: none;
+    padding: .5em;
+}
+.add-tattoo:hover .info-tattoo {
+    display: block;
+    overflow: scroll;
+}
+
+.no-bookings {
+    //margin: 1%;
+    justify-self: center;
+    align-self: center;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
+    background: #eaedff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  
-    
-    .h1-header {
-        text-align: center;
 
-    }  
-    .booking-header {
-        text-align: center;
+    .main {
+        flex-direction: column;
     }
-  
-   .wrapper {
-       flex-direction: column;
-   } 
-   .aside-menu {
-       flex-basis: 6%;
-       display: flex;
-       flex-direction: row;
-       justify-content: space-between;
-     flex-wrap: wrap;
-     height: 100%;
-    
-   }
-   .profile-container {
-       flex: 1;
-       display: flex;
-       align-items: center;
-
-       .profile {
-           height: 5vh;
-           width: 5vh;
-           margin-right: 5%;
-       }
-   }
-   .container {
-       flex-basis: 94%;
-       flex: 1;
-       height: 100%;
-       
-   }
-   .add-tattoo-container, .tattoo-list-container  {
-       min-width: 60%;
-       padding: .5em;
-   }
-   .tatto-list {
-    width: 100%;
-    max-width: 60vw;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
+    .aside-container {
+        flex-basis: 10%;
+        flex-direction: row;
+        justify-content: space-between;
     }
-}
-.tatto-list:hover {
-    transform: scale(1.2); 
-}
-.booking-analytics-container {
-    flex-direction: column-reverse;
-}
-.booking {
-    padding: 0;
-    flex: 1;
- 
-    .booking-card {
+
+    .profile {
+        height: 8vh;
+        width: 8vh;
+    }
+    
+    .paragragh {
+        justify-self: flex-start;
+        margin-left: 2%;
+    }
+    .sub-container {
+        flex-direction: column-reverse;
+    }
+    .header {
+        justify-content: center;
+        align-items: center;
+    }
+    .first-header {
+        font-size: 3vh;
+    }
+    .analytics-container {
+        flex-basis: 80%;
+    }
+    .booking-container {
+        flex-basis: 20%;
+        padding: 0;
         border-radius: 15px 15px 0 0;
-        background: #e1e5fc;
-        padding-top: .1em;
-        overflow: auto;
-        height: 100%;
-        box-sizing: border-box;
-        h1 {
-            font-weight: bold;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #5a5a5a;
-            font-size: 2vh;
-        }
-        .card-list {
-            height: 70%;
-           
-            width: 80%;
-            margin: 2% auto;
-        }
     }
+    .add-tattoo, .default {
+        flex: 0 0 55%;
+    }
+    .profile-container {
+        align-items: center;
+    }
+
+    .booking-container {
+        flex-direction: column;
+    }
+    
 }
-
-
-
-}
-
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-    .aside-menu {
-        flex-basis: 5%;
+    .main {
+        flex-direction: column;
     }
-    .container {
-        flex: 1;
+    .aside-container {
+        flex-basis: 10%;
+        flex-direction: row;
+        justify-content: space-between;
     }
-    .add-tattoo-container, .tattoo-list-container {
-        min-width: 40%;
-        min-height: 100%;
-    
-        padding: 1em;
-    
+    .add-tattoo, .default{
+        flex: 0 0 40%;
     }
-    .card, .tatto-list{
-        background: #eaedff;
-        width: 100%;
-        height: 100%;
-    }
-    .card {
-        display: flex;
-        justify-content: center;
+    .header {
+        margin-left: 1%;
+        align-items: center;  
+      }
+      .profile-container {
+          align-items: center;
+      }
+      .booking-container {
+        flex-direction: column;
         align-items: center;
-        max-width: 40vw;
+        overflow: hidden;
     }
-    .tatto-list {
-        max-width: 40vw;
-        overflow-x: auto;
-        overflow-y: hidden;
-    
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .booking-list {
+        flex: 0 0 30%;
     }
 
+     
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .aside-menu {
-        flex-basis: 5%;
+    .main {
+        flex-direction: row;
     }
-    .container {
-        flex: 1;
+    .aside-container {
+        flex-basis: 10%;
+        flex-direction: column;
+        justify-content: flex-start;
     }
-    .add-tattoo-container, .tattoo-list-container {
-        min-width: 45%;
-        min-height: 100%;
-    
-        padding: 1em;
-    
+    .add-tattoo, .default {
+       flex: 0 0 22%;
     }
-    .card, .tatto-list{
-        background: #eaedff;
-        width: 100%;
-        height: 100%;
-    }
-    .card {
-        display: flex;
-        justify-content: center;
+    .header {
+        margin-left: 1%;
+        align-items: center;  
+      }
+      .paragragh {
+          padding: 1em;
+      }
+      .profile-container {
+          flex-direction: column;
+      }
+      .booking-container {
+        flex-direction: column;
         align-items: center;
     }
-    .tatto-list {
-        max-width: 45vw;
-
-    }
 }
-
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .aside-menu {
-        flex-basis: 5%;
+    .main {
+        flex-direction: row;
     }
-    .container {
-        flex: 1;
+    .aside-container {
+        flex-basis: 10%;
     }
-    .add-tattoo-container, .tattoo-list-container {
-        min-width: 30%;
-        min-height: 100%;
-    
-        padding: 1em;
-    
+    .add-tattoo, .default {
+        flex: 0 0 21%;
     }
-    .card, .tatto-list{
-        background: #eaedff;
-        width: 100%;
-        height: 100%;
-    }
-    .card {
-        display: flex;
-        justify-content: center;
+
+    .booking-container {
+        flex-direction: column;
         align-items: center;
     }
-    .tatto-list {
-        max-width: 30vw;
-    }
-
-    .booking {
-       flex: 1;
-        //background: #eaedff;
-        height: 100%;
-        padding: 1em;
-    
-        .booking-card {
-            height: 100%;
-            //background: #eaedff;
-            width: 100%;
-        }
-    
-    }
-
+   
 }
-
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-   /*  .aside-menu {
-        flex-basis: 5%;
+    .main {
+        flex-direction: row;
     }
-    .container {
-        flex: 1;
+    .aside-container {
+        flex-basis: 7%;
     }
-    .add-tattoo-container, .tattoo-list-container {
-        min-width: 20vw;
-        min-height: 100%;
-        
-        padding: 1em;
-    
+    .content-container {
+        flex-wrap: wrap;
     }
-    .card, .tatto-list{
-        background: #eaedff;
-        width: 100%;
-        height: 100%;
+    .add-tattoo, .default {
+        flex: 0 0 18%;
     }
-    .card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 20vw;
+    .header {
+      margin-left: 1%;
+      align-items: center;  
     }
-    .tatto-list {
-        max-width: 20vw;
+    .booking-container {
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
     }
-    .booking {
-        flex: 1;
-        //background: red;
-        height: 100%;
-        padding: 1em;
-    
-        .booking-card {
-            max-width: 100%;
-            margin: 0 auto;
-            height: 20%;
-            width: 100%;
-            //background: #eaedff;
-        }
-    
-    } */
-
-    .aside-menu {
-        flex-basis: 5%;
+    .booking-list {
+        flex: 0 0 40%;
     }
-    .container {
-        flex: 1;
-    }
-    .add-tattoo-container, .tattoo-list-container {
-        min-width: 20%;
-        min-height: 100%;
-    
-        padding: 1em;
-    
-    }
-    .card, .tatto-list{
-        background: #eaedff;
-        width: 100%;
-        height: 100%;
-    }
-    .card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .tatto-list {
-        max-width: 20vw;
-    }
-
-    .booking {
-       flex: 1;
-        //background: #eaedff;
-        height: 100%;
-        padding: 1em;
-    
-        .booking-card {
-            height: 100%;
-            //background: #eaedff;
-            width: 100%;
-        }
-    
-    }
+   
 }
+// ::-webkit-scrollbar {
+//     display: none;
+// }
+
+// *, *::before, *::after {
+//     box-sizing: border-box;
+// }
+
+
+// .wrapper {
+//     height: 100%;
+//     width: 100%;
+//     max-width: 100%;
+//     margin: auto;
+//     transition: 2s;
+//     -moz-transition: 2s;
+//     -webkit-transition: 2s;
+//     -o-transition: 2s;
+//     background: ;
+//     display: flex;
+
+// }
+
+// .aside-menu {
+//     height: 100%;
+//     flex-basis: 10%;
+//     background: ;
+//     display: flex;
+//     flex-direction: column;
+//     padding: 5px;
+//     align-items: center;
+// }
+// .profile-container {
+//     color: #fff;
+//     font-weight: 600;
+//     font-size: 100%;
+// }
+
+// .profile {
+//     height: 10vh;
+//     width: 10vh; 
+//     border-radius: 50%;
+//     overflow: hidden;
+    
+
+    
+//     img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+    
+       
+//     }
+// }
+// .btn-notication {
+//     --background: red;
+// }
+
+
+// .container {
+//     flex-basis: 90%;
+//     height: 100%;
+//     background: ;
+//     display: flex;
+//     flex-direction: column;
+//     flex-wrap: wrap;
+// }
+
+
+// .header {
+    
+//     padding: .1em;
+//     height: 10%;
+
+
+// }
+// .wrap-tattoos {
+//     display: flex;
+//     flex-direction: row;
+//     height: 30%;
+//     flex-wrap: nowrap;
+//     width: auto;
+//     position: relative;
+//     -webkit-overflow-scrolling: touch;
+//     overflow: scroll;
+    
+
+//     &::before {
+//         height: 1px;
+//         width: 100%;
+//         position: absolute;
+//         bottom: 0;
+//         background: rgb(213, 213, 255);
+//         content: '';
+
+//     }
+
+// }
+// .add-tattoo-container, .tattoo-list-container {
+//     min-width: 19%;
+//     min-height: 100%;
+    
+//     //padding: .1em;
+
+// }
+// .card, .tatto-list{
+//     background: ;
+//     width: 100%;
+//     height: 100%;
+//     border-radius: 7px;
+    
+// }
+// .card {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     box-shadow: inset 3px 6px 12px #e1e5fc;
+//     border-radius: 7px;
+//     transform: scale(.90);
+
+// }
+// .tatto-list {
+//     width: 100%;
+//     max-width: 60vw;
+//     height: 100%;
+//     overflow: hidden;
+//     position: relative;
+//     transition: all 600ms;
+//     transform: scale(.90);
+
+//     img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//     }
+// }
+// .controller {
+//     position: absolute;
+//     width: 100%;
+//     top: 0;
+//     left: 0;
+//     height: 0;
+//     background-color: red;
+//     z-index: 10;
+//     color: #fff;
+//     display: none;
+// }
+
+// .tatto-list:hover{
+//     transform: scale(1); 
+    
+  
+
+// }
+// .tatto-list:hover .controller {
+//     display: block;
+// }
+// .tatto-list:hover img  {
+//     filter: brightness(20%);
+// }
+
+
+// .h1-header {
+//     font-weight: bold;
+//     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+//     color: #5a5a5a;
+//     margin-left: 1%;
+//   font-size: 3vh;
+// }
+// .booking-header{
+//     font-weight: bold;
+//     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+//     color: #5a5a5a;
+//     margin-left: 1%;
+//     font-size: 2vh;
+// }
+
+
+// .booking {
+//     flex: 1;
+//     //background: red;
+//     height: 100%;
+//     padding: 1em;
+
+//     .booking-card {
+//         max-width: 100%;
+//         margin: 0 auto;
+//         height: 100%;
+//         width: 100%;
+//         position: relative;
+//         //background: #eaedff;
+//         overflow: auto;
+//         .card-list {
+//             height: 20%;
+//             width: 90%;
+//             background: rgb(255, 255, 255);
+//             border-radius: 7px;
+//             position: relative;
+//             display: flex;
+//             //overflow: hidden;
+          
+//             .info {
+//                 font-size: 100%;
+//                 margin-left: .5em;
+//                 padding: .5em;
+//                 color: #5a5a5a;
+//                 h3 {
+//                     font-size: 2vh; 
+//                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+//                     font-weight: bold;
+//                     margin-top: 0 !important;
+//                 }
+//                 p {
+//                     font-size: 1.5vh;
+//                     margin: 0 !important;
+//                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+//                 }
+//             }
+//             margin: 4%;
+
+//             .tattoo-image {
+//                 width: 30%;
+//                 height: 100%;
+//                 overflow: hidden;
+                
+//                 img {
+//                     width: 100%;
+//                     height: 100%;
+//                     border-radius: 7px;
+//                     object-fit: cover;
+//                 }
+//             }
+//             .call-btn {
+//                 position: absolute;
+//                 right: -2.5vh;
+//                 top: 0;
+//                 height: 100%;
+//                 //border: 1px solid #D66E53;
+//                 display: flex;
+//                 align-items: center;
+//                 justify-content: center;
+
+//             }
+//         }
+//     }
+
+//     .booking-card-empty {
+//         display: flex;
+//         max-width: 100%;
+//         margin: 0 auto;
+//         height: 100%;
+//         width: 100%;
+//         background: #eaedff;
+//         align-items: center;
+//         justify-content: center;
+//         box-shadow: 1px 6px 16px rgba(196, 196, 196, 0.048);
+//     }
+
+// }
+
+
+// .analytics {
+//     height: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-content: center;
+//     align-items: center;
+   
+//     flex: 1;
+//     .gragh {
+//         height: 100%;
+//         height: 100%;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//     }
+// }
+
+// .booking-analytics-container {
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap-reverse;
+//     justify-content: space-between;
+//     height: 60%;
+//     width: 100%;
+//     overflow: auto;
+  
+// }
+
+// .analytics {
+//     flex: 1;
+//     padding: 1em;
+//    .graph {
+//     background: url('../../../assets/02b44c93bb534cff763336ee76df94a3.jpg');
+//    }
+// }
+
+
+
+
+// /* Extra small devices (phones, 600px and down) */
+// @media only screen and (max-width: 600px) {
+  
+    
+//     .h1-header {
+//         text-align: center;
+
+//     }  
+//     .booking-header {
+//         text-align: center;
+//     }
+  
+//    .wrapper {
+//        flex-direction: column;
+//    } 
+//    .aside-menu {
+//        flex-basis: 6%;
+//        display: flex;
+//        flex-direction: row;
+//        justify-content: space-between;
+//      flex-wrap: wrap;
+//      height: 100%;
+    
+//    }
+//    .profile-container {
+//        flex: 1;
+//        display: flex;
+//        align-items: center;
+
+//        .profile {
+//            height: 5vh;
+//            width: 5vh;
+//            margin-right: 5%;
+//        }
+//    }
+//    .container {
+//        flex-basis: 94%;
+//        flex: 1;
+//        height: 100%;
+       
+//    }
+//    .add-tattoo-container, .tattoo-list-container  {
+//        min-width: 60%;
+//        padding: .5em;
+//    }
+//    .tatto-list {
+//     width: 100%;
+//     max-width: 60vw;
+//     height: 100%;
+//     overflow: hidden;
+//     position: relative;
+
+//     img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//     }
+// }
+// .tatto-list:hover {
+//     transform: scale(1.2); 
+// }
+// .booking-analytics-container {
+//     flex-direction: column-reverse;
+// }
+// .booking {
+//     padding: 0;
+//     flex: 1;
+ 
+//     .booking-card {
+//         border-radius: 15px 15px 0 0;
+//         background: #e1e5fc;
+//         padding-top: .1em;
+//         overflow: auto;
+//         height: 100%;
+//         box-sizing: border-box;
+//         h1 {
+//             font-weight: bold;
+//             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+//             color: #5a5a5a;
+//             font-size: 2vh;
+//         }
+//         .card-list {
+//             height: 70%;
+           
+//             width: 80%;
+//             margin: 2% auto;
+//         }
+//     }
+// }
+
+
+
+// }
+
+// /* Small devices (portrait tablets and large phones, 600px and up) */
+// @media only screen and (min-width: 600px) {
+//     .aside-menu {
+//         flex-basis: 5%;
+//     }
+//     .container {
+//         flex: 1;
+//     }
+//     .add-tattoo-container, .tattoo-list-container {
+//         min-width: 40%;
+//         min-height: 100%;
+    
+//         padding: 1em;
+    
+//     }
+//     .card, .tatto-list{
+//         background: #eaedff;
+//         width: 100%;
+//         height: 100%;
+//     }
+//     .card {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         max-width: 40vw;
+//     }
+//     .tatto-list {
+//         max-width: 40vw;
+//         overflow-x: auto;
+//         overflow-y: hidden;
+    
+//         img {
+//             width: 100%;
+//             height: 100%;
+//             object-fit: cover;
+//         }
+//     }
+
+// }
+
+// /* Medium devices (landscape tablets, 768px and up) */
+// @media only screen and (min-width: 768px) {
+//     .aside-menu {
+//         flex-basis: 5%;
+//     }
+//     .container {
+//         flex: 1;
+//     }
+//     .add-tattoo-container, .tattoo-list-container {
+//         min-width: 45%;
+//         min-height: 100%;
+    
+//         padding: 1em;
+    
+//     }
+//     .card, .tatto-list{
+//         background: #eaedff;
+//         width: 100%;
+//         height: 100%;
+//     }
+//     .card {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//     }
+//     .tatto-list {
+//         max-width: 45vw;
+
+//     }
+// }
+
+// /* Large devices (laptops/desktops, 992px and up) */
+// @media only screen and (min-width: 992px) {
+//     .aside-menu {
+//         flex-basis: 5%;
+//     }
+//     .container {
+//         flex: 1;
+//     }
+//     .add-tattoo-container, .tattoo-list-container {
+//         min-width: 30%;
+//         min-height: 100%;
+    
+//         padding: 1em;
+    
+//     }
+//     .card, .tatto-list{
+//         background: #eaedff;
+//         width: 100%;
+//         height: 100%;
+//     }
+//     .card {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//     }
+//     .tatto-list {
+//         max-width: 30vw;
+//     }
+
+//     .booking {
+//        flex: 1;
+//         //background: #eaedff;
+//         height: 100%;
+//         padding: 1em;
+    
+//         .booking-card {
+//             height: 100%;
+//             //background: #eaedff;
+//             width: 100%;
+//         }
+    
+//     }
+
+// }
+
+// /* Extra large devices (large laptops and desktops, 1200px and up) */
+// @media only screen and (min-width: 1200px) {
+//    /*  .aside-menu {
+//         flex-basis: 5%;
+//     }
+//     .container {
+//         flex: 1;
+//     }
+//     .add-tattoo-container, .tattoo-list-container {
+//         min-width: 20vw;
+//         min-height: 100%;
+        
+//         padding: 1em;
+    
+//     }
+//     .card, .tatto-list{
+//         background: #eaedff;
+//         width: 100%;
+//         height: 100%;
+//     }
+//     .card {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         max-width: 20vw;
+//     }
+//     .tatto-list {
+//         max-width: 20vw;
+//     }
+//     .booking {
+//         flex: 1;
+//         //background: red;
+//         height: 100%;
+//         padding: 1em;
+    
+//         .booking-card {
+//             max-width: 100%;
+//             margin: 0 auto;
+//             height: 20%;
+//             width: 100%;
+//             //background: #eaedff;
+//         }
+    
+//     } */
+
+//     .aside-menu {
+//         flex-basis: 5%;
+//     }
+//     .container {
+//         flex: 1;
+//     }
+//     .add-tattoo-container, .tattoo-list-container {
+//         min-width: 20%;
+//         min-height: 100%;
+    
+//         padding: 1em;
+    
+//     }
+//     .card, .tatto-list{
+//         background: #eaedff;
+//         width: 100%;
+//         height: 100%;
+//     }
+//     .card {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//     }
+//     .tatto-list {
+//         max-width: 20vw;
+//     }
+
+//     .booking {
+//        flex: 1;
+//         //background: #eaedff;
+//         height: 100%;
+//         padding: 1em;
+    
+//         .booking-card {
+//             height: 100%;
+//             //background: #eaedff;
+//             width: 100%;
+//         }
+    
+//     }
+// }
