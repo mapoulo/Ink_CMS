@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ModalController, AlertController } from '@ionic/angular';
 import { TattooPage } from '../tattoo/tattoo.page';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+
+
+
+
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
@@ -24,7 +29,7 @@ MyValue1: boolean;
   num: number;
   docId: string;
 
-  constructor(public rout : Router,private modalController: ModalController,public alertCtrl:AlertController) { }
+  constructor(public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
   ngOnInit() {
     
@@ -54,7 +59,21 @@ MyValue1: boolean;
   }
   goToNotificationsPage(){
     this.rout.navigateByUrl('/notifications')
+
+     
+
 }
+goProfilePage(){
+  this.rout.navigateByUrl('/profile')
+
+}
+
+    
+logout(){
+  this.auth.logoutUser().then(()=>{
+    this.rout.navigateByUrl('login');
+  })
+  }
 
   async openModal() {
       const modal = await this.modalController.create({
