@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+
 
 
 @Component({
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 export class LandingPage implements OnInit {
   thatobabe;
 
-  constructor(public rout : Router) { }
+  constructor(public rout : Router,private auth: AuthenticationService) { }
 
   ngOnInit() {
     
@@ -19,5 +21,18 @@ export class LandingPage implements OnInit {
   goToNotificationsPage(){
       this.rout.navigateByUrl('/notifications')
   }
+
+  goProfilePage(){
+    this.rout.navigateByUrl('/profile')
+
+  }
+
+      
+  logout(){
+    this.auth.logoutUser().then(()=>{
+      this.rout.navigateByUrl('login');
+    })
+    }
+     
 
 }
