@@ -16,8 +16,8 @@ import { TattooPageModule } from './pages/tattoo/tattoo.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, TattooPageModule],
-  providers: [
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TattooPageModule],
+  providers: [Camera,
 
     StatusBar,
 
