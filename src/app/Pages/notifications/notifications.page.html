@@ -1,22 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Notifications</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<!-- <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
-      {{ viewTitle }}
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="today()">Today</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
- 
 <ion-content>
- 
+  <main class="main">
+     <aside class="aside-container">
+
+    </aside>
+    <section class="content-container"> 
+
+    </section>
+  </main>
+<!-- 
   <div class="container">
 
     <div class="list">
@@ -37,7 +29,7 @@
     <div class="cal">
   <div class="calender">
 
-    <h4>Pick a day in which you will be available</h4>
+    <h4>Pick a day in which you will be available</h4> -->
  
   <!-- <ion-row>
      Change the displayed calendar mode 
@@ -66,7 +58,7 @@
     </ion-col>
   </ion-row> -->
  
-  <calendar 
+  <!-- <calendar 
   [eventSource]="eventSource" 
   [calendarMode]="calendar.mode" 
   [currentDate]="calendar.currentDate"
@@ -77,14 +69,14 @@
   endHour="20"
   step="30"
   startingDayWeek="1">
-  </calendar>
+  </calendar> -->
 
     <!-- Card for adding a new event -->
-    <ion-card>
+    <!-- <ion-card> -->
       <!-- <ion-card-header tappable (click)="collapseCard = !collapseCard">
         <ion-card-title>New Event</ion-card-title>
       </ion-card-header> -->
-      <ion-card-content *ngIf="!collapseCard">
+      <!-- <ion-card-content *ngIf="!collapseCard"> -->
    
         <!-- <ion-item>
           <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
@@ -93,7 +85,7 @@
           <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
         </ion-item> -->
 
-        <ion-item>
+        <!-- <ion-item>
           <ion-label>Start</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
         </ion-item>
@@ -101,7 +93,7 @@
         <ion-item>
           <ion-label>End</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
-        </ion-item>
+        </ion-item> -->
 
         <!-- <ion-item>
           <ion-label>All Day?</ion-label>
@@ -110,7 +102,7 @@
 
 
         <!-- [disabled]="event.title == ''" -->
-        <input type="text" placeholder="Enter price">
+        <!-- <input type="text" placeholder="Enter price">
         <ion-button fill="outline" expand="block" (click)="addEvent()" >Respond</ion-button>
    
       </ion-card-content>
@@ -125,7 +117,7 @@
     </div>
 
 
-  </div>
+  </div> -->
 
 
   
