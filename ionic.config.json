@@ -1,5 +1,7 @@
 {
   "name": "CMS_Ink_Tattoo",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

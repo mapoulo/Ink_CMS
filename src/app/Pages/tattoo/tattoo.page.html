@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tattoo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <button (click)="takePicture(1)"class="myImage" ion-button round  >Upload Tattoo</button>
+  <br>
+  <br>
+
+  <ion-label>Tattooname</ion-label>
+  <ion-input   type="text"  [(ngModel)]="tattoo.name" ></ion-input>
+  
+    
+ 
+
+
+  <ion-label>Pricerange</ion-label>
+  <ion-input  type="number" [(ngModel)]="tattoo.pricerange" ></ion-input>
+
+
+
+
+    <ion-label>Categories</ion-label>
+    <ion-select [(ngModel)]="tattoo.categories"  multiple="true">
+      <ion-select-option value="Previous work" >Previous work</ion-select-option>
+      <ion-select-option value="Sketch/design">Sketch/design</ion-select-option>
+    </ion-select>
+   
+
+
+    <ion-label>Description</ion-label>
+  <ion-input   type="text"  [(ngModel)]="tattoo.description" ></ion-input>
+
+     <button  (click)="addtattoo()" class="submit" ion-button full round>Add tatoo</button> 
+     <!-- <button *ngIf="MyValue" (click)="addtattoo()" class="submit" ion-button full round>Add tattoo</button>
+     <button  *ngIf="!MyValue" (click)="addData1(tatoo)" class="submit" ion-button full round>Update tattoo</button> -->
+    <!-- </form> -->
+
+</ion-content>
+

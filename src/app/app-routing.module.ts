@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
 
   {
@@ -28,6 +28,11 @@ const routes: Routes = [
     path: 'notifications',
     loadChildren: () => import('./Pages/notifications/notifications.module').then( m => m.NotificationsPageModule)
   },
+  {
+    path: 'tattoo',
+    loadChildren: () => import('./pages/tattoo/tattoo.module').then( m => m.TattooPageModule)
+  },
+
 ];
 
 @NgModule({
