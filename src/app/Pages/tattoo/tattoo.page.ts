@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import * as firebase from 'firebase';
-import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ViewController } from '@ionic/core';
+import { FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder,FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ModalController, ActionSheetController } from '@ionic/angular';
 
 @Component({
@@ -12,6 +12,7 @@ import { ModalController, ActionSheetController } from '@ionic/angular';
 })
 export class TattooPage implements OnInit {
   db=firebase.firestore();
+  itemForm: FormGroup;
   tattoo = {
     name: '',
     pricerange: '',
@@ -22,6 +23,7 @@ export class TattooPage implements OnInit {
   }
   Tattoos:[];
 
+
   toastCtrl: any;
   alertCtrl: any;
   actionSheetCtrl: any;
@@ -29,9 +31,30 @@ export class TattooPage implements OnInit {
   MyValue: boolean;
   MyValue1: boolean;
   docId:any;
- 
-  constructor(private camera: Camera, private modalController: ModalController,public actionSheetController: ActionSheetController) { 
-    
+  validation_messages = {
+    'name': [
+      { type: 'required', message: 'Name  is required.' },
+
+    ],
+    'pricerange': [
+      { type: 'required', message: 'Pricerange  is required.' },
+
+    ],
+    'description': [
+      { type: 'required', message: 'Description  is required.' },
+    ],
+    'categories': [
+      { type: 'required', message: 'Categories  is required.' },
+    ],
+
+  }
+  constructor( public forms: FormBuilder,private camera: Camera, private modalController: ModalController,public actionSheetController: ActionSheetController, private FormsModule: FormsModule, private ReactiveFormsModule: ReactiveFormsModule) { 
+    this.itemForm = this.forms.group({
+      name: new FormControl('', Validators.compose([Validators.required])),
+      pricerange: new FormControl('', Validators.compose([Validators.required])),
+      description: new FormControl('', Validators.compose([Validators.required])),
+      categories: new FormControl('', Validators.compose([Validators.required])),
+    });
    }
 
   ngOnInit() {
