@@ -3,11 +3,11 @@
  <main class="main">
     <aside class="aside-container">
       <div class="profile-container">
-        <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo"></div>
+        <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
       <p class="paragragh">Admin</p>
       </div>
       <div class="notifation">
-          <ion-button shape="block" color="light" fill="clear">
+          <ion-button shape="block" color="light" fill="clear" (click)="goToNotificationsPage()">
               <ion-icon name="notifications-outline"></ion-icon>
             </ion-button>
           <ion-badge class="badge" color="light">77</ion-badge>
@@ -21,23 +21,23 @@
       </header>
       <div class="scroll-container">
         <div class="default">
-         <ion-fab-button class="ion-fab-button" color="light">
+         <ion-fab-button (click)="openModal()"  class="ion-fab-button" color="light">
            <ion-icon  name="add"></ion-icon>
          </ion-fab-button>
         </div>
-        <div class="add-tattoo">
-          <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" class="tattoo-image" alt="">
+        <div class="add-tattoo" *ngFor="let tattoo of Tattoos">
+          <img src="{{tattoo.doc.image}}" class="tattoo-image" alt="">
          <div class="info-tattoo">
            <article>
-             <h4 style="white-space: normal; font-size: 2.8vh;">Tattoo Name</h4>
-             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">R400.00 - R500.00</p>
-             <p style="white-space: normal; ; font-size: 2.5vh;">Lorem ipsum dolor si Lorem ipsum dolor si Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus fugit cumque explicabo recusandae repellendus, numquam cupiditate cum. Natus aut molestiae?</p>
+             <h4 style="white-space: normal; font-size: 2.8vh;">{{ tattoo.doc.name}}</h4>
+             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.doc.pricerange}}</p>
+             <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.doc.description}} </p>
              
 
            </article>
-         </div>
+         </div>  
          <div class="edit-delete">
-           <ion-button fill="clear" color="light">
+           <ion-button  (click)="DeleteData(tattoo.docid ,tattoo)" fill="clear" color="light">
              <ion-icon name="trash"></ion-icon>
            </ion-button>
            <ion-button fill="clear" color="light">
@@ -45,46 +45,8 @@
             </ion-button>
          </div>
         </div>
-        <div class="add-tattoo">
-            <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" class="tattoo-image" alt="">
-           <div class="info-tattoo">
-             <article>
-               <h4 style="white-space: normal; font-size: 2.8vh;">Tattoo Name</h4>
-               <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">R400.00 - R500.00</p>
-               <p style="white-space: normal; ; font-size: 2.5vh;">Lorem ipsum dolor si Lorem ipsum dolor si Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus fugit cumque explicabo recusandae repellendus, numquam cupiditate cum. Natus aut molestiae?</p>
-               
-  
-             </article>
-           </div>
-           <div class="edit-delete">
-             <ion-button fill="clear" color="light">
-               <ion-icon name="trash"></ion-icon>
-             </ion-button>
-             <ion-button fill="clear" color="light">
-                <ion-icon name="create"></ion-icon>
-              </ion-button>
-           </div>
-          </div>
-          <div class="add-tattoo">
-              <img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" class="tattoo-image" alt="">
-             <div class="info-tattoo">
-               <article>
-                 <h4 style="white-space: normal; font-size: 2.8vh;">Tattoo Name</h4>
-                 <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">R400.00 - R500.00</p>
-                 <p style="white-space: normal; ; font-size: 2.5vh;">Lorem ipsum dolor si Lorem ipsum dolor si Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus fugit cumque explicabo recusandae repellendus, numquam cupiditate cum. Natus aut molestiae?</p>
-                 
     
-               </article>
-             </div>
-             <div class="edit-delete">
-               <ion-button fill="clear" color="light">
-                 <ion-icon name="trash"></ion-icon>
-               </ion-button>
-               <ion-button fill="clear" color="light">
-                  <ion-icon name="create"></ion-icon>
-                </ion-button>
-             </div>
-            </div>
+          
       </div>
       <div class="sub-container">
           <div class="booking-container">
@@ -172,7 +134,7 @@
         </div>
       </div>
       </div>
-    
+      <ion-button (click)="logout()"> logout</ion-button>
     </section>
  </main>
 </ion-content>
