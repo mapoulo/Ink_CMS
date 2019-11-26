@@ -25,6 +25,23 @@
     flex-direction: column;
     align-items: center;
 }
+.notifation {
+    position: relative;
+}
+.badge {
+    position: absolute;
+    top: 12%;
+    right: 12%;
+    padding: .2em;
+    border-radius: 50%;
+    color: #686868;
+}
+.content-container {
+    flex: 1;
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+}
 .profile {
     height: 10vh;
     width: 10vh;
@@ -41,14 +58,7 @@
  .profile-container {
     display: flex;
 }
-.content-container {
-    height: 100%;
-    flex: 1;
-    background: #efefff;
-    display: flex;
-    flex-direction: column;
-    
-}
+
 .header {
     flex-basis: 10%;
     display: flex;
@@ -106,45 +116,9 @@ article > * {
   }  
   
 }
-.tattoo-image-booking {
-    width: 40%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 6px;
-    img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
-}
-.info-booking {
-    padding: .5em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #686868;
-    h4 {
-        font-weight: bold;
-        font-size: 2.5vh;
-        margin: 0 !important;
-    }
-    p {
-        font-size: 2vh;
-        margin: 1% !important;
 
-    }
-}
-.call-booking {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    right: -2.5vh;
-    display: flex;
-    align-items: center;
-    ion-fab-button {
-        height: 5vh;
-        width: 5vh;
 
-    }
-}
+
 .default {
     display: flex;
     justify-content: center;
@@ -169,32 +143,15 @@ article > * {
 }
 .add-tattoo:hover {
     transform: scale(1.1);
+    z-index: 100;
+
 }
 .add-tattoo:hover img {
     filter: brightness(30%);
 }
 
-.sub-container {
-    flex-basis: 50%;
-    //background: red;
-    display: flex;
-}
-.booking-container {
-    flex: 1;
-    display: flex;
-    padding: .5em;
-}
-.booking-list {
-    border-radius: 6px;
-    position: relative;
-    margin: 2%;
-    background: #fff;
-    display: flex;
-    flex: 1;
-    height: 30%;
-   
 
-}
+
 .analytics-container {
     flex: 1;
     
@@ -208,7 +165,11 @@ article > * {
     height: 100%;
     width: 100%;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
-    
+    /* Demo Code */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #686868;
 }
 
 .tattoo-image {
@@ -241,7 +202,7 @@ article > * {
     //margin: 1%;
     justify-self: center;
     align-self: center;
-    border-radius: 6px;
+    border-radius: 5px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
     background: #eaedff;
     display: flex;
@@ -249,6 +210,110 @@ article > * {
     align-items: center;
     height: 100%;
     width: 100%;
+    color: #686868;
+}
+.sub-container {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    
+}
+.booking-container {
+    flex-basis: 50%;
+    padding: 1em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .booking-header {
+        margin: 0 !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #686868;
+        font-weight: bold;
+        font-size: 2.2vh;
+        padding-bottom: 1em;
+    }
+  
+}
+.bookings-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+   
+}
+.booking-item {
+   flex-basis: 45%;
+   background: #ffffff; 
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
+   height: 120px;
+   margin-right: 3%;
+   margin-bottom: 2%;
+   border-radius: 6px;
+   display: flex;
+   position: relative;
+   transition: all 300ms;
+   position: relative;
+   filter: saturate(30%); 
+   transform: skew(5deg);
+}
+.booking-item:hover {
+    transform: skew(0deg);
+    z-index: 100;
+    filter: saturate(100%);
+    cursor: pointer;
+
+}
+.tattoo-booking-image {
+    flex-basis: 40%;
+    background: rgb(97, 97, 97);
+    border-radius: 6px;
+    overflow: hidden;
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+
+    }
+}
+.info-booking {
+    padding: .5em;
+    flex: 1;
+    h4, p {
+        margin: 0 !important;
+        color: #686868;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    }
+    h4 {
+        font-size: 2vh;
+        padding-bottom: .5em;
+    }
+    p {
+        font-size: 1.5vh;
+        
+    }
+}
+.call-booking {
+    position: absolute;
+    right: -2.5vh;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.fab-btn {
+    width: 4vh;
+    height: 4vh;
+}
+.analytics-container {
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
+    padding: 1em;
+}
+.graghs {
+    flex: 1;
+
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -272,12 +337,14 @@ article > * {
         justify-self: flex-start;
         margin-left: 2%;
     }
-    .sub-container {
-        flex-direction: column-reverse;
+    .scroll-container {
+        flex-basis: 25%;
     }
+   
     .header {
         justify-content: center;
         align-items: center;
+        
     }
     .first-header {
         font-size: 3vh;
@@ -285,21 +352,29 @@ article > * {
     .analytics-container {
         flex-basis: 80%;
     }
-    .booking-container {
-        flex-basis: 20%;
-        padding: 0;
-        border-radius: 15px 15px 0 0;
-    }
+    
     .add-tattoo, .default {
         flex: 0 0 55%;
     }
     .profile-container {
         align-items: center;
     }
-
-    .booking-container {
-        flex-direction: column;
+    .sub-container {
+        flex-direction: column-reverse;
+        height: 70%;
     }
+
+    .booking-item {
+        flex-basis: 100%;
+        height: 100px;
+        filter: saturate(0%);
+        transform: skew(0deg);
+      }
+
+      .booking-item:active {
+        filter: saturate(20%);
+        transform: skew(10deg);
+      }
     
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -322,16 +397,10 @@ article > * {
       .profile-container {
           align-items: center;
       }
-      .booking-container {
-        flex-direction: column;
-        align-items: center;
-        overflow: hidden;
-    }
-    .booking-list {
-        flex: 0 0 30%;
-    }
-
      
+    
+  
+  
 }
 
 @media only screen and (min-width: 768px) {
@@ -344,7 +413,7 @@ article > * {
         justify-content: flex-start;
     }
     .add-tattoo, .default {
-       flex: 0 0 22%;
+       flex: 0 0 40%;
     }
     .header {
         margin-left: 1%;
@@ -356,10 +425,10 @@ article > * {
       .profile-container {
           flex-direction: column;
       }
-      .booking-container {
-        flex-direction: column;
-        align-items: center;
-    }
+      .booking-item {
+        flex-basis: 100%;
+      }
+     
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
@@ -370,13 +439,13 @@ article > * {
         flex-basis: 10%;
     }
     .add-tattoo, .default {
-        flex: 0 0 21%;
+        flex: 0 0 40%;
     }
 
-    .booking-container {
-        flex-direction: column;
-        align-items: center;
-    }
+  .booking-item {
+    flex-basis: 100%;
+    height: 150px;
+  }
    
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -387,24 +456,18 @@ article > * {
     .aside-container {
         flex-basis: 7%;
     }
-    .content-container {
-        flex-wrap: wrap;
-    }
+  
     .add-tattoo, .default {
-        flex: 0 0 18%;
+        flex: 0 0 21%;
     }
     .header {
       margin-left: 1%;
       align-items: center;  
     }
-    .booking-container {
-        flex-direction: row;
-        align-items: flex-start;
-        flex-wrap: wrap;
-    }
-    .booking-list {
-        flex: 0 0 40%;
-    }
+  
+    .booking-item {
+        flex-basis: 45%;
+      }
    
 }
 // ::-webkit-scrollbar {
