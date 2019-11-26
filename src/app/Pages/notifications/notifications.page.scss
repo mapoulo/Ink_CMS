@@ -1,0 +1,37 @@
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.list{
+    width: 50%;
+    height: 80%;
+}
+
+.cal{
+    display: flex;
+    width: 50%;
+    height: 80%;
+}
+
+.person{
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    margin-top: 5px;
+}
+
+.calender{
+    height: 400px;
+    width: 400px;
+}
+
+.personDetails{
+    width: 250px;
+    height: 500px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    margin-top: 5px;
+}
