@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-landing',
@@ -8,10 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class LandingPage implements OnInit {
   thatobabe;
 
-  constructor() { }
+  constructor(public rout : Router) { }
 
   ngOnInit() {
     
+  }
+
+  goToNotificationsPage(){
+      this.rout.navigateByUrl('/notifications')
   }
 
 }
