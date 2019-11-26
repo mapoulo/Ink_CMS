@@ -30,9 +30,7 @@ MyValue1: boolean;
     
   }
 
-  goToNotificationsPage(){
-      this.rout.navigateByUrl('/notifications')
-  }
+ 
   obj = {id: null, obj : null}
   ionViewWillEnter(){
     let firetattoo = {
@@ -54,7 +52,9 @@ MyValue1: boolean;
     })
 
   }
-
+  goToNotificationsPage(){
+    this.rout.navigateByUrl('/notifications')
+}
 
   async openModal() {
       const modal = await this.modalController.create({
