@@ -1,34 +1,75 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
-    <ion-title>Tattoo</ion-title>
+      <ion-buttons slot="start">
+          <ion-button fill="icon-only">
+            <ion-icon name="save"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    <ion-title text-center style="font-weight: bold; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">All Tattoo</ion-title>
+    <ion-buttons slot="end" (click)="dismiss()">
+      <ion-button fill="icon-only">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <form  [formGroup]="itemForm">
-  <button (click)="takePicture(1)"class="myImage" ion-button round  >Upload Tattoo</button>
-  <br>
-  <br>
+<ion-content padding>
+
+  <main class="main">
+    <section class="upload-tattoo">
+      <div class="upload">
+        <ion-fab-button (click)="takePicture(1)" color="light">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+        <p>Please Upload a Tattoo.</p>
+       
+      </div>
+    </section>
+    <section class="form-container">
+        <form [formGroup]="tattooForm">
+            
+            <ion-list>
+                     <ion-item>
+                        <ion-label position="floating">Tattoo Name</ion-label>
+                        <ion-input formControlName="tattooName" type="text" name="name" [(ngModel)]="tattoo.name"></ion-input>
+                      </ion-item>
+                      <p class="error" *ngIf="TattooName.hasError('required') && (TattooName.touched || TattooName.dirty)">Please enter Tattoo Name</p>  
+                   <ion-item>
+                        <ion-label position="floating">Pricerange</ion-label>
+                        <ion-input type="number" formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  ></ion-input>
+                      </ion-item>
+                      <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
+                  <ion-item>
+                          <ion-label position="floating">Categories</ion-label>
+                          <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories"  multiple="true">
+                            <ion-select-option value="Previous work" >Previous work</ion-select-option>
+                            <ion-select-option value="Sketch/design">Sketch/design</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                        <p class="error" *ngIf="Categories.hasError('required') && (Categories.touched || Categories.dirty)">Please enter categories</p>
+                     <ion-item>
+                            <ion-label position="floating">Description</ion-label>
+                           <ion-input formControlName="description"  name="description"  type="text" [(ngModel)]="tattoo.description" ></ion-input>
+                       </ion-item>
+                       <p class="error" *ngIf="Description.hasError('required') && (Description.touched || Description.dirty)">Please enter your description</p>
+                </ion-list>
+            <ion-button color="secondary" shape="block" (click)="addtattoo()">Add tatoo</ion-button> 
+        </form>
+    </section>
+  </main>
   
+  <!-- 
   <ion-label>Tattooname</ion-label>
-  <ion-input   type="text" formControlName="name" placeholder="tattoo name" [(ngModel)]="tattoo.name" ></ion-input>
-  <div class="error" *ngFor="let validate of validation_messages.name">
-      <div class="messages" *ngIf="itemForm.get('name').hasError(validate.type) && (itemForm.get('name').dirty || itemForm.get('name').touched)">
-        {{validate.message}}
-    </div> 
-  </div>
-    
+  
+  <ion-input type="text"[(ngModel)]="tattoo.name" ></ion-input>
+  
  
 
 
   <ion-label>Pricerange</ion-label>
-  <ion-input type="number" formControlName="pricerange" placeholder="tattoo pricerange" [(ngModel)]="tattoo.pricerange"  ></ion-input>
-  <div class="error" *ngFor="let validate of validation_messages.pricerange">
-      <div class="messages" *ngIf="itemForm.get('pricerange').hasError(validate.type) && (itemForm.get('pricerange').dirty || itemForm.get('pricerange').touched)">
-        {{validate.message}}
-    </div> 
-  </div>
-
+  <ion-input type="number"   [(ngModel)]="tattoo.pricerange"  ></ion-input>
+ 
 
 
     <ion-label>Categories</ion-label>
@@ -40,17 +81,11 @@
 
 
     <ion-label>Description</ion-label>
-     <ion-input   type="text" formControlName="description" placeholder="tattoo description" [(ngModel)]="tattoo.description" ></ion-input>
-     <div class="error" *ngFor="let validate of validation_messages.description">
-        <div class="messages" *ngIf="itemForm.get('description').hasError(validate.type) && (itemForm.get('description').dirty || itemForm.get('description').touched)">
-          {{validate.message}}
-      </div> 
-    </div>
+     <ion-input   type="text" [(ngModel)]="tattoo.description" ></ion-input>
+   
 
      <button  (click)="addtattoo()" class="submit" ion-button full round>Add tatoo</button> 
-     <!-- <button *ngIf="MyValue" (click)="addtattoo()" class="submit" ion-button full round>Add tattoo</button>
-     <button  *ngIf="!MyValue" (click)="addData1(tatoo)" class="submit" ion-button full round>Update tattoo</button> -->
-    <!-- </form> -->
-  </form>
+    -->
+ 
 </ion-content>
 

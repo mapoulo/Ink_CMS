@@ -1,37 +1,53 @@
-.container{
+@media only screen and (max-width: 600px) {
+    .aside-container {
+         flex-basis: 10%;
+         flex-direction: row;
+         justify-content: space-between;
+     }
+}
+@media only screen and (min-width: 600px) {
+    .aside-container {
+           flex-basis: 10%;
+           flex-direction: row;
+           justify-content: space-between;
+       }
+}
+
+@media only screen and (min-width: 768px) {
+    .aside-container {
+         flex-basis: 10%;
+         flex-direction: row;
+         justify-content: space-between;
+     }
+}
+
+@media only screen and (min-width: 992px) {
+    .aside-container {
+           flex-basis: 10%;
+       }
+    }
+    @media only screen and (min-width: 1200px) {
+        .aside-container {
+              flex-basis: 7%;
+          }
+        }      
+
+
+.main {
     display: flex;
-    width: 100%;
     height: 100%;
+    width: 100%;
+    -moz-transition: all 2s;
+    -webkit-transition: all 2s;
+    -o-transition: all 2s;
+    transition: all 2s;
+    
 }
-
-.list{
-    width: 50%;
-    height: 80%;
-}
-
-.cal{
+  .aside-container {
+    padding: .5em;
+    height: 100%;
+    background: #D66E53;
     display: flex;
-    width: 50%;
-    height: 80%;
-}
-
-.person{
-    width: 250px;
-    height: 50px;
-    border-radius: 10px;
-    border: 2px solid gray;
-    margin-top: 5px;
-}
-
-.calender{
-    height: 400px;
-    width: 400px;
-}
-
-.personDetails{
-    width: 250px;
-    height: 500px;
-    border-radius: 10px;
-    border: 2px solid gray;
-    margin-top: 5px;
+    flex-direction: column;
+    align-items: center;
 }
