@@ -84,11 +84,7 @@ goProfilePage(){
 }
 
     
-logout(){
-  this.auth.logoutUser().then(()=>{
-    this.rout.navigateByUrl('login');
-  })
-  }
+
 
   async openModal(CheckNumber, obj) {
 

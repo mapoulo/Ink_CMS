@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -9,29 +10,49 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  username: string=""
-  password: string=""
+  username: string = "";
+  password: string = "";
 
-  constructor(private router: Router) { }
+  loader = true;
+
+  constructor(private router: Router, public toastCntrl: ToastController) { }
 
   ngOnInit() {
+
+    setTimeout(() => {
+      this.loader = false;
+    }, 4000);
   }
 
 
   Login(){
+    this.loader = true;
     const {username,password}=this
     firebase.auth().signInWithEmailAndPassword(username, password).then((result) => {
       
       console.log("Logged in succesful")
       this.router.navigateByUrl('/landing');
+      setTimeout(() => {
+        this.loader = false;
+      }, 4000);
   }).catch((error) => {
-    console.log("User not found")
-     let errorCode = error.code;
-     let errorMessage = error.message;
- 
+    setTimeout(() => {
+      this.loader = false;
+    }, 4000);
+
+    this.presentToast();
+  
   });
 
   }
 
+  async presentToast() {
+    const toast = await this.toastCntrl.create({
+      message: 'Oooweee! Admin not found!!',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
+  }
 
 }
