@@ -32,17 +32,17 @@
             <ion-list>
                      <ion-item>
                         <ion-label position="floating">Tattoo Name</ion-label>
-                        <ion-input formControlName="tattooName" type="text" name="name" [(ngModel)]="tattoo.name"></ion-input>
+                        <ion-input formControlName="tattooName" type="text" name="name" [(ngModel)]="tattoo.name" placeholder="{{name}}"></ion-input>
                       </ion-item>
                       <p class="error" *ngIf="TattooName.hasError('required') && (TattooName.touched || TattooName.dirty)">Please enter Tattoo Name</p>  
                    <ion-item>
                         <ion-label position="floating">Pricerange</ion-label>
-                        <ion-input type="number" formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  ></ion-input>
+                        <ion-input type="number" formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  placeholder="{{priceRange}}"></ion-input>
                       </ion-item>
                       <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
                   <ion-item>
                           <ion-label position="floating">Categories</ion-label>
-                          <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories"  multiple="true">
+                          <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
                             <ion-select-option value="Previous work" >Previous work</ion-select-option>
                             <ion-select-option value="Sketch/design">Sketch/design</ion-select-option>
                           </ion-select>
@@ -50,11 +50,15 @@
                         <p class="error" *ngIf="Categories.hasError('required') && (Categories.touched || Categories.dirty)">Please enter categories</p>
                      <ion-item>
                             <ion-label position="floating">Description</ion-label>
-                           <ion-input formControlName="description"  name="description"  type="text" [(ngModel)]="tattoo.description" ></ion-input>
+                           <ion-input formControlName="description"  name="description"  type="text" [(ngModel)]="tattoo.description" placeholder="{{description}}" ></ion-input>
                        </ion-item>
                        <p class="error" *ngIf="Description.hasError('required') && (Description.touched || Description.dirty)">Please enter your description</p>
                 </ion-list>
-            <ion-button color="secondary" shape="block" (click)="addtattoo()">Add tatoo</ion-button> 
+            <ion-button *ngIf="editButton" color="secondary" shape="block" (click)="EditTattoo(tattooForm)">Edit</ion-button> 
+            <ion-button *ngIf="addTattoo" color="secondary" shape="block" (click)="addtattoo(tattooForm)">Add Tattoo</ion-button> 
+           
+
+
         </form>
     </section>
   </main>

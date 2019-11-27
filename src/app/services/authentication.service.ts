@@ -5,6 +5,11 @@ import * as firebase from 'firebase';
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  myObj = {Button : '', obj : {name : '', categories : '', priceRange : '', docid: '', description : '', image : ''}, obje : {}};
+  editButton : boolean;
+  addTattoo : boolean;
+
   authInfo$: any;
   constructor() { }
 
