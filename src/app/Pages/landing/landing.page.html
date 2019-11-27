@@ -22,7 +22,7 @@
       <div class="scroll-container">
         <div class="default">
          <ion-fab-button (click)="openModal()"  class="ion-fab-button" color="light">
-           <ion-icon  name="add"></ion-icon>
+           <ion-icon style="font-size: 4vw;"  name="add"></ion-icon>
          </ion-fab-button>
         </div>
         <div class="add-tattoo" *ngFor="let tattoo of Tattoos">
@@ -55,10 +55,7 @@
             </div>  -->
             <h4 class="booking-header">Booking History</h4>
             <div class="bookings-list">
-              
-           
-                    
-                     <div class="booking-item">
+                <div class="booking-item">
                       <div class="tattoo-booking-image"><img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt=""></div>
                       <div class="info-booking">
                           <h4>Tattoo Name</h4>
@@ -84,7 +81,12 @@
         </div>
       </div>
       </div>
-      <ion-button (click)="logout()"> logout</ion-button>
+      
     </section>
  </main>
 </ion-content>
+<!-- <ion-footer>
+  <ion-toolbar>
+    <p style="font-size: 80%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" text-center>@INK SCRIBE TATTOO</p>
+  </ion-toolbar>
+</ion-footer> -->

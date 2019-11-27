@@ -4,6 +4,7 @@ import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -44,7 +45,7 @@ export class NotificationsPage implements OnInit {
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
 
@@ -83,7 +84,11 @@ export class NotificationsPage implements OnInit {
    this.ClickedObjeck.name = item.name;
    this.ClickedObjeck.description = item.description;
   }
-
+  goProfilePage(){
+    this.rout.navigateByUrl('/profile')
+  
+  }
+  
 
   resetEvent() {
     this.event = {
