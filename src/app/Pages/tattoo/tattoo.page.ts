@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import * as firebase from 'firebase';
-import { FormControl } from '@angular/forms';
-import { FormGroup, Validators, FormBuilder,FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ViewController } from '@ionic/core';
 import { ModalController, ActionSheetController } from '@ionic/angular';
 
 @Component({
@@ -11,8 +11,9 @@ import { ModalController, ActionSheetController } from '@ionic/angular';
   styleUrls: ['./tattoo.page.scss'],
 })
 export class TattooPage implements OnInit {
+
+  tattooForm : FormGroup;
   db=firebase.firestore();
-  itemForm: FormGroup;
   tattoo = {
     name: '',
     pricerange: '',
@@ -23,7 +24,6 @@ export class TattooPage implements OnInit {
   }
   Tattoos:[];
 
-
   toastCtrl: any;
   alertCtrl: any;
   actionSheetCtrl: any;
@@ -31,33 +31,35 @@ export class TattooPage implements OnInit {
   MyValue: boolean;
   MyValue1: boolean;
   docId:any;
-  validation_messages = {
-    'name': [
-      { type: 'required', message: 'Name  is required.' },
 
-    ],
-    'pricerange': [
-      { type: 'required', message: 'Pricerange  is required.' },
-
-    ],
-    'description': [
-      { type: 'required', message: 'Description  is required.' },
-    ],
-    'categories': [
-      { type: 'required', message: 'Categories  is required.' },
-    ],
-
+  get TattooName() {
+    return this.tattooForm.get('tattooName');
   }
-  constructor( public forms: FormBuilder,private camera: Camera, private modalController: ModalController,public actionSheetController: ActionSheetController, private FormsModule: FormsModule, private ReactiveFormsModule: ReactiveFormsModule) { 
-    this.itemForm = this.forms.group({
-      name: new FormControl('', Validators.compose([Validators.required])),
-      pricerange: new FormControl('', Validators.compose([Validators.required])),
-      description: new FormControl('', Validators.compose([Validators.required])),
-      categories: new FormControl('', Validators.compose([Validators.required])),
-    });
+  get Price() {
+    return this.tattooForm.get('priceRange');
+  }
+  get Categories() {
+    return this.tattooForm.get('categories');
+  }
+  get Description() {
+    return this.tattooForm.get('description');
+  }
+  get Image() {
+    return this.tattooForm.get('image');
+  }
+ 
+  constructor(private camera: Camera, private modalController: ModalController,public actionSheetController: ActionSheetController, private fb: FormBuilder) { 
+    
    }
 
   ngOnInit() {
+    this.tattooForm = this.fb.group({
+      tattooName: new FormControl('', Validators.compose([Validators.required])),
+      priceRange: new FormControl('', Validators.compose([Validators.required])),
+      categories: new FormControl('', Validators.compose([Validators.required])),
+      description: new FormControl('', Validators.compose([Validators.required])),
+      image: ['']
+    })
   }
   async selectImage() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -86,9 +88,6 @@ export class TattooPage implements OnInit {
     });
     await actionSheet.present();
   }
-
-
-
 
   async takePicture(sourcetype: number) {
 
@@ -136,9 +135,7 @@ export class TattooPage implements OnInit {
         this.tattoo.image = downUrl;
       })
     })
-   
-
-   
+  
   }
 
   addtattoo(){
