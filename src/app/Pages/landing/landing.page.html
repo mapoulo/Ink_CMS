@@ -21,26 +21,26 @@
       </header>
       <div class="scroll-container">
         <div class="default">
-         <ion-fab-button (click)="openModal()"  class="ion-fab-button" color="light">
-           <ion-icon style="font-size: 4vw;"  name="add"></ion-icon>
+         <ion-fab-button (click)="openModal(1, {})"  class="ion-fab-button" color="light">
+           <ion-icon  name="add"></ion-icon>
          </ion-fab-button>
         </div>
         <div class="add-tattoo" *ngFor="let tattoo of Tattoos">
-          <img src="{{tattoo.doc.image}}" class="tattoo-image" alt="">
+          <img src="{{tattoo.image}}" class="tattoo-image" alt="">
          <div class="info-tattoo">
            <article>
-             <h4 style="white-space: normal; font-size: 2.8vh;">{{ tattoo.doc.name}}</h4>
-             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.doc.pricerange}}</p>
-             <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.doc.description}} </p>
+             <h4 style="white-space: normal; font-size: 2.8vh;">{{ tattoo.name}}</h4>
+             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.pricerange}}</p>
+             <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.description}} </p>
              
 
            </article>
          </div>  
          <div class="edit-delete">
-           <ion-button  (click)="DeleteData(tattoo.docid ,tattoo)" fill="clear" color="light">
+           <ion-button  (click)="DeleteData(tattoo)" fill="clear" color="light">
              <ion-icon name="trash"></ion-icon>
            </ion-button>
-           <ion-button fill="clear" color="light">
+           <ion-button (click)="openModal(0, tattoo)"  fill="clear" color="light">
               <ion-icon name="create"></ion-icon>
             </ion-button>
          </div>
