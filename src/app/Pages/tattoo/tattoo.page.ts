@@ -11,6 +11,8 @@ import { ModalController, ActionSheetController } from '@ionic/angular';
   styleUrls: ['./tattoo.page.scss'],
 })
 export class TattooPage implements OnInit {
+
+  tattooForm : FormGroup;
   db=firebase.firestore();
   tattoo = {
     name: '',
@@ -29,12 +31,35 @@ export class TattooPage implements OnInit {
   MyValue: boolean;
   MyValue1: boolean;
   docId:any;
+
+  get TattooName() {
+    return this.tattooForm.get('tattooName');
+  }
+  get Price() {
+    return this.tattooForm.get('priceRange');
+  }
+  get Categories() {
+    return this.tattooForm.get('categories');
+  }
+  get Description() {
+    return this.tattooForm.get('description');
+  }
+  get Image() {
+    return this.tattooForm.get('image');
+  }
  
-  constructor(private camera: Camera, private modalController: ModalController,public actionSheetController: ActionSheetController) { 
+  constructor(private camera: Camera, private modalController: ModalController,public actionSheetController: ActionSheetController, private fb: FormBuilder) { 
     
    }
 
   ngOnInit() {
+    this.tattooForm = this.fb.group({
+      tattooName: new FormControl('', Validators.compose([Validators.required])),
+      priceRange: new FormControl('', Validators.compose([Validators.required])),
+      categories: new FormControl('', Validators.compose([Validators.required])),
+      description: new FormControl('', Validators.compose([Validators.required])),
+      image: ['']
+    })
   }
   async selectImage() {
     const actionSheet = await this.actionSheetCtrl.create({

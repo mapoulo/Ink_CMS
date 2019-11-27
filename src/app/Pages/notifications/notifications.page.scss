@@ -13,6 +13,25 @@
        }
 }
 
+@media only screen and (min-width: 768px) {
+    .aside-container {
+         flex-basis: 10%;
+         flex-direction: row;
+         justify-content: space-between;
+     }
+}
+
+@media only screen and (min-width: 992px) {
+    .aside-container {
+           flex-basis: 10%;
+       }
+    }
+    @media only screen and (min-width: 1200px) {
+        .aside-container {
+              flex-basis: 7%;
+          }
+        }      
+
 
 .main {
     display: flex;
