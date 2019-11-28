@@ -74,8 +74,17 @@
         object-fit: cover;
     }
 }
- .profile-container {
+.profile-container {
     display: flex;
+    transition: all 500ms;
+}
+.profile-container:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+    filter: saturate(20%);
+}
+.profile-container:active {
+   filter: saturate(20%);
 }
 
 .header {
