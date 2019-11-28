@@ -2,7 +2,7 @@
 <ion-content>
  <main class="main">
     <aside class="aside-container">
-      <div class="profile-container">
+      <div class="profile-container" (click)="goToProfilePage()">
         <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo"></div>
       <p class="paragragh">Admin</p>
       </div>
@@ -168,9 +168,23 @@
       <div class="analytics-container">
         
           <div class="graghs">
-            <p>Gragh will be placed here (Back end)</p>
+
+              
+              <ion-card class="graghs">
+                <ion-card-header>
+                  <!-- <ion-card-subtitle>Number of Viewers per season for</ion-card-subtitle>
+                  <ion-card-title>Game of Thrones</ion-card-title> -->
+                </ion-card-header>
+                <ion-card-content>
+                  <canvas #barChart></canvas>
+                </ion-card-content>
+              </ion-card>
+
+              
         </div>
       </div>
+
+
       </div>
     
     </section>

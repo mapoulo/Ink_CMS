@@ -6,4 +6,9 @@
 
 <ion-content>
 
+    name: <input type="text" [(ngModel)]="name" placeholder="{{name}}"><br />
+    phoneNumber: <input type="text" [(ngModel)]="phoneNumber" placeholder="{{phoneNumber}}"><br />
+    email: <input type="text" [(ngModel)]="email" placeholder="{{email}}"><br />
+    <button (click)="editData()">Edit</button>
+
 </ion-content>
