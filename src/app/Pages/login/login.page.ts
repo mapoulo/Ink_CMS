@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ export class LoginPage implements OnInit {
   username: string=""
   password: string=""
 
+  loader = true;
+
   get Username() {
     return this.loginForm.get('usernameL');
   }
@@ -21,9 +24,13 @@ export class LoginPage implements OnInit {
   }
 
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, public toastCtrl: ToastController) { }
 
   ngOnInit() {
+
+    setTimeout(() => {
+        this.loader = false;
+    }, 4000);
 
     this.loginForm = this.fb.group({
       usernameL: new FormControl('', Validators.compose([Validators.required])),
@@ -36,19 +43,33 @@ export class LoginPage implements OnInit {
 
 
   Login(){
+    this.loader = true;
     const {username,password}=this
     firebase.auth().signInWithEmailAndPassword(username, password).then((result) => {
       
       console.log("Logged in succesful")
       this.router.navigateByUrl('/landing');
+      setTimeout(() => {
+        this.loader = false;
+      }, 4000);
   }).catch((error) => {
-    console.log("User not found")
-     let errorCode = error.code;
-     let errorMessage = error.message;
- 
+    setTimeout(() => {
+      this.loader = false;
+    }, 4000);
+
+    this.presentToast();
+  
   });
 
   }
 
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Oooweee! Admin not found!!',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
+  }
 
 }
