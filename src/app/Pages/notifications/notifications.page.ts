@@ -35,8 +35,10 @@ export class NotificationsPage implements OnInit {
 
   calendar = {
     mode: 'month',
-    currentDate: new Date(),
+    currentDate: new Date()
   };
+
+  lockSwipeToPrev;
 
   @ViewChild(CalendarComponent, { static: false }) myCal: CalendarComponent;
 
@@ -75,6 +77,7 @@ export class NotificationsPage implements OnInit {
 
   ngOnInit() {
     this.resetEvent();
+    this.onCurrentDateChanged(new Date());
   }
 
 
@@ -134,6 +137,7 @@ export class NotificationsPage implements OnInit {
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
     this.resetEvent();
+  
   }
 
   // Change current month/week/day
@@ -183,6 +187,14 @@ export class NotificationsPage implements OnInit {
     this.event.startTime = selected.toISOString();
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
+  }
+
+  onCurrentDateChanged(event:Date) {
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+   
+
+ 
   }
 
 }

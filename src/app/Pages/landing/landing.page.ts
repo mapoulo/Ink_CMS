@@ -74,9 +74,6 @@ MyValue1: boolean;
   }
   goToNotificationsPage(){
     this.rout.navigateByUrl('/notifications')
-
-     
-
 }
 goProfilePage(){
   this.rout.navigateByUrl('/profile')

@@ -26,3 +26,74 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+.event-detail-container {
+    border-top: 0 !important;
+}
+thead  {
+    border-bottom: 2px solid #e3eaff !important;
+}
+.monthview-selected {
+    background: rgb(255, 255, 255) !important;
+    color: #10dc60 !important;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 21px;
+    width: 50px;
+    
+    
+    box-shadow: 0 3px 6px rgba(77, 13, 13, 0.479);
+    }
+    
+    td.monthview-current {
+    color: rgb(34, 34, 34);
+    background: red;
+    .calendar-day {
+      background-color: #e01a1a !important;
+    }
+    }
+    
+    .monthview-datetable {
+    border: 0 !important;
+    width:70% !important;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -5%;
+        height: 100%;
+        width: 1%;
+        background: rgb(141, 141, 141);
+      }  td, th {
+      border: 0 !important;
+      padding: 3px!important;
+      background-color: transparent!important;
+    }
+    }
+  
+    
+    .calendar-day {
+    border-radius: 6px;
+    padding: 3px 5px;
+    
+    &.primary {
+      background-color: blue;
+      color: white;
+    }
+    
+    &.success {
+      background-color: green;
+      color: white;
+    }
+    
+    &.warning {
+      background-color: red;
+      color: white;
+    }
+    
+    &.danger {
+      background-color: red;
+      color: white;
+    }
+    }

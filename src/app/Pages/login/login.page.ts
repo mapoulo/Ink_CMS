@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
 
     setTimeout(() => {
         this.loader = false;
-    }, 4000);
+    }, 2000);
 
     this.loginForm = this.fb.group({
       usernameL: new FormControl('', Validators.compose([Validators.required])),
@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
   async presentToast() {
     const toast = await this.toastCtrl.create({
       message: 'Oooweee! Admin not found!!',
-      duration: 2000,
+      duration: 4000,
       position: 'top'
     });
     toast.present();

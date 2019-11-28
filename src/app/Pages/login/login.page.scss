@@ -4,7 +4,9 @@
     display: flex;
     height: 100%;
     width: 100%;
-
+    animation-name: zoomIn;
+    animation-timing-function: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    animation-iteration-count: 1;
 
 
 }
@@ -45,13 +47,31 @@
     bottom: 5%;
     right: 5%;
 }
+.btn-login {
+  box-shadow: none !important;
+  border-radius: 6px;
+
+}
 
 @media only screen and (max-width: 600px) {
    .main {
-       display: none;
-       height: auto;
-
+       display: flex;
    } 
+   .tattoo-image {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: -1;
+   }
+   .login {
+     width: 100%;
+     
+     
+     
+   }
+   
 }
 /* Loader */
 .loader {

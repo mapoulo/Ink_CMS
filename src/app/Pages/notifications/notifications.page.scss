@@ -213,6 +213,7 @@
     justify-content: space-between;
     padding: 1em;
     flex-basis: 70%;
+    overflow: auto;
 }
 
 .select-card-first {
@@ -235,9 +236,9 @@
 
 }
 .calendar-container {
-    
+    overflow: auto;
     width: 500px;
-    height:550px;
+    /* height:550px; */
     margin: 0 auto;
     padding: 1em;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
@@ -254,6 +255,19 @@
     justify-self: flex-end;
 }
 
+.holder-calendar {
+    position: relative;
+  
+    
+    .button-prev-next {
+        position: absolute;
+        top: 32.5%;
+        left: -5%;
+        right: -5%;
+        z-index: -100;
+
+    }
+}
 
 
 @media only screen and (max-width: 600px) {
@@ -387,5 +401,7 @@
           .respond-container {
             flex-direction: row;
         }
-    }      
+    }  
+    
+    
 
