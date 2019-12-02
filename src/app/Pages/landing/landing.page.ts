@@ -24,40 +24,15 @@ export class LandingPage implements OnInit {
     this.createBarChart();
   }
 
-  auth() {
-    let phone = firebase.auth().signInWithPhoneNumber('number').then((userUid)=>{
-      
-    }) 
-  }
 
 
 
 
-  signin(){
-    let phone = firebase.auth().signInWithPhoneNumber('number').then((userUid)=>{
-      
-    }) 
 
-  }
-
-
-  signUp(){
-    let phone = firebase.auth().signInWithPhoneNumber('number').then((userUid)=>{
-      if(uid !profile) {
-        createAcc(userUid)
-      }else {
-        NavigationEnd
-      }
-      
-    }) 
-    
-  }
-
-  createAcc(ttt){
+ 
 
 
 
-  }
 
   
   createBarChart() {
