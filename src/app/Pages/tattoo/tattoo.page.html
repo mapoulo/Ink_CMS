@@ -17,15 +17,26 @@
 <ion-content padding>
 
   <main class="main">
-    <section class="upload-tattoo">
+      <!-- <div class="divitems">
+          <ion-item *ngIf="!tattoo.image" class="imageitem" lines="none" >
+           <ion-label position="stacked" id="profile_image" color="primary"></ion-label>
+           <ion-input class="image-upload"  type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"></ion-input>
+         </ion-item>
+   <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="400px" width="400px" ></ion-item>
+     </div> -->
+     <section class="upload-tattoo">
       <div class="upload">
-        <ion-fab-button (click)="takePicture(1)" color="light">
-          <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-        <p>Please Upload a Tattoo.</p>
+          <ion-item *ngIf="!tattoo.image" class="imageitem" lines="none" >
+              <ion-label position="stacked" id="profile_image" color="primary"></ion-label>
+              <ion-input class="image-upload"  type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"></ion-input>
+            </ion-item>
+      <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="550px" width="400px" ></ion-item>
+        
+    
+        <!-- <p>Please Upload a Tattoo.</p> -->
        
       </div>
-    </section>
+    </section> 
     <section class="form-container">
         <form [formGroup]="tattooForm">
             

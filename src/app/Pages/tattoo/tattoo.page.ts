@@ -48,9 +48,10 @@ export class TattooPage implements OnInit {
   MyValue: boolean;
   MyValue1: boolean;
   docId:any;
-
+  storage = firebase.storage().ref();
   ShowButton : boolean = false;
   ShowButton1 : boolean = false;
+  fileField: any;
 
   get TattooName() {
     return this.tattooForm.get('tattooName');
@@ -191,6 +192,21 @@ export class TattooPage implements OnInit {
     })
   
   }
+  changeListener(event): void {
+    const i = event.target.files[0];
+    console.log(i);
+    const upload = this.storage.child(i.name).put(i);
+    upload.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('upload is: ', progress , '% done.');
+    }, err => {
+    }, () => {
+      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+        console.log('File avail at: ', dwnURL);
+        this.tattoo.image = dwnURL;
+      });
+    });
+  }
 
   addtattoo(tattooForm){
 
@@ -222,41 +238,7 @@ export class TattooPage implements OnInit {
       'dismissed': true
     });
   }
-  CheckData(){
-    this.num = 1;
-    if (this.tattoo.name === '') {
-      console.log("Data is empty");
-      this.MyValue = true;
-
-    } else {
-      console.log("Data is not empty");
-      this.MyValue = false;
-    }
-  }
-  // addData1(data) {
-
-  //   if (data.name !== undefined && data.name !== null) {
-  //     this.db.collection("Tatto").doc(this.docId).update({
-  //       name: data.name,
-  //       pricerange: data.pricerange,
-  //       description: data.description,
-  //       image: data.image,
-  //       categories: data.categories
-
-  //     });
-      
-  //     this.Tattoos = [];
   
-  //   }
-  // }
-  // expandDiv() {
-  //   this.tattoo.name = ''
-  //   this.tattoo.pricerange = ''
-  //   this.tattoo.description = ''
-  //   this.tattoo.image = ''
-  //   this.CheckData();
-    
-  // }
 
   }
  

@@ -109,11 +109,6 @@ logout(){
       this.auth.addTattoo = true;
    this.auth.myObj.Button = "Add Tattoo";
 
-  //  this.auth.myObj.obj.categories = "";
-  //  this.auth.myObj.obj.priceRange = "";
-  //  this.auth.myObj.obj.description = "";
-  //  this.auth.myObj.obj.image = "";
-  //  this.auth.myObj.obj.name = "";
 
       const modal = await this.modalController.create({
         component: TattooPage
@@ -161,6 +156,7 @@ logout(){
             text: 'Delete',
             handler: data => {
               this.db.collection("Tattoo").doc(tattoo.docid).delete();
+              
             }
           }
         ]
@@ -175,16 +171,7 @@ logout(){
     }
    
     
-    //  edit(document) {
-       
-    //   this.tattoo.name = document.doc.name
-    //   this.tattoo.pricerange = document.doc.pricerange
-    //   this.tattoo.description = document.doc.description
-    //   this.tattoo.categories = document.doc.categories
-    //   this.tattoo.image = document.doc.image
-    //   this.openModal()
-    
-    // }
+  
   
     }
     
