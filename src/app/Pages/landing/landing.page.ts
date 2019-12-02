@@ -74,9 +74,6 @@ MyValue1: boolean;
   }
   goToNotificationsPage(){
     this.rout.navigateByUrl('/notifications')
-
-     
-
 }
 goProfilePage(){
   this.rout.navigateByUrl('/profile')
@@ -84,11 +81,7 @@ goProfilePage(){
 }
 
     
-logout(){
-  this.auth.logoutUser().then(()=>{
-    this.rout.navigateByUrl('login');
-  })
-  }
+
 
   async openModal(CheckNumber, obj) {
 
@@ -149,6 +142,7 @@ logout(){
         buttons: [
           {
             text: 'Cancel',
+            
             handler: data => {
               console.log('Cancel clicked');
             }

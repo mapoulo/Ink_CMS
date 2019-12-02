@@ -4,6 +4,7 @@ import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -34,8 +35,10 @@ export class NotificationsPage implements OnInit {
 
   calendar = {
     mode: 'month',
-    currentDate: new Date(),
+    currentDate: new Date()
   };
+
+  lockSwipeToPrev;
 
   @ViewChild(CalendarComponent, { static: false }) myCal: CalendarComponent;
 
@@ -44,7 +47,7 @@ export class NotificationsPage implements OnInit {
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
 
@@ -74,6 +77,7 @@ export class NotificationsPage implements OnInit {
 
   ngOnInit() {
     this.resetEvent();
+    this.onCurrentDateChanged(new Date());
   }
 
 
@@ -83,7 +87,11 @@ export class NotificationsPage implements OnInit {
    this.ClickedObjeck.name = item.name;
    this.ClickedObjeck.description = item.description;
   }
-
+  goProfilePage(){
+    this.rout.navigateByUrl('/profile')
+  
+  }
+  
 
   resetEvent() {
     this.event = {
@@ -129,6 +137,7 @@ export class NotificationsPage implements OnInit {
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
     this.resetEvent();
+  
   }
 
   // Change current month/week/day
@@ -178,6 +187,14 @@ export class NotificationsPage implements OnInit {
     this.event.startTime = selected.toISOString();
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
+  }
+
+  onCurrentDateChanged(event:Date) {
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+   
+
+ 
   }
 
 }

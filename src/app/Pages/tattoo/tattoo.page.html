@@ -26,14 +26,10 @@
      </div> -->
      <section class="upload-tattoo">
       <div class="upload">
-          <ion-item *ngIf="!tattoo.image" class="imageitem" lines="none" >
-              <ion-label position="stacked" id="profile_image" color="primary"></ion-label>
-              <ion-input class="image-upload"  type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"></ion-input>
-            </ion-item>
-      <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="550px" width="400px" ></ion-item>
-        
-    
-        <!-- <p>Please Upload a Tattoo.</p> -->
+        <ion-fab-button class="btn-upload-tattoo" (click)="takePicture(1)" color="light">
+          <ion-icon style="font-size: 4vw;" name="add"></ion-icon>
+        </ion-fab-button>
+        <p style="font-size: 80%;">Please Upload a Tattoo.</p>
        
       </div>
     </section> 
