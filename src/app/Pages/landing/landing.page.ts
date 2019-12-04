@@ -20,7 +20,7 @@ export class LandingPage implements OnInit {
 
 
   
-  @ViewChild('barChart',  { static: false }) barChart;
+  // @ViewChild('barChart',  { static: false }) barChart;
 
   bars: any;
   colorArray: any;
@@ -32,7 +32,7 @@ export class LandingPage implements OnInit {
     categories:''
     
   }
-  // @ViewChild('barChart', {static: false}) barChart;
+   @ViewChild('barChart', {static: false}) barChart;
 
 db = firebase.firestore();
 Tattoos = [];
@@ -51,6 +51,7 @@ MyValue1: boolean;
 
 
   createBarChart() {
+
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'line',
       data: {
