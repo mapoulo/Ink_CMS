@@ -21,4 +21,12 @@ export class AuthenticationService {
   logoutUser(): Promise<void> {
     return firebase.auth().signOut();
   }
+
+
+  dataSaved = {
+    email : "",
+  
+  }
+
+
 }

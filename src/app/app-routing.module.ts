@@ -35,6 +35,8 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/notifications/notifications.module').then( m => m.NotificationsPageModule)
   },
   {
+
+    canActivate: [AuthGuardService],
     path: 'tattoo',
     loadChildren: () => import('./pages/tattoo/tattoo.module').then( m => m.TattooPageModule)
   },

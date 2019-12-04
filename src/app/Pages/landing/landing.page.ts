@@ -32,12 +32,15 @@ export class LandingPage implements OnInit {
     categories:''
     
   }
+  // @ViewChild('barChart', {static: false}) barChart;
+
 db = firebase.firestore();
 Tattoos = [];
 MyValue: boolean;
 MyValue1: boolean;
   num: number;
   docId: string;
+  isAdmin: any;
 
   constructor(public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
@@ -75,6 +78,23 @@ MyValue1: boolean;
 
   ngOnInit() {
     
+   
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          firebase
+            .firestore()
+            .doc(`/Admin/${user.uid}`)
+            .get()
+            .then(AdminSnapshot => {
+              this.isAdmin = AdminSnapshot.data().isAdmin;
+            });
+            
+        }
+      });
+    
+
+
+
   }
 
  
@@ -207,16 +227,112 @@ goProfilePage(){
     edit(item){
      
     }
+  //   createBarChart() {
+  //     ​
+  //         this.charts = new Chart(this.barChart.nativeElement, {
+  //           type: 'line',
+  //           data: {
+  //             labels: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+  //             datasets: [{
+  //               label: 'bookings received per day',
+  //               // data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
+  //                data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
+  //               backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
+  //               borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
+  //               borderWidth: 1
+  //             }]
+  //           },
+            
+  //     ​
+  //           options: {
+  //             scales: {
+  //               yAxes: [{
+  //                 ticks: {
+  //                   beginAtZero: true
+  //                 }
+  //               }]
+  //             }
+  //           }
+  //         });
+  //   }
+  //         getRequests() {
+  //           ​
+  //               this.db.collection('bookings').where('schooluid', '==',firebase.auth().currentUser.uid).onSnapshot(res => {
+  //               console.log(res);
+  //               this.mon = [];
+  //               this.tue = [];
+  //               this.wed = [];
+  //               console.log('wednday',  this.wed)
+  //               this.thu = [];
+  //               this.fri = [];
+  //               this.sat = [];
+  //               this.sun = [];
+  //                 res.forEach(doc => {
+                   
+  //                   let date = doc.data().datecreated
+  //                   let newDate = date.split(" ")
+                   
+                    
+  //                   if (newDate[0] == "Mon") {
+  //                     this.mon.push(doc.data())
+  //                   } else if (newDate[0] == "Tue") {
+  //                     this.tue.push(doc.data())
+  //                   }else if (newDate[0] == "Wed") {
+  //                     this.wed.push(doc.data())
+  //                   }
+  //                   else if (newDate[0] == "Thu") {
+  //                     this.thu.push(doc.data())
+  //                     console.log("The new Date is",this.thu.length);
+  //                   }
+  //                   else if (newDate[0] == "Fri") {
+  //                     this.fri.push(doc.data())
+  //                   }
+  //                   else if (newDate[0] == "Sat") {
+  //                     this.sat.push(doc.data())
+  //                   }
+  //                   else if (newDate[0] == "Sun") {
+  //                     this.sun.push(doc.data())
+  //                   }
+  //                 })
+  //                 this.createBarChart();
+  //                 console.log(this.mon);
+                  
+  //               })
+  //           ​
+  //         }
+        
+            
+  //     ionViewWillEnterc() {
    
+  //       console.log("bookings", this.data.DeclinedData);
+  //       this.mon = [];
+  //       this.tue = [];
+  //       this.wed = [];
+  //       this.thu = [];
+  //       this.fri = [];
+  //       this.sat = [];
+  //       this.sun = [];
+  //       console.log('Monday array',this.mon);
+        
+  //       this.platform.ready().then(() => {
+  //         console.log('Core service init');
+  //         const tabBar = document.getElementById('myTabBar');
+  //          tabBar.style.display = 'flex';
+  //       });
+  //   ​
+  //       this.db.collection('Bookings').onSnapshot(snapshot => {
+  //         this.Data = [];
+  //         this.NewData = [];
+         
+  //         snapshot.forEach(Element => {
+           
+  //               this.Data.push(Element.data());
+      
+  //         });
+  //     ​
+  //   ​
     
-  
-  
-    }
+  //   })
+  // }
+}  
     
-    
-    
-    
-
-
-
-

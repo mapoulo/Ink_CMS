@@ -1,10 +1,20 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>EditProfile</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button fill="icon-only">
+              <ion-icon name="save"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+      <ion-title text-center style="font-weight: bold; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Edit Profile</ion-title>
+      <ion-buttons slot="end" (click)="dismiss()">
+        <ion-button fill="icon-only">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
+<ion-content padding>
 
     name: <input type="text" [(ngModel)]="name" placeholder="{{name}}"><br />
     phoneNumber: <input type="text" [(ngModel)]="phoneNumber" placeholder="{{phoneNumber}}"><br />

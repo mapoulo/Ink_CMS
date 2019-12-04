@@ -1,6 +1,8 @@
+import { ModalController } from '@ionic/angular';
 import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+
 
 
 @Component({
@@ -16,7 +18,7 @@ export class EditProfilePage implements OnInit {
   phoneNumber : string;
   name : string;
 
-  constructor(public data : DataService) { }
+  constructor(public data : DataService, private modalController: ModalController) { }
 
   ngOnInit() {
     console.log("ttttttttttt", this.data.MyData);
@@ -36,6 +38,14 @@ export class EditProfilePage implements OnInit {
       name : this.name,
       phoneNumber : this.phoneNumber,
       email : this.email
+    });
+  }
+
+  
+
+  dismiss() {
+    this.modalController.dismiss({
+      'dismissed': true
     });
   }
 
