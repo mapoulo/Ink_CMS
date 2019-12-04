@@ -1,14 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Router } from '@angular/router';
+import { MultiFileUploadComponent } from './../../components/multi-file-upload/multi-file-upload.component';
+
+import { DataService } from './../../data.service';
+import { Component, OnInit,  ViewChild} from '@angular/core';
 import * as firebase from 'firebase';
+import { Router } from '@angular/router';
+
+
+
+
+
+
+
+import { AuthenticationService } from 'src/app/services/authentication.service';
+
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
+
 export class ProfilePage implements OnInit {
+
+  @ViewChild(MultiFileUploadComponent, { static: false }) fileField: MultiFileUploadComponent;
+
+  name: string;
+  phoneNumber: string;
+  email: string;
+
+
+  db = firebase.firestore();
+  PersonsDetails = {};
+
+
  loader = true;
  pdf;
 
@@ -21,9 +45,6 @@ export class ProfilePage implements OnInit {
   categories:''
   
 }
-
-email=""
- db = firebase.firestore();
  Admin = [];
   profile:{
 
