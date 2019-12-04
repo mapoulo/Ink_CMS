@@ -6,8 +6,19 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 
+
+import { MultiFileUploadComponent } from '../components/multi-file-upload/multi-file-upload.component';
+import { FileUploadModule } from 'ng2-file-upload';
+
 @NgModule({
   imports: [
+
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    FileUploadModule,
+
+
     CommonModule,
     FormsModule,
     IonicModule,
@@ -18,6 +29,6 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage,  MultiFileUploadComponent]
 })
 export class HomePageModule {}

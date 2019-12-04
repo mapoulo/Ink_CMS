@@ -1,11 +1,13 @@
-import { Component, ViewChild, ElementRef, Renderer2  } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ModalController, AlertController } from '@ionic/angular';
 import { TattooPage } from '../tattoo/tattoo.page';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
-import { Platform } from '@ionic/angular';
+
+import { Chart } from 'chart.js';
+
 
 
 @Component({
@@ -13,8 +15,15 @@ import { Platform } from '@ionic/angular';
   templateUrl: './landing.page.html',
   styleUrls: ['./landing.page.scss'],
 })
-export class LandingPage  {
+export class LandingPage implements OnInit {
+ 
 
+
+  
+  // @ViewChild('barChart',  { static: false }) barChart;
+
+  bars: any;
+  colorArray: any;
   tattoo = {
     name: '',
     pricerange: '',
@@ -23,7 +32,7 @@ export class LandingPage  {
     categories:''
     
   }
-  @ViewChild('barChart', {static: false}) barChart;
+   @ViewChild('barChart', {static: false}) barChart;
 
 db = firebase.firestore();
 Tattoos = [];
@@ -34,6 +43,39 @@ MyValue1: boolean;
   isAdmin: any;
 
   constructor(public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+
+
+  ionViewDidEnter() {
+    this.createBarChart();
+  }
+
+
+  createBarChart() {
+
+    this.bars = new Chart(this.barChart.nativeElement, {
+      type: 'line',
+      data: {
+        labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
+        datasets: [{
+          label: 'Viewers in millions',
+          data: [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17],
+          backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
+          borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
+
 
   ngOnInit() {
     
@@ -98,6 +140,8 @@ MyValue1: boolean;
 }
 goProfilePage(){
   this.rout.navigateByUrl('/profile')
+
+ 
 
 }
 

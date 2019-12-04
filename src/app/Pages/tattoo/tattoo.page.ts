@@ -56,15 +56,23 @@ export class TattooPage implements OnInit {
   get TattooName() {
     return this.tattooForm.get('tattooName');
   }
+
+
   get Price() {
     return this.tattooForm.get('priceRange');
   }
+
+
   get Categories() {
     return this.tattooForm.get('categories');
   }
+
+
   get Description() {
     return this.tattooForm.get('description');
   }
+
+
   get Image() {
     return this.tattooForm.get('image');
   }
