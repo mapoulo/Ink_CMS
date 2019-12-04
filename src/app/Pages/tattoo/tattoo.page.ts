@@ -101,6 +101,12 @@ export class TattooPage implements OnInit {
 
 
   ngOnInit() {
+
+
+
+    
+    //
+
     this.tattooForm = this.fb.group({
       tattooName: new FormControl('', Validators.compose([Validators.required])),
       priceRange: new FormControl('', Validators.compose([Validators.required])),

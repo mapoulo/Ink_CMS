@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   username: string=""
   password: string=""
-
+db=firebase.firestore();
   loader = true;
 
   get Username() {
@@ -24,7 +25,7 @@ export class LoginPage implements OnInit {
   }
 
 
-  constructor(private router: Router, private fb: FormBuilder, public toastCtrl: ToastController) { }
+  constructor(private router: Router, private fb: FormBuilder, public toastCtrl: ToastController,private auth: AuthenticationService) { }
 
   ngOnInit() {
 
@@ -47,11 +48,51 @@ export class LoginPage implements OnInit {
     const {username,password}=this
     firebase.auth().signInWithEmailAndPassword(username, password).then((result) => {
       
-      console.log("Logged in succesful")
-      this.router.navigateByUrl('/landing');
-      setTimeout(() => {
-        this.loader = false;
-      }, 4000);
+
+      this.db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(res =>{
+
+        if (res.exists){
+          //this.router.navigateByUrl('/landing')
+
+          console.log("Logged in succesful")
+          this.router.navigateByUrl('/landing');
+          setTimeout(() => {
+            this.loader = false;
+          }, 4000);
+         
+        }else{
+          //this.router.navigateByUrl('/login')
+
+
+        
+
+          
+          //
+
+
+            
+
+           this.loader = true;
+           this.auth.logoutUser().then(()=>{
+            this.router.navigateByUrl('login');
+             setTimeout(() => {
+              this.loader = false;
+            }, 4000);
+          })
+
+
+         //
+        }
+            })
+
+
+
+
+      // console.log("Logged in succesful")
+      // this.router.navigateByUrl('/landing');
+      // setTimeout(() => {
+      //   this.loader = false;
+      // }, 4000);
   }).catch((error) => {
     setTimeout(() => {
       this.loader = false;

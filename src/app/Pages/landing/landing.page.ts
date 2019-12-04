@@ -28,11 +28,29 @@ MyValue: boolean;
 MyValue1: boolean;
   num: number;
   docId: string;
+  isAdmin: any;
 
   constructor(public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
   ngOnInit() {
     
+   
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          firebase
+            .firestore()
+            .doc(`/Admin/${user.uid}`)
+            .get()
+            .then(AdminSnapshot => {
+              this.isAdmin = AdminSnapshot.data().isAdmin;
+            });
+            
+        }
+      });
+    
+
+
+
   }
 
  

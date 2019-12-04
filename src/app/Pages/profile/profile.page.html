@@ -28,16 +28,16 @@
          <div class="sub-container">
            <div class="top-profile">
               <div class="profiles-info">
-                  <div class="profile" style="height: 20vh; width: 20vh;">
+                  <div   class="profile" style="height: 20vh; width: 20vh;">
                     <ion-fab-button class="btn-edit-image" color="light" size="small">
                       <ion-icon name="create"></ion-icon>
                     </ion-fab-button>
                     <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
-                    <article>
-                    <h4>Admin</h4>
-                    <p>justice@gmail.com</p>
-                    <p>Soweto, Phiri, Johannesburg</p>
-                    <p>076 647 6482</p>
+                    <article *ngFor="let admin of Admin">
+                    <h4>Name : {{ admin.name}}</h4>
+                    <p>{{ admin.email}}</p>
+                    <p>Address : {{ admin.address}}</p>
+                    <p>Phone Number : {{ admin.phoneNumber}}</p>
                     </article>
                    
                   </div>
