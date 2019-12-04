@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
+import { EditProfilePage } from '../edit-profile/edit-profile.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 export class ProfilePage implements OnInit {
  loader = true;
  pdf;
-  constructor(public rout : Router,private auth: AuthenticationService) { }
+  constructor(public rout : Router,private auth: AuthenticationService, private modalController: ModalController) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -32,6 +34,14 @@ export class ProfilePage implements OnInit {
         this.loader = false;
       }, 4000);
     })
+    }
+
+    async createModal() {
+      const modal = await this.modalController.create({
+        component: EditProfilePage,
+        cssClass: 'custom-modal'
+      });
+      return await  modal.present();
     }
 
 }

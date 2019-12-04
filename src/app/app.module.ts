@@ -11,11 +11,12 @@ import *as firebase from 'firebase';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './services/auth-guard.service';
+import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, TattooPageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, TattooPageModule, EditProfilePageModule],
   providers: [Camera,
 
     StatusBar,
