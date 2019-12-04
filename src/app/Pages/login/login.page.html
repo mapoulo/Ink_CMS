@@ -1,9 +1,41 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
+    <div class="loader" *ngIf="loader">
+        <div class="lds-ellipsis"><div></div><div></div><div></div></div>
+      </div>
+    <main class="main">
+      <section class="login" padding >
+        <div class="logo">
+          <img src="../../../assets/icon/Group 17.svg" alt="" width="150px">
+        </div>
+        <form [formGroup]="loginForm">
+           <ion-list>
+              <ion-item >
+                  <ion-label position="floating"> Username</ion-label>
+                  <ion-input formControlName="usernameL" name="username" type="text" [(ngModel)]="username"></ion-input>
+              </ion-item>
+             <!--  <p class="error" *ngIf="Username.hasError('required') && (Username.touched || Username.dirty)">Please enter your email address</p>  
+              <p class="error" *ngIf="Username.valid && (Username.touched || Username.dirty)">Email address is invalid</p>  --> 
+              <ion-item style="margin-bottom: 3em;">
+                  <ion-label position="floating"> Password</ion-label>
+                  <ion-input formControlName="password" name="password" type="password" [(ngModel)]="password"></ion-input>
+              </ion-item>
+              <!-- <p class="error" *ngIf="Password.hasError('required') && (Password.touched || Password.dirty)">Please enter your Password</p>   -->
+              <ion-button class="btn-login" fill="solid" expand="block" color="secondary" (click)="Login()">Login </ion-button>
+          </ion-list>
+        </form>
+         
+          
+      </section>
+      <section class="tattoo-image">
+      <div class="tatto-pro">
+        <img src="../../../assets/matheus-ferrero-7EM79VNJsx4-unsplash.jpg" alt="khuthy">
+        
+      </div> 
+      <div class="logo-spec">
+          <img src="../../../assets/anotherLogo.svg" alt="" width="120px">
+        </div>
+      </section>
+    </main>
 
 </ion-content>

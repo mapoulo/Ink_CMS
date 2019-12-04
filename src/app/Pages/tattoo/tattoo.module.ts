@@ -4,18 +4,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { TattooPageRoutingModule } from './tattoo-routing.module';
 
-import { LoginPage } from './login.page';
+import { TattooPage } from './tattoo.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    TattooPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [LoginPage]
+  declarations: [TattooPage],
+  
+  
 })
-export class LoginPageModule {}
+export class TattooPageModule {}

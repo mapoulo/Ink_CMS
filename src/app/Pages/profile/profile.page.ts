@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 
 
 
+import { AuthenticationService } from 'src/app/services/authentication.service';
+
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -28,10 +31,32 @@ export class ProfilePage implements OnInit {
   db = firebase.firestore();
   PersonsDetails = {};
 
-  constructor(public router : Router, public data : DataService) {}
+  constructor(public router : Router, private auth: AuthenticationService,  public data : DataService) {}
+ loader = true;
+ pdf;
+ 
 
   ngOnInit() {
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
+
+    console.log(this.pdf);
+    
   }
+  goToNotificationsPage(){
+    this.router.navigateByUrl('/notifications')
+}
+
+  logout(){
+    this.loader = true;
+    this.auth.logoutUser().then(()=>{
+      this.router.navigateByUrl('login');
+      setTimeout(() => {
+        this.loader = false;
+      }, 4000);
+    })
+    }
 
   ionViewWillEnter(){
 

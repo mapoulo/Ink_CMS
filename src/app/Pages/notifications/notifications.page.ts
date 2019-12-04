@@ -4,6 +4,7 @@ import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -13,6 +14,7 @@ import * as firebase from 'firebase';
 export class NotificationsPage implements OnInit {
 
   db = firebase.firestore();
+
   event = {
     title: '',
     desc: '',
@@ -24,6 +26,8 @@ export class NotificationsPage implements OnInit {
   name: string = "Nkwe";
   surname: string = "Mapoulo";
 
+  price : number = 0;
+
   NewName: string;
   NewSurname: string;
 
@@ -34,8 +38,10 @@ export class NotificationsPage implements OnInit {
 
   calendar = {
     mode: 'month',
-    currentDate: new Date(),
+    currentDate: new Date()
   };
+
+  lockSwipeToPrev;
 
   @ViewChild(CalendarComponent, { static: false }) myCal: CalendarComponent;
 
@@ -44,27 +50,58 @@ export class NotificationsPage implements OnInit {
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  obj = {
+    bookingState : '',
+    breadth : '',
+    category : '',
+    customerName : '',
+    description : '',
+    image : '',
+    length : '',
+    priceRange : '',
+    tattoName : '',
+    uid : '',
+    auId : ''
+  };
+
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
+    
 
-    let id = {docid: "", obj : {}};
+    
 
-   this.db.collection('Tattoo').get().then(res => {
+    let id = {docid: "", auId: "",  obj : {}};
+  let autId = "";
+ 
+   this.db.collection('Bookings').get().then(res => {
      res.forEach(e => {
        id.docid = e.id;
        id.obj = e.data();
        this.MyArray.push(id);
-       id = {docid: "", obj : {}};
+       id = {docid: "", auId: "", obj : {}};
 
        console.log("wwwwwwwwwwww", this.MyArray);
      })
 
      this.MyArray.forEach(item => { 
-      this.db.collection("Tattoo").doc(item.docid).collection("One").get().then(i => {
+      this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
         i.forEach(o => {
-          console.log("ttttttttttttt", o.data());
-          this.Bookings.push( o.data())
+          
+          if(o.data().bookingState === "waiting"){
+            //  Bookingid.docid = o.id;
+            //  Bookingid.obj = o.data();
+            //  console.log("uuuuuuuuuuuuuuuu",o.id);
+            id.obj = o.data();
+            id.auId = o.id;
+           
+             
+            this.Bookings.push(id);
+            id = {docid: "", auId: "", obj : {}};
+
+            console.log("ttttttttttttt", this.Bookings);
+          }
+        
         })
       })
     })
@@ -74,6 +111,26 @@ export class NotificationsPage implements OnInit {
 
   ngOnInit() {
     this.resetEvent();
+    this.onCurrentDateChanged(new Date());
+  }
+
+  save(obj, i){
+    
+    this.obj = obj;
+    this.obj.description = obj.obj.description;
+    this.obj.image = obj.obj.image;
+    this.obj.length = obj.obj.length;
+    this.obj.priceRange = obj.obj.priceRange;
+    this.obj.tattoName = obj.obj.tattoName;
+    this.obj.customerName = obj.obj.customerName;
+    this.obj.bookingState = obj.obj.bookingState;
+    this.obj.category = obj.obj.category;
+    this.obj.breadth = obj.obj.breadth;
+    this.obj.uid = obj.obj.uid;
+    this.obj.auId = obj.auId;
+    console.log("save button clicked", this.obj);
+
+    console.log("index", this.Bookings[i]);
   }
 
 
@@ -83,7 +140,11 @@ export class NotificationsPage implements OnInit {
    this.ClickedObjeck.name = item.name;
    this.ClickedObjeck.description = item.description;
   }
-
+  goProfilePage(){
+    this.rout.navigateByUrl('/profile')
+  
+  }
+  
 
   resetEvent() {
     this.event = {
@@ -110,25 +171,62 @@ export class NotificationsPage implements OnInit {
 
   // Create the right event format and reload source
   addEvent() {
-    let eventCopy = {
-      title: this.event.title,
-      startTime: new Date(this.event.startTime),
-      endTime: new Date(this.event.endTime),
-      allDay: this.event.allDay,
-      desc: this.event.desc
+
+    // let eventCopy = {
+    //   title: this.event.title,
+    //   startTime: new Date(this.event.startTime),
+    //   endTime: new Date(this.event.endTime),
+    //   allDay: this.event.allDay,
+    //   desc: this.event.desc
+    // }
+
+    // if (eventCopy.allDay) {
+    //   let start = eventCopy.startTime;
+    //   let end = eventCopy.endTime;
+
+    //   eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+    //   eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+    // }
+
+    // this.eventSource.push(eventCopy);
+    // this.myCal.loadEvents();
+    // this.resetEvent();
+
+
+
+    
+  
+
+    if(this.obj.customerName != ""){
+
+      console.log("This start time ",this.event.startTime);
+      console.log("End time ", this.event.endTime);
+      console.log("5555555555", this.obj);
+
+      this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
+        bookingState : "Pending",
+        description : this.obj.description,
+        image : this.obj.image,
+        length : this.obj.length,
+        priceRange : this.obj.priceRange,
+        tattoName : this.obj.tattoName,
+        customerName : this.obj.customerName,
+        category : this.obj.category,
+        breadth : this.obj.breadth,
+        uid : this.obj.uid,
+        auId : this.obj.auId,
+      })
+        
+      this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc().set({
+         startingDate : this.event.startTime,
+         endingDate : this.event.endTime,
+         price : this.price
+      })
+    }else{
+      console.log("Please select a notification");
+      
     }
-
-    if (eventCopy.allDay) {
-      let start = eventCopy.startTime;
-      let end = eventCopy.endTime;
-
-      eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-      eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
-    }
-
-    this.eventSource.push(eventCopy);
-    this.myCal.loadEvents();
-    this.resetEvent();
+  
   }
 
   // Change current month/week/day
@@ -178,6 +276,14 @@ export class NotificationsPage implements OnInit {
     this.event.startTime = selected.toISOString();
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
+  }
+
+  onCurrentDateChanged(event:Date) {
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+   
+
+ 
   }
 
 }
