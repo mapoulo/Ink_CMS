@@ -64,7 +64,7 @@ email=""
 
       this.email=firebase.auth().currentUser.email;
 
-      this.db.collection("Admin").onSnapshot(data => {
+      this.db.collection("Admin").onSnapshot(data => {         
         data.forEach(item => {
           if(item.exists){
             if(item.data().email === this.email){
