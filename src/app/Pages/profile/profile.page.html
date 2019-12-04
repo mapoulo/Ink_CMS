@@ -41,7 +41,7 @@
                     </article>
                    
                   </div>
-              <ion-fab-button class="edit" color="success" size="large">
+              <ion-fab-button class="edit" (click)="createModal()" color="success" size="large">
                 <ion-icon name="create"></ion-icon>
               </ion-fab-button>
            </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="list-contract">
               <div class="btn-download">
-                <ion-fab-button color="success"><ion-icon name="download"></ion-icon></ion-fab-button>
+                <ion-fab-button size="small" color="success"><ion-icon name="download"></ion-icon></ion-fab-button>
                 <p>Contract007.pdf DOWNLOAD</p>
               
                 <ion-button fill="clear" color="secondary" size="large"><ion-icon name="trash"></ion-icon></ion-button>

@@ -25,28 +25,31 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-/* 
+
 .event-detail-container {
     border-top: 0 !important;
 }
 thead  {
-    border-bottom: 2px solid #e3eaff !important;
+   border-bottom: 2px solid #e3eaff !important; 
+    padding-bottom: 1em !important;
 }
 .monthview-selected {
-    background: rgb(255, 255, 255) !important;
-    color: #10dc60 !important;
+    background-color:#10dc60 !important;
+    color: rgb(255, 255, 255) !important;
     border-radius: 50px;
     font-weight: bold;
     font-size: 21px;
     width: 50px;
+
+    z-index: 1;
     
-    
-    box-shadow: 0 3px 6px rgba(77, 13, 13, 0.479);
+    box-shadow: 0 3px 6px rgb(196, 196, 196);
     }
     
     td.monthview-current {
     color: rgb(34, 34, 34);
     background: red;
+    line-height: 2.7;
     .calendar-day {
       background-color: #e01a1a !important;
     }
@@ -54,22 +57,18 @@ thead  {
     
     .monthview-datetable {
     border: 0 !important;
-    width:70% !important;
+    width:100% !important;
     position: relative;
+   
+  
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -5%;
-        height: 100%;
-        width: 1%;
-        background: rgb(141, 141, 141);
-      }  td, th {
+    td, th, tr, table {
       border: 0 !important;
       padding: 3px!important;
-      background-color: transparent!important;
+      /* background-color: transparent!important; */
+      line-height: 2.7 !important;
     }
+    
     }
   
     
@@ -96,4 +95,20 @@ thead  {
       background-color: red;
       color: white;
     }
-    } */
+    }
+    
+  @media only screen and (max-width: 600px) {
+    .custom-modal .modal-wrapper {
+      width: 100%;
+    }
+  }
+  @media only screen and (min-width: 600px) {
+    .custom-modal .modal-wrapper {
+      width: 40%;
+    }
+  }
+  @media only screen and (min-width: 1200px) {
+    .custom-modal .modal-wrapper {
+      width: 20%;
+    }
+  }

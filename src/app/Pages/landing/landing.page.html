@@ -29,10 +29,10 @@
           <img src="{{tattoo.image}}" class="tattoo-image" alt="">
          <div class="info-tattoo">
            <article>
-             <h4 style="white-space: normal; font-size: 2.8vh;">{{ tattoo.name}}</h4>
-             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.pricerange}}</p>
+             <h4 style="white-space: normal; font-size: 2.8vh;"><strong>{{ tattoo.name}}</strong></h4>
+             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.pricerange | currency: '&#82;'}}</p>
              <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.description}} </p>
-             
+             <!-- <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.categories}} </p> -->
 
            </article>
          </div>  
@@ -88,12 +88,19 @@
           </div>
       <div class="analytics-container">
         
-          <div class="graghs">
-            <p>Gragh will be placed here (Back end)</p>
+        <!-- <div class="graph" (click)="showTab()">
+          <ion-card color="light" class="welcome-card">
+            <ion-card-header>
+              <ion-card-subtitle>Number of Bookings per week</ion-card-subtitle>
+              <ion-card-title>Bookings</ion-card-title> 
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #barChart></canvas>
+            </ion-card-content>
+          </ion-card>
         </div>
+      </div> -->
       </div>
-      </div>
-      
     </section>
  </main>
 </ion-content>

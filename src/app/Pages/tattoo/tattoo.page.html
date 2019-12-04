@@ -26,10 +26,14 @@
      </div> -->
      <section class="upload-tattoo">
       <div class="upload">
-        <ion-fab-button class="btn-upload-tattoo" (click)="takePicture(1)" color="light">
-          <ion-icon style="font-size: 4vw;" name="add"></ion-icon>
-        </ion-fab-button>
-        <p style="font-size: 80%;">Please Upload a Tattoo.</p>
+          <ion-item  class="imageitem" lines="none" >
+              <ion-label position="stacked" id="profile_image" color="primary"></ion-label>
+              <ion-input class="image-upload"  type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"></ion-input>
+            </ion-item>
+      <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="480px" width="400px" ></ion-item>
+        
+    
+        <!-- <p>Please Upload a Tattoo.</p> -->
        
       </div>
     </section> 
@@ -70,33 +74,7 @@
     </section>
   </main>
   
-  <!-- 
-  <ion-label>Tattooname</ion-label>
   
-  <ion-input type="text"[(ngModel)]="tattoo.name" ></ion-input>
-  
- 
-
-
-  <ion-label>Pricerange</ion-label>
-  <ion-input type="number"   [(ngModel)]="tattoo.pricerange"  ></ion-input>
- 
-
-
-    <ion-label>Categories</ion-label>
-    <ion-select [(ngModel)]="tattoo.categories"  multiple="true">
-      <ion-select-option value="Previous work" >Previous work</ion-select-option>
-      <ion-select-option value="Sketch/design">Sketch/design</ion-select-option>
-    </ion-select>
-   
-
-
-    <ion-label>Description</ion-label>
-     <ion-input   type="text" [(ngModel)]="tattoo.description" ></ion-input>
-   
-
-     <button  (click)="addtattoo()" class="submit" ion-button full round>Add tatoo</button> 
-    -->
  
 </ion-content>
 
