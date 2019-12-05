@@ -1,5 +1,16 @@
 
 
+<ion-content padding>
+
+   
+
+    name: <input type="text" [(ngModel)]="name" placeholder="{{name}}"><br />
+    phoneNumber: <input type="text" [(ngModel)]="phoneNumber" placeholder="{{phoneNumber}}"><br />
+    email: <input type="text" [(ngModel)]="email" placeholder="{{email}}"><br />
+    <button (click)="goToEditPage()">Edit</button> 
+
+    <button (click)="upload()">UploadPdf</button>
+    <app-multi-file-upload></app-multi-file-upload>
 <ion-content>
     <div class="loader" *ngIf="loader">
         <div class="lds-ellipsis"><div></div><div></div><div></div></div>
