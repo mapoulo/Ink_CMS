@@ -1,9 +1,11 @@
+import { ModalController } from '@ionic/angular';
 import { MultiFileUploadComponent } from './../../components/multi-file-upload/multi-file-upload.component';
 
 import { DataService } from './../../data.service';
 import { Component, OnInit,  ViewChild} from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+
 
 
 
@@ -56,6 +58,7 @@ export class ProfilePage implements OnInit {
   constructor(public rout : Router,private auth: AuthenticationService) { }
 
   ngOnInit() {
+
     setTimeout(() => {
       this.loader = false;
     }, 2000);
@@ -63,8 +66,11 @@ export class ProfilePage implements OnInit {
     console.log(this.pdf);
     
   }
+
   goToNotificationsPage(){
+
     this.rout.navigateByUrl('/notifications')
+
 }
 
   logout(){
@@ -100,5 +106,12 @@ export class ProfilePage implements OnInit {
 
   
     }
+
+  async  createModal(){
+
+    }
+
+
+
     
 }
