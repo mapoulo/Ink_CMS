@@ -13,32 +13,59 @@ import * as firebase from 'firebase';
 
 export class EditProfilePage implements OnInit {
 
+  MyData = {
+     
+    name : "",
+    image:"",
+    email :  "",
+    address : "",
+    phoneNumber : "",
+    auId : ""
+
+  };
 
   email : string;
   phoneNumber : string;
   name : string;
-
+  image:string;
+  db = firebase.firestore();
   constructor(public data : DataService, private modalController: ModalController) { }
 
   ngOnInit() {
     console.log("ttttttttttt", this.data.MyData);
-    // this.name  = this.data.MyData.
     this.phoneNumber = this.data.MyData.phoneNumber;
     this.email = this.data.MyData.email;
     this.name = this.data.MyData.name;
+    this.image = this.data.MyData.image;
   }
 
   ionViewWillEnter(){
+
+    this.db.collection("Admin").get().then(data => {
+      data.forEach(item => {
+      
+        this.MyData.name = item.data().name,
+        
+        this.MyData.image = item.data().image,
+    this.MyData.email = item.data().email,
+    this.MyData.address = item.data().address,
+    this.MyData.phoneNumber = item.data().phoneNumber,
+    this.MyData.auId = item.id
+      })
+    })
    
   }
 
   editData(){
-    console.log("aaaaaaaaaa", this.data.MyData);
-    firebase.firestore().collection("Admin").doc(this.data.MyData.id).update( {
-      name : this.name,
-      phoneNumber : this.phoneNumber,
-      email : this.email
-    });
+  
+this.db.collection("Admin").doc(this.MyData.auId).update({
+  address :this.MyData.address,
+  email:this.MyData.email,
+  name:this.MyData.name,
+  image:this.MyData.image,
+  phoneNumber:this.MyData.phoneNumber
+})
+    this.dismiss() 
   }
 
   

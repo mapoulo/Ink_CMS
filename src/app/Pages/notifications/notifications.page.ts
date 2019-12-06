@@ -204,7 +204,7 @@ export class NotificationsPage implements OnInit {
       console.log("5555555555", this.obj);
 
       this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
-        bookingState : "Pending",
+        bookingState : "Accepted",
         description : this.obj.description,
         image : this.obj.image,
         length : this.obj.length,
@@ -217,10 +217,15 @@ export class NotificationsPage implements OnInit {
         auId : this.obj.auId,
       })
         
-      this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc().set({
+      this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
          startingDate : this.event.startTime,
          endingDate : this.event.endTime,
-         price : this.price
+         price : this.price,
+         uid : this.obj.uid,
+         bookingState : "Pending",
+         auId : this.obj.auId,
+         image : this.obj.image,
+
       })
     }else{
       console.log("Please select a notification");

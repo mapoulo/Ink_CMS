@@ -16,9 +16,11 @@
 
 <ion-content padding>
 
-    name: <input type="text" [(ngModel)]="name" placeholder="{{name}}"><br />
-    phoneNumber: <input type="text" [(ngModel)]="phoneNumber" placeholder="{{phoneNumber}}"><br />
-    email: <input type="text" [(ngModel)]="email" placeholder="{{email}}"><br />
+    name: <input type="text" [(ngModel)]="MyData.name" placeholder="{{MyData.name}}"><br />
+    address: <input type="text" [(ngModel)]="MyData.address" placeholder="{{MyData.address}}"><br />
+    phoneNumber: <input type="text" [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"><br />
+    email: <input type="text" [(ngModel)]="MyData.email" placeholder="{{MyData.email}}"><br />
+    
     <button (click)="editData()">Edit</button>
 
 </ion-content>
