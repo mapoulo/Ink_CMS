@@ -1,42 +1,20 @@
-import { MultiFileUploadComponent } from './../../components/multi-file-upload/multi-file-upload.component';
-
-import { DataService } from './../../data.service';
-import { Component, OnInit,  ViewChild} from '@angular/core';
-import * as firebase from 'firebase';
-import { Router } from '@angular/router';
-
-
-
-
-
-
-
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-
-
+import { Router } from '@angular/router';
+import * as firebase from 'firebase';
+import { Platform } from '@ionic/angular';
+import { EditProfilePage } from '../edit-profile/edit-profile.page';
+import { ModalController} from '@ionic/angular';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-
 export class ProfilePage implements OnInit {
-
-  @ViewChild(MultiFileUploadComponent, { static: false }) fileField: MultiFileUploadComponent;
-
-  name: string;
-  phoneNumber: string;
-  email: string;
-
-
-  db = firebase.firestore();
-  PersonsDetails = {};
-
-
  loader = true;
  pdf;
 
-
+ pdfObj = null;
  tattoo = {
   name: '',
   pricerange: '',
@@ -45,6 +23,9 @@ export class ProfilePage implements OnInit {
   categories:''
   
 }
+
+email=""
+ db = firebase.firestore();
  Admin = [];
   profile:{
 
@@ -52,8 +33,10 @@ export class ProfilePage implements OnInit {
 
 
 }
-
-  constructor(public rout : Router,private auth: AuthenticationService) { }
+  toastCtrl: any;
+ 
+  storage = firebase.storage().ref();
+  constructor(public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -85,7 +68,8 @@ export class ProfilePage implements OnInit {
 
       this.email=firebase.auth().currentUser.email;
 
-      this.db.collection("Admin").onSnapshot(data => {         
+      this.db.collection("Admin").onSnapshot(data => {
+        this.Admin = [];
         data.forEach(item => {
           if(item.exists){
             if(item.data().email === this.email){
@@ -101,4 +85,14 @@ export class ProfilePage implements OnInit {
   
     }
     
-}
+   
+
+    async presentModal() {
+      const modal = await this.modalController.create({
+        component: EditProfilePage
+      });
+      return await modal.present();
+    }
+    
+  }
+

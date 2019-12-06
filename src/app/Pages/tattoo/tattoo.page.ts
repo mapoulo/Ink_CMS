@@ -52,6 +52,7 @@ export class TattooPage implements OnInit {
   ShowButton : boolean = false;
   ShowButton1 : boolean = false;
   fileField: any;
+  toastController: any;
 
   get TattooName() {
     return this.tattooForm.get('tattooName');
@@ -159,6 +160,7 @@ export class TattooPage implements OnInit {
         categories:''
         
       }
+     
       this.dismiss();
   
   }else {
@@ -177,7 +179,8 @@ export class TattooPage implements OnInit {
       'dismissed': true
     });
   }
-  
+
+
 
   }
  

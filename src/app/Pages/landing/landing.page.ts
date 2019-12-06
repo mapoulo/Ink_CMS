@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, Platform } from '@ionic/angular';
 import { TattooPage } from '../tattoo/tattoo.page';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -21,7 +21,13 @@ export class LandingPage implements OnInit {
 
   
   // @ViewChild('barChart',  { static: false }) barChart;
-
+mon = []
+tue = []
+wed = []
+thu = []
+fri = []
+sat = []
+sun = []
   bars: any;
   colorArray: any;
   tattoo = {
@@ -36,29 +42,37 @@ export class LandingPage implements OnInit {
 
 db = firebase.firestore();
 Tattoos = [];
-MyValue: boolean;
-MyValue1: boolean;
+
   num: number;
   docId: string;
   isAdmin: any;
 
-  constructor(public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+  counter  = [];
+  n : number = 0;
+
+  constructor(private platform: Platform,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
   ionViewDidEnter() {
-    this.createBarChart();
+ 
+
+  
   }
 
 
   createBarChart() {
 
+  
+
+
+
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'line',
       data: {
-        labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
+        labels:['Bookings'],
         datasets: [{
-          label: 'Viewers in millions',
-          data: [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17],
+          label: 'Users bookings',
+          data: [this.n ],
           backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
           borderWidth: 1
@@ -92,11 +106,8 @@ MyValue1: boolean;
             
         }
       });
-    
-
-
-
   }
+     
 
  
   obj = {id: null, obj : null}
@@ -110,6 +121,22 @@ MyValue1: boolean;
       image: '',
       categories:''
     }
+
+    
+    this.db.collection("Bookings").onSnapshot(data => {
+      data.forEach(item => {
+        this.counter.push(item.data());
+        this.n += 1
+     
+        console.log("Array length ", this.n );
+        
+      })
+
+ this.createBarChart();
+
+    })
+ 
+   
 
     this.db.collection('Tattoo').onSnapshot(data => {
       this.Tattoos = [];
@@ -145,7 +172,7 @@ goProfilePage(){
 
 }
 
-    
+
 
 
   async openModal(CheckNumber, obj) {
@@ -225,9 +252,6 @@ goProfilePage(){
  
     }
 
-    edit(item){
-     
-    }
-  
+    
 }  
     
