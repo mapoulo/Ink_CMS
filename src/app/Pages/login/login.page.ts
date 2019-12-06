@@ -52,7 +52,6 @@ db=firebase.firestore();
       this.db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(res =>{
 
         if (res.exists){
-          //this.router.navigateByUrl('/landing')
 
           console.log("Logged in succesful")
           this.router.navigateByUrl('/landing');
@@ -61,14 +60,7 @@ db=firebase.firestore();
           }, 4000);
          
         }else{
-          //this.router.navigateByUrl('/login')
-
-
-        
-
-          
-          //
-
+         
 
             
 
@@ -81,18 +73,13 @@ db=firebase.firestore();
           })
 
 
-         //
         }
             })
 
 
 
 
-      // console.log("Logged in succesful")
-      // this.router.navigateByUrl('/landing');
-      // setTimeout(() => {
-      //   this.loader = false;
-      // }, 4000);
+      
   }).catch((error) => {
     setTimeout(() => {
       this.loader = false;
