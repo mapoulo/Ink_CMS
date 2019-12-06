@@ -80,6 +80,11 @@ export class NotificationsPage implements OnInit {
     this.onCurrentDateChanged(new Date());
   }
 
+  goToNotificationsPage(){
+    this.rout.navigateByUrl('/notifications')
+}
+
+
 
   displayData(item){
     console.log("Item ", item);

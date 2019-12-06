@@ -26,7 +26,7 @@
                      </div>   -->
                  <p style="font-size: 80%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis impedit amet doloribus reprehenderit quisquam sunt corporis nisi labore consequatur consectetur nesciunt, quia iste corrupti necessitatibus illo velit eos quod esse.</p>
                      <div class="bookings-list">
-                                          <div class="booking-item" (click)="respond()">
+                                          <div class="booking-item">
                                               <div class="tattoo-booking-image"><img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt=""></div>
                                               <div class="info-booking">
                                               <h4>Tattoo Name</h4>
@@ -67,7 +67,6 @@
                           (onEventSelected)="onEventSelected($event)"
                           (onTitleChanged)="onViewTitleChanged($event)"
                           (onTimeSelected)="onTimeSelected($event)" 
-                          [weekviewAllDayEventSectionTemplate]="template"
                           startHour="6"
                           endHour="20"
                           step="30"
