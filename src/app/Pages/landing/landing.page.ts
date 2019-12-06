@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, Platform } from '@ionic/angular';
 import { TattooPage } from '../tattoo/tattoo.page';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -37,33 +37,65 @@ export class LandingPage implements OnInit {
 
 db = firebase.firestore();
 Tattoos = [];
-MyValue: boolean;
-MyValue1: boolean;
+
   num: number;
   docId: string;
   isAdmin: any;
-
-  constructor(public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+  count=[];
+  county=[];
+  counter  = [];
+  n : number = 0;
+  p: number = 0;
+  r : number = 0;
+  o: number = 0;
+  constructor(private platform: Platform,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
   ionViewDidEnter() {
-    this.createBarChart();
+ 
+
+  
   }
 
 
   createBarChart() {
-
     this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
-        datasets: [{
-          label: 'Viewers in millions',
-          data: [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17],
+        labels:['All bookings', 'Accepted', 'Declined','All users'], 
+        datasets: [
+          {
+          label: ['All bookings'] ,
+          data: [this.o ],
           backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
-          borderWidth: 1
-        }]
+          borderWidth: 2,
+        },
+
+        {
+          label: ['Accepted'] ,
+          data: [this.n],
+          backgroundColor: 'green', // array should have same number of elements as number of dataset
+          borderColor: 'green',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        },
+
+
+        {
+          label: ['Declined'] ,
+          data: [this.p],
+          backgroundColor: 'red', // array should have same number of elements as number of dataset
+          borderColor: 'red',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        },
+        {
+          label: ['All users'] ,
+          data: [this.r],
+          backgroundColor: 'blue', // array should have same number of elements as number of dataset
+          borderColor: 'blue',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        }
+      ]
       },
       options: {
         scales: {
@@ -77,6 +109,8 @@ MyValue1: boolean;
     });
   }
 
+
+  
 
   ngOnInit() {
     
@@ -93,11 +127,8 @@ MyValue1: boolean;
             
         }
       });
-    
-
-
-
   }
+     
 
 
 
@@ -115,6 +146,61 @@ MyValue1: boolean;
       image: '',
       categories:''
     }
+    
+
+
+    this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
+      data.forEach(item => {
+        this.counter.push(item.data());
+        this.n += 1
+     
+        console.log("Array length ", this.n );
+        
+      })
+
+ this.createBarChart();
+
+    })
+ 
+    this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {
+      data.forEach(item => {
+        this.count.push(item.data());
+        this.p += 1
+     
+        console.log("Array length ", this.p );
+        
+      })
+
+ this.createBarChart();
+
+    })
+ 
+  
+    this.db.collection("Bookings").onSnapshot(data => {
+      data.forEach(item => {
+        this.county.push(item.data());
+        this.r += 1
+     
+        console.log("Array length ", this.r );
+        
+      })
+
+ this.createBarChart();
+
+    })
+ 
+    this.db.collection("Users").onSnapshot(data => {
+      data.forEach(item => {
+        this.county.push(item.data());
+        this.o += 1
+     
+        console.log("Array length ", this.o );
+        
+      })
+
+ this.createBarChart();
+
+    })
 
     this.db.collection('Tattoo').onSnapshot(data => {
       this.Tattoos = [];
@@ -168,7 +254,7 @@ goProfilePage(){
 
 }
 
-    
+
 
 
   async openModal(CheckNumber, obj) {
@@ -248,115 +334,6 @@ goProfilePage(){
  
     }
 
-    edit(item){
-     
-    }
-  //   createBarChart() {
-  //     ​
-  //         this.charts = new Chart(this.barChart.nativeElement, {
-  //           type: 'line',
-  //           data: {
-  //             labels: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-  //             datasets: [{
-  //               label: 'bookings received per day',
-  //               // data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
-  //                data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
-  //               backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
-  //               borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
-  //               borderWidth: 1
-  //             }]
-  //           },
-            
-  //     ​
-  //           options: {
-  //             scales: {
-  //               yAxes: [{
-  //                 ticks: {
-  //                   beginAtZero: true
-  //                 }
-  //               }]
-  //             }
-  //           }
-  //         });
-  //   }
-  //         getRequests() {
-  //           ​
-  //               this.db.collection('bookings').where('schooluid', '==',firebase.auth().currentUser.uid).onSnapshot(res => {
-  //               console.log(res);
-  //               this.mon = [];
-  //               this.tue = [];
-  //               this.wed = [];
-  //               console.log('wednday',  this.wed)
-  //               this.thu = [];
-  //               this.fri = [];
-  //               this.sat = [];
-  //               this.sun = [];
-  //                 res.forEach(doc => {
-                   
-  //                   let date = doc.data().datecreated
-  //                   let newDate = date.split(" ")
-                   
-                    
-  //                   if (newDate[0] == "Mon") {
-  //                     this.mon.push(doc.data())
-  //                   } else if (newDate[0] == "Tue") {
-  //                     this.tue.push(doc.data())
-  //                   }else if (newDate[0] == "Wed") {
-  //                     this.wed.push(doc.data())
-  //                   }
-  //                   else if (newDate[0] == "Thu") {
-  //                     this.thu.push(doc.data())
-  //                     console.log("The new Date is",this.thu.length);
-  //                   }
-  //                   else if (newDate[0] == "Fri") {
-  //                     this.fri.push(doc.data())
-  //                   }
-  //                   else if (newDate[0] == "Sat") {
-  //                     this.sat.push(doc.data())
-  //                   }
-  //                   else if (newDate[0] == "Sun") {
-  //                     this.sun.push(doc.data())
-  //                   }
-  //                 })
-  //                 this.createBarChart();
-  //                 console.log(this.mon);
-                  
-  //               })
-  //           ​
-  //         }
-        
-            
-  //     ionViewWillEnterc() {
-   
-  //       console.log("bookings", this.data.DeclinedData);
-  //       this.mon = [];
-  //       this.tue = [];
-  //       this.wed = [];
-  //       this.thu = [];
-  //       this.fri = [];
-  //       this.sat = [];
-  //       this.sun = [];
-  //       console.log('Monday array',this.mon);
-        
-  //       this.platform.ready().then(() => {
-  //         console.log('Core service init');
-  //         const tabBar = document.getElementById('myTabBar');
-  //          tabBar.style.display = 'flex';
-  //       });
-  //   ​
-  //       this.db.collection('Bookings').onSnapshot(snapshot => {
-  //         this.Data = [];
-  //         this.NewData = [];
-         
-  //         snapshot.forEach(Element => {
-           
-  //               this.Data.push(Element.data());
-      
-  //         });
-  //     ​
-  //   ​
     
-  //   })
-  // }
 }  
     

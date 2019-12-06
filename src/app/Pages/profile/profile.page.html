@@ -1,17 +1,6 @@
 
 
 <ion-content padding>
-
-   
-
-    <!-- name: <input type="text" [(ngModel)]="name" placeholder="{{name}}"><br />
-    phoneNumber: <input type="text" [(ngModel)]="phoneNumber" placeholder="{{phoneNumber}}"><br />
-    email: <input type="text" [(ngModel)]="email" placeholder="{{email}}"><br />
-    <button (click)="goToEditPage()">Edit</button>  
-
-    <button (click)="upload()">UploadPdf</button>
-    
-    <app-multi-file-upload></app-multi-file-upload>-->
     
 <ion-content>
     <div class="loader" *ngIf="loader">
@@ -54,10 +43,11 @@
                     </article>
                    
                   </div>
-              <ion-fab-button class="edit" (click)="createModal()" color="success" size="large">
+              <ion-fab-button class="edit"  color="success" size="large" (click)="presentModal()" >
                 <ion-icon name="create"></ion-icon>
               </ion-fab-button>
            </div>
+
             <div class="upload-contract">
               <h1>Upload a Contract for your Users</h1>
               <p class="policy">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolore qui necessitatibus officia vero voluptatibus, officiis perferendis tempora nesciunt asperiores, sint corrupti unde maiores consequatur, sequi error consequuntur deleniti doloribus!</p>
