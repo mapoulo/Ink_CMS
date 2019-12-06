@@ -41,10 +41,13 @@ Tattoos = [];
   num: number;
   docId: string;
   isAdmin: any;
-
+  count=[];
+  county=[];
   counter  = [];
   n : number = 0;
-
+  p: number = 0;
+  r : number = 0;
+  o: number = 0;
   constructor(private platform: Platform,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
@@ -56,22 +59,43 @@ Tattoos = [];
 
 
   createBarChart() {
-
-  
-
-
-
     this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels:['Bookings'],
-        datasets: [{
-          label: 'Users bookings',
-          data: [this.n ],
+        labels:['All bookings', 'Accepted', 'Declined','All users'], 
+        datasets: [
+          {
+          label: ['All bookings'] ,
+          data: [this.o ],
           backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
-          borderWidth: 1
-        }]
+          borderWidth: 2,
+        },
+
+        {
+          label: ['Accepted'] ,
+          data: [this.n],
+          backgroundColor: 'green', // array should have same number of elements as number of dataset
+          borderColor: 'green',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        },
+
+
+        {
+          label: ['Declined'] ,
+          data: [this.p],
+          backgroundColor: 'red', // array should have same number of elements as number of dataset
+          borderColor: 'red',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        },
+        {
+          label: ['All users'] ,
+          data: [this.r],
+          backgroundColor: 'blue', // array should have same number of elements as number of dataset
+          borderColor: 'blue',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        }
+      ]
       },
       options: {
         scales: {
@@ -85,6 +109,8 @@ Tattoos = [];
     });
   }
 
+
+  
 
   ngOnInit() {
     
@@ -120,9 +146,10 @@ Tattoos = [];
       image: '',
       categories:''
     }
-
     
-    this.db.collection("Bookings").onSnapshot(data => {
+
+
+    this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
       data.forEach(item => {
         this.counter.push(item.data());
         this.n += 1
@@ -135,7 +162,45 @@ Tattoos = [];
 
     })
  
-   
+    this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {
+      data.forEach(item => {
+        this.count.push(item.data());
+        this.p += 1
+     
+        console.log("Array length ", this.p );
+        
+      })
+
+ this.createBarChart();
+
+    })
+ 
+  
+    this.db.collection("Bookings").onSnapshot(data => {
+      data.forEach(item => {
+        this.county.push(item.data());
+        this.r += 1
+     
+        console.log("Array length ", this.r );
+        
+      })
+
+ this.createBarChart();
+
+    })
+ 
+    this.db.collection("Users").onSnapshot(data => {
+      data.forEach(item => {
+        this.county.push(item.data());
+        this.o += 1
+     
+        console.log("Array length ", this.o );
+        
+      })
+
+ this.createBarChart();
+
+    })
 
     this.db.collection('Tattoo').onSnapshot(data => {
       this.Tattoos = [];

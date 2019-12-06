@@ -114,6 +114,10 @@ export class NotificationsPage implements OnInit {
     this.onCurrentDateChanged(new Date());
   }
 
+  goToNotificationsPage(){
+    this.rout.navigateByUrl('/notifications')
+}
+
   save(obj, i){
     
     this.obj = obj;
