@@ -73,6 +73,8 @@ export class ProfilePage implements OnInit {
 
 }
 
+
+
   logout(){
     this.loader = true;
     this.auth.logoutUser().then(()=>{
@@ -85,9 +87,6 @@ export class ProfilePage implements OnInit {
 
 
     ionViewWillEnter(){
-
-      
-
 
       this.email=firebase.auth().currentUser.email;
 
@@ -106,6 +105,9 @@ export class ProfilePage implements OnInit {
 
   
     }
+
+
+    
 
   async  createModal(){
 
