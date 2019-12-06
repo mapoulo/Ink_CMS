@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+
+import { MultiFileUploadComponent } from './../../components/multi-file-upload/multi-file-upload.component';
+import { DataService } from './../../data.service';
+import { Component, OnInit,  ViewChild} from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -39,6 +42,7 @@ email=""
   constructor(public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,) { }
 
   ngOnInit() {
+
     setTimeout(() => {
       this.loader = false;
     }, 2000);
@@ -46,8 +50,11 @@ email=""
     console.log(this.pdf);
     
   }
+
   goToNotificationsPage(){
+
     this.rout.navigateByUrl('/notifications')
+
 }
 
   logout(){
@@ -84,6 +91,13 @@ email=""
 
   
     }
+
+  async  createModal(){
+
+    }
+
+
+
     
    
 

@@ -21,13 +21,8 @@ export class LandingPage implements OnInit {
 
   
   // @ViewChild('barChart',  { static: false }) barChart;
-mon = []
-tue = []
-wed = []
-thu = []
-fri = []
-sat = []
-sun = []
+  Accepted = []
+
   bars: any;
   colorArray: any;
   tattoo = {
@@ -109,8 +104,12 @@ Tattoos = [];
   }
      
 
+
+
  
   obj = {id: null, obj : null}
+
+
   ionViewWillEnter(){
 
     let firetattoo = {
@@ -161,10 +160,28 @@ Tattoos = [];
       
     })
 
+
+   this.db.collection("Users").onSnapshot(data => {
+     data.forEach(item => {
+       
+       if(item.data().bookingState === "Accepted"){
+        console.log("Users ", item.data() );
+        this.Accepted.push(item.data())
+       }
+      
+       
+     })
+   })
+
   }
+
+
   goToNotificationsPage(){
+
     this.rout.navigateByUrl('/notifications')
 }
+
+
 goProfilePage(){
   this.rout.navigateByUrl('/profile')
 
