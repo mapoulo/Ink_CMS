@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+
+import { MultiFileUploadComponent } from './../../components/multi-file-upload/multi-file-upload.component';
+import { DataService } from './../../data.service';
+import { Component, OnInit,  ViewChild} from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-
+import { Platform } from '@ionic/angular';
+import { EditProfilePage } from '../edit-profile/edit-profile.page';
+import { ModalController} from '@ionic/angular';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -12,7 +17,7 @@ export class ProfilePage implements OnInit {
  loader = true;
  pdf;
 
-
+ pdfObj = null;
  tattoo = {
   name: '',
   pricerange: '',
@@ -31,10 +36,13 @@ email=""
 
 
 }
-
-  constructor(public rout : Router,private auth: AuthenticationService) { }
+  toastCtrl: any;
+ 
+  storage = firebase.storage().ref();
+  constructor(public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,) { }
 
   ngOnInit() {
+
     setTimeout(() => {
       this.loader = false;
     }, 2000);
@@ -42,8 +50,11 @@ email=""
     console.log(this.pdf);
     
   }
+
   goToNotificationsPage(){
+
     this.rout.navigateByUrl('/notifications')
+
 }
 
   logout(){
@@ -65,6 +76,7 @@ email=""
       this.email=firebase.auth().currentUser.email;
 
       this.db.collection("Admin").onSnapshot(data => {
+        this.Admin = [];
         data.forEach(item => {
           if(item.exists){
             if(item.data().email === this.email){
@@ -80,4 +92,21 @@ email=""
   
     }
 
-}
+  async  createModal(){
+
+    }
+
+
+
+    
+   
+
+    async presentModal() {
+      const modal = await this.modalController.create({
+        component: EditProfilePage
+      });
+      return await modal.present();
+    }
+    
+  }
+

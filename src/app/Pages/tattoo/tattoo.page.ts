@@ -52,19 +52,28 @@ export class TattooPage implements OnInit {
   ShowButton : boolean = false;
   ShowButton1 : boolean = false;
   fileField: any;
+  toastController: any;
 
   get TattooName() {
     return this.tattooForm.get('tattooName');
   }
+
+
   get Price() {
     return this.tattooForm.get('priceRange');
   }
+
+
   get Categories() {
     return this.tattooForm.get('categories');
   }
+
+
   get Description() {
     return this.tattooForm.get('description');
   }
+
+
   get Image() {
     return this.tattooForm.get('image');
   }
@@ -151,6 +160,7 @@ export class TattooPage implements OnInit {
         categories:''
         
       }
+     
       this.dismiss();
   
   }else {
@@ -169,7 +179,8 @@ export class TattooPage implements OnInit {
       'dismissed': true
     });
   }
-  
+
+
 
   }
  

@@ -15,24 +15,29 @@
    
    
     </aside>
+
     <section class="content-container">
+
       <header class="header">
         <h1 class="first-header">Dashboard</h1>
       </header>
+
+
       <div class="scroll-container">
         <div class="default">
          <ion-fab-button (click)="openModal(1, {})"  class="ion-fab-button" color="light">
            <ion-icon style="font-size: 4vw;" name="add"></ion-icon>
          </ion-fab-button>
         </div>
+        
         <div class="add-tattoo" *ngFor="let tattoo of Tattoos">
           <img src="{{tattoo.image}}" class="tattoo-image" alt="">
          <div class="info-tattoo">
            <article>
-             <h4 style="white-space: normal; font-size: 2.8vh;"><strong>{{ tattoo.name}}</strong></h4>
-             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.pricerange | currency: '&#82;'}}</p>
+             <h4 style="white-space: normal; font-size: 2.8vh;">{{ tattoo.name}}</h4>
+             <p style="color: rgb(48, 167, 48); font-weight: bold; ; font-size: 2.7vh;">{{tattoo.pricerange}}</p>
              <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.description}} </p>
-             <!-- <p style="white-space: normal; ; font-size: 2.5vh;">{{tattoo.categories}} </p> -->
+             
 
            </article>
          </div>  
@@ -48,14 +53,17 @@
     
           
       </div>
+
+
       <div class="sub-container">
           <div class="booking-container">
            <!--   <div class="no-bookings">
               <p>You have no bookings yet.</p>
             </div>  -->
             <h4 class="booking-header">Booking History</h4>
-            <div class="bookings-list">
-                <div class="booking-item">
+
+            <div class="bookings-list" *ngFor = "let item of Accepted">
+                <!-- <div class="booking-item">
                       <div class="tattoo-booking-image"><img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt=""></div>
                       <div class="info-booking">
                           <h4>Tattoo Name</h4>
@@ -67,14 +75,14 @@
                               <ion-icon style="font-size: 2.5vh;" name="call"></ion-icon>
                             </ion-fab-button>
                           </div>
-                    </div>
+                    </div> -->
 
-                    <div class="booking-item">
-                        <div class="tattoo-booking-image"><img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt=""></div>
+                    <div class="booking-item" >
+                        <div class="tattoo-booking-image"><img src="{{item.image}}" alt=""></div>
                         <div class="info-booking">
                             <h4>Tattoo Name dskjbsdkfbj</h4>
-                            <p>21 December 2019</p>
-                            <p>Length: 10cm & Breadth: 5cm</p>
+                            <p>Date : {{item.bookingState}} - {{item.endingDate}}</p>
+                            <!-- <p>Length: 10cm & Breadth: 5cm</p> -->
                           </div>
                           <div class="call-booking">
                               <ion-fab-button class="fab-btn" size="small" color="success">
@@ -84,29 +92,30 @@
                       </div>
             </div>
        
-           
+          </div>
           </div>
       <div class="analytics-container">
         
-         <div class="graph" >
-         <!--  <ion-card color="light" class="welcome-card">
-            <ion-card-header>
-              <ion-card-subtitle>Number of Bookings per week</ion-card-subtitle>
-              <ion-card-title>Bookings</ion-card-title> 
-            </ion-card-header>
-            <ion-card-content>
-              <canvas #barChart></canvas>
-            </ion-card-content>
-          </ion-card> -->
-          <p style="font-weight: bold;">STILL IN PROCESS</p>
+          <div class="graghs">
+ 
+              
+               <ion-card class="graghs">
+                <ion-card-header>
+                </ion-card-header>
+                <ion-card-content>
+                  <canvas #barChart>Acepted</canvas>
+                  <canvas #barChart>Declined</canvas>
+                  <canvas #barChart>All Bookings</canvas>
+                </ion-card-content>
+              </ion-card> 
+
+              
         </div>
-      </div> 
       </div>
+
+
+   
+      
     </section>
  </main>
 </ion-content>
-<!-- <ion-footer>
-  <ion-toolbar>
-    <p style="font-size: 80%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" text-center>@INK SCRIBE TATTOO</p>
-  </ion-toolbar>
-</ion-footer> -->

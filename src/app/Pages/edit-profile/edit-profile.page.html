@@ -16,26 +16,11 @@
 
 <ion-content padding>
 
+    name: <input type="text" [(ngModel)]="MyData.name" placeholder="{{MyData.name}}"><br />
+    address: <input type="text" [(ngModel)]="MyData.address" placeholder="{{MyData.address}}"><br />
+    phoneNumber: <input type="text" [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"><br />
+    email: <input type="text" [(ngModel)]="MyData.email" placeholder="{{MyData.email}}"><br />
+    
+    <button (click)="editData()">Edit</button>
 
-  <form>
-   <div class="profile">
-     <img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt="tattoo">
-     <p>Khuthy</p>
-   </div>
-    <ion-item>
-      <ion-label position="floating">Full Name</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Cell Phone Number</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label position="floating">Physical Address</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        
-        
-       
-  </form>
 </ion-content>
