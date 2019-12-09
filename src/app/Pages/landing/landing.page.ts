@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import { Chart } from 'chart.js';
 
-
+// import { CallNumber } from '@ionic-native/call-number';
 
 @Component({
   selector: 'app-landing',
@@ -48,7 +48,7 @@ Tattoos = [];
   p: number = 0;
   r : number = 0;
   o: number = 0;
-  constructor(private platform: Platform,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+  constructor(private platform: Platform,public rout : Router,private auth: AuthenticationService,public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
   ionViewDidEnter() {
@@ -130,7 +130,14 @@ Tattoos = [];
   }
      
 
-
+// call(){
+//   if (this.platform.is('android')){
+//    this.callNumber.callNumber("18001010101", true)
+//   .then(res => console.log('Launched dialer!', res))
+//   .catch(err => console.log('Error launching dialer', err)); 
+//   }
+  
+// }
 
  
   obj = {id: null, obj : null}
