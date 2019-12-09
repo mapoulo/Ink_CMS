@@ -62,7 +62,7 @@
             </div>  -->
             <h4 class="booking-header">Booking History</h4>
 
-            <div class="bookings-list" *ngFor = "let item of Accepted">
+            <div class="bookings-list">
                 <!-- <div class="booking-item">
                       <div class="tattoo-booking-image"><img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt=""></div>
                       <div class="info-booking">
@@ -77,7 +77,7 @@
                           </div>
                     </div> -->
 
-                    <div class="booking-item" >
+                    <div class="booking-item"  *ngFor = "let item of Accepted">
                         <div class="tattoo-booking-image"><img src="{{item.image}}" alt=""></div>
                         <div class="info-booking">
                             <h4>Tattoo Name dskjbsdkfbj</h4>
@@ -93,25 +93,26 @@
             </div>
        
           </div>
-          </div>
-      <div class="analytics-container">
+          <div class="analytics-container">
         
-          <div class="graghs">
- 
-              
-               <ion-card class="graghs">
-                <ion-card-header>
-                </ion-card-header>
-                <ion-card-content>
-                  <canvas #barChart>Acepted</canvas>
-                  <canvas #barChart>Declined</canvas>
-                  <canvas #barChart>All Bookings</canvas>
-                </ion-card-content>
-              </ion-card> 
-
-              
-        </div>
-      </div>
+              <div class="graghs">
+     
+                  
+                   <ion-card class="graghs">
+                    <ion-card-header>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <canvas #barChart>Acepted</canvas>
+                      <canvas #barChart>Declined</canvas>
+                      <canvas #barChart>All Bookings</canvas>
+                    </ion-card-content>
+                  </ion-card> 
+    
+                  
+            </div>
+          </div>
+          </div>
+    
 
 
    
