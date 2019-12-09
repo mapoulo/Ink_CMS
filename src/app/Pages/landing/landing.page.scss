@@ -198,7 +198,7 @@ article > * {
 
 
 .analytics-container {
-    flex: 1;
+    flex: 50%;
     
     padding: 1em;
     display: flex;
@@ -259,12 +259,15 @@ article > * {
 }
 .sub-container {
     height: 50%;
+    flex-basis: 50%;
     width: 100%;
     display: flex;
     
 }
 .booking-container {
-    flex-basis: 50%;
+    flex-basis: 40%;
+    width: 40%;
+    
     padding: 1em;
     overflow-y: auto;
     overflow-x: hidden;
@@ -351,12 +354,19 @@ article > * {
 }
 .analytics-container {
     flex-basis: 50%;
+    width: 50%;
+
     display: flex;
     align-items: center;
     padding: 1em;
 }
 .graghs {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+    width: 100%;
 
 }
 
