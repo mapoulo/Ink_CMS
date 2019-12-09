@@ -295,7 +295,7 @@ notifications : number = 0;
   }
 
   home(){
-    this.rout.navigateByUrl('/landingPage')
+    this.rout.navigateByUrl('/landing')
   }
 
   // Change current month/week/day
