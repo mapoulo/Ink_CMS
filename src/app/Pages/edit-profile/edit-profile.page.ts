@@ -36,7 +36,7 @@ export class EditProfilePage implements OnInit {
     this.phoneNumber = this.data.MyData.phoneNumber;
     this.email = this.data.MyData.email;
     this.name = this.data.MyData.name;
-    this.image = this.data.MyData.image;
+    this.image = this.data.Mydata.image;
   }
 
   ionViewWillEnter(){
@@ -46,10 +46,11 @@ export class EditProfilePage implements OnInit {
       
         this.MyData.name = item.data().name,
         
-        this.MyData.image = item.data().image,
+        
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
     this.MyData.phoneNumber = item.data().phoneNumber,
+    
     this.MyData.auId = item.id
       })
     })

@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 import { Platform } from '@ionic/angular';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -92,15 +93,7 @@ email=""
   
     }
 
-  async  createModal(){
-
-    }
-
-
-
-    
-   
-
+  
     async presentModal() {
       const modal = await this.modalController.create({
         component: EditProfilePage

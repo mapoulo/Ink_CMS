@@ -14,11 +14,10 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module';
 
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, TattooPageModule, EditProfilePageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TattooPageModule, EditProfilePageModule],
   providers: [Camera,
 
     StatusBar,

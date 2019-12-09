@@ -40,6 +40,8 @@ const routes: Routes = [
     path: 'tattoo',
     loadChildren: () => import('./pages/tattoo/tattoo.module').then( m => m.TattooPageModule)
   },
+ 
+
 
 ];
 
