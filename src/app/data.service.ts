@@ -6,7 +6,10 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
 
-  MyData = {id : '', name : '', phoneNumber : '', email : ''};
+  MyData = {id : '', name : '', phoneNumber : '', email : '',image:''};
+  notification : number = 0;
+  
+ 
   Mydata={image:''}
   constructor() { }
 }
