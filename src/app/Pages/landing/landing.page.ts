@@ -94,6 +94,7 @@ Tattoos = [];
           backgroundColor: 'sunflowerblue', // array should have same number of elements as number of dataset
           borderColor: 'sunflowerblue',// array should have same number of elements as number of dataset
           borderWidth: 2
+          
         }
       ]
       },

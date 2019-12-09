@@ -1,6 +1,6 @@
 
 
-<ion-content padding>
+<ion-content>
     
 <ion-content>
     <div class="loader" *ngIf="loader">
@@ -9,7 +9,7 @@
   <main class="main">
     <aside class="aside-container">
        <div class="profile-container">
-           <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
+           <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo"></div>
          <p class="paragragh">Admin</p>
          </div>
          <div class="notifation">
@@ -34,7 +34,7 @@
                     <ion-fab-button class="btn-edit-image" color="light" size="small" >
                       <ion-icon name="create"></ion-icon>
                     </ion-fab-button>
-                    <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
+                    <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo"></div>
                     <article *ngFor="let admin of Admin">
                     <h4>Name : {{ admin.name}}</h4>
                     <p>{{ admin.email}}</p>
