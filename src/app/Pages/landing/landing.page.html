@@ -25,7 +25,7 @@
 
       <div class="scroll-container">
         <div class="default">
-         <ion-fab-button (click)="openModal(1, {})"  class="ion-fab-button" color="light">
+         <ion-fab-button (click)="openModal(1, {})"  class="ion-fab-button" color="light"  >
            <ion-icon style="font-size: 4vw;" name="add"></ion-icon>
          </ion-fab-button>
         </div>
@@ -85,7 +85,7 @@
                             <!-- <p>Length: 10cm & Breadth: 5cm</p> -->
                           </div>
                           <div class="call-booking">
-                              <ion-fab-button class="fab-btn" size="small" color="success">
+                              <ion-fab-button class="fab-btn" size="small" color="success" (click)="callNow()">
                                 <ion-icon style="font-size: 2.5vh;" name="call"></ion-icon>
                               </ion-fab-button>
                             </div>
