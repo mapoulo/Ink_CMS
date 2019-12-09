@@ -9,14 +9,14 @@
   <main class="main">
     <aside class="aside-container">
        <div class="profile-container">
-           <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
+           <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo"></div>
          <p class="paragragh">Admin</p>
          </div>
          <div class="notifation">
              <ion-button shape="block" color="light" fill="clear" (click)="goToNotificationsPage()">
                  <ion-icon name="notifications-outline"></ion-icon>
                </ion-button>
-             <ion-badge class="badge" color="light">77</ion-badge>
+             <ion-badge class="badge" color="light">{{notifications}}</ion-badge>
          </div>
       
    </aside>
@@ -30,11 +30,16 @@
          <div class="sub-container">
            <div class="top-profile">
               <div class="profiles-info">
+
                   <div   class="profile" style="height: 20vh; width: 20vh;">
-                    <ion-fab-button class="btn-edit-image" color="light" size="small">
+
+                    <!-- <ion-fab-button class="btn-edit-image" color="light" size="small" >
+                    
                       <ion-icon name="create"></ion-icon>
-                    </ion-fab-button>
-                    <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
+                    </ion-fab-button> -->
+
+                    <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="admin"></div>
+                    <!-- <img src="{{image1}}" alt="tattoo"></div> -->
                     <article *ngFor="let admin of Admin">
                     <h4>Name : {{ admin.name}}</h4>
                     <p>{{ admin.email}}</p>
@@ -54,7 +59,7 @@
               <input type="file" class="file-opener" name="pdf" [(ngModel)]="pdf">
               {{pdf}}
 
-              <button (click)="pdf()">PDF</button>
+              <button>PDF</button>
             </div>
             <div class="list-contract">
               <div class="btn-download">

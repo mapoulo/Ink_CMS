@@ -1,13 +1,15 @@
-
-import { MultiFileUploadComponent } from './../../components/multi-file-upload/multi-file-upload.component';
 import { DataService } from './../../data.service';
-import { Component, OnInit,  ViewChild} from '@angular/core';
+
+import { Component, OnInit} from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { Platform } from '@ionic/angular';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
+
+
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -27,6 +29,8 @@ export class ProfilePage implements OnInit {
   
 }
 
+image1  = ""
+
 email=""
  db = firebase.firestore();
  Admin = [];
@@ -37,11 +41,22 @@ email=""
 
 }
   toastCtrl: any;
+  notifications : number = 0;
  
   storage = firebase.storage().ref();
-  constructor(public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,) { }
+  constructor(public data : DataService, public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,) { }
 
   ngOnInit() {
+
+    this.db.collection("Admin").onSnapshot(data => {
+      data.forEach(item => {
+        this.image1 = item.data().image;
+      })
+    })
+
+ 
+
+    this.notifications = this.data.notification
 
     setTimeout(() => {
       this.loader = false;
@@ -55,6 +70,27 @@ email=""
 
     this.rout.navigateByUrl('/notifications')
 
+}
+
+image(event){
+ 
+
+  const i = event.target.files[0];
+  console.log(i);
+  const upload = this.storage.child(i.name).put(i);
+  upload.on('state_changed', snapshot => {
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('upload is: ', progress , '% done.');
+  }, err => {
+  }, () => {
+    upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+      console.log('File avail at: ', dwnURL);
+      this.image1 = dwnURL;
+    });
+  });
+
+
+  
 }
 
 

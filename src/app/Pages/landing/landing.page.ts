@@ -1,3 +1,4 @@
+import { DataService } from './../../data.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -22,6 +23,8 @@ export class LandingPage implements OnInit {
   
   // @ViewChild('barChart',  { static: false }) barChart;
   Accepted = []
+
+  notifications : number = 0;
 
   bars: any;
   colorArray: any;
@@ -48,7 +51,9 @@ Tattoos = [];
   p: number = 0;
   r : number = 0;
   o: number = 0;
-  constructor(private platform: Platform,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+  number : number = 0;
+
+  constructor(public data : DataService, private platform: Platform,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
   ionViewDidEnter() {
@@ -60,13 +65,13 @@ Tattoos = [];
 
   createBarChart() {
     this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'bar',
+      type: 'line',
       data: {
         labels:['All bookings', 'Accepted', 'Declined','All users'], 
         datasets: [
           {
           label: ['All bookings'] ,
-          data: [this.o ],
+          data: [this.o, 3 ],
           backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
           borderWidth: 2,
@@ -74,7 +79,7 @@ Tattoos = [];
 
         {
           label: ['Accepted'] ,
-          data: [this.n],
+          data: [this.n, 4],
           backgroundColor: 'green', // array should have same number of elements as number of dataset
           borderColor: 'green',// array should have same number of elements as number of dataset
           borderWidth: 2
@@ -83,14 +88,14 @@ Tattoos = [];
 
         {
           label: ['Declined'] ,
-          data: [this.p],
+          data: [this.p, 18],
           backgroundColor: 'red', // array should have same number of elements as number of dataset
           borderColor: 'red',// array should have same number of elements as number of dataset
           borderWidth: 2
         },
         {
           label: ['All users'] ,
-          data: [this.r],
+          data: [this.r, 20],
           backgroundColor: 'blue', // array should have same number of elements as number of dataset
           borderColor: 'blue',// array should have same number of elements as number of dataset
           borderWidth: 2
@@ -137,6 +142,54 @@ Tattoos = [];
 
 
   ionViewWillEnter(){
+
+    let MyArray = [];
+    let Bookings = [];
+    let id = {docid: "", auId: "",   obj : {}};
+    let autId = "";
+    
+   
+     this.db.collection('Bookings').get().then(res => {
+       res.forEach(e => {
+         id.docid = e.id;
+         id.obj = e.data();
+         MyArray.push(id);
+         id = {docid: "", auId: "", obj : {}};
+  
+       
+       })
+  
+       this.notifications = 0;
+       this.data.notification = 0;
+
+       MyArray.forEach(item => { 
+        this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
+          i.forEach(o => {
+            
+          
+
+            if(o.data().bookingState === "waiting"){
+              //  Bookingid.docid = o.id;
+              //  Bookingid.obj = o.data();
+              //  console.log("uuuuuuuuuuuuuuuu",o.id);
+              id.obj = o.data();
+              id.auId = o.id;
+
+        
+             
+               this.notifications += 1;
+              this.data.notification += 1;
+               
+              Bookings.push(id);
+              id = {docid: "", auId: "", obj : {}};
+  
+            }
+          
+          })
+        })
+      })
+     })
+
 
     let firetattoo = {
       docid: '',

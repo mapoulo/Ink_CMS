@@ -1,8 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { MultiFileUploadComponent } from '../components/multi-file-upload/multi-file-upload.component';
+import { Component } from '@angular/core';
 
-import *  as firebase from "firebase";
-import { Chart } from 'chart.js';
+
 
 @Component({
   selector: 'app-home',
@@ -13,19 +11,18 @@ import { Chart } from 'chart.js';
 export class HomePage {
 
 
-  @ViewChild('barChart',  { static: false }) barChart;
+/*   @ViewChild('barChart',  { static: false }) barChart;
 
   bars: any;
-  colorArray: any;
+  colorArray: any; */
 
-  @ViewChild(MultiFileUploadComponent, { static: false }) fileField: MultiFileUploadComponent;
 
   constructor() {
 
   }
 
 
-  ionViewDidEnter() {
+ /*  ionViewDidEnter() {
     this.createBarChart();
   }
 
@@ -107,6 +104,6 @@ export class HomePage {
 
     // POST formData to Server
 
-  }
+  } */
 
 }
