@@ -65,7 +65,7 @@ Tattoos = [];
 
   createBarChart() {
     this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'line',
+      type: 'bar',
       data: {
         labels:['All bookings', 'Accepted', 'Declined','All users'], 
         datasets: [
