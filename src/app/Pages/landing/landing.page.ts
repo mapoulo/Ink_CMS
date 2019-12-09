@@ -79,25 +79,25 @@ Tattoos = [];
 
         {
           label: ['Accepted'] ,
-          data: [this.n, 4],
-          backgroundColor: 'green', // array should have same number of elements as number of dataset
-          borderColor: 'green',// array should have same number of elements as number of dataset
+          data: [this.n],
+          backgroundColor: '#7bc850', // array should have same number of elements as number of dataset
+          borderColor: '#7bc850',// array should have same number of elements as number of dataset
           borderWidth: 2
         },
 
 
         {
           label: ['Declined'] ,
-          data: [this.p, 18],
-          backgroundColor: 'red', // array should have same number of elements as number of dataset
-          borderColor: 'red',// array should have same number of elements as number of dataset
+          data: [this.p],
+          backgroundColor: '#D66E53', // array should have same number of elements as number of dataset
+          borderColor: '#D66E53',// array should have same number of elements as number of dataset
           borderWidth: 2
         },
         {
           label: ['All users'] ,
-          data: [this.r, 20],
-          backgroundColor: 'blue', // array should have same number of elements as number of dataset
-          borderColor: 'blue',// array should have same number of elements as number of dataset
+          data: [this.r],
+          backgroundColor: 'sunflowerblue', // array should have same number of elements as number of dataset
+          borderColor: 'sunflowerblue',// array should have same number of elements as number of dataset
           borderWidth: 2
         }
       ]

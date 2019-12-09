@@ -2,11 +2,10 @@ import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController,Platform } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-
 
 
 @Component({
@@ -120,6 +119,10 @@ notifications : number = 0;
     this.onCurrentDateChanged(new Date());
   }
 
+  goToNotificationsPage(){
+    this.rout.navigateByUrl('/notifications')
+}
+
   save(obj, i){
     
 
@@ -163,7 +166,14 @@ notifications : number = 0;
     this.rout.navigateByUrl('/profile')
   
   }
-  
+/*   callNow(number) {
+    console.log(number)
+    if (this.platform.is('cordova')){
+    this.callNumber.callNumber(number, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
+  }
+  } */
 
   resetEvent() {
     this.event = {
