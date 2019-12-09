@@ -5,7 +5,7 @@ import { AlertController,Platform } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+
 
 @Component({
   selector: 'app-notifications',
@@ -65,7 +65,7 @@ export class NotificationsPage implements OnInit {
     auId : ''
   };
 
-  constructor(private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+  constructor(private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
     
@@ -149,14 +149,14 @@ export class NotificationsPage implements OnInit {
     this.rout.navigateByUrl('/profile')
   
   }
-  callNow(number) {
+/*   callNow(number) {
     console.log(number)
     if (this.platform.is('cordova')){
     this.callNumber.callNumber(number, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }
-  }
+  } */
 
   resetEvent() {
     this.event = {
