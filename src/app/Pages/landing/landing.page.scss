@@ -209,7 +209,8 @@ article > * {
 .graghs {
     height: 100%;
     width: 100%;
-    //box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
     /* Demo Code */
     justify-content: center;
     align-items: center;
@@ -267,7 +268,8 @@ article > * {
 .booking-container {
     flex-basis: 40%;
     width: 40%;
-    
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
     padding: 1em;
     overflow-y: auto;
     overflow-x: hidden;
@@ -285,6 +287,7 @@ article > * {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+
    
 }
 .booking-item {

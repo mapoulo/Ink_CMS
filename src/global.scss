@@ -24,6 +24,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import '~animate.css/animate.min.css';
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+p, h1, h2,h3,h4,h5,h6,small {
+  font-family: 'Montserrat', sans-serif !important;
+}
 
 
 .event-detail-container {

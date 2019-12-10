@@ -1,3 +1,4 @@
+import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
@@ -7,6 +8,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 
+
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.page.html',
@@ -15,6 +17,8 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 export class NotificationsPage implements OnInit {
 
   db = firebase.firestore();
+notifications : number = 0;
+  index : number;
 
   event = {
     title: '',
@@ -65,12 +69,12 @@ export class NotificationsPage implements OnInit {
     auId : ''
   };
 
-  constructor(public alertController:AlertController,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+  constructor(public alertController:AlertController, public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
     
 
-    
+    this.notifications = this.data.notification
 
     let id = {docid: "", auId: "",  obj : {}};
   let autId = "";
@@ -99,8 +103,8 @@ export class NotificationsPage implements OnInit {
              
             this.Bookings.push(id);
             id = {docid: "", auId: "", obj : {}};
-
             console.log("ttttttttttttt", this.Bookings);
+
           }
         
         })
@@ -111,6 +115,7 @@ export class NotificationsPage implements OnInit {
   }
 
   ngOnInit() {
+
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
   }
@@ -121,6 +126,9 @@ export class NotificationsPage implements OnInit {
 
   save(obj, i){
     
+
+    this.index = i;
+
     this.obj = obj;
     this.obj.description = obj.obj.description;
     this.obj.image = obj.obj.image;
@@ -136,6 +144,16 @@ export class NotificationsPage implements OnInit {
     console.log("save button clicked", this.obj);
 
     console.log("index", this.Bookings[i]);
+
+ 
+
+    
+  }
+
+
+  call(numbers){
+    console.log("Your Numbers ", numbers);
+    
   }
 
 
@@ -204,7 +222,7 @@ async alert(){
 
 
   // Create the right event format and reload source
-  addEvent() {
+  async addEvent() {
 
     // let eventCopy = {
     //   title: this.event.title,
@@ -261,6 +279,37 @@ async alert(){
          image : this.obj.image,
 
       })
+
+
+    
+
+
+      const alert = await this.alertCtrl.create({
+        header: 'Respond sent',
+        message: '',
+        buttons: [
+          {
+            text: '',
+            role: '',
+            cssClass: '',
+            handler: (blah) => {
+           
+            }
+          }, {
+            text: 'Ok',
+            handler: () => {
+             
+              setTimeout(() => {
+                this.Bookings.splice(this.index, 1);
+              },2000);
+
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+
     }else{
       console.log("Please select a notification");
       
@@ -268,6 +317,11 @@ async alert(){
   
   }
 
+  home(){
+    this.rout.navigateByUrl('/landing')
+  }
+
+  // Change current month/week/day
   next() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slideNext();

@@ -28,11 +28,11 @@ export class TattooPage implements OnInit {
 
    Button : string = "";
   
-   categories : string
-   priceRange :  string
-   description : string
-   image :  string
-   name :  string
+   categories : string;
+   priceRange :  string;
+   description : string;
+   image :  string;
+   name :  string;
   
 
    editButton : boolean;
@@ -125,7 +125,7 @@ export class TattooPage implements OnInit {
     })
   }
 
-  EditTattoo(){
+  EditTattoo(tattooForm : FormGroup){
        this.db.collection("Tattoo").doc(this.auth.myObj.obj.docid).update({categories: this.tattoo.categories, name:this.tattoo.name, pricerange : this.tattoo.pricerange, description : this.tattoo.description, image : this.tattoo.image})
        this.dismiss();
   }
@@ -148,7 +148,7 @@ export class TattooPage implements OnInit {
     });
   }
 
-  addtattoo(tattooForm){
+  addtattoo(tattooForm : FormGroup){
 
     if (tattooForm.valid ) {
       this.db.collection("Tattoo").doc().set(this.tattoo);

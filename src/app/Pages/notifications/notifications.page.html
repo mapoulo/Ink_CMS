@@ -7,12 +7,18 @@
           <p class="paragragh">Admin</p>
           </div>
           <div class="notifation">
-              <ion-button shape="block" color="light" size="large" fill="clear" (click)="goToNotificationsPage()">
+              <ion-button shape="block" color="light" size="large" fill="clear">
                   <ion-icon name="notifications-outline"></ion-icon>
                 </ion-button>
-              <ion-badge class="badge" color="light">77</ion-badge>
+              <ion-badge class="badge" color="light">{{notifications}}</ion-badge>
           </div>
        
+
+          <ion-button shape="block" color="light" size="large" fill="clear" (click)="home()">
+            <ion-icon name="home"></ion-icon>
+          </ion-button>
+
+
     </aside>
     <section class="content-container"> 
         <header class="header">
@@ -33,11 +39,13 @@
                                           <div class="booking-item" *ngFor = "let item of Bookings; let i = index" (click)="save(item, i)">
                                               <div class="tattoo-booking-image"><img src="{{item.obj.image}}" alt=""></div>
                                               <div class="info-booking">
-                                              <h4>{{item.obj.description}}</h4>                                           <p>Breadth:{{item.obj.breadth}}cm</p>
+                                              <p class="description">{{item.obj.description | slice: '40'}}</p>                                           
+                                              <p>Breadth:{{item.obj.breadth}}cm</p>
                                               <p>Length:{{item.obj.length}}cm</p>
                                              </div>
                                            <div class="call-booking">
                                         <ion-fab-button class="fab-btn" size="small" color="success" (click)="callNow(number)">
+                                        <ion-fab-button class="fab-btn" size="small" color="success" (click)="call(item.obj.number)">
                                     <ion-icon style="font-size: 2.5vh;" name="call"></ion-icon>
                                  </ion-fab-button>
                               </div>
@@ -50,7 +58,7 @@
 
 
             <div class="respond-container">
-                 <div class="calendar-container"> 
+                 <div class="calendar-container"  *ngIf="obj.image"> 
 
                    <div class="month">
                     <h4>Pick a day in which you will be available</h4>
@@ -102,7 +110,7 @@
                      <ion-button class="btn-respond" shape="block" color="secondary" (click)="addEvent()">Respond</ion-button>
                   </div>
       
-                  <div class="details-profile">
+                  <div class="details-profile" *ngIf="obj.image">
                       <div class="profile-container">
                           <div class="profile"><img src="{{obj.image}}" alt="tattoo" (click)="goProfilePage()"></div>
                         <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}</p>
@@ -120,9 +128,9 @@
                             </ion-card-content>
                         </ion-card>
                   </div> 
-                  <!-- <div class="select-card-first">
+                   <div class="select-card-first" *ngIf="!obj.image">
                     <p>Please select a card to display information and respond</p>
-                  </div> -->
+                  </div> 
             </div>
            
           

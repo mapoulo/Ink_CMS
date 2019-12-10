@@ -1,3 +1,4 @@
+import { DataService } from './../../data.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -8,6 +9,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import { Chart } from 'chart.js';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+
 
 
 @Component({
@@ -22,6 +24,8 @@ export class LandingPage implements OnInit {
   
   // @ViewChild('barChart',  { static: false }) barChart;
   Accepted = []
+
+  notifications : number = 0;
 
   bars: any;
   colorArray: any;
@@ -48,7 +52,9 @@ Tattoos = [];
   p: number = 0;
   r : number = 0;
   o: number = 0;
-  constructor(public alertController:AlertController,private callNumber: CallNumber,private platform: Platform,public rout : Router,private auth: AuthenticationService,public modalController: ModalController, public alertCtrl: AlertController) { }
+  number : number = 0;
+
+  constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
   ionViewDidEnter() {
@@ -66,7 +72,7 @@ Tattoos = [];
         datasets: [
           {
           label: ['All bookings'] ,
-          data: [this.o ],
+          data: [this.o, 3 ],
           backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
           borderWidth: 2,
@@ -75,8 +81,8 @@ Tattoos = [];
         {
           label: ['Accepted'] ,
           data: [this.n],
-          backgroundColor: 'green', // array should have same number of elements as number of dataset
-          borderColor: 'green',// array should have same number of elements as number of dataset
+          backgroundColor: '#7bc850', // array should have same number of elements as number of dataset
+          borderColor: '#7bc850',// array should have same number of elements as number of dataset
           borderWidth: 2
         },
 
@@ -84,16 +90,17 @@ Tattoos = [];
         {
           label: ['Declined'] ,
           data: [this.p],
-          backgroundColor: 'red', // array should have same number of elements as number of dataset
-          borderColor: 'red',// array should have same number of elements as number of dataset
+          backgroundColor: '#D66E53', // array should have same number of elements as number of dataset
+          borderColor: '#D66E53',// array should have same number of elements as number of dataset
           borderWidth: 2
         },
         {
           label: ['All users'] ,
           data: [this.r],
-          backgroundColor: 'blue', // array should have same number of elements as number of dataset
-          borderColor: 'blue',// array should have same number of elements as number of dataset
+          backgroundColor: 'sunflowerblue', // array should have same number of elements as number of dataset
+          borderColor: 'sunflowerblue',// array should have same number of elements as number of dataset
           borderWidth: 2
+          
         }
       ]
       },
@@ -145,7 +152,7 @@ Tattoos = [];
     })
     }
     async alert(){
-      const alert = await this.alertController.create({
+      const alert = await this.alertCtrl.create({
         header: 'Calling',
 
         subHeader: 'Call funcion is not supported on the browser ',
@@ -168,6 +175,54 @@ Tattoos = [];
 
 
   ionViewWillEnter(){
+
+    let MyArray = [];
+    let Bookings = [];
+    let id = {docid: "", auId: "",   obj : {}};
+    let autId = "";
+    
+   
+     this.db.collection('Bookings').get().then(res => {
+       res.forEach(e => {
+         id.docid = e.id;
+         id.obj = e.data();
+         MyArray.push(id);
+         id = {docid: "", auId: "", obj : {}};
+  
+       
+       })
+  
+       this.notifications = 0;
+       this.data.notification = 0;
+
+       MyArray.forEach(item => { 
+        this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
+          i.forEach(o => {
+            
+          
+
+            if(o.data().bookingState === "waiting"){
+              //  Bookingid.docid = o.id;
+              //  Bookingid.obj = o.data();
+              //  console.log("uuuuuuuuuuuuuuuu",o.id);
+              id.obj = o.data();
+              id.auId = o.id;
+
+        
+             
+               this.notifications += 1;
+              this.data.notification += 1;
+               
+              Bookings.push(id);
+              id = {docid: "", auId: "", obj : {}};
+  
+            }
+          
+          })
+        })
+      })
+     })
+
 
     let firetattoo = {
       docid: '',

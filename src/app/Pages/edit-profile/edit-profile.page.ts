@@ -1,3 +1,4 @@
+import { firebaseConfig } from './../../Environment';
 import { ModalController } from '@ionic/angular';
 import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
@@ -25,6 +26,9 @@ export class EditProfilePage implements OnInit {
 
   };
 
+  storage = firebase.storage().ref();
+  image1 = "";
+
   email : string;
   phoneNumber : string;
   name : string;
@@ -45,9 +49,8 @@ export class EditProfilePage implements OnInit {
     this.db.collection("Admin").get().then(data => {
       data.forEach(item => {
       
-        this.MyData.name = item.data().name,
-        
-        
+    this.MyData.name = item.data().name,   
+    this.MyData.image = item.data().image,
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
     this.MyData.phoneNumber = item.data().phoneNumber,
@@ -69,6 +72,30 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
   pdf: ""
 })
     this.dismiss() 
+  }
+
+
+  Editimage(event){
+ 
+
+    const i = event.target.files[0];
+    console.log(i);
+    const upload = this.storage.child(i.name).put(i);
+    upload.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('upload is: ', progress , '% done.');
+    }, err => {
+    }, () => {
+      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+        console.log('File avail at: ', dwnURL);
+        this.image1 = dwnURL;
+
+        
+      });
+    });
+  
+    
+    
   }
 
   
