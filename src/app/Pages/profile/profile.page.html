@@ -35,11 +35,11 @@
                       <ion-icon name="create"></ion-icon>
                     </ion-fab-button>
                     <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
-                    <article *ngFor="let admin of Admin">
-                    <h4>Name : {{ admin.name}}</h4>
-                    <p>{{ admin.email}}</p>
-                    <p>Address : {{ admin.address}}</p>
-                    <p>Phone Number : {{ admin.phoneNumber}}</p>
+                    <article>
+                    <h4>Name : {{ profile.name}}</h4>
+                    <p>{{ profile.email}}</p>
+                    <p>Address : {{ profile.address}}</p>
+                    <p>Phone Number : {{ profile.phone}}</p>
                     </article>
                    
                   </div>
@@ -48,27 +48,24 @@
               </ion-fab-button>
            </div>
 
+
             <div class="upload-contract">
               <h1>Upload a Contract for your Users</h1>
               <p class="policy">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolore qui necessitatibus officia vero voluptatibus, officiis perferendis tempora nesciunt asperiores, sint corrupti unde maiores consequatur, sequi error consequuntur deleniti doloribus!</p>
-              <input type="file" class="file-opener" name="pdf" [(ngModel)]="pdf">
-              {{pdf}}
+              <ion-input class="pdf-upload"  type="file" accept="pdf/*" (change)="changeListener($event)"></ion-input>
             </div>
             <div class="list-contract">
               <div class="btn-download">
-                <ion-fab-button size="small" color="success"><ion-icon name="download"></ion-icon></ion-fab-button>
-                <p>Contract007.pdf DOWNLOAD</p>
+
+                  <!-- <ion-fab-button color="success" (click)="download()"><ion-icon name="download"></ion-icon></ion-fab-button> -->
+
+
+                <p>{{profile.pdf}}</p>
               
-                <ion-button fill="clear" color="secondary" size="large"><ion-icon name="trash"></ion-icon></ion-button>
+                <ion-button fill="clear" color="secondary" size="large" (click)="DeleteData()"><ion-icon name="trash"></ion-icon></ion-button>
 
               </div>
-              <div class="btn-download">
-                  <ion-fab-button color="success"><ion-icon name="download"></ion-icon></ion-fab-button>
-                  <p>Contract007.pdf DOWNLOAD</p>
-                
-                  <ion-button fill="clear" color="secondary" size="large"><ion-icon name="trash"></ion-icon></ion-button>
-  
-                </div>
+            
             </div>
            </div>
        </section>

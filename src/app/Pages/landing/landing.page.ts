@@ -48,7 +48,7 @@ Tattoos = [];
   p: number = 0;
   r : number = 0;
   o: number = 0;
-  constructor(private callNumber: CallNumber,private platform: Platform,public rout : Router,private auth: AuthenticationService,public modalController: ModalController, public alertCtrl: AlertController) { }
+  constructor(public alertController:AlertController,private callNumber: CallNumber,private platform: Platform,public rout : Router,private auth: AuthenticationService,public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
   ionViewDidEnter() {
@@ -128,17 +128,41 @@ Tattoos = [];
         }
       });
   }
-     
+    call(){
+      console.log('number')
+    } 
 
+    callNow(number) {
+      this.platform.ready().then(() => {
+      if (this.platform.is('cordova')){
+      this.callNumber.callNumber(number, true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => console.log('Error launching dialer', err));
+    }else {
+      console.log('you are calling now');
+      this.alert() 
+    }
+    })
+    }
+    async alert(){
+      const alert = await this.alertController.create({
+        header: 'Calling',
 
-callNow(number) {
-  console.log(number)
-  if (this.platform.is('cordova')){
-  this.callNumber.callNumber(number, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
-}
-}
+        subHeader: 'Call funcion is not supported on the browser ',
+    
+        buttons: [{
+          text: 'Ok',
+          role: 'Ok',
+          cssClass: 'secondary',
+          handler: (result) => {
+            
+          
+          }
+        }]
+      });
+      await alert.present();
+    }
+    
  
   obj = {id: null, obj : null}
 
@@ -319,7 +343,7 @@ goProfilePage(){
 
       const alert = await this.alertCtrl.create({
         header: 'DELETE!',
-        message: '<strong>Are you sure you want to delete this tattoo?</strong>!!!',
+        message: '<strong>Are you sure you want to delete this tattoo?</strong>',
         buttons: [
           {
             text: 'Cancel',
