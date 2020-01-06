@@ -47,10 +47,22 @@
                       </ion-item>
                       <p class="error" *ngIf="TattooName.hasError('required') && (TattooName.touched || TattooName.dirty)">Please enter Tattoo Name</p>  
                    <ion-item>
+
+          
+            
                         <ion-label position="floating">Pricerange</ion-label>
-                        <ion-input type="number" formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  placeholder="{{priceRange}}"></ion-input>
+                        <ion-range min="1000" max="2000" step="100" snaps="true" color="secondary"formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  placeholder="{{priceRange}}"></ion-range>
+                        <!-- <ion-input type="number" formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  placeholder="{{priceRange}}"></ion-input> -->
                       </ion-item>
                       <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
+                     <ion-item>
+                      <ion-label position="floating">Pricerange</ion-label>
+                      <ion-range min="1000" max="2000" step="100" snaps="true" ticks="false" color="secondary"formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  placeholder="{{priceRange}}"></ion-range>
+                      <!-- <ion-input type="number" formControlName="priceRange"  name="pricerange"  [(ngModel)]="tattoo.pricerange"  placeholder="{{priceRange}}"></ion-input> -->
+                    </ion-item>
+                    <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
+
+
                   <ion-item>
                           <ion-label position="floating">Categories</ion-label>
                           <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >

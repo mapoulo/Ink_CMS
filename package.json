@@ -44,7 +44,8 @@
     "platform": "^1.3.5",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "cordova-browser": "~4.0.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.801.2",
@@ -76,7 +77,10 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "mx.ferreyra.callnumber": "~0.0.2",
+    "cordova-plugin-file": "~4.1.1",
+    "cordova-plugin-file-transfer": "~1.5.1"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -93,8 +97,14 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-filechooser": {},
-      "cordova-plugin-firebase": {}
+      "cordova-plugin-firebase": {},
+      "mx.ferreyra.callnumber": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-transfer": {}
     },
-    "platforms": []
+    "platforms": [
+      "android",
+      "browser"
+    ]
   }
 }

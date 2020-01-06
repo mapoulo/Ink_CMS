@@ -179,7 +179,7 @@ image(event){
 
       const alert = await this.alertCtrl.create({
         header: 'Delete',
-        message: '',
+        message: 'Are you sure you want to delete the Contract?',
         buttons: [
           {
             text: 'Cancel',
