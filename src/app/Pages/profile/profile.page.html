@@ -31,6 +31,10 @@
            <div class="top-profile">
               <div class="profiles-info">
 
+
+                <button (cilck)="upl()">Upllooaad</button>
+
+                
                   <div   class="profile" style="height: 20vh; width: 20vh;">
                     <ion-fab-button class="btn-edit-image" color="light" size="small" >
                       <ion-icon name="create"></ion-icon>
@@ -54,15 +58,19 @@
             <div class="upload-contract">
               <h1>Upload a Contract for your Users</h1>
               <p class="policy">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolore qui necessitatibus officia vero voluptatibus, officiis perferendis tempora nesciunt asperiores, sint corrupti unde maiores consequatur, sequi error consequuntur deleniti doloribus!</p>
-              <input type="file" class="file-opener" name="pdf" [(ngModel)]="pdf">
+
+            <ion-input class="pdf-upload"  type="file" accept="pdf/*" (change)="changeListener($event)"></ion-input>
               {{pdf}}
 
-              <button>PDF</button>
+              <!-- <button>PDF</button> -->
             </div>
             <div class="list-contract">
               <div class="btn-download">
                 <ion-fab-button size="small" color="success"><ion-icon name="download"></ion-icon></ion-fab-button>
                 <p>Contract007.pdf DOWNLOAD</p>
+
+                
+                <button  (click)="download()" >Download File</button>
               
                 <ion-button fill="clear" color="secondary" size="large"><ion-icon name="trash"></ion-icon></ion-button>
 

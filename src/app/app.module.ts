@@ -7,12 +7,11 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TattooPageModule } from './Pages/tattoo/tattoo.module';
 import { Camera } from '@ionic-native/camera/ngx';
-import *as firebase from 'firebase';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module';
-
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 
 @NgModule({
@@ -22,7 +21,7 @@ import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module'
   providers: [Camera,
 
     StatusBar,
-
+    FileOpener,
     AuthGuardService,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
