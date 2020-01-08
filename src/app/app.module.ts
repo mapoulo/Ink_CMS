@@ -12,14 +12,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { FileTransfer,FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TattooPageModule, EditProfilePageModule],
-  providers: [Camera,
-
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TattooPageModule,EditProfilePageModule],
+  providers: [Camera,CallNumber ,
+    FileTransfer,
+    // FileUploadOptions,
+    FileTransferObject,
+    File,
+    
     StatusBar,
     FileOpener,
     AuthGuardService,
