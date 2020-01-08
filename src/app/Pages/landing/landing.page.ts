@@ -8,6 +8,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 import { Chart } from 'chart.js';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 
 
@@ -53,7 +54,7 @@ Tattoos = [];
   o: number = 0;
   number : number = 0;
 
-  constructor(public data : DataService, private platform: Platform,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+  constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
   ionViewDidEnter() {
@@ -134,10 +135,41 @@ Tattoos = [];
         }
       });
   }
-     
+    call(){
+      console.log('number')
+    } 
 
+    callNow(number) {
+      this.platform.ready().then(() => {
+      if (this.platform.is('cordova')){
+      this.callNumber.callNumber(number, true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => console.log('Error launching dialer', err));
+    }else {
+      console.log('you are calling now');
+      this.alert() 
+    }
+    })
+    }
+    async alert(){
+      const alert = await this.alertCtrl.create({
+        header: 'Calling',
 
-
+        subHeader: 'Call funcion is not supported on the browser ',
+    
+        buttons: [{
+          text: 'Ok',
+          role: 'Ok',
+          cssClass: 'secondary',
+          handler: (result) => {
+            
+          
+          }
+        }]
+      });
+      await alert.present();
+    }
+    
  
   obj = {id: null, obj : null}
 
@@ -369,7 +401,7 @@ goProfilePage(){
 
       const alert = await this.alertCtrl.create({
         header: 'DELETE!',
-        message: '<strong>Are you sure you want to delete this tattoo?</strong>!!!',
+        message: '<strong>Are you sure you want to delete this tattoo?</strong>',
         buttons: [
           {
             text: 'Cancel',

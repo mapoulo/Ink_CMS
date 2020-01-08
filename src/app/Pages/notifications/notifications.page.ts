@@ -6,6 +6,7 @@ import { AlertController,Platform } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 
 @Component({
@@ -68,7 +69,7 @@ notifications : number = 0;
     auId : ''
   };
 
-  constructor(public data : DataService, private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+  constructor(public alertController:AlertController, public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
     
@@ -166,14 +167,36 @@ notifications : number = 0;
     this.rout.navigateByUrl('/profile')
   
   }
-/*   callNow(number) {
-    console.log(number)
-    if (this.platform.is('cordova')){
-    this.callNumber.callNumber(number, true)
-      .then(res => console.log('Launched dialer!', res))
-      .catch(err => console.log('Error launching dialer', err));
-  }
-  } */
+  
+callNow(number) {
+  this.platform.ready().then(() => {
+  if (this.platform.is('cordova')){
+  this.callNumber.callNumber(number, true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
+}else {
+  console.log('you are calling now');
+  this.alert() 
+}
+})
+}
+async alert(){
+  const alert = await this.alertController.create({
+    header: 'Calling',
+    subHeader: 'Call funcion is not supported on the browser ',
+
+    buttons: [{
+      text: 'Ok',
+      role: 'Ok',
+      cssClass: 'secondary',
+      handler: (result) => {
+        
+      
+      }
+    }]
+  });
+  await alert.present();
+}
 
   resetEvent() {
     this.event = {
@@ -309,7 +332,7 @@ notifications : number = 0;
     swiper.slidePrev();
   }
 
-  // Change between month/week/day
+
   changeMode(mode) {
     this.calendar.mode = mode;
   }

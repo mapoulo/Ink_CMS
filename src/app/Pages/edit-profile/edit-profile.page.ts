@@ -21,7 +21,8 @@ export class EditProfilePage implements OnInit {
     email :  "",
     address : "",
     phoneNumber : "",
-    auId : ""
+    auId : "",
+    pdf: ""
 
   };
 
@@ -67,7 +68,8 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
   email:this.MyData.email,
   name:this.MyData.name,
   image:this.MyData.image,
-  phoneNumber:this.MyData.phoneNumber
+  phoneNumber:this.MyData.phoneNumber,
+  pdf: ""
 })
     this.dismiss() 
   }

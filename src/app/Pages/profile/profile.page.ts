@@ -4,9 +4,12 @@ import { Component, OnInit} from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -32,18 +35,39 @@ image1  = ""
 email=""
  db = firebase.firestore();
  Admin = [];
-  profile:{
+  profile={
 
-
+    name: '',
+    address: '',
+    phone: '',
+    email: '',
+    pdf: ''
 
 
 }
+
+
+profile1 ={
+
+  name: '',
+  address: '',
+  phoneNumber: '',
+  email: '',
+  
+  
+}
+
   toastCtrl: any;
   notifications : number = 0;
  
   storage = firebase.storage().ref();
-  constructor(public data : DataService, public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,) { }
 
+
+  constructor(private alertCtrl:AlertController, public data : DataService,public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,private file:File,public fileTransfer : FileTransferObject,  private transfer: FileTransfer) { }
+
+
+
+  
   ngOnInit() {
 
     this.db.collection("Admin").onSnapshot(data => {
@@ -60,7 +84,7 @@ email=""
       this.loader = false;
     }, 2000);
 
-    console.log(this.pdf);
+ 
     
   }
 
@@ -114,8 +138,13 @@ image(event){
           if(item.exists){
             if(item.data().email === this.email){
               
-             this.Admin.push(item.data());
-            
+             this.profile.name = item.data().name;
+             this.profile.address = item.data().address;
+             this.profile.phone = item.data().phoneNumber;
+             this.profile.email = item.data().email;
+             this.profile.pdf = item.data().pdf;
+             
+              
             }
           }
         })
@@ -143,6 +172,73 @@ image(event){
       });
       return await modal.present();
     }
-    
-  }
+  
+      
+  
+    async DeleteData() {
 
+      const alert = await this.alertCtrl.create({
+        header: 'Delete',
+        message: 'Are you sure you want to delete the Contract?',
+        buttons: [
+          {
+            text: 'Cancel',
+            
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          }, {
+            text: 'Delete',
+            handler: data => {
+              
+              this.db.collection("Admin").doc(firebase.auth().currentUser.uid).get().then(data => {
+                console.log("dataaaa ", data.data());
+
+                this.profile1.address = data.data().address;
+                this.profile1.name = data.data().name;
+                this.profile1.email = data.data().email;
+                this.profile1.phoneNumber = data.data().phoneNumber;
+
+                
+                console.log("rrrrrrrrrrrrrr ",  this.profile1);
+                this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set(this.profile1);
+
+              })
+
+             
+            
+            }
+          }
+        ]
+      });
+  
+    
+      await alert.present();
+ 
+    }
+
+    
+
+
+
+  // 
+      changeListener(event): void {
+        const i = event.target.files[0];
+        console.log(i);
+        const upload = this.storage.child(i.name).put(i);
+        upload.on('state_changed', snapshot => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('upload is: ', progress , '% done.');
+            
+           
+          
+        }, err => {
+        }, () => {
+          upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+            console.log('File avail at: ', dwnURL);
+            this.pdf = dwnURL;
+          this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
+          });
+        });
+      }
+}

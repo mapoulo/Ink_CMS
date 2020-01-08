@@ -22,9 +22,8 @@
     "@ionic-native/call-number": "^5.0.0",
     "@ionic-native/camera": "^5.17.0",
     "@ionic-native/core": "^5.0.0",
-    "@ionic-native/file-chooser": "^5.17.1",
-    "@ionic-native/file-transfer": "^4.20.0",
-    "@ionic-native/firebase": "^5.0.0-beta.14",
+    "@ionic-native/file": "^5.18.0",
+    "@ionic-native/file-transfer": "^5.18.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.7.1",
@@ -45,7 +44,8 @@
     "platform": "^1.3.5",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "cordova-browser": "~4.0.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.801.2",
@@ -77,7 +77,10 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "mx.ferreyra.callnumber": "~0.0.2",
+    "cordova-plugin-file": "~4.1.1",
+    "cordova-plugin-file-transfer": "~1.5.1"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -94,8 +97,14 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-filechooser": {},
-      "cordova-plugin-firebase": {}
+      "cordova-plugin-firebase": {},
+      "mx.ferreyra.callnumber": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-transfer": {}
     },
-    "platforms": []
+    "platforms": [
+      "android",
+      "browser"
+    ]
   }
 }
