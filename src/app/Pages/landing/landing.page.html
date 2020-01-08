@@ -1,4 +1,4 @@
-
+<!-- 
 <ion-content>
  <main class="main">
     <aside class="aside-container">
@@ -56,13 +56,13 @@
 
 
       <div class="sub-container">
-          <div class="booking-container">
+          <div class="booking-container"> -->
            <!--   <div class="no-bookings">
               <p>You have no bookings yet.</p>
             </div>  -->
-            <h4 class="booking-header">Booking History</h4>
+           <!--  <h4 class="booking-header">Booking History</h4>
 
-            <div class="bookings-list">
+            <div class="bookings-list"> -->
                 <!-- <div class="booking-item">
                       <div class="tattoo-booking-image"><img src="../../../assets/chris-blonk-aTiGszXqrJE-unsplash.jpg" alt=""></div>
                       <div class="info-booking">
@@ -77,13 +77,13 @@
                           </div>
                     </div> -->
 
-                    <div class="booking-item"  *ngFor = "let item of Accepted">
+                    <!-- div class="booking-item"  *ngFor = "let item of Accepted">
                         <div class="tattoo-booking-image"><img src="{{item.image}}" alt=""></div>
                         <div class="info-booking">
                             <h4>Tattoo Name dskjbsdkfbj</h4>
-                            <p>Date : {{item.bookingState}} - {{item.endingDate}}</p>
+                            <p>Date : {{item.bookingState}} - {{item.endingDate}}</p> -->
                             <!-- <p>Length: 10cm & Breadth: 5cm</p> -->
-                          </div>
+                          <!-- </div>
                           <div class="call-booking">
                               <ion-fab-button class="fab-btn" size="small" color="success">
                                 <ion-icon style="font-size: 2.5vh;" name="call"></ion-icon>
@@ -120,4 +120,94 @@
       
     </section>
  </main>
+</ion-content> -->
+  
+<ion-content>
+  <div class="main">
+    <div class="aside">
+        <div class="profile-container">
+            <div class="profile-img-blick"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
+          <p class="paragragh">Admin</p>
+          </div>
+          <div class="notifation">
+              <ion-button shape="block" color="light" fill="clear" size="large" (click)="goToNotificationsPage()">
+                  <ion-icon name="notifications-outline"></ion-icon>
+                </ion-button>
+              <ion-badge class="badge" color="light">{{notifications}}</ion-badge>
+          </div>
+       
+    </div>
+    <div class="container">
+      <div class="header-container">
+        <h1 class="h1-header">Content Management System</h1>
+      </div>
+      <div class="scroll-container">
+        <div class="card-horizontal-scroll">
+          <div class="card-list-item">
+              <ion-fab-button size="small" (click)="openModal(1, {})" color="light"><ion-icon name="add"></ion-icon></ion-fab-button>
+          </div>
+        </div>
+        <div class="card-horizontal-scroll" *ngFor="let tattoo of Tattoos">
+            <div class="card-list-item">
+                <img src="{{tattoo.image}}" alt="">
+                <div class="info-tattoo">
+                    <article>
+                      <h4 >{{ tattoo.name}}</h4>
+                      <p>{{tattoo.pricerange}}</p>
+                      <p>{{tattoo.description}} </p>
+                      
+         
+                    </article>
+                  </div> 
+                <div class="button-edit-delete">
+                    <ion-button  (click)="DeleteData(tattoo)" fill="clear" color="light"><ion-icon name="trash"></ion-icon></ion-button>
+                    <ion-button (click)="openModal(0, tattoo)"  fill="clear" color="light"><ion-icon name="create"></ion-icon></ion-button>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="booking-container">
+        <div class="list-booking">
+          <div class="header-booking">
+            <h3 class="h1-header bookings-header">All Users bookings</h3>
+          </div>
+          <div class="items-booked">
+             <!--  <div class="no-bookings">
+                  <p>You have no bookings yet.</p>
+                </div> -->
+            
+               <div class="booked-card" *ngFor = "let item of Accepted">
+                  <div class="c">
+                    <div class="image">
+                        <img src="{{item.data.image}}" alt="">
+                    </div>
+                    <div class="info">
+                      <p style="background: mediumaquamarine; color: #fff">Status {{item.data.bookingState}}</p>
+                      <p>Start Date: {{item.data.endingDate | date: 'shortDate'}}</p>
+
+                    </div>
+                   <!--  <div class="call">
+                      <ion-button fill="clear" (click)="DeleteHistory(item.id)" color="light" size="small">
+                        <ion-icon name="trash"></ion-icon>
+                      </ion-button>
+                    </div>  -->
+                 
+                  </div>
+                 </div> 
+          </div>
+        </div>
+        <div class="gragh-container">
+
+             <div class="graph">
+               <div class="header-container">
+                 <h4 class="h1-header bookings-header" style="padding-top: 15px;">Analytics</h4>
+               </div>
+                <canvas #barChart>Acepted</canvas>
+                  <canvas #barChart>Declined</canvas>
+                  <canvas #barChart>All Bookings</canvas>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
