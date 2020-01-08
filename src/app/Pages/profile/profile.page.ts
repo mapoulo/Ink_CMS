@@ -7,8 +7,6 @@ import * as firebase from 'firebase';
 import { Platform, AlertController } from '@ionic/angular';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
 import { merge } from 'rxjs';
 
 @Component({
@@ -63,7 +61,7 @@ profile1 ={
   storage = firebase.storage().ref();
 
 
-  constructor(private alertCtrl:AlertController, public data : DataService,public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController,private file:File,public fileTransfer : FileTransferObject,  private transfer: FileTransfer) { }
+  constructor(private alertCtrl:AlertController, public data : DataService,public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController) { }
 
 
 

@@ -13,8 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-import { FileTransfer,FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
+
+
 
 
 @NgModule({
@@ -22,13 +22,7 @@ import { File } from '@ionic-native/file/ngx';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TattooPageModule,EditProfilePageModule],
   providers: [Camera,CallNumber ,
-    FileTransfer,
-    // FileUploadOptions,
-    FileTransferObject,
-    File,
-    
     StatusBar,
-
     AuthGuardService,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
