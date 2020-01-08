@@ -82,7 +82,7 @@ profile1 ={
       this.loader = false;
     }, 2000);
 
- 
+    console.log("This is your pdf",this.pdf);
     
   }
 
@@ -91,6 +91,8 @@ profile1 ={
     this.rout.navigateByUrl('/notifications')
 
 }
+
+
 
 image(event){
  
@@ -151,12 +153,49 @@ image(event){
 
   
     }
+  
 
 
+
+    changeListener(event): void {
+      const i = event.target.files[0];
+      console.log(i);
+      const upload = this.storage.child(i.name).put(i);
+      upload.on('state_changed', snapshot => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('upload is: ', progress , '% done.');
+          
+         
+        
+      }, err => {
+      }, () => {
+        upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+          console.log('File avail at: ', dwnURL);
+          this.pdf = dwnURL;
+        this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
+        });
+      });
+    }
+
+
+  //   download() {
+
+  //     this.fileOpener.open(this.pdf, 'application/pdf')
+  // .then(() => console.log('File is opened'))
+  // .catch(e => console.log('Error opening file', e));
+
+  //     // const fileTransfer: FileTransferObject = this.transfer.create();
+  //     // fileTransfer.download(this.pdf, this.file.dataDirectory + 'file.pdf').then((entry) => {
+  //     //   console.log('download complete: ' + entry.toURL());
+  //     // }, (error) => {
+  //     //   // handle error
+  //     // });
+      
+  //   }
     
 
   async  createModal(){
-
+       
     }
 
 
@@ -219,7 +258,7 @@ image(event){
 
 
 
-  // 
+/*   // 
       changeListener(event): void {
         const i = event.target.files[0];
         console.log(i);
@@ -238,5 +277,5 @@ image(event){
           this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
           });
         });
-      }
+      } */
 }

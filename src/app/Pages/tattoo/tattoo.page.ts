@@ -133,6 +133,8 @@ export class TattooPage implements OnInit {
 
 
   changeListener(event): void {
+    console.log("My Method is Called");
+    
     const i = event.target.files[0];
     console.log(i);
     const upload = this.storage.child(i.name).put(i);

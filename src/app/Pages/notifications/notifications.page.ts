@@ -52,6 +52,7 @@ notifications : number = 0;
 
 
   Bookings = [];
+  number = 0;
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
 
@@ -89,10 +90,17 @@ notifications : number = 0;
        console.log("wwwwwwwwwwww", this.MyArray);
      })
 
+
+    
      this.MyArray.forEach(item => { 
+
+     
       this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
+
+        this.number  = 0;
+
         i.forEach(o => {
-          
+       
           if(o.data().bookingState === "waiting"){
             //  Bookingid.docid = o.id;
             //  Bookingid.obj = o.data();
@@ -108,8 +116,12 @@ notifications : number = 0;
           }
         
         })
+
+        this.number = this.MyArray.length;
       })
     })
+
+   
    })
 
   }
