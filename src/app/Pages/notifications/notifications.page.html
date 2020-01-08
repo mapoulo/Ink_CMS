@@ -12,16 +12,10 @@
                 </ion-button>
               <ion-badge class="badge" color="light">{{number}}</ion-badge>
           </div>
-       
-
-          <ion-button shape="block" color="light" size="large" fill="clear" (click)="home()">
-            <ion-icon name="home"></ion-icon>
-          </ion-button>
-
-
     </aside>
     <section class="content-container"> 
         <header class="header">
+          <ion-button fill="clear" (click)="home()" color="dark"><ion-icon name="arrow-back"></ion-icon></ion-button>
             <h1 class="first-header">All Requests</h1>
           </header>
           <div class="sub-container">
@@ -34,8 +28,7 @@
                     <!--   <div class="no-bookings">
                        <p>You have no bookings yet.</p>
                      </div>   -->
-                 <p style="font-size: 80%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis impedit amet doloribus reprehenderit quisquam sunt corporis nisi labore consequatur consectetur nesciunt, quia iste corrupti necessitatibus illo velit eos quod esse.</p>
-                     <div class="bookings-list">
+                <div class="bookings-list">
                                           <div class="booking-item" *ngFor = "let item of Bookings; let i = index" (click)="save(item, i)">
                                               <div class="tattoo-booking-image"><img src="{{item.obj.image}}" alt=""></div>
                                               <div class="info-booking">
@@ -43,12 +36,11 @@
                                               <p>Breadth:{{item.obj.breadth}}cm</p>
                                               <p>Length:{{item.obj.length}}cm</p>
                                              </div>
-                                           <div class="call-booking">
-                                        <ion-fab-button class="fab-btn" size="small" color="success" (click)="callNow(number)">
+                                         <!--   <div class="call-booking">
                                         <ion-fab-button class="fab-btn" size="small" color="success" (click)="call(item.obj.number)">
                                     <ion-icon style="font-size: 2.5vh;" name="call"></ion-icon>
                                  </ion-fab-button>
-                              </div>
+                              </div> -->
                             </div>
                       </div> 
                 
@@ -110,13 +102,19 @@
                      <ion-button class="btn-respond" shape="block" color="secondary" (click)="addEvent()">Respond</ion-button>
                   </div>
       
-                  <div class="details-profile" *ngIf="obj.image">
+                  <div class="details-profile" padding *ngIf="obj.image">
                       <div class="profile-container">
                           <div class="profile"><img src="{{obj.image}}" alt="tattoo" (click)="goProfilePage()"></div>
                         <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}</p>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi fuga odit eius corporis porro, laudantium at tenetur incidunt, mollitia deserunt dignissimos alias atque voluptates amet minus. Rem adipisci consequatur modi?</p>
-                        <ion-card class="card-tattoos">
+                        <div class="card">
+                          <div class="image"><img src="{{obj.image}}" alt="tattoo images"></div>
+                          <div class="card-details">
+                          <p>{{obj.description}}</p>
+                          </div>
+                        </div>
+                        
+                        <!--    <ion-card class="card-tattoos">
                           <div class="tattoo-image-profile">
                             <img src="{{obj.image}}" alt="tattoo images">
                           </div>
@@ -126,7 +124,7 @@
                             <ion-card-content>
                               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam odio ut nulla illum omnis tempore, at magnam, esse vero architecto, quo mollitia suscipit culpa corrupti! Asperiores reiciendis labore consequatur nobis?
                             </ion-card-content>
-                        </ion-card>
+                        </ion-card> -->
                   </div> 
                    <div class="select-card-first" *ngIf="!obj.image">
                     <p>Please select a card to display information and respond</p>

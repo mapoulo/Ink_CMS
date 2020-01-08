@@ -59,7 +59,7 @@ Tattoos = [];
 
   ionViewDidEnter() {
  
-
+ 
   
   }
 
@@ -317,7 +317,7 @@ Tattoos = [];
        
        if(item.data().bookingState === "Accepted"){
         console.log("Users ", item.data() );
-        this.Accepted.push(item.data())
+        this.Accepted.push({id: item.id, data: item.data()})
        }
       
        
@@ -396,6 +396,9 @@ goProfilePage(){
 
     async DeleteData(tattoo) {
 
+      console.log(tattoo);
+      
+
       const alert = await this.alertCtrl.create({
         header: 'DELETE!',
         message: '<strong>Are you sure you want to delete this tattoo?</strong>',
@@ -410,6 +413,35 @@ goProfilePage(){
             text: 'Delete',
             handler: data => {
               this.db.collection("Tattoo").doc(tattoo.docid).delete();
+              
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+ 
+    }
+
+    async DeleteHistory(tattoo) {
+
+      console.log(tattoo);
+      
+
+      const alert = await this.alertCtrl.create({
+        header: 'DELETE!',
+        message: '<strong>Are you sure you want to delete this tattoo?</strong>!!!',
+        buttons: [
+          {
+            text: 'Cancel',
+            
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          }, {
+            text: 'Delete',
+            handler: data => {
+              this.db.collection("Users").doc(tattoo).delete();
               
             }
           }
