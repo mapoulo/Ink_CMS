@@ -185,21 +185,6 @@ editData(){
       });
     }
 
-
-  //   download() {
-
-  //     this.fileOpener.open(this.pdf, 'application/pdf')
-  // .then(() => console.log('File is opened'))
-  // .catch(e => console.log('Error opening file', e));
-
-  //     // const fileTransfer: FileTransferObject = this.transfer.create();
-  //     // fileTransfer.download(this.pdf, this.file.dataDirectory + 'file.pdf').then((entry) => {
-  //     //   console.log('download complete: ' + entry.toURL());
-  //     // }, (error) => {
-  //     //   // handle error
-  //     // });
-      
-  //   }
     
 
   async  createModal(){
