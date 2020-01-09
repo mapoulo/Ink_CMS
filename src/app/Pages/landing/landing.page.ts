@@ -68,7 +68,7 @@ Tattoos = [];
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'bar',
       data: {
-        labels:['All bookings', 'Accepted', 'Declined','All users'], 
+        // labels:['All bookings', 'Accepted', 'Declined','All users'], 
         datasets: [
           {
           label: ['All bookings'] ,
@@ -328,8 +328,7 @@ Tattoos = [];
 
 
   goToNotificationsPage(){
-
-    this.rout.navigateByUrl('/notifications')
+this.rout.navigateByUrl('/notifications')
 }
 
 

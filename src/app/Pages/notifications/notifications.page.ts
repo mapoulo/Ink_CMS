@@ -7,7 +7,8 @@ import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-
+import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-notifications',
@@ -31,7 +32,7 @@ notifications : number = 0;
   name: string = "Nkwe";
   surname: string = "Mapoulo";
 
-  price : number = 0;
+  price : number ;
 
   NewName: string;
   NewSurname: string;
@@ -43,13 +44,17 @@ notifications : number = 0;
 
   calendar = {
     mode: 'month',
-    currentDate: new Date()
+    currentDate: new Date(),
+ 
   };
+
 
   lockSwipeToPrev;
 
   @ViewChild(CalendarComponent, { static: false }) myCal: CalendarComponent;
 
+
+  
 
   Bookings = [];
   ClickedObjeck = {description: "", name : ""};
@@ -68,10 +73,29 @@ notifications : number = 0;
     uid : '',
     auId : ''
   };
+  tattooForm : FormGroup;
+  validation_messages = {
+    'Price': [
+      { type: 'required', message: 'Price  is required.' },
 
-  constructor(public alertController:AlertController, public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+    ],
+    
+  }
+      
+      
+  constructor(private fb: FormBuilder,public alertController:AlertController, public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+    
+    this.tattooForm = this.fb.group({
+      price: new FormControl('', Validators.compose([Validators.required])),
+   
+    })
+  
+  }
 
   ionViewWillEnter() {
+
+
+   
     
 
     this.notifications = this.data.notification
@@ -94,9 +118,7 @@ notifications : number = 0;
         i.forEach(o => {
           
           if(o.data().bookingState === "waiting"){
-            //  Bookingid.docid = o.id;
-            //  Bookingid.obj = o.data();
-            //  console.log("uuuuuuuuuuuuuuuu",o.id);
+           
             id.obj = o.data();
             id.auId = o.id;
            
@@ -118,6 +140,7 @@ notifications : number = 0;
 
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
+  /*  */
   }
 
   goToNotificationsPage(){
@@ -125,6 +148,9 @@ notifications : number = 0;
 }
 
   save(obj, i){
+
+
+    this.slideBack()
     
 
     this.index = i;
@@ -221,34 +247,9 @@ async alert(){
   }
 
 
-  // Create the right event format and reload source
-  async addEvent() {
-
-    // let eventCopy = {
-    //   title: this.event.title,
-    //   startTime: new Date(this.event.startTime),
-    //   endTime: new Date(this.event.endTime),
-    //   allDay: this.event.allDay,
-    //   desc: this.event.desc
-    // }
-
-    // if (eventCopy.allDay) {
-    //   let start = eventCopy.startTime;
-    //   let end = eventCopy.endTime;
-
-    //   eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-    //   eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
-    // }
-
-    // this.eventSource.push(eventCopy);
-    // this.myCal.loadEvents();
-    // this.resetEvent();
-
-
-
-    
   
-
+  async addEvent() {
+    if (this.tattooForm.valid ) {
     if(this.obj.customerName != ""){
 
       console.log("This start time ",this.event.startTime);
@@ -268,7 +269,7 @@ async alert(){
         uid : this.obj.uid,
         auId : this.obj.auId,
       })
-        
+    }
       this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
          startingDate : this.event.startTime,
          endingDate : this.event.endTime,
@@ -279,8 +280,8 @@ async alert(){
          image : this.obj.image,
 
       })
-
-
+      this.tattooForm.reset()
+    
     
 
 
@@ -371,11 +372,19 @@ async alert(){
   }
 
   onCurrentDateChanged(event:Date) {
-    var today = new Date();
+    var today = new Date(0);
     today.setHours(0, 0, 0, 0);
    
 
  
+  }
+
+
+  slideBack() {
+    this.myCal.onCurrentDateChanged.subscribe((date) => {
+      console.log(date);
+        
+    })
   }
 
 }
