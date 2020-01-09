@@ -22,8 +22,9 @@
     "@ionic-native/call-number": "^5.0.0",
     "@ionic-native/camera": "^5.17.0",
     "@ionic-native/core": "^5.0.0",
-    "@ionic-native/file": "^5.18.0",
-    "@ionic-native/file-transfer": "^5.18.0",
+    "@ionic-native/file-opener": "^5.19.1",
+    "@ionic-native/file-transfer": "^4.20.0",
+    "@ionic-native/firebase": "^5.0.0-beta.14",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.7.1",
@@ -36,7 +37,8 @@
     "cordova-android": "8.1.0",
     "cordova-browser": "~4.0.0",
     "cordova-plugin-camera": "^4.1.0",
-    "cordova-plugin-filechooser": "^1.2.0",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-file-opener2": "^2.2.1",
     "cordova-plugin-firebase": "^2.0.5",
     "core-js": "^2.5.4",
     "firebase": "^7.6.1",
@@ -78,9 +80,7 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.4.3",
-    "mx.ferreyra.callnumber": "~0.0.2",
-    "cordova-plugin-file": "~4.1.1",
-    "cordova-plugin-file-transfer": "~1.5.1"
+    "mx.ferreyra.callnumber": "~0.0.2"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -96,15 +96,15 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-filechooser": {},
       "cordova-plugin-firebase": {},
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-file-opener2": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     },
     "platforms": [
-      "android",
-      "browser"
+      "android"
     ]
   }
 }
