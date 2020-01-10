@@ -73,8 +73,8 @@ Tattoos = [];
           {
           label: ['All bookings'] ,
           data: [this.o, 3 ],
-          backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
-          borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
+          backgroundColor: 'rgb(255, 135, 79)', // array should have same number of elements as number of dataset
+          borderColor: 'rgb(255, 135, 79)s',// array should have same number of elements as number of dataset
           borderWidth: 2,
         },
 
@@ -329,8 +329,7 @@ Tattoos = [];
 
 
   goToNotificationsPage(){
-
-    this.rout.navigateByUrl('/notifications')
+this.rout.navigateByUrl('/notifications')
 }
 
 

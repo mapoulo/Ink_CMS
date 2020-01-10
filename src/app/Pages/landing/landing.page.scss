@@ -2422,6 +2422,7 @@
 }
 .card-list-item {
     background: #fff;
+    color: rgb(255, 135, 79);
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -2557,6 +2558,10 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+    background: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.5));
+    background-position: bottom center;
+    background-size: cover;
+    background-repeat: no-repeat;
   
     
 }

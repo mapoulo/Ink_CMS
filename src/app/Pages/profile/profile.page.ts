@@ -32,8 +32,9 @@ export class ProfilePage implements OnInit {
 }
 
 image1  = ""
-
+name=""
 email=""
+phoneNumber=""
  db = firebase.firestore();
  Admin = [];
   profile={
@@ -119,7 +120,14 @@ image(event){
 
   
 }
-
+editData(){
+  console.log("aaaaaaaaaa", this.data.MyData);
+  firebase.firestore().collection("Admin").doc(this.data.MyData.id).update( {
+    name : this.name,
+    phoneNumber : this.phoneNumber,
+    email : this.email
+  });
+}
 
 
   logout(){
@@ -230,6 +238,7 @@ image(event){
         component: EditProfilePage
       });
       return await modal.present();
+      
     }
   
       
