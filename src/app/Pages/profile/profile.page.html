@@ -31,14 +31,11 @@
            <div class="top-profile">
               <div class="profiles-info">
 
-
-                <button (cilck)="upl()">Upllooaad</button>
-
                 
                   <div   class="profile" style="height: 20vh; width: 20vh;">
-                    <ion-fab-button class="btn-edit-image" color="light" size="small" >
+                   <!--  <ion-fab-button class="btn-edit-image" color="light" size="small" >
                       <ion-icon name="create"></ion-icon>
-                    </ion-fab-button>
+                    </ion-fab-button> -->
                     <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
                     <article>
                     <h4>Name : {{ profile.name}}</h4>
@@ -54,25 +51,19 @@
            </div>
 
 
-            <div class="upload-contract">
+      
+          
+<div class="upload-contract">
               <h1>Upload a Contract for your Users</h1>
               <p class="policy">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolore qui necessitatibus officia vero voluptatibus, officiis perferendis tempora nesciunt asperiores, sint corrupti unde maiores consequatur, sequi error consequuntur deleniti doloribus!</p>
-
-            <ion-input class="pdf-upload"  type="file" accept="pdf/*" (change)="changeListener($event)"></ion-input>
-              {{pdf}}
-
-              <!-- <button>PDF</button> -->
+              <ion-input class="pdf-upload"  type="file" accept="pdf/*" (change)="changeListener($event)"></ion-input>
             </div>
             <div class="list-contract">
               <div class="btn-download">
-                <ion-fab-button size="small" color="success"><ion-icon name="download"></ion-icon></ion-fab-button>
-                <p>Contract007.pdf DOWNLOAD</p>
-
-                
-                <button  (click)="download()" >Download File</button>
+                  <!-- <ion-fab-button color="success" (click)="download()"><ion-icon name="download"></ion-icon></ion-fab-button> -->
+                <p>{{profile.pdf}}</p>
               
                 <ion-button fill="clear" color="secondary" size="large" (click)="DeleteData()"><ion-icon name="trash"></ion-icon></ion-button>
-
               </div>
             
             </div>

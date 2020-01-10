@@ -16,12 +16,19 @@
 
 <ion-content padding>
 
+
+  <!-- <img [src]="currentImage" *ngIf="currentImage">
+  <ion-fab-button (click)="takePicture()">
+    <ion-icon name="camera"></ion-icon>
+  </ion-fab-button> -->
+
+
     name: <input type="text" [(ngModel)]="MyData.name" placeholder="{{MyData.name}}"><br />
     address: <input type="text" [(ngModel)]="MyData.address" placeholder="{{MyData.address}}"><br />
     phoneNumber: <input type="text" [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"><br />
     email: <input type="text" [(ngModel)]="MyData.email" placeholder="{{MyData.email}}"><br />
-    <img src="{{image1}}" alt="">
-    <ion-input class="image-upload"  type="file" accept="image/*" (change)="Editimage($event)"></ion-input>
+    <!-- <img src="{{image1}}" alt="">
+    <ion-input class="image-upload"  type="file" accept="image/*" (change)="Editimage($event)"></ion-input> -->
     
     <button (click)="editData()">Edit</button>
 

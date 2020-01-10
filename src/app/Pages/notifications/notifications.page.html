@@ -10,7 +10,7 @@
               <ion-button shape="block" color="light" size="large" fill="clear">
                   <ion-icon name="notifications-outline"></ion-icon>
                 </ion-button>
-              <ion-badge class="badge" color="light">{{number}}</ion-badge>
+              <ion-badge class="badge" color="light">{{notifications}}</ion-badge>
           </div>
     </aside>
     <section class="content-container"> 
@@ -32,15 +32,11 @@
                                           <div class="booking-item" *ngFor = "let item of Bookings; let i = index" (click)="save(item, i)">
                                               <div class="tattoo-booking-image"><img src="{{item.obj.image}}" alt=""></div>
                                               <div class="info-booking">
-                                              <p class="description">{{item.obj.description | slice: '40'}}</p>                                           
+                                              <p class="description">{{item.obj.description }}</p>                                           
                                               <p>Breadth:{{item.obj.breadth}}cm</p>
                                               <p>Length:{{item.obj.length}}cm</p>
                                              </div>
-                                         <!--   <div class="call-booking">
-                                        <ion-fab-button class="fab-btn" size="small" color="success" (click)="call(item.obj.number)">
-                                    <ion-icon style="font-size: 2.5vh;" name="call"></ion-icon>
-                                 </ion-fab-button>
-                              </div> -->
+                                    
                             </div>
                       </div> 
                 
@@ -66,6 +62,7 @@
                        <ion-col col-5 class="holder-calendar">
                        
                           <calendar
+                          [lockSwipeToPrev]="lockSwipeToPrev"
                           [eventSource]="eventSource" 
                           [calendarMode]="calendar.mode" 
                           [currentDate]="calendar.currentDate"
@@ -75,9 +72,10 @@
                           startHour="6"
                           endHour="20"
                           step="30"
-                          [lockSwipeToPrev]="lockSwipeToPrev"
+                          
                           startingDayWeek="1">
                           </calendar> 
+                          
                        </ion-col>
                      </ion-row> 
               
@@ -96,8 +94,9 @@
                         <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY  HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
                       </ion-item>
                       <ion-item style="margin-bottom: 3em;">
-                        <ion-label position="floating" >Price</ion-label>
-                        <ion-input type="tel" [(ngModel)]="price">R</ion-input>
+                        <!-- <ion-label position="floating" >Price</ion-label> -->
+                        <ion-label position="floating" >Price</ion-label><br>
+                        <ion-input type="tel"  [(ngModel)]="price">R</ion-input>
                       </ion-item>
                      <ion-button class="btn-respond" shape="block" color="secondary" (click)="addEvent()">Respond</ion-button>
                   </div>
