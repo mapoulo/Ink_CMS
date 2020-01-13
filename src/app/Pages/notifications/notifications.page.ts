@@ -162,7 +162,7 @@ notifications : number = 0;
   save(obj, i){
 
 
-    this.slideBack()
+
     
 
     this.index = i;
@@ -392,11 +392,6 @@ async alert(){
   }
 
 
-  slideBack() {
-    this.myCal.onCurrentDateChanged.subscribe((date) => {
-      console.log(date);
-        
-    })
-  }
+ 
 
 }
