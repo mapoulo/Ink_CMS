@@ -4,7 +4,7 @@ import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 
-
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,6 +13,15 @@ import * as firebase from 'firebase';
 })
 
 export class EditProfilePage implements OnInit {
+
+
+  address  = "";
+  name = "";
+  phoneNumber = "";
+  email = "";
+
+
+  currentImage: any;
 
   MyData = {
      
@@ -29,19 +38,18 @@ export class EditProfilePage implements OnInit {
   storage = firebase.storage().ref();
   image1 = "";
 
-  email : string;
-  phoneNumber : string;
-  name : string;
+  
   image:string;
   db = firebase.firestore();
-  constructor(public data : DataService, private modalController: ModalController) { }
+  constructor(public data : DataService, private camera: Camera,  private modalController: ModalController) { }
 
   ngOnInit() {
-    console.log("ttttttttttt", this.data.MyData);
+  
     this.phoneNumber = this.data.MyData.phoneNumber;
     this.email = this.data.MyData.email;
     this.name = this.data.MyData.name;
     this.image = this.data.Mydata.image;
+    
   }
 
   ionViewWillEnter(){
@@ -54,23 +62,48 @@ export class EditProfilePage implements OnInit {
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
     this.MyData.phoneNumber = item.data().phoneNumber,
-    
+    this.MyData.pdf = item.data().pdf,
     this.MyData.auId = item.id
+
       })
     })
    
   }
 
-editData(){ 
+
+
+  editData(){
+
+
+    console.log("Method is called", this.MyData.auId);
+    
+
 this.db.collection("Admin").doc(this.MyData.auId).update({
   address :this.MyData.address,
   email:this.MyData.email,
   name:this.MyData.name,
-  // image:this.MyData.image,
   phoneNumber:this.MyData.phoneNumber,
-  pdf: ""
+
 })
-  this.dismiss() 
+    this.dismiss() 
+
+
+  }
+
+  takePicture() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.currentImage = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      // Handle error
+      console.log("Camera issue:" + err);
+    });
   }
 
 

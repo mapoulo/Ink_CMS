@@ -7,7 +7,10 @@ import * as firebase from 'firebase';
 import { Platform, AlertController } from '@ionic/angular';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
-import { merge } from 'rxjs';
+// import { FileOpener } from '@ionic-native/file-opener/ngx';
+
+
+
 
 @Component({
   selector: 'app-profile',
@@ -60,9 +63,7 @@ profile1 ={
   notifications : number = 0;
  
   storage = firebase.storage().ref();
-
-
-  constructor(private alertCtrl:AlertController, public data : DataService,public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController) { }
+  constructor(public data : DataService, public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController, public alertCtrl: AlertController) { }
 
 
 
@@ -91,6 +92,10 @@ profile1 ={
 
     this.rout.navigateByUrl('/notifications')
 
+}
+
+goProfilePage () {
+  this.rout.navigateByUrl('/profile');
 }
 
 
@@ -138,53 +143,85 @@ editData(){
 
     ionViewWillEnter(){
 
-      this.email=firebase.auth().currentUser.email;
+      firebase.auth().onAuthStateChanged(user => {
+        if(user){
+          this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(data => {
+            console.log("Your Admin user ", data.data());
+            this.profile.name = data.data().name;
+            this.profile.address = data.data().address;
+            this.profile.phone = data.data().phoneNumber;
+            this.profile.email = data.data().email;
+            this.profile.pdf = data.data().pdf;
+             
 
-      this.db.collection("Admin").onSnapshot(data => {
-        this.Admin = [];
-        data.forEach(item => {
-          if(item.exists){
-            if(item.data().email === this.email){
+          })
+        }
+      })
+
+   
+
+      // this.email=firebase.auth().currentUser.email;
+
+      // this.db.collection("Admin").onSnapshot(data => {
+      //   this.Admin = [];
+      //   data.forEach(item => {
+      //     if(item.exists){
+      //       if(item.data().email === this.email){
               
-             this.profile.name = item.data().name;
-             this.profile.address = item.data().address;
-             this.profile.phone = item.data().phoneNumber;
-             this.profile.email = item.data().email;
-             this.profile.pdf = item.data().pdf;
+      //        this.profile.name = item.data().name;
+      //        this.profile.address = item.data().address;
+      //        this.profile.phone = item.data().phoneNumber;
+      //        this.profile.email = item.data().email;
+      //        this.profile.pdf = item.data().pdf;
              
               
-            }
-          }
-        })
-      })
+      //       }
+      //     }
+      //   })
+      // })
     
 
-  
+    
     }
   
 
 
 
-    changeListener(event): void {
-      const i = event.target.files[0];
-      console.log(i);
-      const upload = this.storage.child(i.name).put(i);
-      upload.on('state_changed', snapshot => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('upload is: ', progress , '% done.');
+    // changeListener(event): void {
+    //   const i = event.target.files[0];
+    //   console.log(i);
+    //   const upload = this.storage.child(i.name).put(i);
+    //   upload.on('state_changed', snapshot => {
+    //     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //     console.log('upload is: ', progress , '% done.');
           
          
         
-      }, err => {
-      }, () => {
-        upload.snapshot.ref.getDownloadURL().then(dwnURL => {
-          console.log('File avail at: ', dwnURL);
-          this.pdf = dwnURL;
-        this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
-        });
-      });
-    }
+    //   }, err => {
+    //   }, () => {
+    //     upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+    //       console.log('File avail at: ', dwnURL);
+    //       this.pdf = dwnURL;
+    //     this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
+    //     });
+    //   });
+    // }
 
+
+  //   download() {
+
+  //     this.fileOpener.open(this.pdf, 'application/pdf')
+  // .then(() => console.log('File is opened'))
+  // .catch(e => console.log('Error opening file', e));
+
+  //     // const fileTransfer: FileTransferObject = this.transfer.create();
+  //     // fileTransfer.download(this.pdf, this.file.dataDirectory + 'file.pdf').then((entry) => {
+  //     //   console.log('download complete: ' + entry.toURL());
+  //     // }, (error) => {
+  //     //   // handle error
+  //     // });
+      
+  //   }
     
 
   async  createModal(){
@@ -205,6 +242,32 @@ editData(){
     }
   
       
+
+    changeListener(event): void {
+      const i = event.target.files[0];
+      console.log(i);
+      const upload = this.storage.child(i.name).put(i);
+      upload.on('state_changed', snapshot => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('upload is: ', progress , '% done.');
+          
+         
+        
+      }, err => {
+      }, () => {
+
+        upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+          console.log('File avail at: ', dwnURL);
+          this.pdf = dwnURL;
+        this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
+        });
+
+      });
+    }
+
+
+    
+
   
     async DeleteData() {
 

@@ -15,12 +15,12 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 
 
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TattooPageModule,EditProfilePageModule],
-  providers: [Camera,CallNumber ,
+  providers: [Camera,CallNumber,
+    
     StatusBar,
     AuthGuardService,
     SplashScreen,

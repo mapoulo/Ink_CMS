@@ -68,7 +68,7 @@ Tattoos = [];
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'bar',
       data: {
-        // labels:['All bookings', 'Accepted', 'Declined','All users'], 
+      
         datasets: [
           {
           label: ['All bookings'] ,
@@ -122,18 +122,19 @@ Tattoos = [];
   ngOnInit() {
     
    
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          firebase
-            .firestore()
-            .doc(`/Admin/${user.uid}`)
-            .get()
-            .then(AdminSnapshot => {
-              this.isAdmin = AdminSnapshot.data().isAdmin;
-            });
+      // firebase.auth().onAuthStateChanged(user => {
+      //   if (user) {
+      //     firebase
+      //       .firestore()
+      //       .doc(`/Admin/${user.uid}`)
+      //       .get()
+      //       .then(AdminSnapshot => {
+      //         this.isAdmin = AdminSnapshot.data().isAdmin;
+      //       });
             
-        }
-      });
+      //   }
+      // });
+      
   }
     call(){
       console.log('number')

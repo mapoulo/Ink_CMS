@@ -7,8 +7,8 @@ import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
-import { stringify } from 'querystring';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-notifications',
@@ -32,7 +32,7 @@ notifications : number = 0;
   name: string = "Nkwe";
   surname: string = "Mapoulo";
 
-  price : number ;
+  price = "";
 
   NewName: string;
   NewSurname: string;
@@ -44,20 +44,16 @@ notifications : number = 0;
 
   calendar = {
     mode: 'month',
-    currentDate: new Date(),
- 
+    currentDate: new Date()
   };
-
 
   lockSwipeToPrev;
 
   @ViewChild(CalendarComponent, { static: false }) myCal: CalendarComponent;
 
 
-  
-
   Bookings = [];
-  number = 0;
+  // number;
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
 
@@ -74,32 +70,16 @@ notifications : number = 0;
     uid : '',
     auId : ''
   };
-  tattooForm : FormGroup;
-  validation_messages = {
-    'Price': [
-      { type: 'required', message: 'Price  is required.' },
 
-    ],
-    
-  }
-      
-      
-  constructor(private fb: FormBuilder,public alertController:AlertController, public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
-    
-    this.tattooForm = this.fb.group({
-      price: new FormControl('', Validators.compose([Validators.required])),
-   
-    })
-  
-  }
+  constructor(public alertController:AlertController,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
-
-
-   
     
 
-    this.notifications = this.data.notification
+    this.notifications = this.data.notification;
+    
+    console.log("Your Notifications ", this.notifications);
+    
 
     let id = {docid: "", auId: "",  obj : {}};
   let autId = "";
@@ -121,12 +101,14 @@ notifications : number = 0;
      
       this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
 
-        this.number  = 0;
+        // this.number  = 0;
 
         i.forEach(o => {
        
           if(o.data().bookingState === "waiting"){
-           
+            //  Bookingid.docid = o.id;
+            //  Bookingid.obj = o.data();
+            //  console.log("uuuuuuuuuuuuuuuu",o.id);
             id.obj = o.data();
             id.auId = o.id;
            
@@ -139,7 +121,7 @@ notifications : number = 0;
         
         })
 
-        this.number = this.MyArray.length;
+        // this.number = this.MyArray.length;
       })
     })
 
@@ -152,7 +134,6 @@ notifications : number = 0;
 
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
-  /*  */
   }
 
   goToNotificationsPage(){
@@ -160,9 +141,6 @@ notifications : number = 0;
 }
 
   save(obj, i){
-
-
-
     
 
     this.index = i;
@@ -183,9 +161,7 @@ notifications : number = 0;
 
     console.log("index", this.Bookings[i]);
 
- 
 
-    
   }
 
 
@@ -259,74 +235,135 @@ async alert(){
   }
 
 
-  
+  // Create the right event format and reload source
   async addEvent() {
-    if (this.tattooForm.valid ) {
-    if(this.obj.customerName != ""){
 
-      console.log("This start time ",this.event.startTime);
-      console.log("End time ", this.event.endTime);
-      console.log("5555555555", this.obj);
+    // let eventCopy = {
+    //   title: this.event.title,
+    //   startTime: new Date(this.event.startTime),
+    //   endTime: new Date(this.event.endTime),
+    //   allDay: this.event.allDay,
+    //   desc: this.event.desc
+    // }
 
-      this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
-        bookingState : "Accepted",
-        description : this.obj.description,
-        image : this.obj.image,
-        length : this.obj.length,
-        priceRange : this.obj.priceRange,
-        tattoName : this.obj.tattoName,
-        customerName : this.obj.customerName,
-        category : this.obj.category,
-        breadth : this.obj.breadth,
-        uid : this.obj.uid,
-        auId : this.obj.auId,
-      })
-    }
-      this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
-         startingDate : this.event.startTime,
-         endingDate : this.event.endTime,
-         price : this.price,
-         uid : this.obj.uid,
-         bookingState : "Pending",
-         auId : this.obj.auId,
-         image : this.obj.image,
+    // if (eventCopy.allDay) {
+    //   let start = eventCopy.startTime;
+    //   let end = eventCopy.endTime;
 
-      })
-      this.tattooForm.reset()
-    
-    
+    //   eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+    //   eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+    // }
+
+    // this.eventSource.push(eventCopy);
+    // this.myCal.loadEvents();
+    // this.resetEvent();
+
+let diffrDays = 0; 
+console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
+let date = new Date(Date.now());
 
 
-      const alert = await this.alertCtrl.create({
-        header: 'Respond sent',
-        message: '',
-        buttons: [
-          {
-            text: '',
-            role: '',
-            cssClass: '',
-            handler: (blah) => {
-           
-            }
-          }, {
-            text: 'Ok',
-            handler: () => {
+console.log("My date is", moment().format().slice(0, 10));
+
+    if( this.event.startTime.slice(0, 10)< this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) < this.event.startTime.slice(0, 10) ){
+
+      if(this.obj.customerName != "" && this.price !== ""){
+
+        console.log("This start time ",this.event.startTime);
+        console.log("End time ", this.event.endTime);
+        console.log("5555555555", this.obj);
+
+        var eventStartTime = new Date(this.event.startTime);
+    var eventEndTime = new Date(this.event.endTime);
+    var diff = Math.abs(eventStartTime.getTime() - eventEndTime.getTime());
+    var diffDays = Math.ceil(diff / (1000 * 3600 * 24));  
+    console.log("days" ,diffDays)
+    diffrDays = diffDays
+  
+        this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
+          bookingState : "Accepted",
+          description : this.obj.description,
+          image : this.obj.image,
+          length : this.obj.length,
+          priceRange : this.obj.priceRange,
+          tattoName : this.obj.tattoName,
+          customerName : this.obj.customerName,
+          category : this.obj.category,
+          breadth : this.obj.breadth,
+          uid : this.obj.uid,
+          auId : this.obj.auId,
+         
+        })
+          
+        this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
+           startingDate : this.event.startTime,
+           endingDate : this.event.endTime,
+           price : this.price,
+           uid : this.obj.uid,
+           bookingState : "Pending",
+           auId : this.obj.auId,
+           image : this.obj.image,
+           days : diffrDays
+  
+        })
+  
+  
+      
+  
+  
+        const alert = await this.alertCtrl.create({
+          header: 'Respond sent',
+          message: '',
+          buttons: [
+            {
+              text: '',
+              role: '',
+              cssClass: '',
+              handler: (blah) => {
              
-              setTimeout(() => {
-                this.Bookings.splice(this.index, 1);
-              },2000);
-
+              }
+            }, {
+              text: 'Ok',
+              handler: () => {
+               
+                setTimeout(() => {
+                  this.Bookings.splice(this.index, 1);
+                },2000);
+  
+              }
             }
-          }
-        ]
+          ]
+        });
+    
+        await alert.present();
+  
+      }else{
+        console.log("Please select a notification");
+        const alert = await this.alertController.create({
+          header: '',
+          subHeader: '',
+          message: 'Please enter price.',
+          buttons: ['Ok']
+        });
+    
+        await alert.present();
+      }
+ 
+    }else{
+
+     
+      const alert = await this.alertController.create({
+        header: '',
+        subHeader: '',
+        message: 'Please select the correct dates.',
+        buttons: ['Ok']
       });
   
       await alert.present();
-
-    }else{
-      console.log("Please select a notification");
-      
     }
+
+
+   
   
   }
 
@@ -384,14 +421,11 @@ async alert(){
   }
 
   onCurrentDateChanged(event:Date) {
-    var today = new Date(0);
+    var today = new Date();
     today.setHours(0, 0, 0, 0);
    
 
  
   }
-
-
- 
 
 }
