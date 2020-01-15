@@ -7,6 +7,9 @@ export class DataService {
 
 
   MyData = {id : '', name : '', phoneNumber : '', email : '',image:''};
+  notification : number = 0;
   
+ 
+  Mydata={image:''}
   constructor() { }
 }

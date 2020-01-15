@@ -1,10 +1,14 @@
+import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController,Platform } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-notifications',
@@ -14,6 +18,8 @@ import { Router } from '@angular/router';
 export class NotificationsPage implements OnInit {
 
   db = firebase.firestore();
+notifications : number = 0;
+  index : number;
 
   event = {
     title: '',
@@ -26,7 +32,7 @@ export class NotificationsPage implements OnInit {
   name: string = "Nkwe";
   surname: string = "Mapoulo";
 
-  price : number = 0;
+  price = "";
 
   NewName: string;
   NewSurname: string;
@@ -47,6 +53,7 @@ export class NotificationsPage implements OnInit {
 
 
   Bookings = [];
+  // number;
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
 
@@ -64,11 +71,14 @@ export class NotificationsPage implements OnInit {
     auId : ''
   };
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+  constructor(public alertController:AlertController,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
   ionViewWillEnter() {
     
 
+    this.notifications = this.data.notification;
+    
+    console.log("Your Notifications ", this.notifications);
     
 
     let id = {docid: "", auId: "",  obj : {}};
@@ -84,10 +94,17 @@ export class NotificationsPage implements OnInit {
        console.log("wwwwwwwwwwww", this.MyArray);
      })
 
+
+    
      this.MyArray.forEach(item => { 
+
+     
       this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
+
+        // this.number  = 0;
+
         i.forEach(o => {
-          
+       
           if(o.data().bookingState === "waiting"){
             //  Bookingid.docid = o.id;
             //  Bookingid.obj = o.data();
@@ -98,18 +115,23 @@ export class NotificationsPage implements OnInit {
              
             this.Bookings.push(id);
             id = {docid: "", auId: "", obj : {}};
-
             console.log("ttttttttttttt", this.Bookings);
+
           }
         
         })
+
+        // this.number = this.MyArray.length;
       })
     })
+
+   
    })
 
   }
 
   ngOnInit() {
+
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
   }
@@ -120,6 +142,9 @@ export class NotificationsPage implements OnInit {
 
   save(obj, i){
     
+
+    this.index = i;
+
     this.obj = obj;
     this.obj.description = obj.obj.description;
     this.obj.image = obj.obj.image;
@@ -135,6 +160,14 @@ export class NotificationsPage implements OnInit {
     console.log("save button clicked", this.obj);
 
     console.log("index", this.Bookings[i]);
+
+
+  }
+
+
+  call(numbers){
+    console.log("Your Numbers ", numbers);
+    
   }
 
 
@@ -149,6 +182,35 @@ export class NotificationsPage implements OnInit {
   
   }
   
+callNow(number) {
+  this.platform.ready().then(() => {
+  if (this.platform.is('cordova')){
+  this.callNumber.callNumber(number, true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
+}else {
+  console.log('you are calling now');
+  this.alert() 
+}
+})
+}
+async alert(){
+  const alert = await this.alertController.create({
+    header: 'Calling',
+    subHeader: 'Call funcion is not supported on the browser ',
+
+    buttons: [{
+      text: 'Ok',
+      role: 'Ok',
+      cssClass: 'secondary',
+      handler: (result) => {
+        
+      
+      }
+    }]
+  });
+  await alert.present();
+}
 
   resetEvent() {
     this.event = {
@@ -174,7 +236,7 @@ export class NotificationsPage implements OnInit {
 
 
   // Create the right event format and reload source
-  addEvent() {
+  async addEvent() {
 
     // let eventCopy = {
     //   title: this.event.title,
@@ -196,46 +258,117 @@ export class NotificationsPage implements OnInit {
     // this.myCal.loadEvents();
     // this.resetEvent();
 
+let diffrDays = 0; 
+console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
+let date = new Date(Date.now());
 
 
-    
+console.log("My date is", moment().format().slice(0, 10));
+
+    if( this.event.startTime.slice(0, 10)< this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) < this.event.startTime.slice(0, 10) ){
+
+      if(this.obj.customerName != "" && this.price !== ""){
+
+        console.log("This start time ",this.event.startTime);
+        console.log("End time ", this.event.endTime);
+        console.log("5555555555", this.obj);
+
+        var eventStartTime = new Date(this.event.startTime);
+    var eventEndTime = new Date(this.event.endTime);
+    var diff = Math.abs(eventStartTime.getTime() - eventEndTime.getTime());
+    var diffDays = Math.ceil(diff / (1000 * 3600 * 24));  
+    console.log("days" ,diffDays)
+    diffrDays = diffDays
   
-
-    if(this.obj.customerName != ""){
-
-      console.log("This start time ",this.event.startTime);
-      console.log("End time ", this.event.endTime);
-      console.log("5555555555", this.obj);
-
-      this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
-        bookingState : "Accepted",
-        description : this.obj.description,
-        image : this.obj.image,
-        length : this.obj.length,
-        priceRange : this.obj.priceRange,
-        tattoName : this.obj.tattoName,
-        customerName : this.obj.customerName,
-        category : this.obj.category,
-        breadth : this.obj.breadth,
-        uid : this.obj.uid,
-        auId : this.obj.auId,
-      })
-        
-      this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
-         startingDate : this.event.startTime,
-         endingDate : this.event.endTime,
-         price : this.price,
-         uid : this.obj.uid,
-         bookingState : "Pending",
-         auId : this.obj.auId,
-         image : this.obj.image,
-
-      })
-    }else{
-      console.log("Please select a notification");
+        this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
+          bookingState : "Accepted",
+          description : this.obj.description,
+          image : this.obj.image,
+          length : this.obj.length,
+          priceRange : this.obj.priceRange,
+          tattoName : this.obj.tattoName,
+          customerName : this.obj.customerName,
+          category : this.obj.category,
+          breadth : this.obj.breadth,
+          uid : this.obj.uid,
+          auId : this.obj.auId,
+         
+        })
+          
+        this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
+           startingDate : this.event.startTime,
+           endingDate : this.event.endTime,
+           price : this.price,
+           uid : this.obj.uid,
+           bookingState : "Pending",
+           auId : this.obj.auId,
+           image : this.obj.image,
+           days : diffrDays
+  
+        })
+  
+  
       
-    }
   
+  
+        const alert = await this.alertCtrl.create({
+          header: 'Respond sent',
+          message: '',
+          buttons: [
+            {
+              text: '',
+              role: '',
+              cssClass: '',
+              handler: (blah) => {
+             
+              }
+            }, {
+              text: 'Ok',
+              handler: () => {
+               
+                setTimeout(() => {
+                  this.Bookings.splice(this.index, 1);
+                },2000);
+  
+              }
+            }
+          ]
+        });
+    
+        await alert.present();
+  
+      }else{
+        console.log("Please select a notification");
+        const alert = await this.alertController.create({
+          header: '',
+          subHeader: '',
+          message: 'Please enter price.',
+          buttons: ['Ok']
+        });
+    
+        await alert.present();
+      }
+ 
+    }else{
+
+     
+      const alert = await this.alertController.create({
+        header: '',
+        subHeader: '',
+        message: 'Please select the correct dates.',
+        buttons: ['Ok']
+      });
+  
+      await alert.present();
+    }
+
+
+   
+  
+  }
+
+  home(){
+    this.rout.navigateByUrl('/landing')
   }
 
   // Change current month/week/day
@@ -249,7 +382,7 @@ export class NotificationsPage implements OnInit {
     swiper.slidePrev();
   }
 
-  // Change between month/week/day
+
   changeMode(mode) {
     this.calendar.mode = mode;
   }

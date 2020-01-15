@@ -30,7 +30,7 @@
               <ion-label position="stacked" id="profile_image" color="primary"></ion-label>
               <ion-input class="image-upload"  type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"></ion-input>
             </ion-item>
-      <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="480px" width="400px" ></ion-item>
+      <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="480px" width="400px" style="object-fit: cover;"></ion-item>
         
     
         <!-- <p>Please Upload a Tattoo.</p> -->

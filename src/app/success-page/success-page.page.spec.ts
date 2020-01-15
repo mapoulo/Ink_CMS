@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { MultiFileUploadComponent } from './multi-file-upload.component';
+import { SuccessPagePage } from './success-page.page';
 
-describe('MultiFileUploadComponent', () => {
-  let component: MultiFileUploadComponent;
-  let fixture: ComponentFixture<MultiFileUploadComponent>;
+describe('SuccessPagePage', () => {
+  let component: SuccessPagePage;
+  let fixture: ComponentFixture<SuccessPagePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultiFileUploadComponent ],
+      declarations: [ SuccessPagePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MultiFileUploadComponent);
+    fixture = TestBed.createComponent(SuccessPagePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

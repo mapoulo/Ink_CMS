@@ -1,23 +1,40 @@
-<ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>
-        Ionic Blank
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
   
-  <ion-content padding>
-    <!-- <app-multi-file-upload></app-multi-file-upload> -->
+  <ion-content>
+    <div class="main">
+      <div class="aside">
 
-    <ion-list-header color="light">Vertical Bar Chart</ion-list-header>
-  <ion-card class="welcome-card">
-    <ion-card-header>
-      <ion-card-subtitle>Number of Viewers per season for</ion-card-subtitle>
-      <ion-card-title>Game of Thrones</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <canvas #barChart></canvas>
-    </ion-card-content>
-  </ion-card>
-  
+      </div>
+      <div class="container">
+        <div class="header-container">
+          <h1 class="h1-header">Content Management System</h1>
+        </div>
+        <div class="scroll-container">
+          <div class="card-horizontal-scroll">
+            <div class="card-list-item">
+                <ion-fab-button size="small" color="light"><ion-icon name="add"></ion-icon></ion-fab-button>
+            </div>
+          </div>
+          <div class="card-horizontal-scroll">
+              <div class="card-list-item">
+                  <img src="../../assets/kaizen-nguy-n-s9imzeGXKQ0-unsplash.jpg" alt="">
+                  <div class="button-edit-delete">
+                    <ion-button fill="clear" size="small" color="light"><ion-icon name="trash"></ion-icon></ion-button>
+                    <ion-button fill="clear" size="small" color="light"><ion-icon name="create"></ion-icon></ion-button>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="booking-container">
+          <div class="list-booking">
+            <div class="header-booking">
+              <h3 class="h1-header bookings-header">All Users bookings</h3>
+            </div>
+            <div class="items-booked">
+              <div class="booking-items"></div>
+            </div>
+          </div>
+          <div class="gragh-container"></div>
+        </div>
+      </div>
+    </div>
   </ion-content>
