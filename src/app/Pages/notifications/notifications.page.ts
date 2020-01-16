@@ -65,7 +65,8 @@ notifications : number = 0;
     description : '',
     image : '',
     length : '',
-    priceRange : '',
+    pricerange : '',
+  
     tattoName : '',
     uid : '',
     auId : ''
@@ -85,6 +86,7 @@ notifications : number = 0;
   let autId = "";
  
    this.db.collection('Bookings').get().then(res => {
+     
      res.forEach(e => {
        id.docid = e.id;
        id.obj = e.data();
@@ -102,7 +104,7 @@ notifications : number = 0;
       this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
 
         // this.number  = 0;
-
+     
         i.forEach(o => {
        
           if(o.data().bookingState === "waiting"){
@@ -149,7 +151,8 @@ notifications : number = 0;
     this.obj.description = obj.obj.description;
     this.obj.image = obj.obj.image;
     this.obj.length = obj.obj.length;
-    this.obj.priceRange = obj.obj.priceRange;
+    this.obj.pricerange = obj.obj.pricerange;
+  
     this.obj.tattoName = obj.obj.tattoName;
     this.obj.customerName = obj.obj.customerName;
     this.obj.bookingState = obj.obj.bookingState;
@@ -182,35 +185,7 @@ notifications : number = 0;
   
   }
   
-callNow(number) {
-  this.platform.ready().then(() => {
-  if (this.platform.is('cordova')){
-  this.callNumber.callNumber(number, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
-}else {
-  console.log('you are calling now');
-  this.alert() 
-}
-})
-}
-async alert(){
-  const alert = await this.alertController.create({
-    header: 'Calling',
-    subHeader: 'Call funcion is not supported on the browser ',
 
-    buttons: [{
-      text: 'Ok',
-      role: 'Ok',
-      cssClass: 'secondary',
-      handler: (result) => {
-        
-      
-      }
-    }]
-  });
-  await alert.present();
-}
 
   resetEvent() {
     this.event = {
@@ -238,25 +213,6 @@ async alert(){
   // Create the right event format and reload source
   async addEvent() {
 
-    // let eventCopy = {
-    //   title: this.event.title,
-    //   startTime: new Date(this.event.startTime),
-    //   endTime: new Date(this.event.endTime),
-    //   allDay: this.event.allDay,
-    //   desc: this.event.desc
-    // }
-
-    // if (eventCopy.allDay) {
-    //   let start = eventCopy.startTime;
-    //   let end = eventCopy.endTime;
-
-    //   eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-    //   eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
-    // }
-
-    // this.eventSource.push(eventCopy);
-    // this.myCal.loadEvents();
-    // this.resetEvent();
 
 let diffrDays = 0; 
 console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
@@ -265,7 +221,7 @@ let date = new Date(Date.now());
 
 console.log("My date is", moment().format().slice(0, 10));
 
-    if( this.event.startTime.slice(0, 10)< this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) < this.event.startTime.slice(0, 10) ){
+    if( this.event.startTime.slice(0, 10)<= this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) <= this.event.startTime.slice(0, 10) ){
 
       if(this.obj.customerName != "" && this.price !== ""){
 
@@ -285,7 +241,8 @@ console.log("My date is", moment().format().slice(0, 10));
           description : this.obj.description,
           image : this.obj.image,
           length : this.obj.length,
-          priceRange : this.obj.priceRange,
+          pricerange : this.obj.pricerange,
+          
           tattoName : this.obj.tattoName,
           customerName : this.obj.customerName,
           category : this.obj.category,

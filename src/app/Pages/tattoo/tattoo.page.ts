@@ -18,18 +18,20 @@ export class TattooPage implements OnInit {
   db=firebase.firestore();
   tattoo = {
     name: '',
-    pricerange: '',
+    start :  '',
+    end: '',
     description: '',
     image: '',
-    categories:''
-    
+    categories:'',
+    pricerange:''
   }
   Tattoos:[];
 
    Button : string = "";
   
    categories : string;
-   priceRange :  string;
+   start :  string;
+   end :  string;
    description : string;
    image :  string;
    name :  string;
@@ -90,7 +92,8 @@ export class TattooPage implements OnInit {
     this.Button = this.auth.myObj.Button;
  
     this.categories = this.auth.myObj.obj.categories;
-    this.priceRange = this.auth.myObj.obj.priceRange;
+    this.start = this.auth.myObj.obj.start;
+    this.end = this.auth.myObj.obj.end;
     this.description= this.auth.myObj.obj.description;
     this.image = this.auth.myObj.obj.image;
     this.name = this.auth.myObj.obj.name;
@@ -98,7 +101,9 @@ export class TattooPage implements OnInit {
 
     this.tattoo.name = this.auth.myObj.obj.name;
     this.tattoo.categories = this.auth.myObj.obj.categories;
-    this.tattoo.pricerange = this.auth.myObj.obj.priceRange;
+    this.start = this.auth.myObj.obj.start;
+    this.end = this.auth.myObj.obj.end;
+  
     this.tattoo.description= this.auth.myObj.obj.description;
     this.tattoo.image = this.auth.myObj.obj.image;
    
@@ -126,7 +131,7 @@ export class TattooPage implements OnInit {
   }
 
   EditTattoo(tattooForm : FormGroup){
-       this.db.collection("Tattoo").doc(this.auth.myObj.obj.docid).update({categories: this.tattoo.categories, name:this.tattoo.name, pricerange : this.tattoo.pricerange, description : this.tattoo.description, image : this.tattoo.image})
+       this.db.collection("Tattoo").doc(this.auth.myObj.obj.docid).update({categories: this.tattoo.categories, name:this.tattoo.name,start : this.tattoo.start,end : this.tattoo.end, description : this.tattoo.description, image : this.tattoo.image})
        this.dismiss();
   }
 
@@ -153,14 +158,16 @@ export class TattooPage implements OnInit {
   addtattoo(tattooForm : FormGroup){
 
     if (tattooForm.valid ) {
+      this.tattoo.pricerange= 'R' + this.tattoo.start + '-' + 'R' + this.tattoo.end;
       this.db.collection("Tattoo").doc().set(this.tattoo);
       this.tattoo = {
         name: '',
-        pricerange: '',
+        start: '',
+        end: '',
         description: '',
         image: '',
-        categories:''
-        
+        categories:'',
+        pricerange:''
       }
      
       this.dismiss();

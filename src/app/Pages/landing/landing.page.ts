@@ -32,6 +32,7 @@ export class LandingPage implements OnInit {
   tattoo = {
     name: '',
     pricerange: '',
+   
     description: '',
     image: '',
     categories:''
@@ -295,6 +296,7 @@ Tattoos = [];
         firetattoo.categories = item.data().categories;
         firetattoo.name = item.data().name;
         firetattoo.pricerange = item.data().pricerange;
+      
         firetattoo.categories = item.data().categories;
         firetattoo.image = item.data().image;
         firetattoo.docid = item.id;
@@ -348,7 +350,8 @@ goProfilePage(){
     this.auth.addTattoo = false;
     this.auth.editButton = false;
     this.auth.myObj.obj.categories = "";
-      this.auth.myObj.obj.priceRange = "";
+      this.auth.myObj.obj.pricerange = "";
+
       this.auth.myObj.obj.description = "";
       this.auth.myObj.obj.image = "";
       this.auth.myObj.obj.name = "";
@@ -377,13 +380,13 @@ goProfilePage(){
   
 
       this.auth.myObj.obj.categories = obj.categories;
-      this.auth.myObj.obj.priceRange = obj.pricerange;
+      this.auth.myObj.obj.pricerange = obj.pricerange;
       this.auth.myObj.obj.description = obj.description;
       this.auth.myObj.obj.image = obj.image;
       this.auth.myObj.obj.name = obj.name;
       this.auth.myObj.obj.docid = obj.docid;
 
-    
+  
       
       const modal = await this.modalController.create({
         component: TattooPage

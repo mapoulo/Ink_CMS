@@ -6,7 +6,7 @@ import * as firebase from 'firebase';
 })
 export class AuthenticationService {
 
-  myObj = {Button : '', obj : {name : '', categories : '', priceRange : '', docid: '', description : '', image : ''}, obje : {}};
+  myObj = {Button : '', obj : {name : '', categories : '', docid: '', start : '',end : '', description : '', pricerange : '',image : ''}, obje : {}};
   editButton : boolean;
   addTattoo : boolean;
 
