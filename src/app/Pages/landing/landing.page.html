@@ -59,6 +59,8 @@
                         <img src="{{item.data.image}}" alt="">
                     </div>
                     <div class="info">
+                      <p>Customer Name: {{item.data.customerName }}</p>
+                      <p>Cell Number: {{item.data.number }}</p>
                       <p style="background: mediumaquamarine; color: #fff">Status {{item.data.bookingState}}</p>
                       <p>Start Date: {{item.data.endingDate | date: 'shortDate'}}</p>
 

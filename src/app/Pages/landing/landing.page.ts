@@ -34,7 +34,9 @@ export class LandingPage implements OnInit {
     pricerange: '',
     description: '',
     image: '',
-    categories:''
+    categories:'',
+    start:'',
+    end:''
     
   }
    @ViewChild('barChart', {static: false}) barChart;
@@ -177,53 +179,106 @@ Tattoos = [];
 
   ionViewWillEnter(){
 
+    // let MyArray1 = [];
+    // let Bookings1 = [];
+    // let id1 = {docid: "", auId: "",   obj : {}};
+    
+    
+   
+    //  this.db.collection('Bookings').onSnapshot(res => {
+    //   res.forEach(e => {
+    //     id.docid = e.id;
+    //     id.obj = e.data();
+    //     MyArray1.push(id);
+    //     id = {docid: "", auId: "", obj : {}};
+ 
+      
+    //   })
+ 
+    //   this.notifications = 0;
+    //   this.data.notification = 0;
+
+    //   MyArray1.forEach(item => { 
+    //    this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+
+    //     i.forEach(o => {
+           
+         
+
+    //       if(o.data().bookingState === "Decline"){
+    //         //  Bookingid.docid = o.id;
+    //         //  Bookingid.obj = o.data();
+    //          console.log( "uuuuuuuuuuuuuuuu", o.data() );
+    //          id.obj = o.data();
+    //          id.auId = o.id;
+
+      
+           
+    //          this.notifications += 1;
+    //         this.data.notification += 1;
+             
+    //         Bookings1.push(id);
+    //         id = {docid: "", auId: "", obj : {}};
+
+    //       }
+        
+    //     })
+
+    //    })
+    //  })
+    //  })
+
+
     let MyArray = [];
     let Bookings = [];
     let id = {docid: "", auId: "",   obj : {}};
     let autId = "";
     
    
-     this.db.collection('Bookings').get().then(res => {
-       res.forEach(e => {
-         id.docid = e.id;
-         id.obj = e.data();
-         MyArray.push(id);
-         id = {docid: "", auId: "", obj : {}};
-  
-       
-       })
-  
-       this.notifications = 0;
-       this.data.notification = 0;
-
-       MyArray.forEach(item => { 
-        this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
-          i.forEach(o => {
-            
-          
-
-            if(o.data().bookingState === "waiting"){
-              //  Bookingid.docid = o.id;
-              //  Bookingid.obj = o.data();
-              //  console.log("uuuuuuuuuuuuuuuu",o.id);
-              id.obj = o.data();
-              id.auId = o.id;
-
-        
-             
-               this.notifications += 1;
-              this.data.notification += 1;
-               
-              Bookings.push(id);
-              id = {docid: "", auId: "", obj : {}};
-  
-            }
-          
-          })
-        })
+     this.db.collection('Bookings').onSnapshot(res => {
+      res.forEach(e => {
+        id.docid = e.id;
+        id.obj = e.data();
+        MyArray.push(id);
+        id = {docid: "", auId: "", obj : {}};
+ 
+      
       })
-     })
+ 
+     
+      // this.data.notification = 0;
 
+      MyArray.forEach(item => { 
+       this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+
+        this.notifications = 0;
+
+        i.forEach(o => {
+           
+         
+
+          if(o.data().bookingState === "waiting"){
+            //  Bookingid.docid = o.id;
+            //  Bookingid.obj = o.data();
+           
+             id.obj = o.data();
+             id.auId = o.id;
+
+      
+           
+             this.notifications += 1;
+            // this.data.notification += 1;
+            console.log( "uuuuuuuuuuuuuuuu", o.data() );
+            Bookings.push(id);
+            id = {docid: "", auId: "", obj : {}};
+
+          }
+        
+        })
+
+       })
+     })
+     })
 
     let firetattoo = {
       docid: '',
@@ -231,17 +286,21 @@ Tattoos = [];
       pricerange: '',
       description: '',
       image: '',
-      categories:''
+      categories:'',
+      start:'',
+      end:''
     }
     
 
 
     this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
+
+      
       data.forEach(item => {
         this.counter.push(item.data());
         this.n += 1
      
-        console.log("Array length ", this.n );
+     
         
       })
 
@@ -254,7 +313,7 @@ Tattoos = [];
         this.count.push(item.data());
         this.p += 1
      
-        console.log("Array length ", this.p );
+      
         
       })
 
@@ -268,7 +327,7 @@ Tattoos = [];
         this.county.push(item.data());
         this.r += 1
      
-        console.log("Array length ", this.r );
+     
         
       })
 
@@ -281,7 +340,7 @@ Tattoos = [];
         this.county.push(item.data());
         this.o += 1
      
-        console.log("Array length ", this.o );
+      
         
       })
 
@@ -295,6 +354,8 @@ Tattoos = [];
         firetattoo.categories = item.data().categories;
         firetattoo.name = item.data().name;
         firetattoo.pricerange = item.data().pricerange;
+        firetattoo.start = item.data().start;
+        firetattoo.end = item.data().end;
         firetattoo.categories = item.data().categories;
         firetattoo.image = item.data().image;
         firetattoo.docid = item.id;
@@ -306,7 +367,9 @@ Tattoos = [];
           pricerange: '',
           description: '',
           image: '',
-          categories:''
+          categories:'',
+          start:'',
+          end:''
         }
       })
       
@@ -314,10 +377,14 @@ Tattoos = [];
 
 
    this.db.collection("Users").onSnapshot(data => {
+     this.Accepted = [];
      data.forEach(item => {
        
        if(item.data().bookingState === "Accepted"){
-        console.log("Users ", item.data() );
+
+        console.log("Accepted Booking ",item.data() );
+        
+      
         this.Accepted.push({id: item.id, data: item.data()})
        }
       
@@ -349,6 +416,8 @@ goProfilePage(){
     this.auth.editButton = false;
     this.auth.myObj.obj.categories = "";
       this.auth.myObj.obj.priceRange = "";
+      this.auth.myObj.obj.start = "";
+      this.auth.myObj.obj.end = "";
       this.auth.myObj.obj.description = "";
       this.auth.myObj.obj.image = "";
       this.auth.myObj.obj.name = "";
@@ -378,6 +447,8 @@ goProfilePage(){
 
       this.auth.myObj.obj.categories = obj.categories;
       this.auth.myObj.obj.priceRange = obj.pricerange;
+      this.auth.myObj.obj.start = obj.start;
+      this.auth.myObj.obj.end = obj.end;
       this.auth.myObj.obj.description = obj.description;
       this.auth.myObj.obj.image = obj.image;
       this.auth.myObj.obj.name = obj.name;

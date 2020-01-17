@@ -66,6 +66,7 @@ notifications : number = 0;
     image : '',
     length : '',
     priceRange : '',
+    number:'',
     tattoName : '',
     uid : '',
     auId : ''
@@ -76,58 +77,56 @@ notifications : number = 0;
   ionViewWillEnter() {
     
 
-    this.notifications = this.data.notification;
     
-    console.log("Your Notifications ", this.notifications);
+   
     
 
     let id = {docid: "", auId: "",  obj : {}};
   let autId = "";
  
-   this.db.collection('Bookings').get().then(res => {
-     res.forEach(e => {
-       id.docid = e.id;
-       id.obj = e.data();
-       this.MyArray.push(id);
-       id = {docid: "", auId: "", obj : {}};
+   this.db.collection('Bookings').onSnapshot(res => {
 
-       console.log("wwwwwwwwwwww", this.MyArray);
-     })
+    res.forEach(e => {
+      id.docid = e.id;
+      id.obj = e.data();
+      this.MyArray.push(id);
+      id = {docid: "", auId: "", obj : {}};
 
-
-    
-     this.MyArray.forEach(item => { 
-
-     
-      this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
-
-        // this.number  = 0;
-
-        i.forEach(o => {
-       
-          if(o.data().bookingState === "waiting"){
-            //  Bookingid.docid = o.id;
-            //  Bookingid.obj = o.data();
-            //  console.log("uuuuuuuuuuuuuuuu",o.id);
-            id.obj = o.data();
-            id.auId = o.id;
-           
-             
-            this.Bookings.push(id);
-            id = {docid: "", auId: "", obj : {}};
-            console.log("ttttttttttttt", this.Bookings);
-
-          }
-        
-        })
-
-        // this.number = this.MyArray.length;
-      })
+      console.log("wwwwwwwwwwww", this.MyArray);
     })
 
+
    
+    this.MyArray.forEach(item => { 
+
+    
+     //this.Bookings=[];
+     this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+      this.notifications = 0;
+      this.Bookings = []
+      i.forEach(o => {
+      
+        if(o.data().bookingState === "waiting"){
+          //  Bookingid.docid = o.id;
+          //  Bookingid.obj = o.data();
+          //  console.log("uuuuuuuuuuuuuuuu",o.id);
+          id.obj = o.data();
+          id.auId = o.id;
+         
+           this.notifications += 1;
+          this.Bookings.push(id);
+          id = {docid: "", auId: "", obj : {}};
+          console.log("ttttttttttttt", this.Bookings);
+
+        }
+      
+      })
+
+     })
    })
 
+
+   })
   }
 
   ngOnInit() {
@@ -150,6 +149,7 @@ notifications : number = 0;
     this.obj.image = obj.obj.image;
     this.obj.length = obj.obj.length;
     this.obj.priceRange = obj.obj.priceRange;
+    this.obj.number=obj.obj.number;
     this.obj.tattoName = obj.obj.tattoName;
     this.obj.customerName = obj.obj.customerName;
     this.obj.bookingState = obj.obj.bookingState;
@@ -292,6 +292,7 @@ console.log("My date is", moment().format().slice(0, 10));
           breadth : this.obj.breadth,
           uid : this.obj.uid,
           auId : this.obj.auId,
+          number: this.obj.number
          
         })
           
@@ -303,7 +304,9 @@ console.log("My date is", moment().format().slice(0, 10));
            bookingState : "Pending",
            auId : this.obj.auId,
            image : this.obj.image,
-           days : diffrDays
+           days : diffrDays,
+           number: this.obj.number,
+           customerName : this.obj.customerName
   
         })
   
