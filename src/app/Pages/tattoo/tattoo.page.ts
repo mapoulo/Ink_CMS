@@ -18,7 +18,8 @@ export class TattooPage implements OnInit {
   db=firebase.firestore();
   tattoo = {
     name: '',
-    pricerange: '',
+    start :  '',
+    end: '',
     description: '',
     image: '',
     categories:'',
@@ -31,7 +32,8 @@ export class TattooPage implements OnInit {
    Button : string = "";
   
    categories : string;
-   priceRange :  string;
+   start :  string;
+   end :  string;
    description : string;
    image :  string;
    name :  string;
@@ -106,7 +108,7 @@ export class TattooPage implements OnInit {
     this.Button = this.auth.myObj.Button;
    
     this.categories = this.auth.myObj.obj.categories;
-    this.priceRange = this.auth.myObj.obj.priceRange;
+
      this.start = this.auth.myObj.obj.start;
      this.end = this.auth.myObj.obj.end;
     this.description= this.auth.myObj.obj.description;
@@ -183,10 +185,12 @@ export class TattooPage implements OnInit {
   addtattoo(tattooForm : FormGroup){
     this.tattoo.pricerange = 'R'+ this.tattoo.start + '-' +'R' +this.tattoo.end;
     if (tattooForm.valid ) {
+      this.tattoo.pricerange= 'R' + this.tattoo.start + '-' + 'R' + this.tattoo.end;
       this.db.collection("Tattoo").doc().set(this.tattoo);
       this.tattoo = {
         name: '',
-        pricerange: '',
+        start: '',
+        end: '',
         description: '',
         image: '',
         categories:'',

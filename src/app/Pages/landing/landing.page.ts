@@ -32,6 +32,7 @@ export class LandingPage implements OnInit {
   tattoo = {
     name: '',
     pricerange: '',
+   
     description: '',
     image: '',
     categories:'',
@@ -454,7 +455,7 @@ goProfilePage(){
       this.auth.myObj.obj.name = obj.name;
       this.auth.myObj.obj.docid = obj.docid;
 
-    
+  
       
       const modal = await this.modalController.create({
         component: TattooPage
