@@ -12,13 +12,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import { MessagesPageModule } from './messages/messages.module';
+
 
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,TattooPageModule,EditProfilePageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, MessagesPageModule, TattooPageModule, EditProfilePageModule],
   providers: [Camera,CallNumber,
     
     StatusBar,

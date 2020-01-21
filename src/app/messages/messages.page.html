@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>messages</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-list *ngFor = "let message of MyMessages">
+    <ion-item>
+      <p> Name :{{message.mine.name}}</p> <br>
+      <p>Email : {{message.mine.email}}</p>
+      <p>Message : {{message.mine.message}}</p>
+      <p>Time : {{message.mine.time}}</p>
+      <button (click)="updateMessage(message.keys)">Read</button>
+    </ion-item>
+</ion-list>
+
+
+  
+</ion-content>

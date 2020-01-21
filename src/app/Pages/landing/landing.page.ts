@@ -5,11 +5,10 @@ import * as firebase from 'firebase';
 import { ModalController, AlertController, Platform } from '@ionic/angular';
 import { TattooPage } from '../tattoo/tattoo.page';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-
-
 import { Chart } from 'chart.js';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-
+import { MessagesPageModule } from 'src/app/messages/messages.module';
+import { MessagesPage } from 'src/app/messages/messages.page';
 
 
 @Component({
@@ -19,30 +18,29 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 })
 export class LandingPage implements OnInit {
  
-
-
   
   // @ViewChild('barChart',  { static: false }) barChart;
-  Accepted = []
+  messages = 0
 
+  MyMessages = []
+  Accepted = [];
+  Decline = [];
   notifications : number = 0;
-
   bars: any;
   colorArray: any;
   tattoo = {
     name: '',
     pricerange: '',
-   
     description: '',
     image: '',
-    categories:''
+    categories:'',
+    start:'',
+    end:''
     
   }
    @ViewChild('barChart', {static: false}) barChart;
-
 db = firebase.firestore();
 Tattoos = [];
-
   num: number;
   docId: string;
   isAdmin: any;
@@ -54,17 +52,12 @@ Tattoos = [];
   r : number = 0;
   o: number = 0;
   number : number = 0;
-
   constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
-
-
   ionViewDidEnter() {
  
  
   
   }
-
-
   createBarChart() {
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'bar',
@@ -78,7 +71,6 @@ Tattoos = [];
           borderColor: 'rgb(255, 135, 79)s',// array should have same number of elements as number of dataset
           borderWidth: 2,
         },
-
         {
           label: ['Accepted'] ,
           data: [this.n],
@@ -86,8 +78,6 @@ Tattoos = [];
           borderColor: '#7bc850',// array should have same number of elements as number of dataset
           borderWidth: 2
         },
-
-
         {
           label: ['Declined'] ,
           data: [this.p],
@@ -116,10 +106,7 @@ Tattoos = [];
       }
     });
   }
-
-
   
-
   ngOnInit() {
     
    
@@ -137,10 +124,18 @@ Tattoos = [];
       // });
       
   }
+
+ async  viewMessages(){
+
+    const modal = await this.modalController.create({
+      component: MessagesPage
+    });
+    return await  modal.present();
+
+  }
     call(){
       console.log('number')
     } 
-
     callNow(number) {
       this.platform.ready().then(() => {
       if (this.platform.is('cordova')){
@@ -156,7 +151,6 @@ Tattoos = [];
     async alert(){
       const alert = await this.alertCtrl.create({
         header: 'Calling',
-
         subHeader: 'Call funcion is not supported on the browser ',
     
         buttons: [{
@@ -175,79 +169,125 @@ Tattoos = [];
  
   obj = {id: null, obj : null}
 
-
   ionViewWillEnter(){
 
+
+    this.db.collection("Messages").onSnapshot(data => {
+      this.messages = 0;
+      this.MyMessages = [];
+      data.forEach(message => {
+        if(message.data().satatus = "NotRead"){
+          this.MyMessages.push(message.data());
+          this.messages += 1;
+        }
+      })
+    })
+    // let MyArray1 = [];
+    // let Bookings1 = [];
+    // let id1 = {docid: "", auId: "",   obj : {}};
+    
+    
+   
+    //  this.db.collection('Bookings').onSnapshot(res => {
+    //   res.forEach(e => {
+    //     id.docid = e.id;
+    //     id.obj = e.data();
+    //     MyArray1.push(id);
+    //     id = {docid: "", auId: "", obj : {}};
+ 
+      
+    //   })
+ 
+    //   this.notifications = 0;
+    //   this.data.notification = 0;
+    //   MyArray1.forEach(item => { 
+    //    this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+    //     i.forEach(o => {
+           
+         
+    //       if(o.data().bookingState === "Decline"){
+    //         //  Bookingid.docid = o.id;
+    //         //  Bookingid.obj = o.data();
+    //          console.log( "uuuuuuuuuuuuuuuu", o.data() );
+    //          id.obj = o.data();
+    //          id.auId = o.id;
+      
+           
+    //          this.notifications += 1;
+    //         this.data.notification += 1;
+             
+    //         Bookings1.push(id);
+    //         id = {docid: "", auId: "", obj : {}};
+    //       }
+        
+    //     })
+    //    })
+    //  })
+    //  })
     let MyArray = [];
     let Bookings = [];
     let id = {docid: "", auId: "",   obj : {}};
     let autId = "";
     
    
-     this.db.collection('Bookings').get().then(res => {
-       res.forEach(e => {
-         id.docid = e.id;
-         id.obj = e.data();
-         MyArray.push(id);
-         id = {docid: "", auId: "", obj : {}};
-  
-       
-       })
-  
-       this.notifications = 0;
-       this.data.notification = 0;
-
-       MyArray.forEach(item => { 
-        this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
-          i.forEach(o => {
-            
-          
-
-            if(o.data().bookingState === "waiting"){
-              //  Bookingid.docid = o.id;
-              //  Bookingid.obj = o.data();
-              //  console.log("uuuuuuuuuuuuuuuu",o.id);
-              id.obj = o.data();
-              id.auId = o.id;
-
-        
-             
-               this.notifications += 1;
-              this.data.notification += 1;
-               
-              Bookings.push(id);
-              id = {docid: "", auId: "", obj : {}};
-  
-            }
-          
-          })
-        })
+     this.db.collection('Bookings').onSnapshot(res => {
+      res.forEach(e => {
+        id.docid = e.id;
+        id.obj = e.data();
+        MyArray.push(id);
+        id = {docid: "", auId: "", obj : {}};
+ 
+      
       })
+ 
+     
+      // this.data.notification = 0;
+      MyArray.forEach(item => { 
+       this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+        this.notifications = 0;
+        i.forEach(o => {
+           
+         
+          if(o.data().bookingState === "waiting"){
+            //  Bookingid.docid = o.id;
+            //  Bookingid.obj = o.data();
+           
+             id.obj = o.data();
+             id.auId = o.id;
+      
+           
+             this.notifications += 1;
+            // this.data.notification += 1;
+            console.log( "uuuuuuuuuuuuuuuu", o.data() );
+            Bookings.push(id);
+            id = {docid: "", auId: "", obj : {}};
+          }
+        
+        })
+       })
      })
-
-
+     })
     let firetattoo = {
       docid: '',
       name: '',
       pricerange: '',
       description: '',
       image: '',
-      categories:''
+      categories:'',
+      start:'',
+      end:''
     }
     
-
-
     this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
+      
       data.forEach(item => {
         this.counter.push(item.data());
         this.n += 1
      
-        console.log("Array length ", this.n );
+     
         
       })
-
  this.createBarChart();
-
     })
  
     this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {
@@ -255,12 +295,10 @@ Tattoos = [];
         this.count.push(item.data());
         this.p += 1
      
-        console.log("Array length ", this.p );
+      
         
       })
-
  this.createBarChart();
-
     })
  
   
@@ -269,12 +307,10 @@ Tattoos = [];
         this.county.push(item.data());
         this.r += 1
      
-        console.log("Array length ", this.r );
+     
         
       })
-
  this.createBarChart();
-
     })
  
     this.db.collection("Users").onSnapshot(data => {
@@ -282,21 +318,19 @@ Tattoos = [];
         this.county.push(item.data());
         this.o += 1
      
-        console.log("Array length ", this.o );
+      
         
       })
-
  this.createBarChart();
-
     })
-
     this.db.collection('Tattoo').onSnapshot(data => {
       this.Tattoos = [];
       data.forEach(item => {
         firetattoo.categories = item.data().categories;
         firetattoo.name = item.data().name;
         firetattoo.pricerange = item.data().pricerange;
-      
+        firetattoo.start = item.data().start;
+        firetattoo.end = item.data().end;
         firetattoo.categories = item.data().categories;
         firetattoo.image = item.data().image;
         firetattoo.docid = item.id;
@@ -308,7 +342,9 @@ Tattoos = [];
           pricerange: '',
           description: '',
           image: '',
-          categories:''
+          categories:'',
+          start:'',
+          end:''
         }
       })
       
@@ -316,10 +352,13 @@ Tattoos = [];
 
 
    this.db.collection("Users").onSnapshot(data => {
+     this.Accepted = [];
      data.forEach(item => {
        
        if(item.data().bookingState === "Accepted"){
-        console.log("Users ", item.data() );
+        console.log("Accepted Booking ",item.data() );
+        
+      
         this.Accepted.push({id: item.id, data: item.data()})
        }
       
@@ -327,81 +366,77 @@ Tattoos = [];
      })
    })
 
+
+   this.db.collection("Users").onSnapshot(data => {
+    this.Decline = [];
+    data.forEach(item => {
+      
+      if(item.data().bookingState === "Decline"){
+       console.log("Accepted Booking ",item.data() );
+       
+     
+       this.Decline.push({id: item.id, data: item.data()})
+      }
+     
+      
+    })
+  })
+
+  
   }
-
-
   goToNotificationsPage(){
 this.rout.navigateByUrl('/notifications')
 }
-
-
 goProfilePage(){
   this.rout.navigateByUrl('/profile')
-
  
-
 }
-
-
-
-
   async openModal(CheckNumber, obj) {
-
     this.auth.addTattoo = false;
     this.auth.editButton = false;
     this.auth.myObj.obj.categories = "";
-      this.auth.myObj.obj.pricerange = "";
-
+     
+      this.auth.myObj.obj.start = "";
+      this.auth.myObj.obj.end = "";
       this.auth.myObj.obj.description = "";
       this.auth.myObj.obj.image = "";
       this.auth.myObj.obj.name = "";
       this.auth.myObj.obj.docid = "";
-
     if(CheckNumber == 1){
-
     
-
       this.auth.myObj.obje = {};
       this.auth.addTattoo = true;
    this.auth.myObj.Button = "Add Tattoo";
-
-
       const modal = await this.modalController.create({
         component: TattooPage
       });
       return await  modal.present();
-
     }else{
      
       this.auth.editButton = true;
       this.auth.myObj.obje = {};
       this.auth.myObj.Button = "Edit";
-
   
-
       this.auth.myObj.obj.categories = obj.categories;
-      this.auth.myObj.obj.pricerange = obj.pricerange;
+   
+      this.auth.myObj.obj.start = obj.start;
+      this.auth.myObj.obj.end = obj.end;
       this.auth.myObj.obj.description = obj.description;
       this.auth.myObj.obj.image = obj.image;
       this.auth.myObj.obj.name = obj.name;
       this.auth.myObj.obj.docid = obj.docid;
-
-  
+    
       
       const modal = await this.modalController.create({
         component: TattooPage
       });
       return await  modal.present();
-
     }
       
     }
-
     async DeleteData(tattoo) {
-
       console.log(tattoo);
       
-
       const alert = await this.alertCtrl.create({
         header: 'DELETE!',
         message: '<strong>Are you sure you want to delete this tattoo?</strong>',
@@ -425,12 +460,9 @@ goProfilePage(){
       await alert.present();
  
     }
-
     async DeleteHistory(tattoo) {
-
       console.log(tattoo);
       
-
       const alert = await this.alertCtrl.create({
         header: 'DELETE!',
         message: '<strong>Are you sure you want to delete this tattoo?</strong>!!!',
@@ -454,7 +486,5 @@ goProfilePage(){
       await alert.present();
  
     }
-
     
 }  
-    

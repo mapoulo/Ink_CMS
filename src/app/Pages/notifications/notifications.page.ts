@@ -8,19 +8,15 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import * as moment from 'moment';
-
-
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.page.html',
   styleUrls: ['./notifications.page.scss'],
 })
 export class NotificationsPage implements OnInit {
-
   db = firebase.firestore();
 notifications : number = 0;
   index : number;
-
   event = {
     title: '',
     desc: '',
@@ -28,131 +24,116 @@ notifications : number = 0;
     endTime: '',
     allDay: false
   };
-
   name: string = "Nkwe";
   surname: string = "Mapoulo";
-
   price = "";
-
   NewName: string;
   NewSurname: string;
-
   minDate = new Date().toISOString();
-
   eventSource = [];
   viewTitle;
-
   calendar = {
     mode: 'month',
     currentDate: new Date()
   };
-
   lockSwipeToPrev;
-
   @ViewChild(CalendarComponent, { static: false }) myCal: CalendarComponent;
-
-
   Bookings = [];
   // number;
+
+ 
+
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
-
   obj = {
     bookingState : '',
     breadth : '',
+    endPrice : '',
+    startPrice : '',
     category : '',
     customerName : '',
     description : '',
     image : '',
     length : '',
-    pricerange : '',
-  
+    number:'',
     tattoName : '',
     uid : '',
     auId : ''
   };
-
   constructor(public alertController:AlertController,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+
+
 
   ionViewWillEnter() {
     
-
-    this.notifications = this.data.notification;
     
-    console.log("Your Notifications ", this.notifications);
+   
     
-
     let id = {docid: "", auId: "",  obj : {}};
   let autId = "";
  
-   this.db.collection('Bookings').get().then(res => {
-     
-     res.forEach(e => {
-       id.docid = e.id;
-       id.obj = e.data();
-       this.MyArray.push(id);
-       id = {docid: "", auId: "", obj : {}};
-
-       console.log("wwwwwwwwwwww", this.MyArray);
-     })
-
-
-    
-     this.MyArray.forEach(item => { 
-
-     
-      this.db.collection("Bookings").doc(item.docid).collection("Requests").get().then(i => {
-
-        // this.number  = 0;
-     
-        i.forEach(o => {
-       
-          if(o.data().bookingState === "waiting"){
-            //  Bookingid.docid = o.id;
-            //  Bookingid.obj = o.data();
-            //  console.log("uuuuuuuuuuuuuuuu",o.id);
-            id.obj = o.data();
-            id.auId = o.id;
-           
-             
-            this.Bookings.push(id);
-            id = {docid: "", auId: "", obj : {}};
-            console.log("ttttttttttttt", this.Bookings);
-
-          }
-        
-        })
-
-        // this.number = this.MyArray.length;
-      })
+   this.db.collection('Bookings').onSnapshot(res => {
+    res.forEach(e => {
+      id.docid = e.id;
+      id.obj = e.data();
+      this.MyArray.push(id);
+      id = {docid: "", auId: "", obj : {}};
+      console.log("wwwwwwwwwwww", this.MyArray);
     })
-
    
+    this.MyArray.forEach(item => { 
+    
+     //this.Bookings=[];
+     this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+      this.notifications = 0;
+      this.Bookings = []
+      i.forEach(o => {
+      
+        if(o.data().bookingState === "waiting"){
+          //  Bookingid.docid = o.id;
+          //  Bookingid.obj = o.data();
+          //  console.log("uuuuuuuuuuuuuuuu",o.id);
+          id.obj = o.data();
+          id.auId = o.id;
+         
+           this.notifications += 1;
+          this.Bookings.push(id);
+          id = {docid: "", auId: "", obj : {}};
+          console.log("ttttttttttttt", this.Bookings);
+        }
+      
+      })
+     })
    })
+   })
+
+
+
+
+
 
   }
 
-  ngOnInit() {
 
+  ngOnInit() {
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
   }
-
   goToNotificationsPage(){
     this.rout.navigateByUrl('/notifications')
 }
 
+
   save(obj, i){
     
-
     this.index = i;
-
     this.obj = obj;
     this.obj.description = obj.obj.description;
     this.obj.image = obj.obj.image;
     this.obj.length = obj.obj.length;
-    this.obj.pricerange = obj.obj.pricerange;
-  
+    this.obj.startPrice = obj.obj.startPrice;
+    this.obj.endPrice = obj.obj.endPrice;
+    this.obj.number=obj.obj.number;
     this.obj.tattoName = obj.obj.tattoName;
     this.obj.customerName = obj.obj.customerName;
     this.obj.bookingState = obj.obj.bookingState;
@@ -161,16 +142,13 @@ notifications : number = 0;
     this.obj.uid = obj.obj.uid;
     this.obj.auId = obj.auId;
     console.log("save button clicked", this.obj);
-
     console.log("index", this.Bookings[i]);
-
-
   }
+
 
 
   call(numbers){
     console.log("Your Numbers ", numbers);
-    
   }
 
 
@@ -180,11 +158,42 @@ notifications : number = 0;
    this.ClickedObjeck.name = item.name;
    this.ClickedObjeck.description = item.description;
   }
+
+
   goProfilePage(){
     this.rout.navigateByUrl('/profile')
-  
   }
   
+callNow(number) {
+  this.platform.ready().then(() => {
+  if (this.platform.is('cordova')){
+  this.callNumber.callNumber(number, true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
+}else {
+  console.log('you are calling now');
+  this.alert() 
+}
+})
+}
+
+
+async alert(){
+  const alert = await this.alertController.create({
+    header: 'Calling',
+    subHeader: 'Call funcion is not supported on the browser ',
+    buttons: [{
+      text: 'Ok',
+      role: 'Ok',
+      cssClass: 'secondary',
+      handler: (result) => {
+        
+      
+      }
+    }]
+  });
+  await alert.present();
+}
 
 
   resetEvent() {
@@ -197,38 +206,44 @@ notifications : number = 0;
     };
   }
 
+
   takeData() {
     this.NewName = this.name;
     this.NewSurname = this.surname;
   }
-
   dd() {
     this.db.collection('Tattoo').doc().collection('One').doc().set({
       name: "Lesiba",
       surname: "Mabe",
     })
   }
-
-
   // Create the right event format and reload source
   async addEvent() {
-
-
+    // let eventCopy = {
+    //   title: this.event.title,
+    //   startTime: new Date(this.event.startTime),
+    //   endTime: new Date(this.event.endTime),
+    //   allDay: this.event.allDay,
+    //   desc: this.event.desc
+    // }
+    // if (eventCopy.allDay) {
+    //   let start = eventCopy.startTime;
+    //   let end = eventCopy.endTime;
+    //   eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+    //   eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+    // }
+    // this.eventSource.push(eventCopy);
+    // this.myCal.loadEvents();
+    // this.resetEvent();
 let diffrDays = 0; 
 console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
 let date = new Date(Date.now());
-
-
 console.log("My date is", moment().format().slice(0, 10));
-
-    if( this.event.startTime.slice(0, 10)<= this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) <= this.event.startTime.slice(0, 10) ){
-
-      if(this.obj.customerName != "" && this.price !== ""){
-
+    if( this.event.startTime.slice(0, 10)< this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) < this.event.startTime.slice(0, 10) ){
+      if(this.price !== ""){
         console.log("This start time ",this.event.startTime);
         console.log("End time ", this.event.endTime);
         console.log("5555555555", this.obj);
-
         var eventStartTime = new Date(this.event.startTime);
     var eventEndTime = new Date(this.event.endTime);
     var diff = Math.abs(eventStartTime.getTime() - eventEndTime.getTime());
@@ -241,14 +256,15 @@ console.log("My date is", moment().format().slice(0, 10));
           description : this.obj.description,
           image : this.obj.image,
           length : this.obj.length,
-          pricerange : this.obj.pricerange,
-          
+          startPrice : this.obj.startPrice,
+          endingDate : this.obj.endPrice,
           tattoName : this.obj.tattoName,
           customerName : this.obj.customerName,
           category : this.obj.category,
           breadth : this.obj.breadth,
           uid : this.obj.uid,
           auId : this.obj.auId,
+          number: this.obj.number
          
         })
           
@@ -260,7 +276,9 @@ console.log("My date is", moment().format().slice(0, 10));
            bookingState : "Pending",
            auId : this.obj.auId,
            image : this.obj.image,
-           days : diffrDays
+           days : diffrDays,
+           number: this.obj.number,
+           customerName : this.obj.customerName
   
         })
   
@@ -282,6 +300,23 @@ console.log("My date is", moment().format().slice(0, 10));
             }, {
               text: 'Ok',
               handler: () => {
+
+
+                this.obj = {
+                  bookingState : '',
+                  breadth : '',
+                  category : '',
+                  customerName : '',
+                  description : '',
+                  image : '',
+                  length : '',
+                 endPrice : '',
+                 startPrice : '',
+                  number:'',
+                  tattoName : '',
+                  uid : '',
+                  auId : ''
+                };
                
                 setTimeout(() => {
                   this.Bookings.splice(this.index, 1);
@@ -307,7 +342,6 @@ console.log("My date is", moment().format().slice(0, 10));
       }
  
     }else{
-
      
       const alert = await this.alertController.create({
         header: '',
@@ -318,48 +352,40 @@ console.log("My date is", moment().format().slice(0, 10));
   
       await alert.present();
     }
-
-
    
   
   }
 
+
+
   home(){
     this.rout.navigateByUrl('/landing')
   }
-
   // Change current month/week/day
   next() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slideNext();
   }
-
   back() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slidePrev();
   }
-
-
   changeMode(mode) {
     this.calendar.mode = mode;
   }
-
   // Focus today
   today() {
     this.calendar.currentDate = new Date();
   }
-
   // Selected date reange and hence title changed
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
-
   // Calendar event was clicked
   async onEventSelected(event) {
     // Use Angular date pipe for conversion
     let start = formatDate(event.startTime, 'medium', this.locale);
     let end = formatDate(event.endTime, 'medium', this.locale);
-
     const alert = await this.alertCtrl.create({
       header: event.title,
       subHeader: event.desc,
@@ -368,7 +394,6 @@ console.log("My date is", moment().format().slice(0, 10));
     });
     alert.present();
   }
-
   // Time slot was clicked
   onTimeSelected(ev) {
     let selected = new Date(ev.selectedTime);
@@ -376,13 +401,10 @@ console.log("My date is", moment().format().slice(0, 10));
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
   }
-
   onCurrentDateChanged(event:Date) {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
    
-
  
   }
-
 }

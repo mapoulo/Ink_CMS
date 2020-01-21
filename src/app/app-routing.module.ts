@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'success-page',
     loadChildren: () => import('./success-page/success-page.module').then( m => m.SuccessPagePageModule)
   },
+  {
+    path: 'messages',
+    loadChildren: () => import('./messages/messages.module').then( m => m.MessagesPageModule)
+  },
 
 
  

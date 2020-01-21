@@ -41,8 +41,10 @@
                       <p class="error" *ngIf="TattooName.hasError('required') && (TattooName.touched || TattooName.dirty)">Please enter Tattoo Name</p>  
                    <ion-item>
                         <ion-label position="floating">Pricerange</ion-label><br>
-                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.start"  placeholder="{{start}}">R</ion-input>
-                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.end"  placeholder="{{end}}">R</ion-input>
+
+                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{start}}">R</ion-input>
+
+                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{end}}">R</ion-input>
                       </ion-item>
                       <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
                   <ion-item>

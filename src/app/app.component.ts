@@ -1,10 +1,11 @@
-import { firebaseConfig } from './Environment';
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+import {firebaseConfig} from '../environments/firebaseConfig'
+import { NotificationsService } from './notifications.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,11 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private route: Router
+    private route: Router,
+    private notificationsService: NotificationsService
   ) {
     this.initializeApp();
+  
     firebase.initializeApp(firebaseConfig);
 
     // this. getAuth();
@@ -31,14 +34,11 @@ export class AppComponent {
     });
   }
 
-
-  getAuth() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
-        this.route.navigateByUrl('/landing')
-      }else {
-        this.route.navigateByUrl('/login')
-      }
-    })
+  ngAfterViewInit() {
+    this.platform.ready().then(async () => {
+       await this.notificationsService.requestPermission();
+    });
   }
+  
+
 }

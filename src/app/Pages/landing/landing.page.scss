@@ -2463,7 +2463,7 @@
 
 }
 .list-booking {
-    flex-basis: 50%;
+    flex-basis: 20%;
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -2478,7 +2478,7 @@
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         overflow-x: hidden;
         overflow-y: auto;
         height: 90%;
@@ -2487,7 +2487,7 @@
 }
 .booked-card {
    
-    flex-basis: 50%;
+    flex-basis: 100%;
     padding: 1em;
     height: 30%;
    
