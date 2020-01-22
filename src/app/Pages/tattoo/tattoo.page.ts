@@ -23,7 +23,6 @@ export class TattooPage implements OnInit {
     description: '',
     image: '',
     categories:'',
-
   }
   Tattoos:[];
 
@@ -35,6 +34,9 @@ export class TattooPage implements OnInit {
    description : string;
    image :  string;
    name :  string;
+  
+
+   results
   
 
    editButton : boolean;
@@ -79,6 +81,16 @@ export class TattooPage implements OnInit {
   get Image() {
     return this.tattooForm.get('image');
   }
+
+  get Start() {
+    return this.tattooForm.get('start');
+  }
+ 
+
+  get End() {
+    return this.tattooForm.get('end');
+  }
+ 
  
   constructor(private camera: Camera, private modalController: ModalController, private auth: AuthenticationService,public actionSheetController: ActionSheetController, private fb: FormBuilder) { 
     
@@ -90,22 +102,29 @@ export class TattooPage implements OnInit {
     this.editButton = this.auth.editButton;
     this.addTattoo  = this.auth.addTattoo;
     this.Button = this.auth.myObj.Button;
- 
+   
     this.categories = this.auth.myObj.obj.categories;
-    this.start = this.auth.myObj.obj.start;
-    this.end = this.auth.myObj.obj.end;
+
+     this.start = this.auth.myObj.obj.start;
+     this.end = this.auth.myObj.obj.end;
     this.description= this.auth.myObj.obj.description;
     this.image = this.auth.myObj.obj.image;
     this.name = this.auth.myObj.obj.name;
+    // this.start = this.auth.myObj.obj.start;
+    // this.end = this.auth.myObj.obj.end;
+    //console.log("Start",this.end);
+   // this.results= `${this.tattoo.start}-${this.tattoo.end} `
 
-
+   
     this.tattoo.name = this.auth.myObj.obj.name;
     this.tattoo.categories = this.auth.myObj.obj.categories;
-    this.start = this.auth.myObj.obj.start;
-    this.end = this.auth.myObj.obj.end;
-  
+    this.tattoo.startPrice = this.auth.myObj.obj.start;
+    this.tattoo.endPrice = this.auth.myObj.obj.end;
+    // this.tattoo.pricerange = `${this.tattoo.start}-${this.tattoo.end} `;
+    
     this.tattoo.description= this.auth.myObj.obj.description;
     this.tattoo.image = this.auth.myObj.obj.image;
+
    
 
 
@@ -124,6 +143,7 @@ export class TattooPage implements OnInit {
     this.tattooForm = this.fb.group({
       tattooName: new FormControl('', Validators.compose([Validators.required])),
       priceRange: new FormControl('', Validators.compose([Validators.required])),
+      end: new FormControl('', Validators.compose([Validators.required])),
       categories: new FormControl('', Validators.compose([Validators.required])),
       description: new FormControl('', Validators.compose([Validators.required])),
       image: ['']
@@ -156,7 +176,7 @@ export class TattooPage implements OnInit {
   }
 
   addtattoo(tattooForm : FormGroup){
-
+    
     if (tattooForm.valid ) {
    
       this.db.collection("Tattoo").doc().set(this.tattoo);
@@ -192,6 +212,3 @@ export class TattooPage implements OnInit {
 
 
   }
- 
-  
-

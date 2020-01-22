@@ -17,7 +17,7 @@
           <!-- This is the message notifications -->
           <div class="notifation">
             <ion-button (click)="viewMessages()" shape="block" color="light" size="large" fill="clear">
-                <ion-icon name="notifications-outline"></ion-icon>
+              <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
               </ion-button>
             <ion-badge class="badge" color="light">{{messages}}</ion-badge>
         </div>
@@ -104,6 +104,8 @@
                         <img src="{{item.data.image}}" alt="">
                     </div>
                     <div class="info">
+                      <p>Customer Name: {{item.data.customerName }}</p>
+                      <p>Cell Number: {{item.data.number }}</p>
                       <p style="background: mediumaquamarine; color: #fff">Status {{item.data.bookingState}}</p>
                       <p>Start Date: {{item.data.endingDate | date: 'shortDate'}}</p>
                       <p>{{item.data.name}}</p>

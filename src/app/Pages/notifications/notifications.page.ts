@@ -15,7 +15,7 @@ import * as moment from 'moment';
 })
 export class NotificationsPage implements OnInit {
   db = firebase.firestore();
-notifications : number = 0;
+notifications  = 0;
   index : number;
   event = {
     title: '',
@@ -66,59 +66,74 @@ notifications : number = 0;
 
   ionViewWillEnter() {
     
-    
-   
-    
+
     let id = {docid: "", auId: "",  obj : {}};
-  let autId = "";
- 
-   this.db.collection('Bookings').onSnapshot(res => {
-    res.forEach(e => {
-      id.docid = e.id;
-      id.obj = e.data();
-      this.MyArray.push(id);
-      id = {docid: "", auId: "", obj : {}};
-      console.log("wwwwwwwwwwww", this.MyArray);
-    })
+    let autId = "";
    
-    this.MyArray.forEach(item => { 
-    
-     //this.Bookings=[];
-     this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
-      this.notifications = 0;
-      this.Bookings = []
-      i.forEach(o => {
-      
-        if(o.data().bookingState === "waiting"){
-          //  Bookingid.docid = o.id;
-          //  Bookingid.obj = o.data();
-          //  console.log("uuuuuuuuuuuuuuuu",o.id);
-          id.obj = o.data();
-          id.auId = o.id;
-         
-           this.notifications += 1;
-          this.Bookings.push(id);
-          id = {docid: "", auId: "", obj : {}};
-          console.log("ttttttttttttt", this.Bookings);
-        }
-      
+     this.db.collection('Bookings').onSnapshot(res => {
+      res.forEach(e => {
+        id.docid = e.id;
+        id.obj = e.data();
+        this.MyArray.push(id);
+        id = {docid: "", auId: "", obj : {}};
+  
+        console.log("wwwwwwwwwwww", this.MyArray);
       })
+  
+  
+     
+      this.MyArray.forEach(item => { 
+  
+      
+       //this.Bookings=[];
+       this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+        this.notifications = 0;
+        this.Bookings = []
+        i.forEach(o => {
+        
+          if(o.data().bookingState === "waiting"){
+            //  Bookingid.docid = o.id;
+            //  Bookingid.obj = o.data();
+            //  console.log("uuuuuuuuuuuuuuuu",o.id);
+            id.obj = o.data();
+            id.auId = o.id;
+           
+             this.notifications += 1;
+            this.Bookings.push(id);
+            id = {docid: "", auId: "", obj : {}};
+            console.log("ttttttttttttt", this.Bookings);
+  
+          }
+        
+        })
+  
+       })
      })
-   })
-   })
+  
+  
+     })
 
-
-
-
-
-
+    
+   
   }
 
 
   ngOnInit() {
+
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
+
+
+    
+    
+
+
   }
+
+
+
+
+
   goToNotificationsPage(){
     this.rout.navigateByUrl('/notifications')
 }

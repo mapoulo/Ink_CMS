@@ -18,6 +18,11 @@ const routes: Routes = [
     path: 'landing',
     loadChildren: () => import('./Pages/landing/landing.module').then( m => m.LandingPageModule)
   },
+  {
+
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
 
   {
     canActivate: [AuthGuardService],
@@ -44,7 +49,8 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },  {
+  },
+  {
     path: 'success-page',
     loadChildren: () => import('./success-page/success-page.module').then( m => m.SuccessPagePageModule)
   },
