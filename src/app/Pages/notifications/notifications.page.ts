@@ -8,6 +8,11 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import * as moment from 'moment';
+import { NotificationsService } from 'src/app/notifications.service';
+
+
+
+
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.page.html',
@@ -39,6 +44,7 @@ notifications  = 0;
   lockSwipeToPrev;
   @ViewChild(CalendarComponent, { static: false }) myCal: CalendarComponent;
   Bookings = [];
+  Bookings1 = [];
   // number;
 
  
@@ -60,7 +66,7 @@ notifications  = 0;
     uid : '',
     auId : ''
   };
-  constructor(public alertController:AlertController,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+  constructor(public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
 
 
 
@@ -76,49 +82,103 @@ notifications  = 0;
         id.obj = e.data();
         this.MyArray.push(id);
         id = {docid: "", auId: "", obj : {}};
-  
         console.log("wwwwwwwwwwww", this.MyArray);
       })
-  
-  
      
       this.MyArray.forEach(item => { 
-  
-      
-       //this.Bookings=[];
        this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+      
         this.notifications = 0;
-        this.Bookings = []
+        this.Bookings = [] 
+       
         i.forEach(o => {
-        
+         
           if(o.data().bookingState === "waiting"){
-            //  Bookingid.docid = o.id;
-            //  Bookingid.obj = o.data();
-            //  console.log("uuuuuuuuuuuuuuuu",o.id);
+           
             id.obj = o.data();
             id.auId = o.id;
            
              this.notifications += 1;
-            this.Bookings.push(id);
+             
+              this.Bookings.push(id);
+              this.Bookings1 = this.Bookings;
+              console.log("Your data ",  this.Bookings);
             id = {docid: "", auId: "", obj : {}};
-            console.log("ttttttttttttt", this.Bookings);
-  
+           
           }
         
-        })
+         
   
+        })
        })
      })
-  
-  
      })
-
     
+    
+  
+     
    
+
   }
+  
+
+ionViewDidEnter(){
+
+  
+
+
+
+  // let id = {docid: "", auId: "",  obj : {}};
+  // let autId = "";
+ 
+  //  this.db.collection('Bookings').onSnapshot(res => {
+  //   res.forEach(e => {
+  //     id.docid = e.id;
+  //     id.obj = e.data();
+  //     this.MyArray.push(id);
+  //     id = {docid: "", auId: "", obj : {}};
+  //     console.log("wwwwwwwwwwww", this.MyArray);
+  //   })
+   
+  //   this.MyArray.forEach(item => { 
+  //    this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+    
+  //     this.notifications = 0;
+  //     this.Bookings = [] 
+     
+  //     i.forEach(o => {
+       
+  //       if(o.data().bookingState === "waiting"){
+         
+  //         id.obj = o.data();
+  //         id.auId = o.id;
+         
+  //          this.notifications += 1;
+           
+  //           this.Bookings.push(id);
+  //           console.log("Your data ",  this.Bookings);
+  //         id = {docid: "", auId: "", obj : {}};
+         
+  //       }
+      
+       
+
+  //     })
+  //    })
+  //  })
+  //  })
+  
+  
+
+}
+
 
 
   ngOnInit() {
+    
+
+    
+   
 
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
@@ -234,22 +294,7 @@ async alert(){
   }
   // Create the right event format and reload source
   async addEvent() {
-    // let eventCopy = {
-    //   title: this.event.title,
-    //   startTime: new Date(this.event.startTime),
-    //   endTime: new Date(this.event.endTime),
-    //   allDay: this.event.allDay,
-    //   desc: this.event.desc
-    // }
-    // if (eventCopy.allDay) {
-    //   let start = eventCopy.startTime;
-    //   let end = eventCopy.endTime;
-    //   eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-    //   eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
-    // }
-    // this.eventSource.push(eventCopy);
-    // this.myCal.loadEvents();
-    // this.resetEvent();
+  
 let diffrDays = 0; 
 console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
 let date = new Date(Date.now());
@@ -293,7 +338,8 @@ console.log("My date is", moment().format().slice(0, 10));
            image : this.obj.image,
            days : diffrDays,
            number: this.obj.number,
-           customerName : this.obj.customerName
+           customerName : this.obj.customerName,
+           tokenId : this.notification.token
   
         })
   

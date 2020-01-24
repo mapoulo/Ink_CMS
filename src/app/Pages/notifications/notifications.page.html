@@ -17,12 +17,12 @@
 
 
       
-          <div class="notifation">
+          <!-- <div class="notifation">
               <ion-button shape="block" color="light" size="large" fill="clear">
                   <ion-icon name="notifications-outline"></ion-icon>
                 </ion-button>
               <ion-badge class="badge" color="light">{{notifications}}</ion-badge>
-          </div>
+          </div> -->
 
 
 
@@ -42,7 +42,7 @@
                 <div class="booking-container" >
                     
                 <div class="bookings-list">
-                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index" (click)="save(item, i)">
+                                          <div class="booking-item" *ngFor = "let item of Bookings1; let i = index" (click)="save(item, i)">
                                               <div class="tattoo-booking-image"><img src="{{item.obj.image}}" alt=""></div>
                                               <div class="info-booking">
                                               <p class="description">{{item.obj.description }}</p>                                           

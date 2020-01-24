@@ -13,16 +13,14 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content padding>
-
   <main class="main">
   
      <section class="upload-tattoo">
       <div class="upload">
           <ion-item  class="imageitem" lines="none" >
               <ion-label position="stacked" id="profile_image" color="primary"></ion-label>
-              <ion-input class="image-upload"  type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"></ion-input>
+              <ion-input class="image-upload"  type="file"  accept="image/*" (change)="changeListener($event)"></ion-input>
             </ion-item>
       <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="480px" width="400px" style="object-fit: cover;"></ion-item>
         
@@ -41,12 +39,12 @@
                       <p class="error" *ngIf="TattooName.hasError('required') && (TattooName.touched || TattooName.dirty)">Please enter Tattoo Name</p>  
                    <ion-item>
                         <ion-label position="floating">Pricerange</ion-label><br>
-
-                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{start}}">R</ion-input>
-
-                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{end}}">R</ion-input>
+                        <ion-input type="number" formControlName="startPrice"  name="startPrice"  [(ngModel)]="tattoo.startPrice"  placeholder="{{tattoo.startPrice}}">R</ion-input>
+                        
+                        <ion-input type="number" formControlName="endPrice"  name="startPrice"  [(ngModel)]="tattoo.endPrice"  placeholder="{{tattoo.endPrice}}">R</ion-input>
                       </ion-item>
-                      <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
+                      <p class="error" *ngIf="StartPrice.hasError('required') && (StartPrice.touched || StartPrice.dirty)">Please enter your price range</p>
+                      <p class="error" *ngIf="EndPrice.hasError('required') && (EndPrice.touched || EndPrice.dirty)">Please enter your price range</p>
                   <ion-item>
                           <ion-label position="floating">Categories</ion-label>
                           <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
@@ -64,8 +62,6 @@
             <ion-button *ngIf="editButton" color="secondary" shape="block" (click)="EditTattoo(tattooForm)">Edit</ion-button> 
             <ion-button *ngIf="addTattoo" color="secondary" shape="block" (click)="addtattoo(tattooForm)">Add Tattoo</ion-button> 
            
-
-
         </form>
     </section>
   </main>

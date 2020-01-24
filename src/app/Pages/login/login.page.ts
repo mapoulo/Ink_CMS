@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { NotificationsService } from 'src/app/notifications.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -17,6 +20,14 @@ export class LoginPage implements OnInit {
 db=firebase.firestore();
   loader = true;
 
+
+  name = ""
+  address = ""
+  email = ""
+  pdf = ""
+  phoneNumber = ""
+  tokeId = ""
+
   get Username() {
     return this.loginForm.get('usernameL');
   }
@@ -25,7 +36,7 @@ db=firebase.firestore();
   }
 
 
-  constructor(private router: Router, private fb: FormBuilder, public toastCtrl: ToastController,private auth: AuthenticationService) { }
+  constructor(private router: Router, private notifications : NotificationsService ,private fb: FormBuilder, public toastCtrl: ToastController,private auth: AuthenticationService) { }
 
   ngOnInit() {
 
@@ -53,6 +64,31 @@ db=firebase.firestore();
 
         if (res.exists){
 
+       
+          this.tokeId = this.notifications.token;
+
+          this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(data => {
+
+           this.name = data.data().name
+            this.address = data.data().address
+           this.email = data.data().email
+           this.pdf = data.data().pdf
+           this.phoneNumber = data.data().phoneNumber
+
+          })
+          
+          setTimeout(() => {
+            this.db.collection("Admin").doc(firebase.auth().currentUser.uid).update({
+              name :this.name,
+              address :this.address,
+              email :this.email,
+              pdf :this.pdf,
+              phoneNumber :this.phoneNumber,
+              tokenId : this.tokeId
+        })
+          }, 4000);
+
+       
           console.log("Logged in succesful")
           this.router.navigateByUrl('/landing');
           setTimeout(() => {
@@ -88,6 +124,13 @@ db=firebase.firestore();
     this.presentToast();
   
   });
+
+  this.name = ""
+  this.address = ""
+  this.email = ""
+  this.pdf = ""
+  this.phoneNumber = ""
+  this.tokeId = ""
 
   }
 

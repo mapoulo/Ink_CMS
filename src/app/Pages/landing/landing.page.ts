@@ -25,7 +25,8 @@ export class LandingPage implements OnInit {
   MyMessages = []
   Accepted = [];
   Decline = [];
-  notifications : number = 0;
+  notifications = 0;
+  notifications1 = 0;
   bars: any;
   colorArray: any;
   tattoo = {
@@ -56,122 +57,8 @@ Tattoos = [];
   ionViewDidEnter() {
  
  
-  
-  }
-  createBarChart() {
-    this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'bar',
-      data: {
-      
-        datasets: [
-          {
-          label: ['All bookings'] ,
-          data: [this.o, 3 ],
-          backgroundColor: 'rgb(255, 135, 79)', // array should have same number of elements as number of dataset
-          borderColor: 'rgb(255, 135, 79)s',// array should have same number of elements as number of dataset
-          borderWidth: 2,
-        },
-        {
-          label: ['Accepted'] ,
-          data: [this.n],
-          backgroundColor: '#7bc850', // array should have same number of elements as number of dataset
-          borderColor: '#7bc850',// array should have same number of elements as number of dataset
-          borderWidth: 2
-        },
-        {
-          label: ['Declined'] ,
-          data: [this.p],
-          backgroundColor: '#D66E53', // array should have same number of elements as number of dataset
-          borderColor: '#D66E53',// array should have same number of elements as number of dataset
-          borderWidth: 2
-        },
-        {
-          label: ['All users'] ,
-          data: [this.r],
-          backgroundColor: 'sunflowerblue', // array should have same number of elements as number of dataset
-          borderColor: 'sunflowerblue',// array should have same number of elements as number of dataset
-          borderWidth: 2
-          
-        }
-      ]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
-  }
-  
-  ngOnInit() {
+
     
-   
-      // firebase.auth().onAuthStateChanged(user => {
-      //   if (user) {
-      //     firebase
-      //       .firestore()
-      //       .doc(`/Admin/${user.uid}`)
-      //       .get()
-      //       .then(AdminSnapshot => {
-      //         this.isAdmin = AdminSnapshot.data().isAdmin;
-      //       });
-            
-      //   }
-      // });
-      
-  }
-
- async  viewMessages(){
-
-    const modal = await this.modalController.create({
-      component: MessagesPage
-    });
-    return await  modal.present();
-
-  }
-    call(){
-      console.log('number')
-    } 
-    callNow(number) {
-      this.platform.ready().then(() => {
-      if (this.platform.is('cordova')){
-      this.callNumber.callNumber(number, true)
-        .then(res => console.log('Launched dialer!', res))
-        .catch(err => console.log('Error launching dialer', err));
-    }else {
-      console.log('you are calling now');
-      this.alert() 
-    }
-    })
-    }
-    async alert(){
-      const alert = await this.alertCtrl.create({
-        header: 'Calling',
-        subHeader: 'Call funcion is not supported on the browser ',
-    
-        buttons: [{
-          text: 'Ok',
-          role: 'Ok',
-          cssClass: 'secondary',
-          handler: (result) => {
-            
-          
-          }
-        }]
-      });
-      await alert.present();
-    }
-    
- 
-  obj = {id: null, obj : null}
-
-  ionViewWillEnter(){
-
-
     this.db.collection("Messages").onSnapshot(data => {
       this.messages = 0;
       this.MyMessages = [];
@@ -182,48 +69,7 @@ Tattoos = [];
         }
       })
     })
-    // let MyArray1 = [];
-    // let Bookings1 = [];
-    // let id1 = {docid: "", auId: "",   obj : {}};
-    
-    
-   
-    //  this.db.collection('Bookings').onSnapshot(res => {
-    //   res.forEach(e => {
-    //     id.docid = e.id;
-    //     id.obj = e.data();
-    //     MyArray1.push(id);
-    //     id = {docid: "", auId: "", obj : {}};
  
-      
-    //   })
- 
-    //   this.notifications = 0;
-    //   this.data.notification = 0;
-    //   MyArray1.forEach(item => { 
-    //    this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
-    //     i.forEach(o => {
-           
-         
-    //       if(o.data().bookingState === "Decline"){
-    //         //  Bookingid.docid = o.id;
-    //         //  Bookingid.obj = o.data();
-    //          console.log( "uuuuuuuuuuuuuuuu", o.data() );
-    //          id.obj = o.data();
-    //          id.auId = o.id;
-      
-           
-    //          this.notifications += 1;
-    //         this.data.notification += 1;
-             
-    //         Bookings1.push(id);
-    //         id = {docid: "", auId: "", obj : {}};
-    //       }
-        
-    //     })
-    //    })
-    //  })
-    //  })
     let MyArray = [];
     let Bookings = [];
     let id = {docid: "", auId: "",   obj : {}};
@@ -236,15 +82,19 @@ Tattoos = [];
         id.obj = e.data();
         MyArray.push(id);
         id = {docid: "", auId: "", obj : {}};
+ console.log("ssssssss");
  
       
       })
  
      
+     
       // this.data.notification = 0;
       MyArray.forEach(item => { 
        this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+       
         this.notifications = 0;
+
         i.forEach(o => {
            
          
@@ -257,6 +107,7 @@ Tattoos = [];
       
            
              this.notifications += 1;
+             this.notifications1 = this.notifications
             // this.data.notification += 1;
             console.log( "uuuuuuuuuuuuuuuu", o.data() );
             Bookings.push(id);
@@ -267,6 +118,8 @@ Tattoos = [];
        })
      })
      })
+
+     
     let firetattoo = {
       docid: '',
       name: '',
@@ -328,9 +181,8 @@ Tattoos = [];
       data.forEach(item => {
         firetattoo.categories = item.data().categories;
         firetattoo.name = item.data().name;
-        firetattoo.pricerange = item.data().pricerange;
-        firetattoo.start = item.data().start;
-        firetattoo.end = item.data().end;
+        firetattoo.start = item.data().startPrice;
+        firetattoo.end = item.data().endPrice;
         firetattoo.categories = item.data().categories;
         firetattoo.image = item.data().image;
         firetattoo.docid = item.id;
@@ -381,9 +233,136 @@ Tattoos = [];
       
     })
   })
+   
+      // firebase.auth().onAuthStateChanged(user => {
+      //   if (user) {
+      //     firebase
+      //       .firestore()
+      //       .doc(`/Admin/${user.uid}`)
+      //       .get()
+      //       .then(AdminSnapshot => {
+      //         this.isAdmin = AdminSnapshot.data().isAdmin;
+      //       });
+            
+      //   }
+      // });
 
   
   }
+
+
+  createBarChart() {
+    this.bars = new Chart(this.barChart.nativeElement, {
+      type: 'bar',
+      data: {
+      
+        datasets: [
+          {
+          label: ['All bookings'] ,
+          data: [this.o, 3 ],
+          backgroundColor: 'rgb(255, 135, 79)', // array should have same number of elements as number of dataset
+          borderColor: 'rgb(255, 135, 79)s',// array should have same number of elements as number of dataset
+          borderWidth: 2,
+        },
+        {
+          label: ['Accepted'] ,
+          data: [this.n],
+          backgroundColor: '#7bc850', // array should have same number of elements as number of dataset
+          borderColor: '#7bc850',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        },
+        {
+          label: ['Declined'] ,
+          data: [this.p],
+          backgroundColor: '#D66E53', // array should have same number of elements as number of dataset
+          borderColor: '#D66E53',// array should have same number of elements as number of dataset
+          borderWidth: 2
+        },
+        {
+          label: ['All users'] ,
+          data: [this.r],
+          backgroundColor: 'sunflowerblue', // array should have same number of elements as number of dataset
+          borderColor: 'sunflowerblue',// array should have same number of elements as number of dataset
+          borderWidth: 2
+          
+        }
+      ]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
+
+
+  
+  ngOnInit() {
+    
+
+      
+  }
+
+ async  viewMessages(){
+
+    const modal = await this.modalController.create({
+      component: MessagesPage
+    });
+    return await  modal.present();
+
+  }
+    call(){
+      console.log('number')
+    } 
+    callNow(number) {
+      this.platform.ready().then(() => {
+      if (this.platform.is('cordova')){
+      this.callNumber.callNumber(number, true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => console.log('Error launching dialer', err));
+    }else {
+      console.log('you are calling now');
+      this.alert() 
+    }
+    })
+    }
+    async alert(){
+      const alert = await this.alertCtrl.create({
+        header: 'Calling',
+        subHeader: 'Call funcion is not supported on the browser ',
+    
+        buttons: [{
+          text: 'Ok',
+          role: 'Ok',
+          cssClass: 'secondary',
+          handler: (result) => {
+            
+          
+          }
+        }]
+      });
+      await alert.present();
+    }
+    
+ 
+  obj = {id: null, obj : null}
+
+  ionViewWillEnter(){
+
+
+ 
+  
+  }
+
+
+
+
+
   goToNotificationsPage(){
 this.rout.navigateByUrl('/notifications')
 }
@@ -396,8 +375,8 @@ goProfilePage(){
     this.auth.editButton = false;
     this.auth.myObj.obj.categories = "";
      
-      this.auth.myObj.obj.start = "";
-      this.auth.myObj.obj.end = "";
+      this.auth.myObj.obj.startPrice = "";
+      this.auth.myObj.obj.endPrice = "";
       this.auth.myObj.obj.description = "";
       this.auth.myObj.obj.image = "";
       this.auth.myObj.obj.name = "";
@@ -419,8 +398,8 @@ goProfilePage(){
   
       this.auth.myObj.obj.categories = obj.categories;
    
-      this.auth.myObj.obj.start = obj.start;
-      this.auth.myObj.obj.end = obj.end;
+      this.auth.myObj.obj.startPrice = obj.start;
+      this.auth.myObj.obj.endPrice = obj.end;
       this.auth.myObj.obj.description = obj.description;
       this.auth.myObj.obj.image = obj.image;
       this.auth.myObj.obj.name = obj.name;

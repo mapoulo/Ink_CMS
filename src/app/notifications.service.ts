@@ -11,6 +11,10 @@ import { environment} from '../environments/environment'
     providedIn: 'root'
 })
 export class NotificationsService {
+
+
+    token = "";
+
   init(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         navigator.serviceWorker.ready.then((registration) => {
@@ -36,7 +40,7 @@ export class NotificationsService {
             messaging.onTokenRefresh(() => {
                 messaging.getToken().then(
                 (refreshedToken: string) => {
-                    console.log(refreshedToken);
+                    console.log("Tour token Id",refreshedToken);
                 }).catch((err) => {
                     console.error(err);
                 });
@@ -47,6 +51,8 @@ export class NotificationsService {
         });
     });
   }
+
+
   requestPermission(): Promise<void> {
     return new Promise<void>(async (resolve) => {
         if (!Notification) {
@@ -60,8 +66,9 @@ export class NotificationsService {
         try {
             const messaging = firebase.messaging();
             await messaging.requestPermission();
-            const token: string = await messaging.getToken();
-            console.log('User notifications token:', token);
+            this.token = await messaging.getToken();
+            console.log('User notifications token:', this.token);
+            
         } catch (err) {
        console.log('error',err);   
         }
