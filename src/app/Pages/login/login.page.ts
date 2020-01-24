@@ -32,7 +32,7 @@ db=firebase.firestore();
     return this.loginForm.get('usernameL');
   }
   get Password() {
-    return this.loginForm.get('passowrd');
+    return this.loginForm.get('password');
   }
 
 
@@ -45,7 +45,7 @@ db=firebase.firestore();
     }, 2000);
 
     this.loginForm = this.fb.group({
-      usernameL: new FormControl('', Validators.compose([Validators.required])),
+      usernameL: new FormControl('', Validators.compose([Validators.required, Validators.email])),
       password: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(6)])),
     })
   }

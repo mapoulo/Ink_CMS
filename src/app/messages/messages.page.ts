@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import * as firebase from "firebase";
 
 @Component({
@@ -8,41 +8,66 @@ import * as firebase from "firebase";
 })
 export class MessagesPage implements OnInit {
 
+  itemDiv: any = document.documentElement.getElementsByClassName('item');
 
-
-  messages = 0
+  messages = 0;
+  fonts = 0
   MessagesId = [];
-
+  messageInfo = {
+    name: '',
+    email: '',
+    message: '',
+    time: ''
+};
   MyMessages = []
   db = firebase.firestore()
-  constructor() { }
+  active: number = 0;
+  constructor(private render: Renderer2) {
+     
+
+    
+   }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter(){
-
-
     this.db.collection("Messages").onSnapshot(data => {
       this.messages = 0;
       this.MyMessages = [];
       this.MessagesId = [];
       data.forEach(message => {
+        this.fonts++;
         if(message.data().satatus = "NotRead"){
           this.MessagesId.push(message.id)
           this.MyMessages.push({keys: message.id, mine: message.data()});
           this.messages += 1;
+
+
         }
       })
     })
 
 
+  }
+
+  ionViewWillEnter(){
+
+
+   
    
 
 
   }
 
-  updateMessage(key){
+
+  updateMessage(key, data, i){
+
+    this.active = i;
+
+    this.messageInfo.name = data.mine.name;
+    this.messageInfo.message = data.mine.message;
+    this.messageInfo.email = data.mine.email;
+    this.messageInfo.time = data.mine.time;
+
+  
 
    this.db.collection("Messages").get().then(item => {
 
