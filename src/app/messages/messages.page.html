@@ -1,13 +1,17 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
-    <ion-title>messages</ion-title>
+    <ion-title text-center>Messages</ion-title>
   </ion-toolbar>
+
+  <ion-buttons slot="end">
+    <ion-button fill="clear" color="dark"><ion-icon name="close"></ion-icon></ion-button>
+  </ion-buttons>
 </ion-header>
 
 <ion-content>
 
 
-  <ion-list *ngFor = "let message of MyMessages">
+ <!--  <ion-list >
     <ion-item>
       <p> Name :{{message.mine.name}}</p> <br>
       <p>Email : {{message.mine.email}}</p>
@@ -15,7 +19,60 @@
       <p>Time : {{message.mine.time}}</p>
       <button (click)="updateMessage(message.keys)">Read</button>
     </ion-item>
-</ion-list>
+</ion-list> -->
+
+  <div class="list">
+
+    <div class="read-not-container">
+      <div class="header-reader">
+        <ion-badge color="primary">3</ion-badge>
+        <p>All Messages</p>
+        <ion-badge color="success">3</ion-badge>
+        <p>Read Messages</p>
+        <ion-badge color="secondary">3</ion-badge>
+        <p>Unread Messages</p>
+      </div>
+      <div class="messages">
+       
+        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.keys, message, i)" [ngClass]="{'active': active == i}">
+         <ion-icon size="small" color="dark" name="mail"></ion-icon>
+          <div class="info">
+            <p>{{message.mine.name}}</p>
+            <p>{{message.mine.time}}</p>
+          </div>
+         
+        </div>
+        
+        
+      </div>
+    </div>
+   
+  
+
+    <div class="content-messages">
+        <div class="header">
+          <ion-icon name="person"></ion-icon>
+          <h1> {{messageInfo.name}}</h1>
+         
+         
+        </div>
+
+        <div class="message-text">
+        <p>{{messageInfo.message}}</p>
+        <div class="no-selected" *ngIf="!messageInfo.message">
+          <p>Please select a message card on the left hand side to read</p>
+        </div>
+        </div>
+        <div class="options">
+          <ion-button fill="clear" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+          <p> <ion-icon name="time"></ion-icon> {{messageInfo.time}}</p>
+        </div>
+    </div>
+  </div>
+
+
+
+
 
 
   

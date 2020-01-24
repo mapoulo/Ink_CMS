@@ -1,0 +1,167 @@
+
+
+.list {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  .read-not-container {
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(243, 243, 243, 0.466);
+      
+    .header-reader {
+      flex-basis: 10%;
+      background: rgb(231, 231, 231);
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      ion-badge {
+        height: 20px;
+        width: 20px;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      p {
+        font-size: 60% !important;
+      }
+   
+    }
+
+    .messages {
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+      flex-basis: 90%;
+
+
+
+      .item {
+        flex: 0 0 15%;
+        background: rgb(255, 255, 255);
+        box-shadow:  6px 6px 12px rgba(0, 0, 0, 0.1),  
+         -6px -6px 12px  rgba(255, 255, 255, 1);
+        margin: 1%;
+        display: flex;
+        align-items: center;
+        font-size: 80%;
+       position: relative;
+       cursor: pointer;
+   
+       &::before {
+           content: '';
+           top: 0;
+           left: 0;
+           width: 5px;
+           height: 100%;
+           background: rgb(219, 114, 88);
+           position: absolute;
+       }
+   
+   
+        
+       
+      
+      
+        .info, ion-icon {
+               padding: 1em; 
+        }
+        
+        
+     }
+
+  }
+
+  }
+
+ 
+/*   padding-right: 1em;
+  padding-left: 1em;  */
+
+ .active {
+  box-shadow: inset 6px 6px 18px rgba(0, 0, 0, 0.1),  
+  inset -6px 18px  rgba(255, 255, 255, 1) !important;
+   background: #eeeeee !important;
+  
+
+
+ }
+
+
+  .content-messages {
+    flex-basis: 70%;
+ 
+    display: flex;
+    flex-direction: column;
+    
+    /* background: red; */
+
+    .header {
+        display: flex;
+        justify-content: flex-start;
+
+        align-items: center;
+        flex-basis: 5%;
+        padding: 1em;
+
+        h1 {
+            margin: 1%;
+            font-weight: 1em;
+        }
+    }
+    .message-text {
+        flex-basis: 85%;
+        background: rgba(221, 221, 221, 0.253);
+        padding: 1em;
+
+        .no-selected {
+          height: 100%;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+
+          p {
+            font-size: 80%;
+
+          }
+        }
+    }
+    .options {
+        flex-basis: 10%;
+        background: rgb(255, 243, 243);
+        padding: 1em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+            display: flex;
+            align-items: center;
+            margin: 1%;
+            color: rgb(168, 168, 168);
+        }
+    }
+  }
+}
+
+.loe {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 1024px) {
+  .read-not-container {
+    flex-basis: 40%;
+  }
+  .content-messages {
+    flex-basis: 60%;
+  }
+}

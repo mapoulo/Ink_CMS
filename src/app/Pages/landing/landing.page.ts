@@ -21,7 +21,7 @@ export class LandingPage implements OnInit {
   
   // @ViewChild('barChart',  { static: false }) barChart;
   messages = 0
-
+  category: string = 'accepted'
   MyMessages = []
   Accepted = [];
   Decline = [];
@@ -60,50 +60,51 @@ Tattoos = [];
   }
   createBarChart() {
     this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'bar',
-      data: {
+         type: 'bar',
+    data: {
+        labels: ['All Bookings', 'Declined Bookings', 'Accepted Booking', 'All Users'],
+        datasets: [{
+            label: '#-Analytics',
+            data: [this.r, this.p, this.o, this.n],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(153, 102, 255, 0.5)',
+                'rgba(255, 159, 64, 0.5)'
+                
+            ],
+            borderColor: [
+                'rgba(255, 12, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+               
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Bookings made so far.'
+    },
       
-        datasets: [
-          {
-          label: ['All bookings'] ,
-          data: [this.o, 3 ],
-          backgroundColor: 'rgb(255, 135, 79)', // array should have same number of elements as number of dataset
-          borderColor: 'rgb(255, 135, 79)s',// array should have same number of elements as number of dataset
-          borderWidth: 2,
-        },
-        {
-          label: ['Accepted'] ,
-          data: [this.n],
-          backgroundColor: '#7bc850', // array should have same number of elements as number of dataset
-          borderColor: '#7bc850',// array should have same number of elements as number of dataset
-          borderWidth: 2
-        },
-        {
-          label: ['Declined'] ,
-          data: [this.p],
-          backgroundColor: '#D66E53', // array should have same number of elements as number of dataset
-          borderColor: '#D66E53',// array should have same number of elements as number of dataset
-          borderWidth: 2
-        },
-        {
-          label: ['All users'] ,
-          data: [this.r],
-          backgroundColor: 'sunflowerblue', // array should have same number of elements as number of dataset
-          borderColor: 'sunflowerblue',// array should have same number of elements as number of dataset
-          borderWidth: 2
-          
-        }
-      ]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
+        maintainAspectRatio: false,
+  scales: {
+    yAxes: [{
+      stacked: true,
+      gridLines: {
+        display: false,
+        color: "rgba(255,99,132,0.2)"
       }
+    }],
+    xAxes: [{
+      gridLines: {
+        display: false
+      }
+    }]
+  }
+    }
     });
   }
   
@@ -128,7 +129,8 @@ Tattoos = [];
  async  viewMessages(){
 
     const modal = await this.modalController.create({
-      component: MessagesPage
+      component: MessagesPage,
+      cssClass: 'modalMessages'
     });
     return await  modal.present();
 
@@ -387,6 +389,9 @@ Tattoos = [];
   goToNotificationsPage(){
 this.rout.navigateByUrl('/notifications')
 }
+gotToLandingPage(){
+  this.rout.navigateByUrl('/landing')
+  }
 goProfilePage(){
   this.rout.navigateByUrl('/profile')
  
