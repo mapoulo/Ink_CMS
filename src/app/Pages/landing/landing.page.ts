@@ -28,7 +28,7 @@ export class LandingPage implements OnInit {
   Decline = [];
   declinedLength=0;
   notifications = 0;
-  notifications1 = 0;
+
   bars: any;
   colorArray: any;
   tattoo = {
@@ -104,7 +104,7 @@ Tattoos = [];
       MyArray.forEach(item => { 
        this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
        
-        this.notifications = 0;
+      
 
         i.forEach(o => {
            
@@ -117,8 +117,7 @@ Tattoos = [];
              id.auId = o.id;
       
            
-             this.notifications += 1;
-             this.notifications1 = this.notifications
+           
             // this.data.notification += 1;
             console.log( "uuuuuuuuuuuuuuuu", o.data() );
             Bookings.push(id);
@@ -320,12 +319,64 @@ Tattoos = [];
   
   ngOnInit() {
 
+
+    
+    let MyArray = []
+    
+
+    setTimeout(() => {
+     this.db.collection("Bookings").get().then(data => {
+      this.notifications = 0;
+      data.forEach(item => {
+        MyArray.push(item.id)
+       
+      })
+
+     })
+    }, 1000)
+   
+  
+ 
+   
+    setTimeout(() => {
+       
+     
+      MyArray.forEach(i => {
+       console.log("All My keys ", i);
+ 
+     
+       
+       this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(data => {
+      
+      
+        
+         data.forEach(i => {
+          
+          if(i.data().bookingState == "waiting"){
+            this.notifications += 1
+          }
+           
+           
+         })
+        
+       })
+       
+       
+     })
+ 
+  
+   
+     
+    }, 2000)
+
+
+
     let UidArray = []
     
 
     setTimeout(() => {
      this.db.collection("Bookings").get().then(data => {
-
+      this.messages = 0;
       data.forEach(item => {
         UidArray.push(item.id)
        
@@ -336,7 +387,7 @@ Tattoos = [];
    
   
  
-    this.messages = 0;
+   
     setTimeout(() => {
        
      
