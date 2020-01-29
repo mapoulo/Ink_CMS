@@ -64,7 +64,7 @@
                         <p class="error" *ngIf="Categories.hasError('required') && (Categories.touched || Categories.dirty)">Please enter categories</p>
                      <ion-item>
                             <ion-label position="floating">Description</ion-label>
-                           <ion-textarea formControlName="description"  name="description"  autocorrect="on" rows="6" cols="20"  [(ngModel)]="tattoo.description" placeholder="{{description}}" ></ion-textarea>
+                           <ion-textarea formControlName="description"  name="description"  autocorrect="on" rows="3" cols="20"  [(ngModel)]="tattoo.description" placeholder="{{description}}" ></ion-textarea>
                        </ion-item>
                        <p class="error" *ngIf="Description.hasError('required') && (Description.touched || Description.dirty)">Please enter your description</p>
                 </ion-list>

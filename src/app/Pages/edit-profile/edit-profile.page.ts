@@ -90,6 +90,24 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
 
   }
 
+  changeListener(event): void {
+    console.log("My Method is Called");
+    
+    const i = event.target.files[0];
+    console.log(i);
+    const upload = this.storage.child(i.name).put(i);
+    upload.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('upload is: ', progress , '% done.');
+    }, err => {
+    }, () => {
+      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+        console.log('File avail at: ', dwnURL);
+        this.image = dwnURL;
+      });
+    });
+  }
+
   takePicture() {
     const options: CameraOptions = {
       quality: 100,

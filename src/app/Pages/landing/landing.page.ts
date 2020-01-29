@@ -89,7 +89,7 @@ Tattoos = [];
         text: 'Bookings made so far.'
     },
       
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
   scales: {
     yAxes: [{
       stacked: true,
@@ -289,7 +289,7 @@ Tattoos = [];
      
         
       })
- this.createBarChart();
+    this.createBarChart();
     })
  
     this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {
