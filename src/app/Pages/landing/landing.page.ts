@@ -24,8 +24,11 @@ export class LandingPage implements OnInit {
   category: string = 'accepted'
   MyMessages = []
   Accepted = [];
+  AcceptedLength=0;
   Decline = [];
-  notifications : number = 0;
+  declinedLength=0;
+  notifications = 0;
+  notifications1 = 0;
   bars: any;
   colorArray: any;
   tattoo = {
@@ -52,180 +55,33 @@ Tattoos = [];
   r : number = 0;
   o: number = 0;
   number : number = 0;
-  constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+  constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
+
+ 
+
+   }
+   
   ionViewDidEnter() {
+
+
+
+
+
  
  
-  
-  }
-  createBarChart() {
-    this.bars = new Chart(this.barChart.nativeElement, {
-         type: 'bar',
-    data: {
-        labels: ['All Bookings', 'Declined Bookings', 'Accepted Booking', 'All Users'],
-        datasets: [{
-            label: '#-Analytics',
-            data: [this.r, this.p, this.o, this.n],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(54, 162, 235, 0.5)',
-                'rgba(153, 102, 255, 0.5)',
-                'rgba(255, 159, 64, 0.5)'
-                
-            ],
-            borderColor: [
-                'rgba(255, 12, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-               
-            ],
-            borderWidth: 0
-        }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Bookings made so far.'
-    },
-      
-        maintainAspectRatio: true,
-  scales: {
-    yAxes: [{
-      stacked: true,
-      gridLines: {
-        display: false,
-        color: "rgba(255,99,132,0.2)"
-      }
-    }],
-    xAxes: [{
-      gridLines: {
-        display: false
-      }
-    }]
-  }
-    }
-    });
-  }
-  
-  ngOnInit() {
+
     
-   
-      // firebase.auth().onAuthStateChanged(user => {
-      //   if (user) {
-      //     firebase
-      //       .firestore()
-      //       .doc(`/Admin/${user.uid}`)
-      //       .get()
-      //       .then(AdminSnapshot => {
-      //         this.isAdmin = AdminSnapshot.data().isAdmin;
-      //       });
-            
-      //   }
-      // });
-      
-  }
-
- async  viewMessages(){
-
-    const modal = await this.modalController.create({
-      component: MessagesPage,
-      cssClass: 'modalMessages'
-    });
-    return await  modal.present();
-
-  }
-    call(){
-      console.log('number')
-    } 
-    callNow(number) {
-      this.platform.ready().then(() => {
-      if (this.platform.is('cordova')){
-      this.callNumber.callNumber(number, true)
-        .then(res => console.log('Launched dialer!', res))
-        .catch(err => console.log('Error launching dialer', err));
-    }else {
-      console.log('you are calling now');
-      this.alert() 
-    }
-    })
-    }
-    async alert(){
-      const alert = await this.alertCtrl.create({
-        header: 'Calling',
-        subHeader: 'Call funcion is not supported on the browser ',
-    
-        buttons: [{
-          text: 'Ok',
-          role: 'Ok',
-          cssClass: 'secondary',
-          handler: (result) => {
-            
-          
-          }
-        }]
-      });
-      await alert.present();
-    }
-    
- 
-  obj = {id: null, obj : null}
-
-  ionViewWillEnter(){
-
-
-    this.db.collection("Messages").onSnapshot(data => {
-      this.messages = 0;
-      this.MyMessages = [];
-      data.forEach(message => {
-        if(message.data().satatus = "NotRead"){
-          this.MyMessages.push(message.data());
-          this.messages += 1;
-        }
-      })
-    })
-    // let MyArray1 = [];
-    // let Bookings1 = [];
-    // let id1 = {docid: "", auId: "",   obj : {}};
-    
-    
-   
-    //  this.db.collection('Bookings').onSnapshot(res => {
-    //   res.forEach(e => {
-    //     id.docid = e.id;
-    //     id.obj = e.data();
-    //     MyArray1.push(id);
-    //     id = {docid: "", auId: "", obj : {}};
- 
-      
+    // this.db.collection("Messages").onSnapshot(data => {
+    //   this.messages = 0;
+    //   this.MyMessages = [];
+    //   data.forEach(message => {
+    //     if(message.data().satatus = "NotRead"){
+    //       this.MyMessages.push(message.data());
+    //       this.messages += 1;
+    //     }
     //   })
+    // })
  
-    //   this.notifications = 0;
-    //   this.data.notification = 0;
-    //   MyArray1.forEach(item => { 
-    //    this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
-    //     i.forEach(o => {
-           
-         
-    //       if(o.data().bookingState === "Decline"){
-    //         //  Bookingid.docid = o.id;
-    //         //  Bookingid.obj = o.data();
-    //          console.log( "uuuuuuuuuuuuuuuu", o.data() );
-    //          id.obj = o.data();
-    //          id.auId = o.id;
-      
-           
-    //          this.notifications += 1;
-    //         this.data.notification += 1;
-             
-    //         Bookings1.push(id);
-    //         id = {docid: "", auId: "", obj : {}};
-    //       }
-        
-    //     })
-    //    })
-    //  })
-    //  })
     let MyArray = [];
     let Bookings = [];
     let id = {docid: "", auId: "",   obj : {}};
@@ -238,15 +94,19 @@ Tattoos = [];
         id.obj = e.data();
         MyArray.push(id);
         id = {docid: "", auId: "", obj : {}};
+ console.log("ssssssss");
  
       
       })
  
      
+     
       // this.data.notification = 0;
       MyArray.forEach(item => { 
        this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+       
         this.notifications = 0;
+
         i.forEach(o => {
            
          
@@ -259,6 +119,7 @@ Tattoos = [];
       
            
              this.notifications += 1;
+             this.notifications1 = this.notifications
             // this.data.notification += 1;
             console.log( "uuuuuuuuuuuuuuuu", o.data() );
             Bookings.push(id);
@@ -269,6 +130,8 @@ Tattoos = [];
        })
      })
      })
+
+     
     let firetattoo = {
       docid: '',
       name: '',
@@ -281,12 +144,12 @@ Tattoos = [];
     }
     
     this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
-      
+     
       data.forEach(item => {
         this.counter.push(item.data());
         this.n += 1
      
-     
+        
         
       })
     this.createBarChart();
@@ -330,9 +193,8 @@ Tattoos = [];
       data.forEach(item => {
         firetattoo.categories = item.data().categories;
         firetattoo.name = item.data().name;
-        firetattoo.pricerange = item.data().pricerange;
-        firetattoo.start = item.data().start;
-        firetattoo.end = item.data().end;
+        firetattoo.start = item.data().startPrice;
+        firetattoo.end = item.data().endPrice;
         firetattoo.categories = item.data().categories;
         firetattoo.image = item.data().image;
         firetattoo.docid = item.id;
@@ -355,13 +217,15 @@ Tattoos = [];
 
    this.db.collection("Users").onSnapshot(data => {
      this.Accepted = [];
+     this.AcceptedLength=0;
      data.forEach(item => {
        
        if(item.data().bookingState === "Accepted"){
         console.log("Accepted Booking ",item.data() );
         
-      
+       
         this.Accepted.push({id: item.id, data: item.data()})
+        this.AcceptedLength =  this.Accepted.length;
        }
       
        
@@ -371,6 +235,7 @@ Tattoos = [];
 
    this.db.collection("Users").onSnapshot(data => {
     this.Decline = [];
+    this.declinedLength=0;
     data.forEach(item => {
       
       if(item.data().bookingState === "Decline"){
@@ -378,14 +243,209 @@ Tattoos = [];
        
      
        this.Decline.push({id: item.id, data: item.data()})
+       this.declinedLength=this.Decline.length;
       }
      
       
     })
   })
+   
+      // firebase.auth().onAuthStateChanged(user => {
+      //   if (user) {
+      //     firebase
+      //       .firestore()
+      //       .doc(`/Admin/${user.uid}`)
+      //       .get()
+      //       .then(AdminSnapshot => {
+      //         this.isAdmin = AdminSnapshot.data().isAdmin;
+      //       });
+            
+      //   }
+      // });
 
   
   }
+
+
+  createBarChart() {
+    this.bars = new Chart(this.barChart.nativeElement, {
+         type: 'bar',
+    data: {
+        labels: ['All Bookings', 'Declined Bookings', 'Accepted Booking', 'All Users'],
+        datasets: [{
+            label: '#-Analytics',
+            data: [this.r, this.p, this.o, this.n],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(153, 102, 255, 0.5)',
+                'rgba(255, 159, 64, 0.5)'
+                
+            ],
+            borderColor: [
+                'rgba(255, 12, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+               
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Bookings made so far.'
+    },
+      
+        maintainAspectRatio: false,
+  scales: {
+    yAxes: [{
+      stacked: true,
+      gridLines: {
+        display: false,
+        color: "rgba(255,99,132,0.2)"
+      }
+    }],
+    xAxes: [{
+      gridLines: {
+        display: false
+      }
+    }]
+  }
+    }
+    });
+  }
+
+
+  
+  ngOnInit() {
+
+    let UidArray = []
+    
+
+    setTimeout(() => {
+     this.db.collection("Bookings").get().then(data => {
+
+      data.forEach(item => {
+        UidArray.push(item.id)
+       
+      })
+
+     })
+    }, 1000)
+   
+  
+ 
+    this.messages = 0;
+    setTimeout(() => {
+       
+     
+     UidArray.forEach(i => {
+       console.log("All My keys ", i);
+ 
+     
+       
+       this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
+      
+      
+        
+         data.forEach(i => {
+          
+          if(i.data().satatus == "NotRead"){
+            this.messages += 1
+          }
+           
+           
+         })
+        
+       })
+       
+       
+     })
+ 
+  
+   
+     
+    }, 2000)
+    
+
+    // this.db.collection("Bookings").onSnapshot(data => {
+    //   data.forEach(i => {
+    //          this.db.collection("Messages").doc(i.id).collection("Message").onSnapshot(data => {
+    //           this.messages = 0;
+    //             this.MyMessages = [];
+    //            data.forEach(item => {
+    //              if(item.data().satatus == "NotRead"){
+    //                console.log("Messages ", item.data() );
+    //                this.MyMessages.push(item.data());
+    //       this.messages += 1;
+                   
+    //              }
+    //            })
+    //          })
+    //   })
+    // })
+
+  }
+
+ async  viewMessages(){
+
+    const modal = await this.modalController.create({
+      component: MessagesPage,
+      cssClass:'modalMessages'
+
+    });
+    return await  modal.present();
+
+  }
+    call(){
+      console.log('number')
+    } 
+    callNow(number) {
+      this.platform.ready().then(() => {
+      if (this.platform.is('cordova')){
+      this.callNumber.callNumber(number, true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => console.log('Error launching dialer', err));
+    }else {
+      console.log('you are calling now');
+      this.alert() 
+    }
+    })
+    }
+    async alert(){
+      const alert = await this.alertCtrl.create({
+        header: 'Calling',
+        subHeader: 'Call funcion is not supported on the browser ',
+    
+        buttons: [{
+          text: 'Ok',
+          role: 'Ok',
+          cssClass: 'secondary',
+          handler: (result) => {
+            
+          
+          }
+        }]
+      });
+      await alert.present();
+    }
+    
+ 
+  obj = {id: null, obj : null}
+
+  ionViewWillEnter(){
+
+
+ 
+  
+  }
+
+
+
+
+
   goToNotificationsPage(){
 this.rout.navigateByUrl('/notifications')
 }
@@ -401,8 +461,8 @@ goProfilePage(){
     this.auth.editButton = false;
     this.auth.myObj.obj.categories = "";
      
-      this.auth.myObj.obj.start = "";
-      this.auth.myObj.obj.end = "";
+      this.auth.myObj.obj.startPrice = "";
+      this.auth.myObj.obj.endPrice = "";
       this.auth.myObj.obj.description = "";
       this.auth.myObj.obj.image = "";
       this.auth.myObj.obj.name = "";
@@ -424,8 +484,8 @@ goProfilePage(){
   
       this.auth.myObj.obj.categories = obj.categories;
    
-      this.auth.myObj.obj.start = obj.start;
-      this.auth.myObj.obj.end = obj.end;
+      this.auth.myObj.obj.startPrice = obj.start;
+      this.auth.myObj.obj.endPrice = obj.end;
       this.auth.myObj.obj.description = obj.description;
       this.auth.myObj.obj.image = obj.image;
       this.auth.myObj.obj.name = obj.name;

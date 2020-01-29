@@ -100,6 +100,7 @@ goProfilePage () {
 
 
 
+
 image(event){
  
 
@@ -160,6 +161,86 @@ editData(){
 
    
 
+
+      
+
+    let MyArray = [];
+    let Bookings = [];
+    let id = {docid: "", auId: "",   obj : {}};
+    let autId = "";
+    
+   
+     this.db.collection('Bookings').onSnapshot(res => {
+      res.forEach(e => {
+        id.docid = e.id;
+        id.obj = e.data();
+        MyArray.push(id);
+        id = {docid: "", auId: "", obj : {}};
+ console.log("ssssssss");
+ 
+      
+      })
+ 
+     
+     
+      // this.data.notification = 0;
+      MyArray.forEach(item => { 
+       this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+       
+        this.notifications = 0;
+
+        i.forEach(o => {
+           
+         
+          if(o.data().bookingState === "waiting"){
+            //  Bookingid.docid = o.id;
+            //  Bookingid.obj = o.data();
+           
+             id.obj = o.data();
+             id.auId = o.id;
+      
+           
+             this.notifications += 1;
+           
+            // this.data.notification += 1;
+            console.log( "uuuuuuuuuuuuuuuu", o.data() );
+            Bookings.push(id);
+            id = {docid: "", auId: "", obj : {}};
+          }
+        
+        })
+       })
+     })
+     })
+
+     
+
+
+
+  
+
+ 
+
+
+
+
+
+
+   
+      // firebase.auth().onAuthStateChanged(user => {
+      //   if (user) {
+      //     firebase
+      //       .firestore()
+      //       .doc(`/Admin/${user.uid}`)
+      //       .get()
+      //       .then(AdminSnapshot => {
+      //         this.isAdmin = AdminSnapshot.data().isAdmin;
+      //       });
+            
+      //   }
+      // });
+
+  
       // this.email=firebase.auth().currentUser.email;
 
       // this.db.collection("Admin").onSnapshot(data => {

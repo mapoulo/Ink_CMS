@@ -27,16 +27,16 @@
 
     <div class="read-not-container">
       <div class="header-reader">
-        <ion-badge color="primary">3</ion-badge>
+        <ion-badge color="primary">{{AllMessages}}</ion-badge>
         <p>All Messages</p>
-        <ion-badge color="success">3</ion-badge>
+        <ion-badge color="success">{{ReadMessages}}</ion-badge>
         <p>Read Messages</p>
-        <ion-badge color="secondary">3</ion-badge>
-        <p>Unread Messages</p>
+        <ion-badge color="secondary">{{unReadMessages}}</ion-badge>
+        <p>Unread Messages </p>
       </div>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.keys, message, i)" [ngClass]="{'active': active == i}">
+        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.mine.uid, message.keys, message, i)" [ngClass]="{'active': active == i}">
          <ion-icon size="small" color="dark" name="mail"></ion-icon>
           <div class="info">
             <p>{{message.mine.name}}</p>
@@ -65,10 +65,14 @@
           <p>Please select a message card on the left hand side to read</p>
         </div>
         </div>
-        <div class="options">
-          <ion-button fill="clear" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+
+
+        <div class="options" (click)="deleteMessage()">
+          <ion-button fill="clear" color="danger"  ><ion-icon name="trash" ></ion-icon></ion-button>
           <p> <ion-icon name="time"></ion-icon> {{messageInfo.time}}</p>
         </div>
+
+        
     </div>
   </div>
 

@@ -17,12 +17,12 @@
 
 
       
-          <div class="notifation">
+          <!-- <div class="notifation">
               <ion-button shape="block" color="light" size="large" fill="clear">
                   <ion-icon name="notifications-outline"></ion-icon>
                 </ion-button>
               <ion-badge class="badge" color="light">{{notifications}}</ion-badge>
-          </div>
+          </div> -->
 
 
 
@@ -109,6 +109,7 @@
                       <ion-item style="margin-bottom: 3em;">
                         <ion-label position="floating" >Price</ion-label><br>
                         <ion-input type="tel"  [(ngModel)]="price">R</ion-input>
+                        
                       </ion-item>
                      <ion-button class="btn-respond" shape="block" color="secondary" (click)="addEvent()">Respond</ion-button>
                   </div>

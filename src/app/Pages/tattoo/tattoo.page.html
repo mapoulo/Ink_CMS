@@ -53,7 +53,8 @@
                         <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{end}}"></ion-input>
                         <ion-icon slot="end" size="small" name="ios-cash"></ion-icon>
                       </ion-item>
-                      <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
+                      <p class="error" *ngIf="StartPrice.hasError('required') && (StartPrice.touched || StartPrice.dirty)">Please enter your price range</p>
+                      <p class="error" *ngIf="EndPrice.hasError('required') && (EndPrice.touched || EndPrice.dirty)">Please enter your price range</p>
                   <ion-item>
                           <ion-label>Categories</ion-label>
                           <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
@@ -80,8 +81,6 @@
           
          
            
-
-
         </form>
     </section>
   </main>
