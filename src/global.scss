@@ -156,6 +156,11 @@ thead  {
     .custom-modal .modal-wrapper {
       width: 40%;
     }
+    .modalMessages .modal-wrapper {
+        
+      --width: 80%;
+     
+ }
 
   }
   @media only screen and (min-width: 1200px) {
@@ -163,7 +168,13 @@ thead  {
       width: 20%;
     }
   }
-
+  @media only screen and (max-width: 1200px) {
+    .modalMessages .modal-wrapper {
+        
+      --width: 80%;
+     
+ }
+  }
 
   
 /* Loader */
@@ -254,6 +265,7 @@ animation: spin 2s linear infinite;
     -ms-transform: rotate(360deg);  /* IE 9 */
     transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
 }
+
 }
 
 /* Loader End here */
@@ -376,3 +388,4 @@ animation: spin 2s linear infinite;
 
 
  */
+ 

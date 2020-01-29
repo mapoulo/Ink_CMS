@@ -78,7 +78,7 @@ export class TattooPage implements OnInit {
   //   return this.tattooForm.get('end');
   // }
  
- 
+  loader: boolean = false;
   constructor(private camera: Camera, private modalController: ModalController, private auth: AuthenticationService,public actionSheetController: ActionSheetController, private fb: FormBuilder) { 
     
    }
@@ -135,6 +135,11 @@ export class TattooPage implements OnInit {
     console.log(i);
     const upload = this.storage.child(i.name).put(i);
     upload.on('state_changed', snapshot => {
+      this.loader=true;
+     
+    setTimeout(() => {
+      this.loader = false;
+   }, 1000);
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('upload is: ', progress , '% done.');
     }, err => {

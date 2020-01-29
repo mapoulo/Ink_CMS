@@ -66,53 +66,112 @@ notifications  = 0;
     uid : '',
     auId : ''
   };
-  constructor(public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { }
+  constructor(public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+
+ 
+
+  }
 
 
 
   ionViewWillEnter() {
-    
 
-    let id = {docid: "", auId: "",  obj : {}};
-    let autId = "";
-   
-     this.db.collection('Bookings').onSnapshot(res => {
-      res.forEach(e => {
-        id.docid = e.id;
-        id.obj = e.data();
-        this.MyArray.push(id);
-        id = {docid: "", auId: "", obj : {}};
-        console.log("wwwwwwwwwwww", this.MyArray);
+
+    let UidArray = []
+
+    setTimeout(() => {
+      this.db.collection("Bookings").onSnapshot(data => {
+        data.forEach(item => {
+          UidArray.push(item.id)
+
+        })
       })
-     
-      this.MyArray.forEach(item => { 
-       this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
-      
-        this.notifications = 0;
-        this.Bookings = [] 
-       
-        i.forEach(o => {
-         
-          if(o.data().bookingState === "waiting"){
-           
-            id.obj = o.data();
-            id.auId = o.id;
-           
-             this.notifications += 1;
-             
+
+    }, 2000)
+
+   
+
+
+    setTimeout(() => {
+
+      let id = {docid: "", auId: "",  obj : {}};
+
+      UidArray.forEach(i => {
+        console.log("All My keys ", i);
+
+
+
+        this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(data => {
+          data.forEach(o => {
+
+            if(o.data().bookingState === "waiting"){
+
+
+              id.obj = o.data();
+              id.auId = o.id;
+                  
+              this.notifications += 1 
               this.Bookings.push(id);
-              this.Bookings1 = this.Bookings;
+
               console.log("Your data ",  this.Bookings);
-            id = {docid: "", auId: "", obj : {}};
+              id = {docid: "", auId: "", obj : {}};
+
+            }
+            
+
+          })
+        })
+
+      })
+
+      
+
+
+    }, 3000)
+
+    
+   
+
+    // let id = {docid: "", auId: "",  obj : {}};
+    // let autId = "";
+   
+    //  this.db.collection('Bookings').onSnapshot(res => {
+    //   res.forEach(e => {
+    //     id.docid = e.id;
+    //     id.obj = e.data();
+    //     this.MyArray.push(id);
+    //     id = {docid: "", auId: "", obj : {}};
+    //     console.log("wwwwwwwwwwww", this.MyArray);
+    //   })
+     
+    //   this.MyArray.forEach(item => { 
+    //    this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
+      
+    //     this.notifications = 0;
+    //     this.Bookings = [] 
+       
+    //     i.forEach(o => {
+         
+    //       if(o.data().bookingState === "waiting"){
            
-          }
+    //         id.obj = o.data();
+    //         id.auId = o.id;
+           
+    //          this.notifications += 1;
+             
+    //           this.Bookings.push(id);
+    //           this.Bookings1 = this.Bookings;
+    //           console.log("Your data ",  this.Bookings);
+    //         id = {docid: "", auId: "", obj : {}};
+           
+    //       }
         
          
   
-        })
-       })
-     })
-     })
+    //     })
+    //    })
+    //  })
+    //  })
     
     
   
@@ -177,7 +236,6 @@ ionViewDidEnter(){
   ngOnInit() {
     
 
-    
    
 
     this.resetEvent();
@@ -200,6 +258,8 @@ ionViewDidEnter(){
 
 
   save(obj, i){
+
+ 
     
     this.index = i;
     this.obj = obj;
@@ -217,7 +277,14 @@ ionViewDidEnter(){
     this.obj.uid = obj.obj.uid;
     this.obj.auId = obj.auId;
     console.log("save button clicked", this.obj);
-    console.log("index", this.Bookings[i]);
+    console.log("index", this.index);
+
+    setTimeout(() => {
+      this.event.startTime = ""
+      this.event.endTime = ""
+      this.price = ""  
+    }, 1000)
+
   }
 
 
@@ -294,12 +361,18 @@ async alert(){
   }
   // Create the right event format and reload source
   async addEvent() {
+
+    console.log("All index ", this.index);
+
+
+              
+                
   
 let diffrDays = 0; 
 console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
 let date = new Date(Date.now());
 console.log("My date is", moment().format().slice(0, 10));
-    if( this.event.startTime.slice(0, 10)< this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) < this.event.startTime.slice(0, 10) ){
+    if( this.event.startTime.slice(0, 10)<= this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) <= this.event.startTime.slice(0, 10) ){
       if(this.price !== ""){
         console.log("This start time ",this.event.startTime);
         console.log("End time ", this.event.endTime);
@@ -363,6 +436,11 @@ console.log("My date is", moment().format().slice(0, 10));
               handler: () => {
 
 
+                this.event.startTime = ""
+                this.event.endTime = ""
+                this.price = ""     
+              
+
                 this.obj = {
                   bookingState : '',
                   breadth : '',
@@ -379,9 +457,12 @@ console.log("My date is", moment().format().slice(0, 10));
                   auId : ''
                 };
                
+              
                 setTimeout(() => {
-                  this.Bookings.splice(this.index, 1);
-                },2000);
+                  this.Bookings1.splice(this.index, 1);
+                }, 2000)
+              
+
   
               }
             }
@@ -415,6 +496,10 @@ console.log("My date is", moment().format().slice(0, 10));
     }
    
   
+    
+   
+                
+
   }
 
 

@@ -42,7 +42,7 @@
                 <div class="booking-container" >
                     
                 <div class="bookings-list">
-                                          <div class="booking-item" *ngFor = "let item of Bookings1; let i = index" (click)="save(item, i)">
+                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index" (click)="save(item, i)">
                                               <div class="tattoo-booking-image"><img src="{{item.obj.image}}" alt=""></div>
                                               <div class="info-booking">
                                               <p class="description">{{item.obj.description }}</p>                                           
@@ -109,6 +109,7 @@
                       <ion-item style="margin-bottom: 3em;">
                         <ion-label position="floating" >Price</ion-label><br>
                         <ion-input type="tel"  [(ngModel)]="price">R</ion-input>
+                        
                       </ion-item>
                      <ion-button class="btn-respond" shape="block" color="secondary" (click)="addEvent()">Respond</ion-button>
                   </div>

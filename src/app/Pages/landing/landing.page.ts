@@ -24,7 +24,9 @@ export class LandingPage implements OnInit {
   category: string = 'accepted'
   MyMessages = []
   Accepted = [];
+  AcceptedLength=0;
   Decline = [];
+  declinedLength=0;
   notifications = 0;
   notifications1 = 0;
   bars: any;
@@ -53,22 +55,31 @@ Tattoos = [];
   r : number = 0;
   o: number = 0;
   number : number = 0;
-  constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) { }
+  constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
+
+ 
+
+   }
   ionViewDidEnter() {
+
+
+
+
+
  
  
 
     
-    this.db.collection("Messages").onSnapshot(data => {
-      this.messages = 0;
-      this.MyMessages = [];
-      data.forEach(message => {
-        if(message.data().satatus = "NotRead"){
-          this.MyMessages.push(message.data());
-          this.messages += 1;
-        }
-      })
-    })
+    // this.db.collection("Messages").onSnapshot(data => {
+    //   this.messages = 0;
+    //   this.MyMessages = [];
+    //   data.forEach(message => {
+    //     if(message.data().satatus = "NotRead"){
+    //       this.MyMessages.push(message.data());
+    //       this.messages += 1;
+    //     }
+    //   })
+    // })
  
     let MyArray = [];
     let Bookings = [];
@@ -132,12 +143,12 @@ Tattoos = [];
     }
     
     this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
-      
+     
       data.forEach(item => {
         this.counter.push(item.data());
         this.n += 1
      
-     
+        
         
       })
  this.createBarChart();
@@ -205,13 +216,15 @@ Tattoos = [];
 
    this.db.collection("Users").onSnapshot(data => {
      this.Accepted = [];
+     this.AcceptedLength=0;
      data.forEach(item => {
        
        if(item.data().bookingState === "Accepted"){
         console.log("Accepted Booking ",item.data() );
         
-      
+       
         this.Accepted.push({id: item.id, data: item.data()})
+        this.AcceptedLength =  this.Accepted.length;
        }
       
        
@@ -221,6 +234,7 @@ Tattoos = [];
 
    this.db.collection("Users").onSnapshot(data => {
     this.Decline = [];
+    this.declinedLength=0;
     data.forEach(item => {
       
       if(item.data().bookingState === "Decline"){
@@ -228,6 +242,7 @@ Tattoos = [];
        
      
        this.Decline.push({id: item.id, data: item.data()})
+       this.declinedLength=this.Decline.length;
       }
      
       
@@ -304,15 +319,81 @@ Tattoos = [];
 
   
   ngOnInit() {
+
+    let UidArray = []
     
 
+    setTimeout(() => {
+     this.db.collection("Bookings").get().then(data => {
+
+      data.forEach(item => {
+        UidArray.push(item.id)
+       
+      })
+
+     })
+    }, 1000)
+   
+  
+ 
+    this.messages = 0;
+    setTimeout(() => {
+       
+     
+     UidArray.forEach(i => {
+       console.log("All My keys ", i);
+ 
+     
+       
+       this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
       
+      
+        
+         data.forEach(i => {
+          
+          if(i.data().satatus == "NotRead"){
+            this.messages += 1
+          }
+           
+           
+         })
+        
+       })
+       
+       
+     })
+ 
+  
+   
+     
+    }, 2000)
+    
+
+    // this.db.collection("Bookings").onSnapshot(data => {
+    //   data.forEach(i => {
+    //          this.db.collection("Messages").doc(i.id).collection("Message").onSnapshot(data => {
+    //           this.messages = 0;
+    //             this.MyMessages = [];
+    //            data.forEach(item => {
+    //              if(item.data().satatus == "NotRead"){
+    //                console.log("Messages ", item.data() );
+    //                this.MyMessages.push(item.data());
+    //       this.messages += 1;
+                   
+    //              }
+    //            })
+    //          })
+    //   })
+    // })
+
   }
 
  async  viewMessages(){
 
     const modal = await this.modalController.create({
-      component: MessagesPage
+      component: MessagesPage,
+      cssClass:'modalMessages'
+
     });
     return await  modal.present();
 
