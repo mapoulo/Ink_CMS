@@ -11,7 +11,13 @@
   <main class="main">
     <aside class="aside-container">
        <div class="profile-container">
-           <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo"></div>
+           <div class="profile">
+             
+            <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
+
+            <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
+          
+          </div>
          <p class="paragragh">Admin</p>
          </div>
          <div class="notifation">
@@ -38,7 +44,10 @@
                    <!--  <ion-fab-button class="btn-edit-image" color="light" size="small" >
                       <ion-icon name="create"></ion-icon>
                     </ion-fab-button> -->
-                    <img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
+                    <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
+
+                    <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
+                  </div>
                     <article>
                     <h4>Name : {{ profile.name}}</h4>
                     <p>{{ profile.email}}</p>

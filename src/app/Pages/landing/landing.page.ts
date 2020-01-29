@@ -49,6 +49,7 @@ Tattoos = [];
   isAdmin: any;
   count=[];
   county=[];
+  image1 = ""
   counter  = [];
   n : number = 0;
   p: number = 0;
@@ -318,6 +319,12 @@ Tattoos = [];
 
   
   ngOnInit() {
+
+    this.db.collection("Admin").onSnapshot(data => {
+      data.forEach(item => {
+        this.image1 = item.data().image;
+      })
+    })
 
 
     
