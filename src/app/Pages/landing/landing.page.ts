@@ -150,7 +150,7 @@ Tattoos = [];
         
         
       })
- this.createBarChart();
+    this.createBarChart();
     })
  
     this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {

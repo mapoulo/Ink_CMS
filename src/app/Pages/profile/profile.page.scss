@@ -19,14 +19,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-basis: 4% !important;
 
 }
 .profile-container {
     display: flex;
 }
 .profile {
-    height: 10vh;
-    width: 10vh;
+    height: 6vh;
+    width: 6vh;
     border-radius: 50%;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.027), 0 3px 6px rgba(0, 0, 0, 0.11);
     //overflow: hidden;
@@ -200,7 +201,7 @@ article {
         flex-direction: column;
     }
     .aside-container {
-         flex-basis: 10%;
+         flex-basis: 4%;
          flex-direction: row;
          justify-content: space-between;
      }
@@ -241,7 +242,7 @@ article {
         flex-direction: column;
     }
     .aside-container {
-           flex-basis: 10%;
+           flex-basis: 4%;
            flex-direction: row;
            justify-content: space-between;
        }
@@ -260,7 +261,7 @@ article {
         flex-direction: row;
     }
     .aside-container {
-         flex-basis: 10%;
+         flex-basis: 4%;
          flex-direction: column;
          justify-content: flex-start;
      }
@@ -281,7 +282,7 @@ article {
             flex-direction: row;
         }
         .aside-container {
-               flex-basis: 10%;
+               flex-basis: 4%;
            }
            .booking-container {
             flex-basis: 50%;
@@ -293,7 +294,7 @@ article {
             flex-direction: row;
         }
         .aside-container {
-              flex-basis: 7%;
+              flex-basis: 4%;
           }
 
           .header {
@@ -389,7 +390,9 @@ article {
     }
   }
   
-
+.aside-container {
+    flex-basis: 4% !important;
+}
 /* Loader End here */
 
         /* Loader */
