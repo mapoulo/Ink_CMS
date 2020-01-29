@@ -1,33 +1,35 @@
 <ion-header no-border>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-button fill="icon-only">
-            <ion-icon name="save"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-    <ion-title text-center style="font-weight: bold; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">All Tattoo</ion-title>
+     
+    <ion-title  style="font-weight: bold; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #fff;padding-left: 1em;">Add a Tattoo</ion-title>
     <ion-buttons slot="end" (click)="dismiss()">
-      <ion-button fill="icon-only">
+      <ion-button fill="clear" color="light">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content fullscreen>
 
   <main class="main">
   
      <section class="upload-tattoo">
       <div class="upload">
-          <ion-item  class="imageitem" lines="none" >
-              <ion-label position="stacked" id="profile_image" color="primary"></ion-label>
-              <ion-input class="image-upload"  type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"></ion-input>
-            </ion-item>
-      <ion-item class="imageitem" lines="none" *ngIf="tattoo.image"><img  src="{{tattoo.image}}" height="480px" width="400px" style="object-fit: cover;"></ion-item>
+       
+            <label class="fileContainer">
+              <ion-icon size="large" name="add"></ion-icon> Upload Here
+              <input type="file" formControlName="image" accept="image/*" (change)="changeListener($event)"/> 
+          </label>
+         
+ 
         
     
        
+      </div>
+      <div class="image_r">
+        <img *ngIf="!tattoo.image"  src="../../../assets/allef-vinicius-hxNiXP498UI-unsplash.jpg">
+      <img *ngIf="tattoo.image"  src="{{tattoo.image}}">
       </div>
     </section> 
     <section class="form-container">
@@ -37,18 +39,23 @@
                      <ion-item>
                         <ion-label position="floating">Tattoo Name</ion-label>
                         <ion-input formControlName="tattooName" type="text" name="name" [(ngModel)]="tattoo.name" placeholder="{{name}}"></ion-input>
+                        <ion-icon slot="end" size="small" name="ios-add"></ion-icon>
                       </ion-item>
                       <p class="error" *ngIf="TattooName.hasError('required') && (TattooName.touched || TattooName.dirty)">Please enter Tattoo Name</p>  
                    <ion-item>
-                        <ion-label position="floating">Pricerange</ion-label><br>
-
-                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{start}}">R</ion-input>
-
-                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{end}}">R</ion-input>
+                        <ion-label position="floating">Price start at</ion-label>
+                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{start}}"></ion-input>
+                        <ion-icon slot="end" size="small" name="ios-cash"></ion-icon>
+                      </ion-item>
+                      <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
+                      <ion-item>
+                        <ion-label position="floating">Price end at</ion-label>
+                        <ion-input type="number" formControlName="priceRange"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{end}}"></ion-input>
+                        <ion-icon slot="end" size="small" name="ios-cash"></ion-icon>
                       </ion-item>
                       <p class="error" *ngIf="Price.hasError('required') && (Price.touched || Price.dirty)">Please enter your price range</p>
                   <ion-item>
-                          <ion-label position="floating">Categories</ion-label>
+                          <ion-label>Categories</ion-label>
                           <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
                             <ion-select-option value="Previous work" >Previous work</ion-select-option>
                             <ion-select-option value="Sketch/design">Sketch/design</ion-select-option>
@@ -57,12 +64,21 @@
                         <p class="error" *ngIf="Categories.hasError('required') && (Categories.touched || Categories.dirty)">Please enter categories</p>
                      <ion-item>
                             <ion-label position="floating">Description</ion-label>
-                           <ion-input formControlName="description"  name="description"  type="text" [(ngModel)]="tattoo.description" placeholder="{{description}}" ></ion-input>
+                           <ion-textarea formControlName="description"  name="description"  autocorrect="on" rows="6" cols="20"  [(ngModel)]="tattoo.description" placeholder="{{description}}" ></ion-textarea>
                        </ion-item>
                        <p class="error" *ngIf="Description.hasError('required') && (Description.touched || Description.dirty)">Please enter your description</p>
                 </ion-list>
-            <ion-button *ngIf="editButton" color="secondary" shape="block" (click)="EditTattoo(tattooForm)">Edit</ion-button> 
-            <ion-button *ngIf="addTattoo" color="secondary" shape="block" (click)="addtattoo(tattooForm)">Add Tattoo</ion-button> 
+                <ion-grid>
+                  <ion-row justify-content-center>
+                    <ion-col size="6">
+                      <ion-button *ngIf="editButton" color="secondary" expand="block" shape="round" mode="ios" (click)="EditTattoo(tattooForm)">Edit</ion-button> 
+                      <ion-button *ngIf="addTattoo" color="secondary" expand="block"  shape="round" mode="ios" (click)="addtattoo(tattooForm)">Add Tattoo</ion-button> 
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              
+          
+         
            
 
 
