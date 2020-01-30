@@ -47,7 +47,7 @@ notifications  = 0;
   Bookings1 = [];
   // number;
 
- 
+  image1="";
 
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
@@ -241,7 +241,11 @@ ionViewDidEnter(){
   ngOnInit() {
     
 
-   
+    this.db.collection("Admin").onSnapshot(data => {
+      data.forEach(item => {
+        this.image1 = item.data().image;
+      })
+    })
 
     this.resetEvent();
     this.onCurrentDateChanged(new Date());

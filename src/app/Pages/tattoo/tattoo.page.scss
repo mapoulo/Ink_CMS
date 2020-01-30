@@ -20,6 +20,12 @@
     
 }
 
+form {
+    display: flex;
+    height: 100%;
+    width: 100%; 
+}
+
 ion-item {
     margin-top: 2%;
 }
@@ -84,6 +90,7 @@ ion-toolbar {
     flex-basis: 50%;
     justify-content: center;
     display: flex;
+    
     align-items: center;
     padding: 1em;
    
@@ -94,7 +101,7 @@ form {
 }
 
 @media only screen and (max-width: 768px) {
-    .main {
+    .main, form {
         flex-direction: column;
     }
 }
