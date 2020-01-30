@@ -44,19 +44,12 @@ export class EditProfilePage implements OnInit {
   constructor(public data : DataService, private camera: Camera,  private modalController: ModalController) { }
 
   ngOnInit() {
-  
-    this.phoneNumber = this.data.MyData.phoneNumber;
-    this.email = this.data.MyData.email;
-    this.name = this.data.MyData.name;
-    this.image = this.data.Mydata.image;
-    
-  }
 
-  ionViewWillEnter(){
-
-    this.db.collection("Admin").get().then(data => {
+    this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
       
+        console.log("Adimd  ddddd ", item.data());
+        
     this.MyData.name = item.data().name,   
     this.MyData.image = item.data().image,
     this.MyData.email = item.data().email,
@@ -67,7 +60,20 @@ export class EditProfilePage implements OnInit {
 
       })
     })
+ 
    
+  
+    this.phoneNumber = this.data.MyData.phoneNumber;
+    this.email = this.data.MyData.email;
+    this.name = this.data.MyData.name;
+    this.image = this.data.Mydata.image;
+    
+  }
+
+  ionViewDidEnter(){
+
+ 
+
   }
 
 
@@ -83,6 +89,7 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
+  image : this.MyData.image
 
 })
     this.dismiss() 
@@ -103,7 +110,7 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
     }, () => {
       upload.snapshot.ref.getDownloadURL().then(dwnURL => {
         console.log('File avail at: ', dwnURL);
-        this.image = dwnURL;
+        this.MyData.image = dwnURL;
       });
     });
   }

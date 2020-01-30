@@ -17,12 +17,13 @@
         </div>
 
         <div class="profile">
-          <img src="../../../assets/person-icon.jpg" alt="">
+          <img  *ngIf="!MyData.image" src="../../../assets/person-icon.jpg" alt="">
+          <img *ngIf="MyData.image" src="{{MyData.image}}" alt="">
         </div>
 
         <label class="fileContainer">
           <ion-icon size="large" name="add"></ion-icon> Upload your picture Here
-          <input type="file" accept="image/*"/> 
+          <input type="file" accept="image/*"  (change)="changeListener($event)"/> 
       </label>
       </div>
       <div class="form-container">
