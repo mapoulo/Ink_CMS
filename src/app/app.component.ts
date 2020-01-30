@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {firebaseConfig} from '../environments/firebaseConfig'
 import { NotificationsService } from './notifications.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -29,7 +30,8 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.overlaysWebView(false);
+      this.statusBar.backgroundColorByHexString('#d36954');
       this.splashScreen.hide();
     });
   }
