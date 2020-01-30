@@ -162,7 +162,7 @@
                 <div class="info-tattoo">
                     <article>
                       <h4 >{{ tattoo.name}}</h4>
-                      <p>{{tattoo.pricerange}} </p>
+                      <p>R{{tattoo.startPrice}} - R{{tattoo.endPrice}}</p>
                       <p>{{tattoo.description}} </p>
                      
                      
@@ -221,9 +221,13 @@
                       <img src="{{item.data.image}}" alt="">
                     </div>
                     <div class="info">
-                      <p><strong>{{item.data.name}}</strong></p>
-                     <!--  <p style="background: red; color: #fff">Status {{item.data.bookingState}}</p> -->
-                      <p>Date Declined: 22/01/2020</p>
+                      
+                      <p style="font-weight: bold;">{{item.data.name}}</p>
+                      <p>{{item.data.customerName }}</p>
+                      <p>{{item.data.number }}</p>
+                  
+                      <p>Start Date: {{item.data.endingDate | date: 'shortDate'}}</p>
+                        
                       </div>
                 </div>
               </div>

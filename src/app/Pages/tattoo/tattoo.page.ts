@@ -121,13 +121,19 @@ export class TattooPage implements OnInit {
       //end: new FormControl('', Validators.compose([Validators.required])),
       categories: new FormControl('', Validators.compose([Validators.required])),
       description: new FormControl('', Validators.compose([Validators.required])),
-      image: ['']
+      image:new FormControl('', Validators.compose([Validators.required])),
+     
     })
   }
   EditTattoo(tattooForm : FormGroup){
        this.db.collection("Tattoo").doc(this.auth.myObj.obj.docid).update({categories: this.tattoo.categories, name:this.tattoo.name,startPrice : this.tattoo.startPrice,endPrice : this.tattoo.endPrice, description : this.tattoo.description, image : this.tattoo.image})
        this.dismiss();
   }
+  alphaOnly(event) {
+   // console.log('Input ', );
+    var key = event.detail.data;
+    return ((key >= 65 && key <= 90) || key == 8);
+  };
   changeListener(event): void {
     console.log("My Method is Called");
     
@@ -181,4 +187,5 @@ export class TattooPage implements OnInit {
       'dismissed': true
     });
   }
+  
   }

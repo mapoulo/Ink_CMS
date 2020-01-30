@@ -1,98 +1,110 @@
 <ion-header no-border>
-    <ion-toolbar>
-      <ion-title style="font-weight: bold; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-left: 1em; color:#f7f7f7">Edit Profile</ion-title>
-      <ion-buttons slot="end" (click)="dismiss()">
-        <ion-button fill="icon-only">
-          <ion-icon name="close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title style="font-weight: bold; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-left: 1em; color:#f7f7f7">Edit Profile</ion-title>
+    <ion-buttons slot="end" (click)="dismiss()">
+      <ion-button fill="icon-only">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content fullscreen>
-  <div class="main">
-      <div class="image-upload">
-        <div class="image">
-          <img src="../../../assets/allef-vinicius-hxNiXP498UI-unsplash.jpg" alt="">
-        </div>
-
-        <div class="profile">
-          <img  *ngIf="!MyData.image" src="../../../assets/person-icon.jpg" alt="">
-          <img *ngIf="MyData.image" src="{{MyData.image}}" alt="">
-        </div>
-
-        <label class="fileContainer">
-          <ion-icon size="large" name="add"></ion-icon> Upload your picture Here
-          <input type="file" accept="image/*"  (change)="changeListener($event)"/> 
-      </label>
-      </div>
-      <div class="form-container">
-        <ion-list>
-          <ion-grid>
-            <ion-row justify-content-center>
-              <ion-col  size="12">
-                <ion-item>
-                  <ion-label position="floating">Full Name</ion-label>
-                  <ion-input type="text" [(ngModel)]="MyData.name" placeholder="{{MyData.name}}"></ion-input>
-                  <ion-icon slot="end" name="ios-person"></ion-icon>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row justify-content-center>
-              <ion-col  size="12">
-                <ion-item>
-                  <ion-label position="floating">Physical Address</ion-label>
-                  <ion-input type="text" [(ngModel)]="MyData.address" placeholder="{{MyData.address}}"></ion-input>
-                  <ion-icon slot="end" name="ios-pin"></ion-icon>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row justify-content-center>
-              <ion-col  size="12">
-                <ion-item>
-                  <ion-label position="floating">Phone Number</ion-label>
-                  <ion-input type="text" [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"></ion-input>
-                  <ion-icon slot="end" name="ios-call"></ion-icon>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row justify-content-center>
-              <ion-col  size="12">
-                <ion-item >
-                  <ion-label position="floating">Email address</ion-label>
-                  <ion-input type="text" [(ngModel)]="MyData.email" placeholder="{{MyData.email}}"></ion-input>
-                  <ion-icon slot="end" name="ios-mail"></ion-icon>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-
-            <ion-row justify-content-center>
-              <ion-col size="7" style="margin-top: 1em;">
-               <ion-button mode="ios" shape="round" color="success" expand="block"  (click)="editData()">Edit Profile</ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-list>
-       
-      </div>
+  <div class="loader" *ngIf="loader">
+    <div class="loader-1">
+      
+    </div>
   </div>
 
-  <!-- <img [src]="currentImage" *ngIf="currentImage">
-  <ion-fab-button (click)="takePicture()">
-    <ion-icon name="camera"></ion-icon>
-  </ion-fab-button> -->
+    <form  class="main" [formGroup]="tattooForm"> 
+    <div class="image-upload">
+      <div class="image">
+        <img src="../../../assets/allef-vinicius-hxNiXP498UI-unsplash.jpg" alt="">
+      </div>
+      <div class="profile">
+        <img  *ngIf="!MyData.image" src="../../../assets/person-icon.jpg" alt="">
+        <img *ngIf="MyData.image" src="{{MyData.image}}" alt="">
+      </div>
+      <label class="fileContainer">
+        <ion-icon size="large" name="add"></ion-icon> Upload your picture Here
+        <input type="file" accept="image/*"  (change)="changeListener($event)"/> 
+    </label>
+    </div>
+    <div class="form-container">
+      <ion-list>
+        <ion-grid>
+          <ion-row justify-content-center>
+            <ion-col  size="12">
+              <ion-item>
+                <ion-label position="floating">Full Name</ion-label>
+                <ion-input type="text"  formControlName="name" [(ngModel)]="MyData.name" onkeypress="return /[a-z]/i.test(event.key)"  placeholder="{{MyData.name}}"></ion-input>
+                <ion-icon slot="end" name="ios-person"></ion-icon>
+              </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.address">
+                <div class="messages" *ngIf="tattooForm.get('name').hasError(validate.type) && (tattooForm.get('name').dirty || tattooForm.get('name').touched)">
+                  {{validate.message}}
+              </div> 
+            </div>
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-col  size="12">
+              <ion-item>
+                <ion-label position="floating">Physical Address</ion-label>
+                <ion-input type="text"  formControlName="address"  [(ngModel)]="MyData.address" placeholder="{{MyData.address}}"></ion-input>
+                <ion-icon slot="end" name="ios-pin"></ion-icon>
+              </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.address">
+                <div class="messages" *ngIf="tattooForm.get('address').hasError(validate.type) && (tattooForm.get('address').dirty || tattooForm.get('address').touched)">
+                  {{validate.message}}
+              </div> 
+            </div>
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-col  size="12">
+              <ion-item>
+                <ion-label position="floating">Phone Number</ion-label>
+                <ion-input type="text" formControlName="phoneNumber"  [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"></ion-input>
+                <ion-icon slot="end" name="ios-call"></ion-icon>
+              </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.phoneNumber">
+                <div class="messages" *ngIf="tattooForm.get('phoneNumber').hasError(validate.type) && (tattooForm.get('phoneNumber').dirty || tattooForm.get('phoneNumber').touched)">
+                  {{validate.message}}
+              </div> 
+            </div>
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-center>
+            <ion-col  size="12">
+              <ion-item >
+                <ion-label position="floating">Email address</ion-label>
+                <ion-input type="text"  formControlName="email"  [(ngModel)]="MyData.email" placeholder="{{MyData.email}}"></ion-input>
+                <ion-icon slot="end" name="ios-mail"></ion-icon>
+              </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.email">
+                <div class="messages" *ngIf="tattooForm.get('email').hasError(validate.type) && (tattooForm.get('email').dirty || tattooForm.get('email').touched)">
+                  {{validate.message}}
+              </div> 
+            </div>
+            </ion-col>
+          </ion-row>
 
-<!-- 
-    name: <input type="text" [(ngModel)]="MyData.name" placeholder="{{MyData.name}}"><br />
-    address: <input type="text" [(ngModel)]="MyData.address" placeholder="{{MyData.address}}"><br />
-    phoneNumber: <input type="text" [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"><br />
-    email: <input type="text" [(ngModel)]="MyData.email" placeholder="{{MyData.email}}"><br /> -->
-    <!-- <img src="{{image1}}" alt="">
-    <ion-input class="image-upload"  type="file" accept="image/*" (change)="Editimage($event)"></ion-input> -->
-    
-<!--     <button (click)="editData()">Edit</button> -->
+          <ion-row justify-content-center>
+            <ion-col size="7" style="margin-top: 1em;">
+             <ion-button mode="ios" shape="round" color="success" expand="block"  (click)="editData()">Edit Profile</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+     
+    </div>
+  </form>
 
 
-    
+
+
+
+  
 
 </ion-content>

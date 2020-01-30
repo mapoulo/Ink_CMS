@@ -146,8 +146,8 @@ Tattoos = [];
       description: '',
       image: '',
       categories:'',
-      start:'',
-      end:''
+      startPrice:'',
+      endPrice:''
     }
     
     this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
@@ -200,8 +200,8 @@ Tattoos = [];
       data.forEach(item => {
         firetattoo.categories = item.data().categories;
         firetattoo.name = item.data().name;
-        firetattoo.start = item.data().startPrice;
-        firetattoo.end = item.data().endPrice;
+        firetattoo.startPrice = item.data().startPrice;
+        firetattoo.endPrice = item.data().endPrice;
         firetattoo.categories = item.data().categories;
         firetattoo.image = item.data().image;
         firetattoo.docid = item.id;
@@ -214,8 +214,8 @@ Tattoos = [];
           description: '',
           image: '',
           categories:'',
-          start:'',
-          end:''
+          startPrice:'',
+          endPrice:''
         }
       })
       

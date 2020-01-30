@@ -3,26 +3,19 @@ import { ModalController } from '@ionic/angular';
 import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-
+import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
   styleUrls: ['./edit-profile.page.scss'],
 })
-
 export class EditProfilePage implements OnInit {
-
-
   address  = "";
   name = "";
   phoneNumber = "";
   email = "";
-
-
   currentImage: any;
-
   MyData = {
      
     name : "",
@@ -32,19 +25,40 @@ export class EditProfilePage implements OnInit {
     phoneNumber : "",
     auId : "",
     pdf: ""
-
   };
-
   storage = firebase.storage().ref();
   image1 = "";
-
-  
+  tattooForm : FormGroup;
   image:string;
+  loader: boolean = false;
   db = firebase.firestore();
-  constructor(public data : DataService, private camera: Camera,  private modalController: ModalController) { }
-
+  validation_messages = {
+    'name': [
+      { type: 'required', message: 'Name  is required.' },
+    ],
+    'phoneNumber': [
+      { type: 'required', message: 'Number  is required.' },
+    ],
+    'email': [
+      {type: 'required', message: 'Email address is required.'},
+      {type: 'pattern', message: 'Email address is not Valid.'},
+      {type: 'validEmail', message: 'Email address already exists in the system.'},
+    ],
+    'address': [
+      {type: 'required', message: 'address is required.'},
+      
+    ]
+  }
+  constructor(public data : DataService, private camera: Camera,  private modalController: ModalController,private fb: FormBuilder) {
+    this.tattooForm = this.fb.group({
+      name: new FormControl('', Validators.compose([Validators.required])),
+      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+$')])),
+      address: new FormControl('', Validators.compose([Validators.required])),
+      phoneNumber: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(10)]))
+     
+    })
+  }
   ngOnInit() {
-
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
       
@@ -57,7 +71,6 @@ export class EditProfilePage implements OnInit {
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
     this.MyData.auId = item.id
-
       })
     })
  
@@ -69,34 +82,21 @@ export class EditProfilePage implements OnInit {
     this.image = this.data.Mydata.image;
     
   }
-
   ionViewDidEnter(){
-
  
-
   }
-
-
-
   editData(){
-
-
     console.log("Method is called", this.MyData.auId);
     
-
 this.db.collection("Admin").doc(this.MyData.auId).update({
   address :this.MyData.address,
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
   image : this.MyData.image
-
 })
     this.dismiss() 
-
-
   }
-
   changeListener(event): void {
     console.log("My Method is Called");
     
@@ -104,6 +104,11 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
     console.log(i);
     const upload = this.storage.child(i.name).put(i);
     upload.on('state_changed', snapshot => {
+      this.loader=true;
+     
+      setTimeout(() => {
+        this.loader = false;
+     }, 1000);
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('upload is: ', progress , '% done.');
     }, err => {
@@ -114,7 +119,6 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
       });
     });
   }
-
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -122,7 +126,6 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     };
-
     this.camera.getPicture(options).then((imageData) => {
       this.currentImage = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
@@ -130,11 +133,8 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
       console.log("Camera issue:" + err);
     });
   }
-
-
   Editimage(event){
  
-
     const i = event.target.files[0];
     console.log(i);
     const upload = this.storage.child(i.name).put(i);
@@ -146,7 +146,6 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
       upload.snapshot.ref.getDownloadURL().then(dwnURL => {
         console.log('File avail at: ', dwnURL);
         this.image1 = dwnURL;
-
         
       });
     });
@@ -154,15 +153,10 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
     
     
   }
-
   
-
   dismiss() {
     this.modalController.dismiss({
       'dismissed': true
     });
   }
-
 }
-
-

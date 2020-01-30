@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import * as firebase from "firebase";
-import { AlertController } from '@ionic/angular';
+import { AlertController,ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-messages',
@@ -30,7 +30,7 @@ export class MessagesPage implements OnInit {
 
   db = firebase.firestore()
   active: number = 0;
-  constructor(private render: Renderer2, public alertController: AlertController) {
+  constructor(private render: Renderer2, public alertController: AlertController,public modalController:ModalController) {
 
 
 
@@ -363,10 +363,25 @@ export class MessagesPage implements OnInit {
    
      
     }, 2000) 
+    this.messageInfo = {
+      name: '',
+      email: '',
+      message: '',
+      time: ''
+    }
+    
 
+  }
+
+  dismiss() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
+  
   }
 
 
   
 
-}
+
