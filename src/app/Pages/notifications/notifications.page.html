@@ -1,9 +1,12 @@
 
 <ion-content>
   <main class="main">
-     <aside class="aside-container">
+     <aside class="aside">
         <div class="profile-container">
-            <div class="profile"><img src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="tattoo" (click)="goProfilePage()"></div>
+            <div class="profile-img-blick">
+              <img src="../../../assets/person-icon.jpg" alt="tattoo" (click)="goProfilePage()">
+       
+            </div>
           <p class="paragragh">Admin</p>
           </div>
 
@@ -28,106 +31,153 @@
 
 
     </aside>
-    <section class="content-container"> 
-        <header class="header">
-          <!-- <ion-button fill="clear"  color="dark"><ion-icon name="arrow-back"></ion-icon></ion-button> -->
-            <h1 class="first-header">All Requests</h1>
-          </header>
+    <section class="container"> 
+      <div class="header-container">
+        <h1 class="h1-header">My Notifications</h1>
+      </div>
           <div class="sub-container">
 
 
            
 
-            <div class="booking-container" >
-                <div class="booking-container" >
+                <div class="booking-container">
+                  <div class="header_">
+                    <p class="p_header">All the request made so far...</p>
+                    
+                  </div>
                     
                 <div class="bookings-list">
-                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index" (click)="save(item, i)">
-                                              <div class="tattoo-booking-image"><img src="{{item.obj.image}}" alt=""></div>
+                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index;" (click)="save(item, i)" [ngClass]="{'active': active==i}">
+                                              <div class="tattoo-booking-image"><img src="{{item.obj.image}}"  [ngClass]="{'active': active==i}" alt=""></div>
                                               <div class="info-booking">
-                                              <p class="description">{{item.obj.description }}</p>                                           
-                                              <p>Breadth:{{item.obj.breadth}}cm</p>
-                                              <p>Length:{{item.obj.length}}cm</p>
+                                              <!-- <p class="description">{{item.obj.description }}</p>      -->                                      
+                                              <div class="measure">
+                                                <p><strong>Breadth</strong></p>
+                                                <p>:{{item.obj.breadth}}cm</p>
+                                              </div>
+                                              <div class="measure">
+                                                <p><strong>Length</strong> </p>
+                                               <p>{{item.obj.length}}cm</p>
+                                              </div>
                                              </div>
                                     
                             </div>
+                            <div class="select-card-first" *ngIf="Bookings.length == 0">
+                              <p>You do not have any notifications</p>
+                            </div> 
                       </div> 
                 
                     
                    </div>
-            </div>
+    
 
 
             <div class="respond-container">
-                 <div class="calendar-container"  *ngIf="obj.image"> 
 
-                   <div class="month">
-                    <h4>Pick a day in which you will be available</h4>
-                    <div class="displayFormat">
-                      <div class="changeMonth">
-                          <p class="displayMonth">{{event.startTime | date: 'longDate'}}</p>
+              <div class="details-profile" *ngIf="obj.image">
+                
+                  <div class="card-r">
+         
+                    <div class="image-r">
+                    <img src="{{obj.image}}" alt="tattoo images"> 
+                      <div class="profile-container-r">
+                        <img src="{{obj.image}}" alt="tattoo" (click)="goProfilePage()">
+                      <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}</p>
                       </div>
-                      
                     </div>
+                    <div class="card-details">
+                     <div class="measure">
+                     <p><strong>Length : {{obj.length }}</strong> </p>
+                     <p><strong>Breadth : {{obj.breadth}}</strong></p>
+                     </div>
+                   <p>
+                     {{obj.description}}
+                   </p> 
+                  </div>
+                  </div>
+                  
+                  
+            </div>
+           
+                 <div class="calendar-container" *ngIf="obj.image"> 
+                   <div >
+                     <h1>Manage your Days</h1>
                    </div>
-                     <ion-row>
-                   
-                       <ion-col col-5 class="holder-calendar">
-                       
-                          <calendar
-                          [lockSwipeToPrev]="lockSwipeToPrev"
-                          [eventSource]="eventSource" 
-                          [calendarMode]="calendar.mode" 
-                          [currentDate]="calendar.currentDate"
-                          (onEventSelected)="onEventSelected($event)"
-                          (onTitleChanged)="onViewTitleChanged($event)"
-                          (onTimeSelected)="onTimeSelected($event)" 
-                          startHour="6"
-                          endHour="20"
-                          step="30"
-                          [lockSwipeToPrev]="lockSwipeToPrev"
-                          startingDayWeek="1">
-                          </calendar> 
+                    <div class="calender">
+                      <div class="month">
+                          <div class="header_man">
+                            <h4>Pick a day in which you will be available</h4>
+                          </div>
+                        <div class="displayFormat">
+                          <div class="changeMonth">
+                              <p class="displayMonth">{{event.startTime | date: 'longDate'}}</p>
+                          </div>
                           
-                       </ion-col>
-                     </ion-row> 
+                        </div>
+                       </div>
+                       <ion-row>
+                   
+                        <ion-col col-5 class="holder-calendar">
+                        
+                           <calendar
+                           [lockSwipeToPrev]="lockSwipeToPrev"
+                           [eventSource]="eventSource" 
+                           [calendarMode]="calendar.mode" 
+                           [currentDate]="calendar.currentDate"
+                           (onEventSelected)="onEventSelected($event)"
+                           (onTitleChanged)="onViewTitleChanged($event)"
+                           (onTimeSelected)="onTimeSelected($event)" 
+                           startHour="6"
+                           endHour="20"
+                           step="30"
+                           [lockSwipeToPrev]="lockSwipeToPrev"
+                           startingDayWeek="1">
+                           </calendar> 
+                           
+                        </ion-col>
+                      </ion-row> 
+                      <ion-row justify-content-center>
+                          <ion-col  size="10">
+                            <ion-item>
+                              <ion-label position="floating">Start Date</ion-label>
+                              <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+                              <ion-icon  size="small" slot="end" name="ios-calendar"></ion-icon>
+                            </ion-item>
+                    
+                          </ion-col>
+                          <ion-col  size="10">
+                            
+                            <ion-item>
+                              <ion-label position="floating">End Date</ion-label>
+                              <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY  HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
+                              <ion-icon size="small" slot="end" name="ios-calendar"></ion-icon>
+                            </ion-item>
+                           
+                          </ion-col>
+                          <ion-col size="10">
+                            <ion-item style="margin-bottom: 2em;">
+                              <ion-label position="floating" >Price</ion-label><br>
+                              <ion-input type="tel"  [(ngModel)]="price">R</ion-input>
+                            </ion-item>
+                          </ion-col>
+                      </ion-row>
+                     
+                      <ion-row justify-content-center>
+                        <ion-col size="7"> <ion-button class="btn-respond" shape="round" expand="block" mode="ios" color="secondary" (click)="addEvent()">Respond</ion-button></ion-col>
+                      </ion-row>
+                    
+                    </div>
+                  
+                     
               
 
                     
                     
               
-                     <ion-item>
-                        <ion-label position="floating">Start</ion-label>
-                        <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
-                     
-                      </ion-item>
-              
-                      <ion-item>
-                        <ion-label position="floating">End</ion-label>
-                        <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY  HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
-                      </ion-item>
-                      <ion-item style="margin-bottom: 3em;">
-                        <ion-label position="floating" >Price</ion-label><br>
-                        <ion-input type="tel"  [(ngModel)]="price">R</ion-input>
-                        
-                      </ion-item>
-                     <ion-button class="btn-respond" shape="block" color="secondary" (click)="addEvent()">Respond</ion-button>
+                 
                   </div>
       
-                  <div class="details-profile" padding *ngIf="obj.image">
-                      <div class="profile-container">
-                          <div class="profile"><img src="{{obj.image}}" alt="tattoo" (click)="goProfilePage()"></div>
-                        <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}</p>
-                        </div>
-                        <div class="card">
-                          <div class="image"><img src="{{obj.image}}" alt="tattoo images"></div>
-                          <div class="card-details">
-                          <p>{{obj.description}}</p>
-                          </div>
-                        </div>
-                        
-                        
-                  </div> 
+                   
                    <div class="select-card-first" *ngIf="!obj.image">
                     <p>Please select a card to display information and respond</p>
                   </div> 

@@ -28,7 +28,7 @@ export class LandingPage implements OnInit {
   Decline = [];
   declinedLength=0;
   notifications = 0;
-
+  active: any;
   bars: any;
   colorArray: any;
   tattoo = {
@@ -62,6 +62,12 @@ Tattoos = [];
 
  
 
+   }
+
+   viewTattoo(i) {
+     this.active = i;
+     console.log('kjasdbjkasbdas khuthy',i);
+     
    }
   ionViewDidEnter() {
 
@@ -284,6 +290,7 @@ Tattoos = [];
 
 
   createBarChart() {
+    Chart.defaults.global.defaultFontSize = 12;
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'bar',
     data: {
@@ -291,9 +298,9 @@ Tattoos = [];
         fontSize: '12px',
         datasets: [{
             label: '#-Analytics',
-            data: [12, 45, 42, 23],
+            data: [this.r, this.p, this.n, this.o],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.5)',
+                'rgba(255, 99, 132, 0.5)', 
                 'rgba(54, 162, 235, 0.5)',
                 'rgba(153, 102, 255, 0.5)',
                 'rgba(255, 159, 64, 0.5)'
@@ -315,7 +322,7 @@ Tattoos = [];
         text: 'Bookings made so far.'
     },
       
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
   scales: {
     yAxes: [{
       stacked: true,

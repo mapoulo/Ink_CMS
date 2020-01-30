@@ -66,6 +66,7 @@ notifications  = 0;
     uid : '',
     auId : ''
   };
+  active: any;
   constructor(public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
 
  
@@ -263,7 +264,7 @@ ionViewDidEnter(){
 
   save(obj, i){
 
- 
+    this.active = i;
     
     this.index = i;
     this.obj = obj;
