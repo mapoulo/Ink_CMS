@@ -13,14 +13,14 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfilePageModule } from './Pages/edit-profile/edit-profile.module';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { MessagesPageModule } from './messages/messages.module';
-
+import { IonicStorageModule } from '@ionic/storage';
 
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, MessagesPageModule, TattooPageModule, EditProfilePageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, MessagesPageModule, TattooPageModule, EditProfilePageModule,IonicStorageModule.forRoot()],
   providers: [Camera,CallNumber,
     
     StatusBar,

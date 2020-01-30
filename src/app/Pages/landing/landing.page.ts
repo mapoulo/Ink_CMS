@@ -2,14 +2,14 @@ import { DataService } from './../../data.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { ModalController, AlertController, Platform } from '@ionic/angular';
+import { ModalController, AlertController, Platform, IonSlides } from '@ionic/angular';
 import { TattooPage } from '../tattoo/tattoo.page';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Chart } from 'chart.js';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { MessagesPageModule } from 'src/app/messages/messages.module';
 import { MessagesPage } from 'src/app/messages/messages.page';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-landing',
@@ -55,7 +55,9 @@ Tattoos = [];
   r : number = 0;
   o: number = 0;
   number : number = 0;
-  constructor(public data : DataService, private platform: Platform, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
+  onboard: boolean  = false;
+  @ViewChild('slides', {static: true}) slides: IonSlides;
+  constructor(public data : DataService, private platform: Platform, private store: Storage, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
 
  
 
@@ -65,7 +67,13 @@ Tattoos = [];
 
 
 
-
+    this.store.get('onboard').then((val) => {
+      if(val == true) {
+        this.onboard = false;
+      }else {
+        this.onboard = true;
+      }
+    });
  
  
 
@@ -229,7 +237,7 @@ Tattoos = [];
       
        
      })
-   })
+   })  
 
 
    this.db.collection("Users").onSnapshot(data => {
@@ -265,15 +273,25 @@ Tattoos = [];
   
   }
 
+  onboardingFunc() {
+    this.onboard = false;
+    this.store.set('onboard', true);
+  }
+  onNext() {
+    this.slides.slideNext(); 
+    this.store.set('onboard', true);
+  }
+
 
   createBarChart() {
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'bar',
     data: {
         labels: ['All Bookings', 'Declined Bookings', 'Accepted Booking', 'All Users'],
+        fontSize: '12px',
         datasets: [{
             label: '#-Analytics',
-            data: [this.r, this.p, this.o, this.n],
+            data: [12, 45, 42, 23],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.5)',
                 'rgba(54, 162, 235, 0.5)',
@@ -303,7 +321,8 @@ Tattoos = [];
       stacked: true,
       gridLines: {
         display: false,
-        color: "rgba(255,99,132,0.2)"
+        color: "rgba(255,99,132,0.2)",
+        
       }
     }],
     xAxes: [{
