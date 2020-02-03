@@ -1,9 +1,17 @@
 import { firebaseConfig } from './../../Environment';
 import { ModalController } from '@ionic/angular';
 import { DataService } from './../../data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { google } from "google-maps";
+
+declare var google : google;
+
+
+
+
+
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 @Component({
   selector: 'app-edit-profile',
@@ -11,6 +19,15 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
+
+
+  GoogleAutocomplete: google.maps.places.AutocompleteService;
+  autocomplete: { input: string; };
+  autocompleteItems: any[];
+  location: any;
+  placeid: any;
+
+
   address  = "";
   name = "";
   phoneNumber = "";
@@ -49,7 +66,7 @@ export class EditProfilePage implements OnInit {
       
     ]
   }
-  constructor(public data : DataService, private camera: Camera,  private modalController: ModalController,private fb: FormBuilder) {
+  constructor( public zone: NgZone,  public data : DataService, private camera: Camera,  private modalController: ModalController,private fb: FormBuilder) {
     this.tattooForm = this.fb.group({
       name: new FormControl('', Validators.compose([Validators.required])),
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+$')])),
@@ -57,7 +74,49 @@ export class EditProfilePage implements OnInit {
       phoneNumber: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(10)]))
      
     })
+
+
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    this.autocomplete = { input: '' };
+    this.autocompleteItems = [];
+
+   
   }
+
+
+  updateSearchResults(){
+    if (this.autocomplete.input == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+    (predictions, status) => {
+      this.autocompleteItems = [];
+      this.zone.run(() => {
+        predictions.forEach((prediction) => {
+          this.autocompleteItems.push(prediction);
+        });
+      });
+    });
+  }
+
+
+
+  GoTo(){
+    return window.location.href = 'https://www.google.com/maps/place/?q=place_id:'+this.placeid;
+  }
+
+  selectSearchResult(item) {
+    console.log(item)
+    this.location = item
+    this.placeid = this.location.place_id
+    console.log('placeid'+ this.placeid)
+  }
+
+
+  
+
+
   ngOnInit() {
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
@@ -85,6 +144,7 @@ export class EditProfilePage implements OnInit {
   ionViewDidEnter(){
  
   }
+
   editData(){
     console.log("Method is called", this.MyData.auId);
     
@@ -93,7 +153,8 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
-  image : this.MyData.image
+  image : this.MyData.image,
+  placeId : this.placeid
 })
     this.dismiss() 
   }

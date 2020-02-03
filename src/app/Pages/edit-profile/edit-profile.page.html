@@ -6,6 +6,20 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
+
+
+    <ion-toolbar color="primary">
+      <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-searchbar>
+    </ion-toolbar>
+    <ion-list [hidden]="autocompleteItems.length == 0">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+        {{ item.description }}
+      </ion-item>
+
+      <ion-button (click)="GoTo()" >Go To Selected Location</ion-button>
+    </ion-list>
+
+
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +40,7 @@
         <img *ngIf="MyData.image" src="{{MyData.image}}" alt="">
       </div>
       <label class="fileContainer">
-        <ion-icon size="large" name="add"></ion-icon> Upload your picture Here
+        <ion-icon size="large" name="add"></ion-icon> Edit your picture Here
         <input type="file" accept="image/*"  (change)="changeListener($event)"/> 
     </label>
     </div>
@@ -37,7 +51,7 @@
             <ion-col  size="12">
               <ion-item>
                 <ion-label position="floating">Full Name</ion-label>
-                <ion-input type="text"  formControlName="name" [(ngModel)]="MyData.name" onkeypress="return /[a-z]/i.test(event.key)"  placeholder="{{MyData.name}}"></ion-input>
+                <ion-input type="text"  formControlName="name" [(ngModel)]="MyData.name" onkeypress="return /[a-zA-Z\s]/i.test(event.key)"  placeholder="{{MyData.name}}"></ion-input>
                 <ion-icon slot="end" name="ios-person"></ion-icon>
               </ion-item>
               <div class="error" *ngFor="let validate of validation_messages.address">
@@ -65,7 +79,7 @@
             <ion-col  size="12">
               <ion-item>
                 <ion-label position="floating">Phone Number</ion-label>
-                <ion-input type="text" formControlName="phoneNumber"  [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"></ion-input>
+                <ion-input type="text" formControlName="phoneNumber"  [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"  ></ion-input>
                 <ion-icon slot="end" name="ios-call"></ion-icon>
               </ion-item>
               <div class="error" *ngFor="let validate of validation_messages.phoneNumber">
@@ -92,7 +106,7 @@
 
           <ion-row justify-content-center>
             <ion-col size="7" style="margin-top: 1em;">
-             <ion-button mode="ios" shape="round" color="success" expand="block"  (click)="editData()">Edit Profile</ion-button>
+             <ion-button mode="ios" shape="round" color="success" expand="block" (click)=" editData()">Edit Profile</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>

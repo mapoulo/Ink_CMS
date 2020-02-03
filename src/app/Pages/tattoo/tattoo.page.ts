@@ -89,21 +89,12 @@ export class TattooPage implements OnInit {
     this.Button = this.auth.myObj.Button;
    
     this.categories = this.auth.myObj.obj.categories;
-    //  this.start = this.auth.myObj.obj.startPrice;
-    //  this.end = this.auth.myObj.obj.endPrice;
-    // this.description= this.auth.myObj.obj.description;
-    // this.image = this.auth.myObj.obj.image;
-    // this.name = this.auth.myObj.obj.name;
-    // this.start = this.auth.myObj.obj.start;
-    // this.end = this.auth.myObj.obj.end;
-    //console.log("Start",this.end);
-   // this.results= `${this.tattoo.start}-${this.tattoo.end} `
-   
+
     this.tattoo.name = this.auth.myObj.obj.name;
     this.tattoo.categories = this.auth.myObj.obj.categories;
     this.tattoo.startPrice = this.auth.myObj.obj.startPrice;
     this.tattoo.endPrice = this.auth.myObj.obj.endPrice;
-    // this.tattoo.pricerange = `${this.tattoo.start}-${this.tattoo.end} `;
+ 
     
     this.tattoo.description= this.auth.myObj.obj.description;
     this.tattoo.image = this.auth.myObj.obj.image;

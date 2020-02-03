@@ -114,7 +114,7 @@
                       </ion-item>
                       <ion-item style="margin-bottom: 3em;">
                         <ion-label position="floating" >Price</ion-label><br>
-                        <ion-input type="tel"  [(ngModel)]="price">R</ion-input>
+                        <ion-input type="number"  [(ngModel)]="price" onKeyPress="if(this.value.length==5) return false;">R</ion-input>
                         
                       </ion-item>
                      <ion-button class="btn-respond" shape="block" color="secondary" (click)="addEvent()">Respond</ion-button>

@@ -533,6 +533,9 @@ goProfilePage(){
  
 }
   async openModal(CheckNumber, obj) {
+
+    console.log("ssss ", obj);
+    
     this.auth.addTattoo = false;
     this.auth.editButton = false;
     this.auth.myObj.obj.categories = "";
@@ -560,8 +563,8 @@ goProfilePage(){
   
       this.auth.myObj.obj.categories = obj.categories;
    
-      this.auth.myObj.obj.startPrice = obj.start;
-      this.auth.myObj.obj.endPrice = obj.end;
+      this.auth.myObj.obj.startPrice = obj.startPrice;
+      this.auth.myObj.obj.endPrice = obj.endPrice;
       this.auth.myObj.obj.description = obj.description;
       this.auth.myObj.obj.image = obj.image;
       this.auth.myObj.obj.name = obj.name;
