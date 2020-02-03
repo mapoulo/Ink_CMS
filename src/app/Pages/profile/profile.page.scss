@@ -228,8 +228,124 @@
      
     }
 
+    .list_g {
+        flex-basis: 60%;
+        display: flex;
+        flex-direction: column;
+
+        .segment_g {
+            flex-basis: 8%;
+        }
+
+        .item_g_c {
+            flex-basis: 92%;
+            
+            display: flex;
+            
+
+            .item_c {
+
+                flex-basis: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                display: flex;
+                position: relative;
+                overflow-y: scroll;
+                overflow-x: hidden;
+
+                .item_g_no_messages {
+                    flex-basis: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    align-content: center;
+                    text-align: center;
+                }
+
+                .item_r_f {
+                    flex: 0 0 31%;
+                    border-radius: 5px;
+                    height: 40%;
+                    margin: 1%;
+                    position: relative;
+                    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),  
+                      -6px -6px 12px  rgba(255, 255, 255, 1);
+                      overflow: hidden;
+                      border-radius: 5px;
+
+                      img {
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          width: 100%;
+                          height: 100%;
+                          object-fit: cover;
+                      }
+                }
+
+
+            }
+
+            .item_c_user {
+                flex-basis: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                display: flex;
+                position: relative;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                .item_g_no_messages_users{
+                    flex-basis: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    align-content: center;
+                    text-align: center;
+                }
+
+                .item_r_user {
+                    flex: 0 0 31%;
+                   /*  height: 10vh; */
+                    margin: 1%;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1),  
+                    inset  -6px -6px 12px  rgba(255, 255, 255, 1);
+                    
+
+                    img {
+                        height: 10vh;
+                        width: 10vh;
+                        border-radius: 50px;
+                    }
+                    .pending_r_user {
+                        background: #fff;
+                        padding-left: 1em;
+                        border-radius: 0 50px 50px 0;
+                        padding-top: .5em;
+                        padding-bottom: .5em;
+                        padding-right: .5em;
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+    .grow {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+    }
+
     .upload-contract {
-        flex-basis: 80%;
+        flex-basis: 30%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -244,9 +360,7 @@
             font-size: 21px;
         } 
 
-        p {
-            width: 60%;
-        }
+     
         
     }
 

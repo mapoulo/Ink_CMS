@@ -84,7 +84,93 @@
            </div>
 
 
-      
+           <div class="list_g">
+              <div class="segment_g">
+                <ion-segment [(ngModel)]="category" color="primary">
+          
+                  <ion-segment-button value="pending">
+                   
+                    <div class="grow">
+                      <ion-badge color="light">3</ion-badge>
+                      <ion-label>Pending Responses</ion-label>
+                      
+                    </div>
+                    
+                  </ion-segment-button>
+                  <ion-segment-button  value="users">
+                    <div class="grow">
+                      <ion-badge color="light">0</ion-badge>
+                      <ion-label>All Users</ion-label>
+                      
+                    </div>
+                  </ion-segment-button>
+                </ion-segment>
+              </div>
+              <div class="item_g_c" [ngSwitch]="category">
+                <div class="item_c" *ngSwitchCase="'pending'">
+                 <!--  <div class="item_g_no_messages">
+                    <p>You do not have users</p>
+                  </div> -->
+                  
+    <div class="item_r_f">
+                    
+      <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+      <div class="pending_r">
+
+      </div>
+  </div>
+                </div>
+                <div class="item_c_user" *ngSwitchCase="'users'">
+                <!--     <div class="item_g_no_messages_users">
+                     <p>You do not have users</p>
+                   </div>  -->
+                   <div class="item_r_user">
+                     
+                    <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+             <div class="pending_r_user">
+              <p>Muenda</p>
+             </div>
+         </div>
+         <div class="item_r_user">
+                     
+          <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+   <div class="pending_r_user">
+    <p>Muenda</p>
+   </div>
+</div>
+<div class="item_r_user">
+                     
+  <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+<div class="pending_r_user">
+<p>Muenda</p>
+</div>
+</div>
+<div class="item_r_user">
+                     
+  <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+<div class="pending_r_user">
+<p>Muenda</p>
+</div>
+</div>
+<div class="item_r_user">
+                     
+  <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+<div class="pending_r_user">
+<p>Muenda</p>
+</div>
+</div>
+                   
+            <div class="item_r_user">
+                     
+              <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+       <div class="pending_r_user">
+        <p>Muenda</p>
+       </div>
+   </div>
+                 </div>
+              </div>
+
+          </div>
                
 <div class="upload-contract">
               <h1>Upload a Contract for your Users</h1>
@@ -96,6 +182,8 @@
                 <input type="file" accept="pdf/*" (change)="changeListener($event)"/> 
             </label>
             </div>
+
+           
         
            </div>
        </section>

@@ -31,6 +31,8 @@ export class ProfilePage implements OnInit {
   
 }
 
+category: string = 'users'
+
 image1  = ""
 name=""
 email=""
