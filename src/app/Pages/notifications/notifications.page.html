@@ -1,5 +1,11 @@
 
 <ion-content>
+
+  <div class="loader" *ngIf="loader">
+    <div class="loader-1">
+      
+    </div>
+  </div>
   <main class="main">
      <aside class="aside">
       <div class="profile-container" (click)="goProfilePage()">
@@ -16,7 +22,7 @@
 
           <div class="notifation">
             <ion-button  (click)="home()" shape="block" color="light" size="large" fill="clear">
-              <ion-icon ios="ios-home" md="md-home"></ion-icon>
+              <ion-icon mode="ios" name="home"></ion-icon>
               </ion-button>
           
         </div>
@@ -83,8 +89,14 @@
          
                     <div class="image-r">
                     <img src="{{obj.image}}" alt="tattoo images"> 
+                    <div class="fullscreen">
+                      <ion-fab-button mode="ios" size="small" color="secondary">
+                        <ion-icon name="qr-scanner"></ion-icon>
+                      </ion-fab-button>
+                    </div>
+                   
                       <div class="profile-container-r">
-                        <img src="{{obj.image}}" alt="tattoo" (click)="goProfilePage()">
+                        <img src="{{obj.image}}" alt="tattoo">
                       <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}</p>
                       </div>
                     </div>

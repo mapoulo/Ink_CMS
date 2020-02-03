@@ -181,13 +181,13 @@ p, h1, h2,h3,h4,h5,h6,small {
    
  }
   }
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 700px) {
     .custom-modal .modal-wrapper {
       width: 40%;
     }
     .modalMessages .modal-wrapper {
         
-      --width: 80%;
+      --width: 70%;
      
  }
 
@@ -198,11 +198,11 @@ p, h1, h2,h3,h4,h5,h6,small {
     }
   }
   @media only screen and (max-width: 1200px) {
-    .modalMessages .modal-wrapper {
+ /*    .modalMessages .modal-wrapper {
         
       --width: 80%;
      
- }
+ } */
   }
 
   

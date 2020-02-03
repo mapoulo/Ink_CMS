@@ -569,8 +569,10 @@ canvas {
 
 @media all and (max-width: 600px) {
  
-   
-
+     .container {
+         overflow: scroll;
+     }
+    
   
 
     .image {
@@ -653,6 +655,9 @@ canvas {
 }
 
   }
+
+
+  
 
   @media all and (min-width: 600px) {
     .card-horizontal-scroll {

@@ -8,10 +8,15 @@
       
     </div>
   </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button mode="ios" color="success" size="small" (click)="presentModal()" >
+      <ion-icon size="small" name="ios-create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <main class="main">
-    <aside class="aside-container">
+    <aside class="aside">
        <div class="profile-container">
-           <div class="profile">
+           <div class="profile-img-blick">
              
             <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
 
@@ -21,65 +26,77 @@
          <p class="paragragh">Admin</p>
          </div>
          <div class="notifation">
-             <ion-button shape="block" color="light" fill="clear" (click)="goToNotificationsPage()">
+          <ion-button routerLink="/landing" shape="block" color="light" size="large" fill="clear">
+            <ion-icon mode="ios" name="home"></ion-icon>
+            </ion-button>
+        
+      </div>
+         <div class="notifation">
+             <ion-button shape="block" size="large" color="light" fill="clear" (click)="goToNotificationsPage()">
                  <ion-icon name="notifications-outline"></ion-icon>
                </ion-button>
-             <ion-badge class="badge" color="light">{{notifications}}</ion-badge>
+             <ion-badge class="badge" color="danger">{{notifications}}</ion-badge>
          </div>
       
    </aside>
    <section class="content-container"> 
        <header class="header">
            <h1 class="first-header">Admin Profile</h1>
-           <ion-button color="secondary" (click)="logout()">
+           <ion-button mode="ios" color="secondary" (click)="logout()">
              <ion-icon name="log-out"></ion-icon> Logout
            </ion-button>
          </header>
          <div class="sub-container">
-           <div class="top-profile">
-              <div class="profiles-info">
+           <div class="top-profile_c">
+            
 
                 
-                  <div   class="profile" style="height: 20vh; width: 20vh;">
-                   <!--  <ion-fab-button class="btn-edit-image" color="light" size="small" >
-                      <ion-icon name="create"></ion-icon>
-                    </ion-fab-button> -->
-                    <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
-
-                    <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
-                  </div>
-                    <article>
-                    <h4>Name : {{ profile.name}}</h4>
-                    <p>{{ profile.email}}</p>
-                    <p>Address : {{ profile.address}}</p>
-                    <p>Phone Number : {{ profile.phone}}</p>
-                    </article>
-                   
-                  </div>
-              <ion-fab-button class="edit"  color="success" size="large" (click)="presentModal()" >
-                <ion-icon name="create"></ion-icon>
-              </ion-fab-button>
+                    <div class="profile_c">
+                      <!--  <ion-fab-button class="btn-edit-image" color="light" size="small" >
+                         <ion-icon name="create"></ion-icon>
+                       </ion-fab-button> -->
+                       <div class="wr">
+                        <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
+   
+                        <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
+                       </div>
+                     
+                     </div>
+                       <div class="profile-information">
+                       <h4> {{ profile.name}}</h4>
+                       <p>{{ profile.email}}</p>
+                       <p>Address : {{ profile.address}}</p>
+                       <p>Phone Number : {{ profile.phone}}</p>
+                       </div>
+             
+                 
+                       <div class="list-contract">
+                        <ion-icon size="large" color="secondary" name="ios-document"></ion-icon>
+                            <!-- <ion-fab-button color="success" (click)="download()"><ion-icon name="download"></ion-icon></ion-fab-button> -->
+                          <p>Contract Form</p>
+                        
+                          <ion-button fill="clear" color="secondary" size="large" (click)="DeleteData()"><ion-icon name="ios-trash"></ion-icon></ion-button>
+                       
+                      
+                      </div> 
+                
+            
            </div>
 
 
       
-          
+               
 <div class="upload-contract">
               <h1>Upload a Contract for your Users</h1>
               <p class="policy">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolore qui necessitatibus officia vero voluptatibus, officiis perferendis tempora nesciunt asperiores, sint corrupti unde maiores consequatur, sequi error consequuntur deleniti doloribus!</p>
 
-              <ion-input class="pdf-upload"  type="file" accept="pdf/*" (change)="changeListener($event)"></ion-input>
               
+              <label class="fileContainer">
+                <ion-icon size="large" name="add"></ion-icon> Click to upload your Contract Here
+                <input type="file" accept="pdf/*" (change)="changeListener($event)"/> 
+            </label>
             </div>
-            <div class="list-contract">
-              <div class="btn-download">
-                  <!-- <ion-fab-button color="success" (click)="download()"><ion-icon name="download"></ion-icon></ion-fab-button> -->
-                <p>{{profile.pdf}}</p>
-              
-                <ion-button fill="clear" color="secondary" size="large" (click)="DeleteData()"><ion-icon name="trash"></ion-icon></ion-button>
-              </div>
-            
-            </div>
+        
            </div>
        </section>
     </main>

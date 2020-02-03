@@ -157,11 +157,36 @@
   font-weight: bold;
 }
 
-@media only screen and (max-width: 1024px) {
-  .read-not-container {
-    flex-basis: 40%;
-  }
-  .content-messages {
-    flex-basis: 60%;
-  }
+.hide {
+  display: none;
 }
+
+@media only screen and (max-width: 600px) {
+
+  .hide {
+    display: flex;
+  }
+
+  ion-title {
+    --text-align: left;
+  }
+  .list {
+    position: relative;
+    .content-messages {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+    }
+    .read-not-container {
+      flex-basis: 100%;
+    }
+  }
+
+}
+
+
+

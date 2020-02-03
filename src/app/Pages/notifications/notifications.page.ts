@@ -47,6 +47,8 @@ notifications  = 0;
   Bookings1 = [];
   // number;
 
+  loader: boolean = false;
+
   image1="";
 
   ClickedObjeck = {description: "", name : ""};
@@ -77,6 +79,8 @@ notifications  = 0;
 
   ionViewWillEnter() {
 
+    this.loader = true;
+
 
     let UidArray = []
 
@@ -96,6 +100,8 @@ notifications  = 0;
 
 
     setTimeout(() => {
+
+      
 
       let id = {docid: "", auId: "",  obj : {}};
       
@@ -130,7 +136,7 @@ notifications  = 0;
       })
 
       
-
+     this.loader = false;
 
     }, 3000)
 
@@ -268,10 +274,14 @@ ionViewDidEnter(){
 
   save(obj, i){
 
+    this.loader = true;
+
     this.active = i;
     
     this.index = i;
-    this.obj = obj;
+   
+    setTimeout(() => {
+      this.obj = obj;
     this.obj.description = obj.obj.description;
     this.obj.image = obj.obj.image;
     this.obj.length = obj.obj.length;
@@ -287,11 +297,11 @@ ionViewDidEnter(){
     this.obj.auId = obj.auId;
     console.log("save button clicked", this.obj);
     console.log("index", this.index);
-
-    setTimeout(() => {
-      this.event.startTime = ""
-      this.event.endTime = ""
-      this.price = ""  
+    
+      this.event.startTime = "";
+      this.event.endTime = "";
+      this.price = ""; 
+      this.loader = false; 
     }, 1000)
 
   }

@@ -107,6 +107,7 @@
     display: -webkit-flex;
     display: flex;
     flex-flow: column nowrap;
+    position: relative;
 }
 .header-container   {
     flex-basis: 10%;
@@ -137,7 +138,7 @@
 
 .sub-container {
     flex-basis: 90%;
-   
+ 
     padding: 0;
     display: flex;
     flex-direction: row;
@@ -166,6 +167,8 @@
         flex-basis: 100%;
         justify-content: center;
         align-items: center;
+        text-align: center;
+        
         display: flex;
         color: #D66E53;
     }
@@ -173,8 +176,15 @@
 }
 
 .active {
-    filter: saturate(40deg);
-    transform: scale(0.9);
+    
+/*     transform: rotate(45deg); */
+    filter: sepia(30%);
+    transform: rotate3d(23deg);  
+
+  
+
+
+
 }
 .booking-item {
     flex: 0 0 30%;
@@ -261,6 +271,7 @@
             flex-direction: column;
             padding: 1em;
             width: 100%;
+
             .image-r {
                 flex-basis: 60%;
                 width: 100%;
@@ -276,6 +287,13 @@
                     height: 100%;
                     object-fit: cover;
                     border-radius: 20px;
+                }
+
+                .fullscreen {
+                    position: absolute;
+                    bottom: 5%;
+                    right: 3%;
+                    z-index: 100;
                 }
 
 
@@ -354,7 +372,7 @@
             border-radius: 5px;
             box-shadow:  12px 12px 12px rgba(0, 0, 0, 0.1),  
             -12px -12px 12px  rgb(235, 235, 235);
-
+            transition: 500ms;
 
           
         }
@@ -372,14 +390,36 @@ h4 {
 
 @media all and (max-width: 600px) {
  
-    .main, .sub-container {
+    .main {
+        position: relative;
+    }
+    .main, .sub-container{
         flex-direction: column;
+      
     }
 
-    .respond-container {
-        display: none;
+
+  
+
+    
+    .details-profile {
+   
+
+        .card-r {
+            padding: 0em;
+        }
+         
     }
 
+    .booking-container {
+        flex-basis: 100%;
+        
+    }
+
+    .booking-item {
+        flex: 0 0 40%;
+    }
+    
   
 
     .image {

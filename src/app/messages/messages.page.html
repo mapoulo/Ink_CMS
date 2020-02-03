@@ -1,5 +1,8 @@
 <ion-header no-border>
   <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="messageInfo.message">
+      <ion-button  class="hide" fill="clear" color="dark"  (click)="back()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+    </ion-buttons>
     <ion-title text-center>Messages</ion-title>
 
     <ion-buttons slot="end">
