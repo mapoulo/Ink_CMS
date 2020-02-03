@@ -13,6 +13,43 @@
     flex-flow: row;
     background: #f2f2f2;
     position: relative;
+
+    .full_r {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        z-index: 500;
+        background: rgba(3, 3, 3, 0.529);
+
+        .btn-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: inherit;
+
+        }
+
+        .full-i_r {
+            flex-basis: 90%;
+            height: 90%;
+            position: relative;
+
+            img {
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
 }
 
 .onbording {
@@ -310,6 +347,14 @@
         height: 100%;
         width: 100%;
         object-fit: cover;
+    }
+
+    .fullscreen {
+        position: absolute;
+        bottom: 2%;
+        left: 2%;
+        z-index: inherit;
+
     }
 }
 

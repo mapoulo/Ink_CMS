@@ -1,6 +1,15 @@
 
 <ion-content>
   <div class="main">
+
+    <div class="full_r" *ngIf="fullscreen">
+      <div class="btn-close">
+        <ion-button fill="clear" size="large" color="light" (click)="animateClose('')"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
+      </div>
+      <div class="full-i_r">
+        <img src="{{fullScreenImage}}" alt="tattoo">
+      </div>
+    </div>
     <div class="aside">
  
         <div class="profile-container" (click)="goProfilePage()">
@@ -172,6 +181,11 @@
                 <div class="button-edit-delete">
                     <ion-button  (click)="DeleteData(tattoo)" fill="clear" color="light"><ion-icon name="trash"></ion-icon></ion-button>
                     <ion-button (click)="openModal(0, tattoo)"  fill="clear" color="light"><ion-icon name="create"></ion-icon></ion-button>
+                </div>
+                <div class="fullscreen">
+                  <ion-fab-button mode="ios" (click)="animateClose(tattoo.image)" size="small" color="secondary">
+                    <ion-icon name="qr-scanner"></ion-icon>
+                  </ion-fab-button>
                 </div>
             </div>
           </div>

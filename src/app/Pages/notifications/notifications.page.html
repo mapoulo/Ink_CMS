@@ -7,6 +7,18 @@
     </div>
   </div>
   <main class="main">
+
+    <div class="full_r" *ngIf="fullscreen">
+      <div class="btn-close">
+        <ion-button fill="clear" size="large" color="light" (click)="animateClose()"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
+      </div>
+      <div class="full-i_r">
+        <img src="{{obj.image}}" alt="tattoo">
+      </div>
+    </div>
+
+
+
      <aside class="aside">
       <div class="profile-container" (click)="goProfilePage()">
       <div class="profile-img-blick" >
@@ -56,7 +68,7 @@
                   </div>
                     
                 <div class="bookings-list">
-                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index;" (click)="save(item, i)" [ngClass]="{'active': active==i}">
+                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index;" (click)="save(item, i)" [ngClass]="{'active animated jackInTheBox': active==i}">
                                               <div class="tattoo-booking-image"><img src="{{item.obj.image}}"  [ngClass]="{'active': active==i}" alt=""></div>
                                               <div class="info-booking">
                                               <!-- <p class="description">{{item.obj.description }}</p>      -->                                      
@@ -90,7 +102,7 @@
                     <div class="image-r">
                     <img src="{{obj.image}}" alt="tattoo images"> 
                     <div class="fullscreen">
-                      <ion-fab-button mode="ios" size="small" color="secondary">
+                      <ion-fab-button mode="ios" (click)="animateClose()" size="small" color="secondary">
                         <ion-icon name="qr-scanner"></ion-icon>
                       </ion-fab-button>
                     </div>

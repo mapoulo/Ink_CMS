@@ -69,6 +69,8 @@ notifications  = 0;
     auId : ''
   };
   active: any;
+  fullscreen = false;
+
   constructor(public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
 
  
@@ -271,6 +273,11 @@ ionViewDidEnter(){
     this.rout.navigateByUrl('/notifications')
 }
 
+animateClose() {
+  this.fullscreen = !this.fullscreen;
+   
+}
+
 
   save(obj, i){
 
@@ -381,9 +388,12 @@ async alert(){
   // Create the right event format and reload source
   async addEvent() {
 
+    this.loader = true;
+
     console.log("All index ", this.index);
     console.log("Data auId ", this.obj.auId);
     console.log("Data uid ", this.obj.uid);
+
 
 
     let diffrDays = 0; 
@@ -477,6 +487,7 @@ console.log("My date is", moment().format().slice(0, 10));
                
               
                 setTimeout(() => {
+                  this.loader = false;
                   this.Bookings.splice(this.index, 1);
                 }, 2000)
               
@@ -486,8 +497,15 @@ console.log("My date is", moment().format().slice(0, 10));
             }
           ]
         });
+
+        
+ 
+     
     
-        await alert.present();
+
+
+    await alert.present();
+   
 
 
     }else{
