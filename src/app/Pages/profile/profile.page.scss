@@ -264,7 +264,7 @@
                 }
 
                 .item_r_f {
-                    flex: 0 0 31%;
+                    flex: 0 0 30%;
                     border-radius: 5px;
                     height: 40%;
                     margin: 1%;
@@ -405,6 +405,33 @@
 
 
 @media all and (max-width: 600px) {
+
+    .fileContainer label {
+        font-size: .5em !important;
+    }
+
+    .list_g {
+       flex-shrink: 0;
+       flex-grow: 20%;
+      
+
+       .item_c{
+        overflow-x: scroll !important;
+        overflow-y: hidden !important;
+        flex-wrap: nowrap !important;
+        flex-direction: row;
+        height: 50%;
+       
+       }
+     
+    }
+
+    .item_r_f {
+        flex: 0 0 80% !important;
+        height: 100% !important;
+        flex-wrap: nowrap;
+
+    }
 
   
 
