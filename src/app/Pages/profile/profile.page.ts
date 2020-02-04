@@ -31,6 +31,10 @@ export class ProfilePage implements OnInit {
   
 }
 
+fullscreen:boolean = false;
+
+fullScreenImage: string = '';
+
 category: string = 'users'
 
 image1  = ""
@@ -94,6 +98,11 @@ profile1 ={
 
     this.rout.navigateByUrl('/notifications')
 
+}
+
+animateClose(image) {
+  this.fullScreenImage = image;
+  this.fullscreen = !this.fullscreen;
 }
 
 goProfilePage () {

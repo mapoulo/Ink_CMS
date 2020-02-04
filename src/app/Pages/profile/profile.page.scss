@@ -13,6 +13,43 @@
     flex-flow: row;
     background: #f2f2f2;
     position: relative;
+
+    .full_r {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        z-index: 500;
+        background: rgba(3, 3, 3, 0.529);
+
+        .btn-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: inherit;
+
+        }
+
+        .full-i_r {
+            flex-basis: 90%;
+            height: 90%;
+            position: relative;
+
+            img {
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
 }
 
 .aside {
@@ -241,7 +278,7 @@
             flex-basis: 92%;
             
             display: flex;
-            
+            justify-content: center;
 
             .item_c {
 
@@ -252,6 +289,7 @@
                 position: relative;
                 overflow-y: scroll;
                 overflow-x: hidden;
+                
 
                 .item_g_no_messages {
                     flex-basis: 100%;
@@ -266,13 +304,20 @@
                 .item_r_f {
                     flex: 0 0 30%;
                     border-radius: 5px;
-                    height: 40%;
+                    height: 50%;
                     margin: 1%;
                     position: relative;
                     box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),  
                       -6px -6px 12px  rgba(255, 255, 255, 1);
                       overflow: hidden;
                       border-radius: 5px;
+
+                      .fullscreen {
+                          position: absolute;
+                          top: 2%;
+                          right: 2%;
+                          z-index: 10;
+                      }
 
                       img {
                           position: absolute;
@@ -281,6 +326,52 @@
                           width: 100%;
                           height: 100%;
                           object-fit: cover;
+                      }
+
+                      .pending_r_user {
+                        position: absolute;
+                        z-index: 10;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        background: rgba(0, 0, 0, 0.6);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        color: #fff;
+                        padding: 1em; 
+
+                        display: flex;
+                        flex-direction: column;
+
+                      }
+                      .scre_user {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            flex-wrap: wrap;
+
+                            .y_r {
+                                display: flex;
+                                justify-content: center;
+                                align-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                            }
+
+                           
+                            ion-badge {
+                                height: 20px;
+                                width: 20px;
+                                border-radius: 50px;
+                                padding: .5em;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                            }
+
                       }
 
                       .pending_r {
@@ -296,6 +387,18 @@
                           justify-content: space-between;
                           color: #fff;
                           padding: 1em;
+                          .scan_r {
+                              display: flex;
+                              justify-content: space-between;
+                          
+
+                           /*    .fullscreen {
+                                  position: absolute;
+                                  top: -10%;
+                                  right: 1%;
+
+                              } */
+                          }
 
                           p {
                               flex: 1;
@@ -308,6 +411,9 @@
 
                               p {
                                   flex-basis: 50%;
+                                  /* text-align: right; */
+
+                               
                               }
                           }
                       }
@@ -406,38 +512,40 @@
 
 @media all and (max-width: 600px) {
 
-    .fileContainer label {
-        font-size: .5em !important;
+
+
+    ion-label {
+        font-size: 70% !important;
     }
 
     .list_g {
-       flex-shrink: 0;
-       flex-grow: 20%;
-      
-
-       .item_c{
+        flex: 0 0 40%;
+    }
+    .item_c {
         overflow-x: scroll !important;
         overflow-y: hidden !important;
         flex-wrap: nowrap !important;
-        flex-direction: row;
-        height: 50%;
-       
-       }
-     
-    }
+        align-items: center;
+        padding: 1em;
 
+    }
     .item_r_f {
         flex: 0 0 80% !important;
-        height: 100% !important;
-        flex-wrap: nowrap;
-
+        height: 80% !important;
     }
 
-  
+    h4 {
+        font-size: 1em;
+    }
+
+  p {
+      font-size: 70% !important;
+  }
 
 
     .fileContainer {
-        font-size: 1em !important;
+        font-size: 70% !important;
+        padding: .4em !important;
     }
 
 

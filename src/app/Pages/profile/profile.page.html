@@ -14,6 +14,15 @@
     </ion-fab-button>
   </ion-fab>
   <main class="main">
+
+    <div class="full_r" *ngIf="fullscreen">
+      <div class="btn-close">
+        <ion-button fill="clear" size="large" color="light" (click)="animateClose('')"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
+      </div>
+      <div class="full-i_r">
+        <img src="{{fullScreenImage}}" alt="tattoo">
+      </div>
+    </div>
     <aside class="aside">
        <div class="profile-container">
            <div class="profile-img-blick">
@@ -113,10 +122,18 @@
                   </div> -->
                   
     <div class="item_r_f">
+
+      <div class="fullscreen">
+          
+        <ion-fab-button mode="ios" (click)="animateClose('../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg')" size="small" color="secondary">
+          <ion-icon name="qr-scanner"></ion-icon>
+        </ion-fab-button>
+      
+      </div>
                     
       <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
       <div class="pending_r">
-        <p>Pending...</p>
+          <p>Pending...</p>
         <div class="dates">
           <p>Start date</p>
           <p>12/05/2020</p>
@@ -133,62 +150,42 @@
                    <div class="item_r_f">
                     
                     <img src="../../../assets/person-icon.jpg" alt="">
-                    <div class="pending_r">
-                      <p>Khuty Muenda</p>
-                      <div class="dates">
-                        <p><ion-icon name="checkmark" color="light"></ion-icon> Accepted</p>
-                        <p>12/05/2020</p>
-                        <p>End date</p>
-                        <p>20/09/2020</p>
+                   
+                    <div class="pending_r_user">
+                      <div class="scre_user">
+                          <div class="y_r">
+                            <p>Booked</p>
+                            <ion-badge color="secondary">34</ion-badge>
+                          </div> 
+                
+                          <div class="y_r">
+                            <p>Accepts</p>
+                            <ion-badge color="success">3</ion-badge>
+                          </div>
+
+                          <div class="y_r">
+                            <p>Denied</p>
+                            <ion-badge color="danger">3</ion-badge>
+                          </div>
+                     
+                    
                       </div>
+                      <div class="name">
+                           <p>Khuty Muenda</p>
+                      </div>
+              
                     </div>
                 </div>
-                <div class="item_r_f">
-                    
-                  <img src="../../../assets/person-icon.jpg" alt="">
-                  <div class="pending_r">
-                    <p>Khuty Muenda</p>
-                    <div class="dates">
-                      <p><ion-icon name="checkmark" color="light"></ion-icon> Accepted</p>
-                      <p>12/05/2020</p>
-                      <p>End date</p>
-                      <p>20/09/2020</p>
-                    </div>
-                  </div>
-              </div>
-              <div class="item_r_f">
-                    
-                <img src="../../../assets/person-icon.jpg" alt="">
-                <div class="pending_r">
-                  <p>Khuty Muenda</p>
-                  <div class="dates">
-                    <p><ion-icon name="checkmark" color="light"></ion-icon> Accepted</p>
-                    <p>12/05/2020</p>
-                    <p>End date</p>
-                    <p>20/09/2020</p>
-                  </div>
-                </div>
-            </div>
-            <div class="item_r_f">
-                    
-              <img src="../../../assets/person-icon.jpg" alt="">
-              <div class="pending_r">
-                <p>Khuty Muenda</p>
-                <div class="dates">
-                  <p><ion-icon name="checkmark" color="light"></ion-icon> Accepted</p>
-                  <p>12/05/2020</p>
-                  <p>End date</p>
-                  <p>20/09/2020</p>
-                </div>
-              </div>
-          </div>
+              
+            
+            
                </div>
               </div>
 
           </div>
                
 <div class="upload-contract">
-              <h1>Upload a Contract for your Users</h1>
+              <h4>Upload a Contract for your Users</h4>
               <p class="policy">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolore qui necessitatibus officia vero voluptatibus, officiis perferendis tempora nesciunt asperiores, sint corrupti unde maiores consequatur, sequi error consequuntur deleniti doloribus!</p>
 
               
