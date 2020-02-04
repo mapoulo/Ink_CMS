@@ -197,12 +197,12 @@
             <h4 style="font-weight: 700;  padding-left: 1em;">View Booking History</h4>
             <p style="padding: 1em;">Below is the list of all declined and accepted bookings</p>
         
-          <ion-segment [(ngModel)]="category" color="primary">
+          <ion-segment mode="md" [(ngModel)]="category" color="primary">
           
             <ion-segment-button value="accepted">
              
               <div class="grow">
-                <ion-badge color="light">{{AcceptedLength}}</ion-badge>
+                <ion-badge color="success">{{AcceptedLength}}</ion-badge>
                 <ion-label>Accepted</ion-label>
                 
               </div>
@@ -210,7 +210,7 @@
             </ion-segment-button>
             <ion-segment-button  value="declined">
               <div class="grow">
-                <ion-badge color="light">{{declinedLength}}</ion-badge>
+                <ion-badge color="danger">{{declinedLength}}</ion-badge>
                 <ion-label>Declined</ion-label>
                 
               </div>
@@ -281,11 +281,16 @@
       
      
        
-        <div class="gragh-container">
+        <div class="gragh-container animated">
+
+          <div class="close-btn">
+            <ion-button fill="clear" (click)="showGraph()"><ion-icon name="ios-close"></ion-icon></ion-button>
+          </div>
 
              <div class="graph">
                <div class="header-container">
-                 <h4 class="h1-header bookings-header" style="padding-top: 15px;">Analytics</h4>
+                 <h4 class="h1-header bookings-header" style="padding-top: 15px; text-align: center;">Analytics</h4>
+                 
                </div>
                <div class="graph-content">
                   <canvas #barChart>Acepted</canvas>
@@ -294,5 +299,7 @@
         </div>
       </div>
     </div>
+
+    <ion-button class="analytics_btn" (click)="showGraph()" color="dark" expand="block">View Analytics</ion-button>
   </div>
 </ion-content>

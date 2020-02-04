@@ -1,5 +1,5 @@
 import { DataService } from './../../data.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ModalController, AlertController, Platform, IonSlides } from '@ionic/angular';
@@ -22,7 +22,9 @@ export class LandingPage implements OnInit {
   // @ViewChild('barChart',  { static: false }) barChart;
   messages = 0
   category: string = 'accepted'
-  MyMessages = []
+  MyMessages = [];
+  graph: boolean = false;
+  graphDiv = document.getElementsByClassName('gragh-container');
   Accepted = [];
   AcceptedLength=0;
   Decline = [];
@@ -60,7 +62,7 @@ Tattoos = [];
   @ViewChild('slides', {static: true}) slides: IonSlides;
   fullscreen: boolean = false;
   fullScreenImage: any;
-  constructor(public data : DataService, private platform: Platform, private store: Storage, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
+  constructor(public data : DataService, private platform: Platform, private store: Storage, private render: Renderer2, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
 
  
 
@@ -70,6 +72,19 @@ Tattoos = [];
      this.active = i;
      console.log('kjasdbjkasbdas khuthy',i);
      
+   }
+   showGraph() {
+     this.graph = !this.graph;
+     if(this.graph) {
+      this.render.setStyle(this.graphDiv[0], 'display', 'block');
+     }else {
+       if(this.platform.width() <= 600) {
+        this.render.setStyle(this.graphDiv[0], 'display', 'none');
+       }else {
+        this.render.setStyle(this.graphDiv[0], 'display', 'block');
+       }
+      
+     }
    }
   ionViewDidEnter() {
 
@@ -297,27 +312,27 @@ Tattoos = [];
 
 
   createBarChart() {
-    Chart.defaults.global.defaultFontSize = 12;
+    Chart.defaults.global.defaultFontSize = 8;
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'bar',
     data: {
         labels: ['All Bookings', 'Declined Bookings', 'Accepted Booking', 'All Users'],
-        fontSize: '12px',
+        
         datasets: [{
             label: '#-Analytics',
             data: [this.r, this.p, this.n, this.o],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.5)', 
-                'rgba(54, 162, 235, 0.5)',
-                'rgba(153, 102, 255, 0.5)',
-                'rgba(255, 159, 64, 0.5)'
+                'rgba(0, 0, 0, 1)', 
+                'rgba(0, 0, 0, 1)',
+                'rgba(0, 0, 0, 1)',
+                'rgba(0, 0, 0, 1)'
                 
             ],
             borderColor: [
-                'rgba(255, 12, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(225, 159, 64, 0.5)',
+                'rgba(225, 159, 64, 0.5)',
+                'rgba(225, 159, 64, 0.5)',
+                'rgba(225, 159, 64, 0.5)'
                
             ],
             borderWidth: 0
@@ -332,12 +347,15 @@ Tattoos = [];
         maintainAspectRatio: true,
   scales: {
     yAxes: [{
-      stacked: true,
+      stacked: false,
       gridLines: {
         display: false,
         color: "rgba(255,99,132,0.2)",
         
-      }
+      },
+      ticks: {
+        beginAtZero: true
+    }
     }],
     xAxes: [{
       gridLines: {
