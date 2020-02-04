@@ -1,6 +1,4 @@
 
-
-<ion-content>
     
 <ion-content>
   <div class="loader" *ngIf="loader">
@@ -35,16 +33,9 @@
          <p class="paragragh">Admin</p>
          </div>
          <div class="notifation">
-          <ion-button routerLink="/landing" shape="block" color="light" size="large" fill="clear">
-            <ion-icon mode="ios" name="home"></ion-icon>
-            </ion-button>
-        
-      </div>
-         <div class="notifation">
-             <ion-button shape="block" size="large" color="light" fill="clear" (click)="goToNotificationsPage()">
-                 <ion-icon name="notifications-outline"></ion-icon>
+             <ion-button shape="block" color="light" fill="clear" routerLink="/landing">
+                 <ion-icon name="ios-home"></ion-icon>
                </ion-button>
-             <ion-badge class="badge" color="danger">{{notifications}}</ion-badge>
          </div>
       
    </aside>

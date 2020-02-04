@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
 
-  MyData = {id : '', name : '', phoneNumber : '', email : '',image:''};
+  MyData = {id : '', name : '', phoneNumber : '', email : '',image:'',address:''};
   notification : number = 0;
   
  

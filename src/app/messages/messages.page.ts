@@ -17,13 +17,20 @@ export class MessagesPage implements OnInit {
   messages = 0;
   fonts = 0
   MessagesId = [];
+
+
+  category: string = "AllMessages"
+  UnreadMessages = []
+  AllReadMessages = []
+  AllMyMessages = []
+
   messageInfo = {
     name: '',
     email: '',
     message: '',
     time: ''
   };
-  MyMessages = [];
+  
   AllMessages = 0
   ReadMessages = 0
   unReadMessages = 0
@@ -31,8 +38,6 @@ export class MessagesPage implements OnInit {
   db = firebase.firestore()
   active: number = 0;
   constructor(private render: Renderer2, public alertController: AlertController,public modalController:ModalController) {
-
-
 
   }
 
@@ -46,7 +51,172 @@ export class MessagesPage implements OnInit {
     };
   }
 
+ 
   ngOnInit() {
+
+
+    let MyMessages = 0
+    let ReadMessages = 0
+    let AllMessages = 0
+    let UidArray = []
+    
+
+    setTimeout(() => {
+     this.db.collection("Bookings").onSnapshot(data => {
+      MyMessages = 0
+      ReadMessages = 0
+      AllMessages = 0
+      data.forEach(item => {
+        UidArray.push(item.id)
+       
+      })
+     })
+    }, 3000)
+   
+  
+  
+   
+    setTimeout(() => {
+       
+     
+     UidArray.forEach(i => {
+ 
+       this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
+      
+        MyMessages = 0
+        this.unReadMessages  = 0;
+        ReadMessages = 0
+        this.ReadMessages = 0
+        AllMessages = 0
+        this.AllMessages = 0
+
+
+         data.forEach(i => {
+           
+
+          AllMessages += 1
+          this.AllMessages = AllMessages 
+
+          
+          if(i.data().satatus == "NotRead"){
+            MyMessages += 1
+            this.unReadMessages  = MyMessages
+
+          }
+          
+          if(i.data().satatus == "Read"){
+            ReadMessages += 1
+            this.ReadMessages  = ReadMessages
+           
+          }
+
+          
+           
+           
+         })
+        
+       })
+       
+       
+     })
+
+
+
+     UidArray.forEach(i => {
+ 
+      this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
+     
+     
+       let obj = {obj :{}, id : ""}
+       this.AllMyMessages = []
+        data.forEach(i => {
+
+        obj.obj = i.data();
+        obj.id = i.id
+        
+        this.AllMyMessages.push(obj) 
+        obj = {obj :{}, id : ""}
+        console.log("AllMyMessages ", this.AllMyMessages);
+        
+          
+        })
+       
+      })
+      
+      
+    })
+
+
+    UidArray.forEach(i => {
+ 
+      this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
+     
+     
+       let obj = {obj :{}, id : ""}
+
+       this.AllReadMessages = []
+
+        data.forEach(i => {
+
+          if(i.data().satatus == "Read"){
+
+
+            obj.obj = i.data();
+            obj.id = i.id
+
+            this.AllReadMessages.push(obj) 
+            obj = {obj :{}, id : ""}
+            console.log("AllReadMessages ", this.AllReadMessages);
+           
+          }
+
+        })
+       
+      })
+      
+      
+    })
+
+
+    UidArray.forEach(i => {
+ 
+      this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
+     
+     
+       let obj = {obj :{}, id : ""}
+
+       this.UnreadMessages = []
+
+        data.forEach(i => {
+
+          if(i.data().satatus == "NotRead"){
+
+
+            obj.obj = i.data();
+            obj.id = i.id
+
+            this.UnreadMessages.push(obj) 
+            obj = {obj :{}, id : ""}
+            console.log("UnreadMessages ", this.UnreadMessages);
+           
+          }
+
+        })
+       
+      })
+      
+      
+    })
+  
+  
+  
+   
+     
+    }, 1000)
+
+
+ 
+
   //   let idArr = [];
   //   this.db.collection('Bookings').get().then((res) => {
   //     //  console.log('My doc',res.docs);
@@ -71,58 +241,62 @@ export class MessagesPage implements OnInit {
   //   }, 1000);
    
     
+
+
       
-        let UidArray = []
+      //   let UidArray = []
         
     
-       setTimeout(() => {
-        this.MyMessages = []
-        this.db.collection("Bookings").get().then( data => {
-          data.forEach(item => {
-            UidArray.push(item.id)
+      //  setTimeout(() => {
+      //   this.MyMessages = []
+      //   this.db.collection("Bookings").onSnapshot(data => {
+
+      //     data.forEach(item => {
+      //       UidArray.push(item.id)
            
-          })
-        })
+      //     })
+
+      //   })
         
-       }, 1000)
+      //  }, 1000)
       
      
     
     
-       setTimeout(() => {
+      //  setTimeout(() => {
           
-        UidArray.forEach(i => {
-          console.log("All My keys ", i);
+      //   UidArray.forEach(i => {
+      //     console.log("All My keys ", i);
     
     
           
-          this.db.collection("Messages").doc(i).collection("Message").get().then(data => {
+      //     this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
 
-           
-            data.forEach(i => {
+      //       data.forEach(i => {
              
-              console.log("All My messages ", i.data());
-              this.AllMessages += 1
-              this.MyMessages.push({keys: i.id, mine: i.data()});
+            
+      //         this.AllMessages += 1
+      //         this.MyMessages.push({keys: i.id, mine: i.data()});
+      //         console.log("All My messages ",   this.AllMessages);
               
     
-             if(i.data().satatus == "NotRead"){
-               this.unReadMessages += 1
-             }
+      //        if(i.data().satatus == "NotRead"){
+      //          this.unReadMessages += 1
+      //        }
     
-             if(i.data().satatus == "Read"){
-               this.ReadMessages += 1
-             }
-            })
+      //        if(i.data().satatus == "Read"){
+      //          this.ReadMessages += 1
+      //        }
+      //       })
 
-          })
+      //     })
           
-        })
+      //   })
     
      
       
         
-       }, 2000) 
+      //  }, 1000) 
 
     //===============
 
@@ -164,7 +338,9 @@ export class MessagesPage implements OnInit {
 
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+
+ 
 
   }
 
@@ -173,11 +349,9 @@ export class MessagesPage implements OnInit {
   updateMessage(uid, key, data, i) {
 
 
-    this.unReadMessages = 0
-    this.AllMessages = 0
-    this.ReadMessages = 0
-    this.MyMessages = []
-
+    
+   
+  
     console.log("Your data is here ", key);
     let UidArray = []
 
@@ -186,113 +360,107 @@ export class MessagesPage implements OnInit {
 
     this.active = i;
 
-    this.messageInfo.name = data.mine.name;
-    this.messageInfo.message = data.mine.message;
-    this.messageInfo.email = data.mine.email;
-    this.messageInfo.time = data.mine.time;
+    this.messageInfo.name = data.name;
+    this.messageInfo.message = data.message;
+    this.messageInfo.email = data.email;
+    this.messageInfo.time = data.time;
 
     this.render.setStyle(this.contentMessages[0], 'display', 'flex');
 
-    //  this.db.collection("Messages").get().then(item => {
+    this.db.collection("Messages").doc(uid).collection("Message").doc(key).update({ email: data.email, message: data.message, name: data.name, satatus: "Read" })
+    console.log("Message updated");
 
-    //   item.forEach(data => {
-    //      if(key == data.id){
-    //        this.db.collection("Messages").doc(key).update({email:data.data().email, message: data.data().message, name : data.data().name, satatus: "Read"})
-    //      }
+
+
+
+    // setTimeout(() => {
+      
+    //   this.db.collection("Bookings").onSnapshot(data => {
+    //     data.forEach(item => {
+    //       UidArray.push(item.id)
+
+    //     })
     //   })
-    //  })
 
-
-
-
-    setTimeout(() => {
-      this.db.collection("Bookings").onSnapshot(data => {
-        data.forEach(item => {
-          UidArray.push(item.id)
-
-        })
-      })
-
-    }, 2000)
+    // }, 2000)
 
     console.log("My keys ", uid);
 
 
-    setTimeout(() => {
+    // setTimeout(() => {
 
-      UidArray.forEach(i => {
-        console.log("All My keys ", i);
-
-
-
-        this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
-          data.forEach(i => {
-            console.log("All My messages ", i.data());
-
-          })
-        })
-
-      })
-
-      this.db.collection("Messages").doc(uid).collection("Message").doc(key).update({ email: data.mine.email, message: data.mine.message, name: data.mine.name, satatus: "Read" })
-      console.log("Message updated");
+    //   UidArray.forEach(i => {
+    //     console.log("All My keys ", i);
 
 
-    }, 3000)
+
+    //     this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
+    //       data.forEach(i => {
+    //         console.log("All My messages ", i.data());
+
+    //       })
+    //     })
+
+    //   })
+
+    //   this.db.collection("Messages").doc(uid).collection("Message").doc(key).update({ email: data.mine.email, message: data.mine.message, name: data.mine.name, satatus: "Read" })
+    //   console.log("Message updated");
 
 
-    setTimeout(() => {
-      this.MyMessages = []
-      this.db.collection("Bookings").get().then( data => {
-        data.forEach(item => {
-          UidArray.push(item.id)
+    // }, 3000)
+
+
+    // setTimeout(() => {
+    
+    //   this.db.collection("Bookings").get().then( data => {
+    //     data.forEach(item => {
+    //       UidArray.push(item.id)
          
-        })
-      })
+    //     })
+    //   })
       
-     }, 1000)
+    //  }, 1000)
     
    
   
-     this.unReadMessages = 0
-     this.AllMessages = 0
-     this.ReadMessages = 0
-     this.MyMessages = []
+  
+    
 
-     setTimeout(() => {
-        
-      UidArray.forEach(i => {
-        console.log("All My keys ", i);
+    //  setTimeout(() => {
+
+    
+    //   UidArray.forEach(i => {
+    //     console.log("All My keys ", i);
   
   
         
-        this.db.collection("Messages").doc(i).collection("Message").get().then(data => {
+    //     this.db.collection("Messages").doc(i).collection("Message").get().then(data => {
  
          
-          data.forEach(i => {
+    //       data.forEach(i => {
            
-            console.log("All My messages ", i.data());
-            this.AllMessages += 1
-            this.MyMessages.push({keys: i.id, mine: i.data()});
+    //         console.log("All My messages ", i.data());
+    //         this.AllMessages += 1
+      
             
   
-           if(i.data().satatus == "NotRead"){
-             this.unReadMessages += 1
-           }
+    //        if(i.data().satatus == "NotRead"){
+    //          this.unReadMessages += 1
+    //        }
   
-           if(i.data().satatus == "Read"){
-             this.ReadMessages += 1
-           }
-          })
+    //        if(i.data().satatus == "Read"){
+    //          this.ReadMessages += 1
+    //        }
+    //       })
  
-        })
+    //     })
         
-      })
+    //   })
   
    
     
       
-     }, 2000) 
+    //  }, 2000) 
 
 
 
@@ -318,61 +486,61 @@ export class MessagesPage implements OnInit {
     await alert.present();
     
 
-    let UidArray = []
+    // let UidArray = []
         
-    this.unReadMessages = 0
-    this.AllMessages = 0
-    this.ReadMessages = 0
-    this.MyMessages = []
+    // this.unReadMessages = 0
+    // this.AllMessages = 0
+    // this.ReadMessages = 0
+   
 
-    setTimeout(() => {
-     this.MyMessages = []
-     this.db.collection("Bookings").get().then( data => {
-       data.forEach(item => {
-         UidArray.push(item.id)
+    // setTimeout(() => {
+   
+    //  this.db.collection("Bookings").get().then( data => {
+    //    data.forEach(item => {
+    //      UidArray.push(item.id)
         
-       })
-     })
+    //    })
+    //  })
      
-    }, 1000)
+    // }, 1000)
    
   
  
  
-    setTimeout(() => {
+    // setTimeout(() => {
        
-     UidArray.forEach(i => {
-       console.log("All My keys ", i);
+    //  UidArray.forEach(i => {
+    //    console.log("All My keys ", i);
  
  
        
-       this.db.collection("Messages").doc(i).collection("Message").get().then(data => {
+    //    this.db.collection("Messages").doc(i).collection("Message").get().then(data => {
 
-        
-         data.forEach(i => {
+    //     this.AllMessages = 0
+    //      data.forEach(i => {
           
-           console.log("All My messages ", i.data());
-           this.AllMessages += 1
-           this.MyMessages.push({keys: i.id, mine: i.data()});
+    //        console.log("All My messages ", i.data());
+    //        this.AllMessages += 1
+       
            
  
-          if(i.data().satatus == "NotRead"){
-            this.unReadMessages += 1
-          }
+    //       if(i.data().satatus == "NotRead"){
+    //         // this.unReadMessages += 1
+    //       }
  
-          if(i.data().satatus == "Read"){
-            this.ReadMessages += 1
-          }
-         })
+    //       if(i.data().satatus == "Read"){
+    //         this.ReadMessages += 1
+    //       }
+    //      })
 
-       })
+    //    })
        
-     })
+    //  })
  
   
    
      
-    }, 2000) 
+    // }, 2000) 
     this.messageInfo = {
       name: '',
       email: '',

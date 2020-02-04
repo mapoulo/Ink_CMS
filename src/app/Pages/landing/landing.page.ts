@@ -30,6 +30,7 @@ export class LandingPage implements OnInit {
   Decline = [];
   declinedLength=0;
   notifications = 0;
+  
   active: any;
   bars: any;
   colorArray: any;
@@ -89,6 +90,9 @@ Tattoos = [];
   ionViewDidEnter() {
 
 
+  
+
+ 
 
 
     this.store.get('onboard').then((val) => {
@@ -102,16 +106,7 @@ Tattoos = [];
  
 
     
-    // this.db.collection("Messages").onSnapshot(data => {
-    //   this.messages = 0;
-    //   this.MyMessages = [];
-    //   data.forEach(message => {
-    //     if(message.data().satatus = "NotRead"){
-    //       this.MyMessages.push(message.data());
-    //       this.messages += 1;
-    //     }
-    //   })
-    // })
+ 
  
     let MyArray = [];
     let Bookings = [];
@@ -125,14 +120,14 @@ Tattoos = [];
         id.obj = e.data();
         MyArray.push(id);
         id = {docid: "", auId: "", obj : {}};
- console.log("ssssssss");
+ 
  
       
       })
  
      
      
-      // this.data.notification = 0;
+      
       MyArray.forEach(item => { 
        this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
        
@@ -142,16 +137,14 @@ Tattoos = [];
            
          
           if(o.data().bookingState === "waiting"){
-            //  Bookingid.docid = o.id;
-            //  Bookingid.obj = o.data();
+           
            
              id.obj = o.data();
              id.auId = o.id;
       
            
            
-            // this.data.notification += 1;
-            console.log( "uuuuuuuuuuuuuuuu", o.data() );
+            
             Bookings.push(id);
             id = {docid: "", auId: "", obj : {}};
           }
@@ -371,6 +364,71 @@ Tattoos = [];
   
   ngOnInit() {
 
+   
+    this.db.collection("Messages").onSnapshot(data => {
+      data.forEach(i => {
+        console.log("Keyssss ", i.id);
+        
+      })
+    })
+
+
+
+    let UidArray = []
+    
+
+    setTimeout(() => {
+     this.db.collection("Bookings").onSnapshot(data => {
+     
+      data.forEach(item => {
+        UidArray.push(item.id)
+       
+      })
+     })
+    }, 2000)
+   
+  
+ 
+   
+    setTimeout(() => {
+       
+     
+     UidArray.forEach(i => {
+      
+ 
+     
+       let MyMessages = 0
+
+       this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
+      
+      
+        MyMessages = 0
+        this.messages = 0
+
+         data.forEach(i => {
+          
+          if(i.data().satatus == "NotRead"){
+            MyMessages += 1
+            this.messages  = MyMessages
+            console.log("Not Read ",MyMessages );
+            
+          }
+           
+           
+         })
+        
+       })
+       
+       
+     })
+ 
+  
+   
+     
+    }, 1000)
+
+ 
+
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
         this.image1 = item.data().image;
@@ -380,11 +438,12 @@ Tattoos = [];
 
     
     let MyArray = []
-    
+    let number = 0
 
     setTimeout(() => {
      this.db.collection("Bookings").get().then(data => {
-      this.notifications = 0;
+   
+      
       data.forEach(item => {
         MyArray.push(item.id)
        
@@ -400,20 +459,22 @@ Tattoos = [];
        
      
       MyArray.forEach(i => {
-       console.log("All My keys ", i);
+      
  
-     
-       
        this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(data => {
-      
-      
-        
+
+         number = 0
          data.forEach(i => {
           
           if(i.data().bookingState == "waiting"){
-            this.notifications += 1
-          }
-           
+         
+            number += 1
+            this.notifications = number
+        
+            
+            
+            
+          }  
            
          })
         
@@ -421,61 +482,12 @@ Tattoos = [];
        
        
      })
- 
-  
-   
      
-    }, 2000)
+  }, 2000)
 
 
 
-    let UidArray = []
-    
 
-    setTimeout(() => {
-     this.db.collection("Bookings").get().then(data => {
-      this.messages = 0;
-      data.forEach(item => {
-        UidArray.push(item.id)
-       
-      })
-
-     })
-    }, 1000)
-   
-  
- 
-   
-    setTimeout(() => {
-       
-     
-     UidArray.forEach(i => {
-       console.log("All My keys ", i);
- 
-     
-       
-       this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
-      
-      
-        
-         data.forEach(i => {
-          
-          if(i.data().satatus == "NotRead"){
-            this.messages += 1
-          }
-           
-           
-         })
-        
-       })
-       
-       
-     })
- 
-  
-   
-     
-    }, 2000)
     
 
     // this.db.collection("Bookings").onSnapshot(data => {
@@ -543,12 +555,7 @@ Tattoos = [];
  
   obj = {id: null, obj : null}
 
-  ionViewWillEnter(){
 
-
- 
-  
-  }
 
 
 
@@ -565,6 +572,9 @@ goProfilePage(){
  
 }
   async openModal(CheckNumber, obj) {
+
+    console.log("ssss ", obj);
+    
     this.auth.addTattoo = false;
     this.auth.editButton = false;
     this.auth.myObj.obj.categories = "";
@@ -592,8 +602,8 @@ goProfilePage(){
   
       this.auth.myObj.obj.categories = obj.categories;
    
-      this.auth.myObj.obj.startPrice = obj.start;
-      this.auth.myObj.obj.endPrice = obj.end;
+      this.auth.myObj.obj.startPrice = obj.startPrice;
+      this.auth.myObj.obj.endPrice = obj.endPrice;
       this.auth.myObj.obj.description = obj.description;
       this.auth.myObj.obj.image = obj.image;
       this.auth.myObj.obj.name = obj.name;
