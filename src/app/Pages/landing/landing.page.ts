@@ -79,12 +79,11 @@ Tattoos = [];
      if(this.graph) {
       this.render.setStyle(this.graphDiv[0], 'display', 'block');
      }else {
-       if(this.platform.width() <= 600) {
+     
+       
         this.render.setStyle(this.graphDiv[0], 'display', 'none');
-       }else {
-        this.render.setStyle(this.graphDiv[0], 'display', 'block');
-       }
-      
+        this.rout.navigateByUrl('/landing')
+
      }
    }
   ionViewDidEnter() {
@@ -305,7 +304,7 @@ Tattoos = [];
 
 
   createBarChart() {
-    Chart.defaults.global.defaultFontSize = 8;
+    Chart.defaults.global.defaultFontSize = 11;
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'bar',
     data: {

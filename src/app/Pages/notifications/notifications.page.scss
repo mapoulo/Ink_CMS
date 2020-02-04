@@ -426,6 +426,23 @@ h4 {
 
 
 @media all and (max-width: 600px) {
+
+    .booking-container {
+        display: none;
+    }
+    .respond-container {
+        .details-profile {
+            display: none;
+        }
+        .calendar-container {
+            flex: 0 0  100%;
+
+            .calender {
+               width: 100vw; 
+            }
+        }
+    }
+  
  
     .main {
         position: relative;

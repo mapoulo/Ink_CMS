@@ -14,6 +14,8 @@
     background: #f2f2f2;
     position: relative;
 
+   
+
     .full_r {
         position: absolute;
         top: 0;
@@ -273,6 +275,9 @@
 .bookings-header {
     font-size: 20px !important;
 }
+.card_t:hover .info {
+    display: flex;
+}
 .scroll-container {
     flex-basis: 30%;
     display: -webkit-box;
@@ -408,7 +413,7 @@
 
             .card_ {
                 /* flex: 0 0 100px; */
-                max-width: 25%;
+                max-width: 200px;
                 padding: .5em;
                 display: flex;
                 justify-content: center;
@@ -437,6 +442,8 @@
                         
                     
                     }
+
+                   
                    
                 position: relative;
 
@@ -447,7 +454,7 @@
                     right: 1%;
                     width: 20px;
                     height: 20px;
-                    background: rgb(2, 105, 2);
+                   
                     position: absolute;
                     z-index: 3;
                     display: flex;
@@ -488,6 +495,7 @@
                         z-index: 3;
                         background: rgba(0, 0, 0, 0.637);
                         color: #fff;
+                       /*  display: none; */
                          
                   /*       width: 50px; */
                        
@@ -498,6 +506,12 @@
                             text-overflow: ellipsis;
                             padding: .3em;
                         }
+
+
+                      
+                    }
+                     &:hover .info {
+                        display: flex;
                     }
 
                 }
@@ -838,9 +852,9 @@ canvas {
     flex-direction: column;
     align-items: center; */
 }
-   .booking-container {
+/*    .booking-container {
         flex-direction: column-reverse;
-    }
+    } */
   }
   @media all and (min-width: 992px) {
     .card-horizontal-scroll {
@@ -863,9 +877,9 @@ canvas {
     .card_ {
         flex-basis: 100%;
     }
-     .booking-container {
+     /* .booking-container {
         flex-direction: column-reverse;
-    }
+    } */
     
   }
 
@@ -883,9 +897,9 @@ canvas {
     .card_ {
         flex-basis: 100%;
     }
-    .booking-container {
+  /*   .booking-container {
         flex-direction: column-reverse;
-    }
+    } */
 
   }
 
@@ -908,3 +922,7 @@ canvas {
   .container {
       flex: 1 !important;
   }
+
+  p{ 
+    font-size: 70% !important;
+}
