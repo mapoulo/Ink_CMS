@@ -10,7 +10,7 @@ import { AlertController,ModalController } from '@ionic/angular';
 export class MessagesPage implements OnInit {
 
   itemDiv: any = document.documentElement.getElementsByClassName('item');
-
+  contentMessages: any = document.getElementsByClassName('content-messages');
 
   key = ""
   uid = ""
@@ -34,6 +34,16 @@ export class MessagesPage implements OnInit {
 
 
 
+  }
+
+  back() {
+    this.render.setStyle(this.contentMessages[0], 'display', 'none');
+    this.messageInfo = {
+      name: '',
+      email: '',
+      message: '',
+      time: ''
+    };
   }
 
   ngOnInit() {
@@ -181,7 +191,7 @@ export class MessagesPage implements OnInit {
     this.messageInfo.email = data.mine.email;
     this.messageInfo.time = data.mine.time;
 
-
+    this.render.setStyle(this.contentMessages[0], 'display', 'flex');
 
     //  this.db.collection("Messages").get().then(item => {
 

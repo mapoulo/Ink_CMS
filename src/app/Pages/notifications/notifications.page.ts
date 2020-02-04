@@ -47,6 +47,8 @@ notifications  = 0;
   Bookings1 = [];
   // number;
 
+  loader: boolean = false;
+
   image1="";
 
   ClickedObjeck = {description: "", name : ""};
@@ -66,6 +68,9 @@ notifications  = 0;
     uid : '',
     auId : ''
   };
+  active: any;
+  fullscreen = false;
+
   constructor(public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
 
  
@@ -75,6 +80,8 @@ notifications  = 0;
 
 
   ionViewWillEnter() {
+
+    this.loader = true;
 
 
     let UidArray = []
@@ -95,6 +102,8 @@ notifications  = 0;
 
 
     setTimeout(() => {
+
+      
 
       let id = {docid: "", auId: "",  obj : {}};
       
@@ -129,7 +138,7 @@ notifications  = 0;
       })
 
       
-
+     this.loader = false;
 
     }, 3000)
 
@@ -264,13 +273,22 @@ ionViewDidEnter(){
     this.rout.navigateByUrl('/notifications')
 }
 
+animateClose() {
+  this.fullscreen = !this.fullscreen;
+   
+}
+
 
   save(obj, i){
 
- 
+    this.loader = true;
+
+    this.active = i;
     
     this.index = i;
-    this.obj = obj;
+   
+    setTimeout(() => {
+      this.obj = obj;
     this.obj.description = obj.obj.description;
     this.obj.image = obj.obj.image;
     this.obj.length = obj.obj.length;
@@ -286,11 +304,11 @@ ionViewDidEnter(){
     this.obj.auId = obj.auId;
     console.log("save button clicked", this.obj);
     console.log("index", this.index);
-
-    setTimeout(() => {
-      this.event.startTime = ""
-      this.event.endTime = ""
-      this.price = ""  
+    
+      this.event.startTime = "";
+      this.event.endTime = "";
+      this.price = ""; 
+      this.loader = false; 
     }, 1000)
 
   }
@@ -370,9 +388,12 @@ async alert(){
   // Create the right event format and reload source
   async addEvent() {
 
+    this.loader = true;
+
     console.log("All index ", this.index);
     console.log("Data auId ", this.obj.auId);
     console.log("Data uid ", this.obj.uid);
+
 
 
     let diffrDays = 0; 
@@ -466,6 +487,7 @@ console.log("My date is", moment().format().slice(0, 10));
                
               
                 setTimeout(() => {
+                  this.loader = false;
                   this.Bookings.splice(this.index, 1);
                 }, 2000)
               
@@ -475,8 +497,15 @@ console.log("My date is", moment().format().slice(0, 10));
             }
           ]
         });
+
+        
+ 
+     
     
-        await alert.present();
+
+
+    await alert.present();
+   
 
 
     }else{

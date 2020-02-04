@@ -1,12 +1,21 @@
 
 <ion-content>
-  <div class="main animated bounceInUp">
+  <div class="main">
+
+    <div class="full_r" *ngIf="fullscreen">
+      <div class="btn-close">
+        <ion-button fill="clear" size="large" color="light" (click)="animateClose('')"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
+      </div>
+      <div class="full-i_r">
+        <img src="{{fullScreenImage}}" alt="tattoo">
+      </div>
+    </div>
     <div class="aside">
  
         <div class="profile-container" (click)="goProfilePage()">
             <div class="profile-img-blick" >
               
-              <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
+              <img *ngIf="!image1" src="../../../assets/person-icon.jpg" alt="Image Not Available" >
 
               <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
             
@@ -37,7 +46,7 @@
        
     </div>
 
-    <div class="onbording animated" [ngClass]="{'bounceInUp': onboard, 'bounceOutUp': !onboard}">
+    <div class="onbording animated" [ngClass]="{'bounceInUp': onboard, 'hide': !onboard}">
       <div class="onboard">
 
         <div class="btn-close">
@@ -173,6 +182,11 @@
                     <ion-button  (click)="DeleteData(tattoo)" fill="clear" color="light"><ion-icon name="trash"></ion-icon></ion-button>
                     <ion-button (click)="openModal(0, tattoo)"  fill="clear" color="light"><ion-icon name="create"></ion-icon></ion-button>
                 </div>
+                <div class="fullscreen">
+                  <ion-fab-button mode="ios" (click)="animateClose(tattoo.image)" size="small" color="secondary">
+                    <ion-icon name="qr-scanner"></ion-icon>
+                  </ion-fab-button>
+                </div>
             </div>
           </div>
       </div>
@@ -214,8 +228,8 @@
             
              
              
-              <div class="card_"  *ngFor = "let item of Decline">
-                <div class="card_t">
+              <div class="card_"   *ngFor = "let item of Decline; let i=index;"  (click)="viewTattoo(i)">
+                <div class="card_t"  [ngClass]="{'active': active==i}">
                   <div class="coloring1"></div>
                     <div class="img-tattoo">
                       <img src="{{item.data.image}}" alt="">
@@ -241,7 +255,9 @@
 
             <div class="card_"  *ngFor = "let item of Accepted">
               <div class="card_t">
-                <div class="coloring2"></div>
+                <div class="coloring2">
+                  <ion-icon name="ios-checkmark" color="light"></ion-icon>
+                </div>
                   <div class="img-tattoo">
                     <img src="{{item.data.image}}" alt="">
                   </div>

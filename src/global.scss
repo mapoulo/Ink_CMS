@@ -95,17 +95,14 @@ p, h1, h2,h3,h4,h5,h6,small {
 .event-detail-container {
     border-top: 0 !important;
 }
-thead  {
-   border-bottom: 2px solid #e3eaff !important; 
-    padding-bottom: 1em !important;
-}
+
 .monthview-selected {
-    background-color:#10dc60 !important;
+    background-color:#000000 !important;
     color: rgb(255, 255, 255) !important;
-    border-radius: 50px;
+
     font-weight: bold;
     font-size: 21px;
-    width: 50px;
+    
 
     z-index: 1;
     
@@ -130,9 +127,9 @@ thead  {
 
     td, th, tr, table {
       border: 0 !important;
-      padding: 3px!important;
+    
       /* background-color: transparent!important; */
-      line-height: 2.7 !important;
+ 
     }
     
     }
@@ -140,7 +137,7 @@ thead  {
     
     .calendar-day {
     border-radius: 6px;
-    padding: 3px 5px;
+
     
     &.primary {
       background-color: blue;
@@ -184,13 +181,13 @@ thead  {
    
  }
   }
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 700px) {
     .custom-modal .modal-wrapper {
       width: 40%;
     }
     .modalMessages .modal-wrapper {
         
-      --width: 80%;
+      --width: 70%;
      
  }
 
@@ -201,11 +198,11 @@ thead  {
     }
   }
   @media only screen and (max-width: 1200px) {
-    .modalMessages .modal-wrapper {
+ /*    .modalMessages .modal-wrapper {
         
       --width: 80%;
      
- }
+ } */
   }
 
   
