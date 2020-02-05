@@ -12,23 +12,23 @@
         </div>
         <form [formGroup]="loginForm">
            <ion-list>
-              <ion-item >
-                  <ion-label position="floating"> Username</ion-label>
-                  <ion-input formControlName="usernameL" name="username" clearInput="false" inputmode="text" required="true" [(ngModel)]="username"></ion-input>
-                  <ion-icon name="person" size="small" slot="end"></ion-icon>
+              <ion-item color="transparent">
+                  <ion-label color="primary" position="floating"> Username</ion-label>
+                  <ion-input color="primary" formControlName="usernameL" name="username" clearInput="false" inputmode="text" required="true" [(ngModel)]="username"></ion-input>
+                  <ion-icon color="primary" name="person" size="small" slot="end"></ion-icon>
               </ion-item>
               <p class="error" *ngIf="Username.hasError('required') && (Username.touched || Username.dirty)">Please enter your email address</p>  
               <p class="error" *ngIf="Username.invalid && (Username.touched || Username.dirty)">Email address is invalid</p>  
-              <ion-item >
-                  <ion-label position="floating"> Password</ion-label>
-                  <ion-input formControlName="password" name="password" type="password" [(ngModel)]="password"></ion-input>
-                  <ion-icon name="lock" size="small" slot="end"></ion-icon>
+              <ion-item  color="transparent">
+                  <ion-label color="primary" position="floating"> Password</ion-label>
+                  <ion-input color="primary" formControlName="password" name="password" type="password" [(ngModel)]="password"></ion-input>
+                  <ion-icon color="primary" name="lock" size="small" slot="end"></ion-icon>
               </ion-item>
               <p class="error" *ngIf="Password.hasError('required') && (Password.touched || Password.dirty)">Please enter your Password</p>  
               
               <div class="btn-lo" style="margin-top: 3em;">
 
-                <ion-button class="btn-login" fill="solid" shape="round" expand="half" color="secondary" (click)="Login()">Login </ion-button>
+                <ion-button class="btn-login" fill="solid" shape="round" expand="half" color="secondary" mode="ios" (click)="Login()">Login </ion-button>
               </div>
 
 

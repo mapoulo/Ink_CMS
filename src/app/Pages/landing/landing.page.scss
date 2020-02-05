@@ -2,6 +2,13 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
+
+.main {
+    background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .main, .booking-container {
     height: 100%;
     width: 100%;
@@ -11,8 +18,10 @@
     display: -webkit-flex;
     display: flex;
     flex-flow: row;
-    background: #f2f2f2;
+  
     position: relative;
+
+   
 
     .full_r {
         position: absolute;
@@ -68,7 +77,10 @@
         width: 50%;
         max-width: 50%;
         height: 70%;
-        background: #fff;
+        background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0.5)), url('../../../assets/background.jpg');
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
         border-radius: 5px;
         position: relative;
         display: flex;
@@ -159,7 +171,7 @@
     flex-basis: 4%;
     position: relative;
     background: #D66E53;
-
+   
 
     &::after {
         position: absolute;
@@ -273,8 +285,11 @@
 .bookings-header {
     font-size: 20px !important;
 }
+.card_t:hover .info {
+    display: flex;
+}
 .scroll-container {
-    flex-basis: 30%;
+    flex:0 0 30%;
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -328,7 +343,7 @@
     filter: brightness(30%);
 }
 .card-list-item {
-     background: #f2f2f2;;
+     background: #f2f2f2;
     color: rgb(255, 135, 79);
     height: 100%;
     width: 100%;
@@ -365,7 +380,7 @@
     display: flex;
     flex-direction: column;
     padding: 1em;
-    background: #fff;
+  
     flex-basis: 50%;
 
     .deep {
@@ -377,7 +392,7 @@
     }
 
     .listings {
-        flex-basis: 70%;
+        flex-basis: 90%;
        /*  background: blue; */
         display: flex;
         height: 100%;
@@ -408,7 +423,7 @@
 
             .card_ {
                 /* flex: 0 0 100px; */
-                max-width: 25%;
+                max-width: 200px;
                 padding: .5em;
                 display: flex;
                 justify-content: center;
@@ -437,6 +452,8 @@
                         
                     
                     }
+
+                   
                    
                 position: relative;
 
@@ -447,7 +464,7 @@
                     right: 1%;
                     width: 20px;
                     height: 20px;
-                    background: rgb(2, 105, 2);
+                   
                     position: absolute;
                     z-index: 3;
                     display: flex;
@@ -488,6 +505,7 @@
                         z-index: 3;
                         background: rgba(0, 0, 0, 0.637);
                         color: #fff;
+                       /*  display: none; */
                          
                   /*       width: 50px; */
                        
@@ -498,6 +516,12 @@
                             text-overflow: ellipsis;
                             padding: .3em;
                         }
+
+
+                      
+                    }
+                     &:hover .info {
+                        display: flex;
                     }
 
                 }
@@ -571,17 +595,14 @@
 
 .gragh-container {
     flex-basis: 50%;
-    background: red;
+    
     height: 100%;
     align-self: flex-end;
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
-    background: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.5));
-    background-position: bottom center;
-    background-size: cover;
-    background-repeat: no-repeat;
+   
     position: relative;
 
     .close-btn {
@@ -606,7 +627,7 @@
     align-items: center;
     flex-direction: column;
     padding: 1em;
-   background: #fff;
+ 
     
 }
 .graph-content {
@@ -640,8 +661,10 @@ canvas {
     }
 
     .scroll-container {
-        flex-basis: 50%;
+        flex: 0 0 50% !important;
     }
+
+   
 
     .deep {
         flex-basis: 100% !important;
@@ -806,7 +829,7 @@ canvas {
    }
   
    .card-horizontal-scroll {
-    flex: 0 0 80%;
+    flex: 0 0 80% !important;
 }
 
   }
@@ -816,55 +839,115 @@ canvas {
 
   @media all and (min-width: 600px) {
     .card-horizontal-scroll {
-        flex: 0 0 55%;
+        flex: 0 0 35%;
     }
    /*  .scroll-container {
         flex: 0 0 !important;
     } */
+    
 
   }
-  @media all and (min-width: 768px) {
+  @media all and (max-width: 768px) {
+
+   
     .card-horizontal-scroll {
         flex: 0 0 45%;
     }
     .container {
         flex-basis: 94%;
-
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
     
-.gragh-container {
-    flex-basis: 50%;
-/*     display: flex;
-    flex-direction: column;
-    align-items: center; */
-}
-   .booking-container {
-        flex-direction: column-reverse;
+
+    .booking-container {
+        flex-direction: column;
+    }
+
+    .listings {
+        flex: 0 0 100%;
+    }
+    .list-booking {
+        overflow-x: scroll !important;
+        overflow-y: hidden !important;
+        flex-wrap: nowrap !important;
+        
+        .card_ {
+            max-width: 420px;
+            height: 100% !important;
+        }
+    }
+
+    .gragh-container {
+        margin-top: 15%;
+        flex: 0 0 50%;
     }
   }
-  @media all and (min-width: 992px) {
+  @media all and (max-width: 992px) {
     .card-horizontal-scroll {
         flex: 0 0 50%;
     }
     .container {
-        flex-basis: 96%;
+        flex-basis: 94%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    
 
+    .booking-container {
+        flex-direction: column;
+    }
+    .listings {
+        flex: 0 0 100%;
+    }
+    .list-booking {
+        overflow-x: scroll !important;
+        overflow-y: hidden !important;
+        flex-wrap: nowrap !important;
+        
+        .card_ {
+            max-width: 420px;
+            height: 100% !important;
+        }
+    }
+
+    .gragh-container {
+        margin-top: 15%;
+        width: 100% !important;
     }
   }
-  @media all and (min-width: 1024px) {
+  @media all and (max-width: 1024px) {
     .card-horizontal-scroll {
         flex: 0 0 40%;
     }
     .container {
-        flex-basis: 96%;
+        flex-basis: 94%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    
 
+    .booking-container {
+        flex-direction: column;
+    }
+    .listings {
+        flex: 0 0 100% !important;
+    }
+    .list-booking {
+        overflow-x: scroll !important;
+        overflow-y: hidden !important;
+        flex-wrap: nowrap !important;
+        
+        .card_ {
+            max-width: 420px;
+            height: 100% !important;
+        }
     }
 
-    .card_ {
-        flex-basis: 100%;
-    }
-     .booking-container {
-        flex-direction: column-reverse;
+    .gragh-container {
+        margin-top: 15%;
+      
+        width: 100% !important;
     }
     
   }
@@ -881,17 +964,17 @@ canvas {
     }
 
     .card_ {
-        flex-basis: 100%;
+       max-width: 50% !important;
     }
-    .booking-container {
+  /*   .booking-container {
         flex-direction: column-reverse;
-    }
+    } */
 
   }
 
   @media all and (min-width: 1400px) {
     .card-horizontal-scroll {
-        flex: 0 0 18%;
+        flex: 0 0 22%;
     }
     .aside {
         flex-basis: 4%;
@@ -905,6 +988,14 @@ canvas {
     }
   }
 
+  .card_ {
+    max-width: 33% !important;
+ }
+
   .container {
       flex: 1 !important;
   }
+
+  p{ 
+    font-size: 70% !important;
+}

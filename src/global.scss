@@ -116,6 +116,8 @@ p, h1, h2,h3,h4,h5,h6,small {
     .calendar-day {
       background-color: #e01a1a !important;
     }
+
+ 
     }
     
     .monthview-datetable {
@@ -126,8 +128,8 @@ p, h1, h2,h3,h4,h5,h6,small {
   
 
     td, th, tr, table {
-      border: 0 !important;
-    
+    /*   border: 0 !important;
+       */
       /* background-color: transparent!important; */
  
     }
