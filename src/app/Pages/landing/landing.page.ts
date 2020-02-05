@@ -87,10 +87,72 @@ Tattoos = [];
       
      }
    }
+
+
+    UidArray = []
+     AllMessages = []
+    Read = []
+   getValue(){
+
+   
+ 
+      this.AllMessages.forEach(item => {
+       
+       if(item.status == "Read"){
+        
+        this.Read.push(item)
+       }
+        
+      })
+      console.log("Not read messages is == ", this.AllMessages.length - this.Read.length);
+ 
+
+   }
+
   ionViewDidEnter() {
 
 
+    let UidArray = []
+    let  AllMessages = []
+    let Read = []
+
+
+
+  this.db.collection("Message").onSnapshot(data => {
+    data.forEach(key => {
+      UidArray.push(key.id)
+      console.log("dddd ", key.id);
+      
+    })
+  })
+
+setTimeout(() => {
   
+  UidArray.forEach(i => {
+    this.db.collection("Message").doc(i).collection("All").onSnapshot(data => {
+      data.forEach(item => {
+       
+          AllMessages.push(item.data())
+          console.log("sss ", AllMessages.length);
+          this.getValue()
+          
+ 
+      })
+ 
+    })
+    
+  })
+
+ 
+
+}, 1000);
+
+
+
+
+
+
+
 
  
 
@@ -137,14 +199,11 @@ Tattoos = [];
            
          
           if(o.data().bookingState === "waiting"){
-           
-           
+
              id.obj = o.data();
              id.auId = o.id;
       
-           
-           
-            
+
             Bookings.push(id);
             id = {docid: "", auId: "", obj : {}};
           }
@@ -244,7 +303,7 @@ Tattoos = [];
      data.forEach(item => {
        
        if(item.data().bookingState === "Accepted"){
-        console.log("Accepted Booking ",item.data() );
+       
         
        
         this.Accepted.push({id: item.id, data: item.data()})
@@ -262,9 +321,7 @@ Tattoos = [];
     data.forEach(item => {
       
       if(item.data().bookingState === "Decline"){
-       console.log("Accepted Booking ",item.data() );
-       
-     
+
        this.Decline.push({id: item.id, data: item.data()})
        this.declinedLength=this.Decline.length;
       }
@@ -365,67 +422,7 @@ Tattoos = [];
   ngOnInit() {
 
    
-    this.db.collection("Messages").onSnapshot(data => {
-      data.forEach(i => {
-        console.log("Keyssss ", i.id);
-        
-      })
-    })
 
-
-
-    let UidArray = []
-    
-
-    setTimeout(() => {
-     this.db.collection("Bookings").onSnapshot(data => {
-     
-      data.forEach(item => {
-        UidArray.push(item.id)
-       
-      })
-     })
-    }, 2000)
-   
-  
- 
-   
-    setTimeout(() => {
-       
-     
-     UidArray.forEach(i => {
-      
- 
-     
-       let MyMessages = 0
-
-       this.db.collection("Messages").doc(i).collection("Message").onSnapshot(data => {
-      
-      
-        MyMessages = 0
-        this.messages = 0
-
-         data.forEach(i => {
-          
-          if(i.data().satatus == "NotRead"){
-            MyMessages += 1
-            this.messages  = MyMessages
-            console.log("Not Read ",MyMessages );
-            
-          }
-           
-           
-         })
-        
-       })
-       
-       
-     })
- 
-  
-   
-     
-    }, 1000)
 
  
 

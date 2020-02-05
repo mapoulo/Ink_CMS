@@ -40,7 +40,7 @@
             <ion-button (click)="viewMessages()" shape="block" color="light" size="large" fill="clear">
               <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
               </ion-button>
-            <ion-badge class="badge" *ngIf="messages > 0" color="warning">{{messages}}</ion-badge>
+            <ion-badge class="badge" *ngIf="MyMessages.length != 0" color="warning">{{MyMessages.length}}</ion-badge>
         </div>
 
        

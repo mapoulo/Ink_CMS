@@ -16,104 +16,40 @@
 <ion-content>
 
 
-
+ <!--  <ion-list >
+    <ion-item>
+      <p> Name :{{message.mine.name}}</p> <br>
+      <p>Email : {{message.mine.email}}</p>
+      <p>Message : {{message.mine.message}}</p>
+      <p>Time : {{message.mine.time}}</p>
+      <button (click)="updateMessage(message.keys)">Read</button>
+    </ion-item>
+</ion-list> -->
 
   <div class="list">
 
     <div class="read-not-container">
       <div class="header-reader">
-
-
-
-        <ion-segment [(ngModel)]="category" color="primary">
-          
-          <ion-segment-button value="AllMessages">
-           
-            <div class="grow">
-              <ion-badge color="light">{{AllMessages}}</ion-badge>
-              <ion-label>All Messages</ion-label>
-              
-            </div>
-            
-          </ion-segment-button>
-
-          <ion-segment-button value="ReadMessages">
-           
-            <div class="grow">
-              <ion-badge color="light">{{ReadMessages}}</ion-badge>
-              <ion-label>Read Messages</ion-label>
-              
-            </div>
-            
-          </ion-segment-button>
-
-
-          <ion-segment-button  value="unReadMessages">
-            <div class="grow">
-              <ion-badge color="light">{{unReadMessages}}</ion-badge>
-              <ion-label>Unread Messages</ion-label>
-              
-            </div>
-          </ion-segment-button>
-        </ion-segment>
-
-        <!-- <ion-badge color="primary">{{AllMessages}}</ion-badge>
+        <ion-badge color="primary">{{AllMessages}}</ion-badge>
         <p>All Messages</p>
         <ion-badge color="success">{{ReadMessages}}</ion-badge>
         <p>Read Messages</p>
         <ion-badge color="secondary">{{unReadMessages}}</ion-badge>
-        <p>Unread Messages </p> -->
+        <p>Unread Messages </p>
       </div>
-
-      <div class="messages" [ngSwitch]="category">
-        <div class="messages" *ngSwitchCase="'AllMessages'">
+      <div class="messages">
        
-          <div class="item" *ngFor = "let message of AllMyMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.id, message.obj, i)" [ngClass]="{'active': active == i}">
-           <ion-icon size="small" color="dark" name="mail"></ion-icon>
-            <div class="info">
-              <p>{{message.obj.name}}</p>
-              <p>{{message.obj.time}}</p>
-            </div>
-           
-          </div>
-          
-          
-        </div>
-        
-      <div class="messages" *ngSwitchCase="'ReadMessages'">
-       
-        <div class="item" *ngFor = "let message of AllReadMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.id, message.obj, i)" [ngClass]="{'active': active == i}">
+        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.mine.uid, message.keys, message, i)" [ngClass]="{'active': active == i}">
          <ion-icon size="small" color="dark" name="mail"></ion-icon>
           <div class="info">
-            <p>{{message.obj.name}}</p>
-            <p>{{message.obj.time}}</p>
+            <p>{{message.mine.name}}</p>
+            <p>{{message.mine.time}}</p>
           </div>
          
         </div>
         
         
       </div>
-      <div class="messages" *ngSwitchCase="'unReadMessages'">
-       
-        <div class="item" *ngFor = "let message of UnreadMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.id, message.obj, i)" [ngClass]="{'active': active == i}">
-         <ion-icon size="small" color="dark" name="mail"></ion-icon>
-          <div class="info">
-            <p>{{message.obj.name}}</p>
-            <p>{{message.obj.time}}</p>
-          </div>
-         
-        </div>
-        
-        
-      </div>
-      </div>
-    
-
-
-
-     
-
-      
     </div>
    
   
@@ -121,7 +57,7 @@
     <div class="content-messages">
         <div class="header">
           <ion-icon name="person"></ion-icon>
-          <h1> {{messageInfo.name }}</h1>
+          <h1> {{messageInfo.name}}</h1>
          
          
         </div>
