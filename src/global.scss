@@ -26,10 +26,13 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import '~animate.css/animate.min.css';
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
-p, h1, h2,h3,h4,h5,h6,small {
+p, h1, h2,h3,h4,h5,h6,small, ion-label, ion-input, ion-item, input {
   font-family: 'Montserrat', sans-serif !important;
 }
 
+.swiper-pagination-bullet {
+  background: #353535 !important;
+}
 
 *, *::after, *::before {
   margin: 0;
@@ -48,6 +51,7 @@ p, h1, h2,h3,h4,h5,h6,small {
   background: #92929262;
   
 }
+
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -80,7 +84,7 @@ p, h1, h2,h3,h4,h5,h6,small {
 
 
 .fileContainer {
-  background: #de652d;
+  background: #383838;
   color: #fff;
   float: left;
   padding: 1em !important;
@@ -97,9 +101,9 @@ p, h1, h2,h3,h4,h5,h6,small {
 }
 
 .monthview-selected {
-    background-color:#000000 !important;
+  background: linear-gradient(-45deg,rgba(0, 0, 0, 0.685), rgba(0, 0, 0, 0.77)), url('./assets/background.jpg') !important;
     color: rgb(255, 255, 255) !important;
-
+    border-radius: 5px;
     font-weight: bold;
     font-size: 21px;
     
@@ -128,9 +132,9 @@ p, h1, h2,h3,h4,h5,h6,small {
   
 
     td, th, tr, table {
-    /*   border: 0 !important;
-       */
-      /* background-color: transparent!important; */
+      border: 0 !important;
+      font-size: 90%;
+      font-family: 'Montserrat', sans-serif !important;
  
     }
     

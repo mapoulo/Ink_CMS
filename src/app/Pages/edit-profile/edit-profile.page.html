@@ -6,20 +6,6 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-
-
-    <ion-toolbar color="primary">
-      <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-searchbar>
-    </ion-toolbar>
-    <ion-list [hidden]="autocompleteItems.length == 0">
-      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-        {{ item.description }}
-      </ion-item>
-
-      <ion-button (click)="GoTo()" >Go To Selected Location</ion-button>
-    </ion-list>
-
-
   </ion-toolbar>
 </ion-header>
 
@@ -65,9 +51,17 @@
             <ion-col  size="12">
               <ion-item>
                 <ion-label position="floating">Physical Address</ion-label>
-                <ion-input type="text"  formControlName="address"  [(ngModel)]="MyData.address" placeholder="{{MyData.address}}"></ion-input>
+                <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-searchbar>
                 <ion-icon slot="end" name="ios-pin"></ion-icon>
               </ion-item>
+
+              <ion-list [hidden]="autocompleteItems.length == 0">
+                <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+                  {{ item.description }}
+                </ion-item>
+          
+                <ion-button (click)="GoTo()" >Go To Selected Location</ion-button>
+              </ion-list>
               <div class="error" *ngFor="let validate of validation_messages.address">
                 <div class="messages" *ngIf="tattooForm.get('address').hasError(validate.type) && (tattooForm.get('address').dirty || tattooForm.get('address').touched)">
                   {{validate.message}}

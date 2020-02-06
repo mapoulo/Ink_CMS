@@ -23,7 +23,7 @@
       <div class="profile-container" (click)="goProfilePage()">
       <div class="profile-img-blick" >
         
-        <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
+        <img *ngIf="!image1" src="../../../assets/person-icon.jpg" alt="Image Not Available" >
 
         <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
       
@@ -63,8 +63,8 @@
 
                 <div class="booking-container">
                   <div class="header_">
-                    <p class="p_header">All the request made so far...</p>
-                    
+                  <p class="p_header">All the request made so far...</p>
+                  <ion-badge>{{Bookings.length}}</ion-badge> 
                   </div>
                     
                 <div class="bookings-list">
@@ -83,8 +83,15 @@
                                              </div>
                                     
                             </div>
+
+                            
+
+
+
+
                             <div class="select-card-first" *ngIf="Bookings.length == 0">
-                              <p>You do not have any notifications</p>
+                              <img src="../../../assets/icon/3024050.png" alt="">
+                              <p>You do not have any Notifications.</p>
                             </div> 
                       </div> 
                 
@@ -119,7 +126,17 @@
                      </div>
                    <p>
                      {{obj.description}}
+
+                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat iure deserunt saepe totam! Tempore quo quam exercitationem illum quaerat porro sed nesciunt rerum impedit, voluptate, quis atque, dolorem facilis adipisci.
                    </p> 
+                  </div>
+                  <div class="continue">
+                    <ion-button mode="ios" expand="block" shape="round" (click)="animateClose()" size="small" color="danger">
+                      Cancel
+                    </ion-button>
+                    <ion-button mode="ios" expand="block" shape="round" (click)="animateClose()" size="small" color="primary">
+                      Continue
+                    </ion-button>
                   </div>
                   </div>
                   
@@ -127,8 +144,8 @@
             </div>
            
                  <div class="calendar-container" *ngIf="obj.image"> 
-                   <div >
-                     <h1>Manage your Days</h1>
+                   <div class="header_" style="width: 100%; z-index: 10;">
+                     <p class="p_header">Manage your Days</p>
                    </div>
                     <div class="calender">
                       <div class="month">
@@ -190,7 +207,7 @@
                       </ion-row>
                      
                       <ion-row justify-content-center>
-                        <ion-col size="7"> <ion-button class="btn-respond" shape="round" expand="block" mode="ios" color="secondary" (click)="addEvent()">Respond</ion-button></ion-col>
+                        <ion-col size="5"> <ion-button class="btn-respond" shape="round" expand="block" mode="ios" color="success" (click)="addEvent()">Respond</ion-button></ion-col>
                       </ion-row>
                     
                     </div>

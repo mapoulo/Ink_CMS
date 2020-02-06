@@ -13,7 +13,10 @@
     flex-flow: row;
     background: #f8f8f8;;
     position: relative;
-
+    background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 
     .full_r {
         position: absolute;
@@ -162,7 +165,26 @@
 .header_ {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-basis: 5%;
+    background: linear-gradient(-45deg,rgba(0, 0, 0, 0.685), rgba(0, 0, 0, 0.77)), url('../../../assets/background.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    padding: 1em;
+
+    ion-badge {
+        height: 20px;
+        width: 20px;
+        border-radius: 50px;
+        background: #fff;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 .h1-header, .p_header{
   
@@ -200,15 +222,29 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    background: rgba(255, 255, 255, 0.877);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     .select-card-first {
         flex-basis: 100%;
         justify-content: center;
         align-items: center;
         text-align: center;
-        
+        flex-direction: column;
         display: flex;
         color: #D66E53;
+
+        img {
+            width: 80%;
+            
+        }
+        p {
+            margin-top: 5%;
+        }
     }
    
 }
@@ -282,9 +318,11 @@
 
 .respond-container {
     flex-basis: 80%;
-
+    background: rgba(255, 255, 255, 0.904);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
+    margin-left: 1%;
 
     .select-card-first {
         flex-basis: 100%;
@@ -299,14 +337,14 @@
 
     .details-profile {
         
-        flex-basis: 60%;
+        flex-basis: 90%;
         display: flex;
 
 
         .card-r {
             display: flex;
             flex-direction: column;
-            padding: 1em;
+          /*   padding: 1em; */
             width: 100%;
 
             .image-r {
@@ -323,7 +361,7 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    border-radius: 20px;
+                    /* border-radius: 20px; */
                 }
 
                 .fullscreen {
@@ -350,7 +388,13 @@
                         height: 10vh;
                         width: 10vh;
                         border-radius: 50px;
-                        border: 5px solid #f8f8f8;
+                        border-top: 5px solid rgba(156, 156, 156, 0.582);
+                        border-left: 5px solid rgba(156, 156, 156, 0.582);
+                        border-right: 5px solid  rgba(34, 34, 34, 0.082);
+                        border-bottom: 5px solid rgba(34, 34, 34, 0.082);
+                        object-fit: cover;
+                        box-shadow:  6px 6px 12px rgba(0, 0, 0, 0.1),  
+                          -6px -6px 12px  #383838;
 
                     }
 
@@ -396,20 +440,22 @@
 
 
     .calendar-container {
-        flex-basis: 40%;
+        flex-basis: 20%;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         flex-direction: column;
+        margin: 0 1%;
+        box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
 
         .calender {
-            width: 20vw;
+            width: 25vw;
                 background: #fff;  
             padding: 1em;
             border-radius: 5px;
-            box-shadow:  12px 12px 12px rgba(0, 0, 0, 0.1),  
+            /* box-shadow:  12px 12px 12px rgba(0, 0, 0, 0.1),  
             -12px -12px 12px  rgb(235, 235, 235);
-            transition: 500ms;
+            transition: 500ms; */
 
           
         }
@@ -423,20 +469,70 @@ h4 {
 }
 
 
+.continue {
+    display: none;
+    padding: 1em;
+    
+
+}
+
 
 
 @media all and (max-width: 600px) {
 
+    .continue {
+        display: flex;
+        justify-content: space-evenly;
+        
+
+    }
+
+    .profile-container-r {
+        display: none !important;
+    }
+
+    .header_ {
+        text-align: center !important;
+    }
+
     .booking-container {
-        display: none;
+        flex: 0 0 100%;
+       
     }
     .respond-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        padding: 0;
+        margin: 0 !important;
         .details-profile {
-            display: none;
+            padding:  0 !important;
+            flex: 0 0 100%;
+            font-size: 90%;
+
+            .card-r {
+                .image_r {
+                    flex-basis: 50%;
+
+                  
+                }
+
+                .card-details {
+                    flex-basis: 50%;
+                    padding-top: 1.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                }
+                
+               
+            }
         }
         .calendar-container {
             flex: 0 0  100%;
-
+            display: none;
             .calender {
                width: 100vw; 
             }
@@ -456,14 +552,7 @@ h4 {
   
 
     
-    .details-profile {
    
-
-        .card-r {
-            padding: 0em;
-        }
-         
-    }
 
     .booking-container {
         flex-basis: 100%;
@@ -471,7 +560,7 @@ h4 {
     }
 
     .booking-item {
-        flex: 0 0 40%;
+        flex: 0 0 50%;
     }
     
   
@@ -519,6 +608,7 @@ h4 {
            justify-content: space-between;
          flex-wrap: wrap;
          height: 100%;
+         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.301);
         
        }
        .profile-container {

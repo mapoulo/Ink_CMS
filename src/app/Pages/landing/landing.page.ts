@@ -60,7 +60,7 @@ Tattoos = [];
   o: number = 0;
   number : number = 0;
   onboard: boolean  = false;
-  @ViewChild('slides', {static: true}) slides: IonSlides;
+  @ViewChild('slides', {static: false}) slides: IonSlides;
   fullscreen: boolean = false;
   fullScreenImage: any;
   constructor(public data : DataService, private platform: Platform, private store: Storage, private render: Renderer2, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
@@ -292,9 +292,9 @@ Tattoos = [];
     this.onboard = false;
     this.store.set('onboard', true);
   }
-  onNext() {
-    this.slides.slideNext(); 
-    this.store.set('onboard', true);
+  onNext(i) {
+    this.slides.slideTo(i)
+  
   }
 
   animateClose(image) {

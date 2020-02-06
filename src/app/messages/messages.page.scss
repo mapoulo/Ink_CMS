@@ -163,6 +163,10 @@
 
 @media only screen and (max-width: 600px) {
 
+  ion-segment {
+    font-size: 70% !important;
+  }
+
   .hide {
     display: flex;
   }
