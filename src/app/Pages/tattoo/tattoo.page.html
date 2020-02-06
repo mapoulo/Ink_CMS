@@ -25,7 +25,7 @@
       <div class="upload">
        
             <label class="fileContainer">
-              <ion-icon size="large" name="add"></ion-icon> Upload Here
+              <ion-icon size="small" name="ios-camera"></ion-icon> Upload Here
               <input type="file" formControlName="image"  accept="image/*" (change)="changeListener($event)"/> 
               
           </label>
@@ -36,43 +36,43 @@
        
       </div>
       <div class="image_r">
-        <img *ngIf="!tattoo.image"  src="../../../assets/allef-vinicius-hxNiXP498UI-unsplash.jpg">
+        <img *ngIf="!tattoo.image"  src="../../../assets/background.jpg">
       <img *ngIf="tattoo.image"  src="{{tattoo.image}}">
       </div>
     </section> 
     <section class="form-container">
-            <div>
+            <div class="mad">
               <ion-list>
-                <ion-item>
-                   <ion-label position="floating">Tattoo Name</ion-label>
-                   <ion-input formControlName="tattooName"  onkeypress="return /[a-zA-Z\s]/i.test(event.key)" type="text" name="name" [(ngModel)]="tattoo.name" placeholder="{{name}}"></ion-input>
-                   <ion-icon slot="end" size="small" name="ios-add"></ion-icon>
+                <ion-item color="transparent">
+                   <ion-label color="transparent"  position="floating">Tattoo Name</ion-label>
+                   <ion-input color="transparent"  formControlName="tattooName"  onkeypress="return /[a-zA-Z\s]/i.test(event.key)" type="text" name="name" [(ngModel)]="tattoo.name" placeholder="{{name}}"></ion-input>
+                   <ion-icon  color="transparent" slot="end" size="small" name="ios-add"></ion-icon>
                  </ion-item>
                  <p class="error" *ngIf="TattooName.hasError('required') && (TattooName.touched || TattooName.dirty)" >Please enter Tattoo Name</p>  
             
-              <ion-item>
-                   <ion-label position="floating">Price start at</ion-label>
-                   <ion-input type="number" formControlName="startPrice"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{startPrice}}" s></ion-input>
-                   <ion-icon slot="end" size="small" name="ios-cash"></ion-icon>
+              <ion-item color="transparent">
+                   <ion-label color="primary"  position="floating">Price start at</ion-label>
+                   <ion-input color="primary"  type="number" formControlName="startPrice"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input >
+                   <ion-icon color="primary"  slot="end" size="small" name="ios-cash"></ion-icon>
                  </ion-item>
-                 <p class="error" *ngIf="StartPrice.hasError('required') ">Please enter your minimum price</p>
-                 <ion-item>
-                   <ion-label position="floating">Price end at</ion-label>
-                   <ion-input type="number" formControlName="endPrice"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input>
-                   <ion-icon slot="end" size="small" name="ios-cash"></ion-icon>
+                 <p class="error" *ngIf="StartPrice.hasError('required') && (StartPrice.touched || StartPrice.dirty)">Please enter your minimum price</p>
+                 <ion-item color="transparent">
+                   <ion-label color="primary" position="floating">Price end at</ion-label>
+                   <ion-input  color="primary" type="number" formControlName="endPrice"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input>
+                   <ion-icon color="primary"  slot="end" size="small" name="ios-cash"></ion-icon>
                  </ion-item>
-                 <p class="error" *ngIf="EndPrice.hasError('required') ">Please enter your maximum price</p>
-             <ion-item>
-                     <ion-label>Categories</ion-label>
-                     <ion-select formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
+                 <p class="error" *ngIf="EndPrice.hasError('required')  && (EndPrice.touched || EndPrice.dirty)">Please enter your maximum price</p>
+             <ion-item color="transparent">
+                     <ion-label color="primary" >Categories</ion-label>
+                     <ion-select  color="primary" formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
                        <ion-select-option value="Previous work" >Previous work</ion-select-option>
                        <ion-select-option value="Sketch/design">Sketch/design</ion-select-option>
                      </ion-select>
                    </ion-item>
                    <p class="error" *ngIf="Categories.hasError('required') && (Categories.touched || Categories.dirty)">Please enter categories</p>
-                <ion-item>
-                       <ion-label position="floating">Description</ion-label>
-                      <ion-textarea formControlName="description" type="text"  name="description"  autocorrect="on" rows="3" cols="20"  [(ngModel)]="tattoo.description"  onkeypress="return /[a-zA-Z\s]/i.test(event.key)"  placeholder="{{description}}"></ion-textarea>
+                <ion-item color="transparent">
+                       <ion-label color="primary" position="floating">Description</ion-label>
+                      <ion-textarea color="primary" formControlName="description" type="text"  name="description"  autocorrect="on" rows="3" cols="20"  [(ngModel)]="tattoo.description"  onkeypress="return /[a-zA-Z\s]/i.test(event.key)"  placeholder="{{description}}"></ion-textarea>
                       <!-- onkeypress="return /[a-z]/i.test(event.key)" -->
                   </ion-item>
                   <p class="error" *ngIf="Description.hasError('required') && (Description.touched || Description.dirty)">Please enter your description</p>

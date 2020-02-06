@@ -2,51 +2,8 @@
 <ion-content>
   <div class="main">
 
-    <div class="full_r" *ngIf="fullscreen">
-      <div class="btn-close">
-        <ion-button fill="clear" size="large" color="light" (click)="animateClose('')"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
-      </div>
-      <div class="full-i_r">
-        <img src="{{fullScreenImage}}" alt="tattoo">
-      </div>
-    </div>
-    <div class="aside">
- 
-        <div class="profile-container" (click)="goProfilePage()">
-            <div class="profile-img-blick" >
-              
-              <img *ngIf="!image1" src="../../../assets/person-icon.jpg" alt="Image Not Available" >
-
-              <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
-            
-            </div>
-          <p class="paragragh">Admin</p>
-          </div>
-          <ion-button shape="block" color="light" fill="clear" size="large" (click)="gotToLandingPage()">
-            <ion-icon mode="ios" name="home"></ion-icon>
-          </ion-button>
-          <div class="notifation">
-              <ion-button shape="block" color="light" fill="clear" size="large" (click)="goToNotificationsPage()">
-                  <ion-icon name="notifications-outline"></ion-icon>
-                </ion-button>
-              <ion-badge class="badge" color="danger">{{notifications}}</ion-badge>
-          </div>
-
-        
-
-
-          <!-- This is the message notifications -->
-          <div class="notifation">
-            <ion-button (click)="viewMessages()" shape="block" color="light" size="large" fill="clear">
-              <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
-              </ion-button>
-            <ion-badge class="badge"  color="warning">{{UnreadMessages.length}}</ion-badge>
-        </div>
-
-       
-    </div>
-
-    <div class="onbording animated" [ngClass]="{'bounceInUp': onboard, 'hide': !onboard}">
+    
+    <div class="onbording" *ngIf="onboard">
       <div class="onboard">
 
         <div class="btn-close">
@@ -54,7 +11,7 @@
             <ion-icon mode="ios" name="close"></ion-icon>
           </ion-fab-button>
         </div>
-            <ion-slides pager="true" #slides>
+            <ion-slides color="secondary" pager="true" #slides>
            
            
               <ion-slide>
@@ -70,7 +27,7 @@
                       <div class="dc_btn">
                         <ion-row justify-content-center>
                           <ion-col size="8">
-                             <ion-button color="secondary" (click)="onNext()" shape="round">
+                             <ion-button color="secondary" (click)="onNext(2)" shape="round">
                                Next
                            </ion-button>
                           </ion-col>
@@ -94,7 +51,7 @@
                       <div class="dc_btn">
                         <ion-row justify-content-center>
                           <ion-col size="8">
-                             <ion-button color="secondary" (click)="onNext()" shape="round">
+                             <ion-button color="secondary" (click)="onNext(3)" shape="round">
                                Next
                            </ion-button>
                           </ion-col>
@@ -117,7 +74,7 @@
                       <div class="dc_btn">
                         <ion-row justify-content-center>
                           <ion-col size="8">
-                             <ion-button color="secondary" (click)="onNext()" shape="round">
+                             <ion-button color="secondary" (click)="onNext(4)" shape="round">
                                Next
                            </ion-button>
                           </ion-col>
@@ -155,14 +112,60 @@
         
       </div>
 </div>
+
+    <div class="full_r" *ngIf="fullscreen">
+      <div class="btn-close">
+        <ion-button fill="clear" size="large" color="light" (click)="animateClose('')"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
+      </div>
+      <div class="full-i_r">
+        <img src="{{fullScreenImage}}" alt="tattoo">
+      </div>
+    </div>
+    <div class="aside">
+ 
+        <div class="profile-container" (click)="goProfilePage()">
+            <div class="profile-img-blick" >
+              
+              <img *ngIf="!image1" src="../../../assets/person-icon.jpg" alt="Image Not Available" >
+
+              <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
+            
+            </div>
+          <p class="paragragh">Admin</p>
+          </div>
+          <ion-button shape="block" color="light" fill="clear" size="large" (click)="gotToLandingPage()">
+            <ion-icon mode="ios" name="ios-home"></ion-icon>
+          </ion-button>
+          <div class="notifation">
+              <ion-button shape="block" color="light" fill="clear" size="large" (click)="goToNotificationsPage()">
+                  <ion-icon name="notifications-outline"></ion-icon>
+                </ion-button>
+              <ion-badge class="badge" color="danger">{{notifications}}</ion-badge>
+          </div>
+
+        
+
+
+          <!-- This is the message notifications -->
+          <div class="notifation">
+            <ion-button (click)="viewMessages()" shape="block" color="light" size="large" fill="clear">
+              <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
+              </ion-button>
+            <ion-badge class="badge" *ngIf="messages > 0" color="warning">{{messages}}</ion-badge>
+        </div>
+
+       
+    </div>
+
     <div class="container">
       <div class="header-container">
         <h1 class="h1-header">Content Management System</h1>
       </div>
       <div class="scroll-container">
         <div class="card-horizontal-scroll">
-          <div class="card-list-item">
-              <ion-fab-button size="small" (click)="openModal(1, {})" color="light"><ion-icon name="add"></ion-icon></ion-fab-button>
+          <div class="card-list-item add">
+              <ion-fab-button size="large" mode="ios" (click)="openModal(1, {})" color="light"><ion-icon name="ios-add"></ion-icon></ion-fab-button>
+              <p style="margin-top: 1em;">Click to Upload a tattoo</p>
           </div>
         </div>
         <div class="card-horizontal-scroll" *ngFor="let tattoo of Tattoos">
@@ -202,7 +205,7 @@
             <ion-segment-button value="accepted">
              
               <div class="grow">
-                <ion-badge color="success">{{AcceptedLength}}</ion-badge>
+                <ion-badge mode="ios" color="success">{{AcceptedLength}}</ion-badge>
                 <ion-label>Accepted</ion-label>
                 
               </div>
@@ -210,7 +213,7 @@
             </ion-segment-button>
             <ion-segment-button  value="declined">
               <div class="grow">
-                <ion-badge color="danger">{{declinedLength}}</ion-badge>
+                <ion-badge mode="ios" color="danger">{{declinedLength}}</ion-badge>
                 <ion-label>Declined</ion-label>
                 
               </div>
