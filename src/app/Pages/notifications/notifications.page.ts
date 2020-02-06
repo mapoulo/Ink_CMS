@@ -300,22 +300,38 @@ respondFunc() {
 
 continueFunc() {
   this.render.setStyle(this.details_profileDiv[0], 'display', 'none');
-  this.render.setStyle(this.calendar_containerDiv[0], 'display', 'flex');
+  this.render.setStyle(this.calendar_containerDiv[0], 'display', 'block');
+}
+
+cancelFunction() {
+  this.render.setStyle(this.details_profileDiv[0], 'display', 'flex');
+  this.render.setStyle(this.calendar_containerDiv[0], 'display', 'none');
+}
+
+resetValues() {
+  
+  
+  this.render.setStyle(this.respond_containerDiv[0], 'display', 'flex');
+
+  setTimeout(() => {
+    this.render.setStyle(this.calendar_containerDiv[0], 'display', 'block');
+    this.render.setStyle(this.details_profileDiv[0], 'display', 'flex');
+  }, 2000);
 }
 
 
   save(obj, i){
 
     this.loader = true;
-
+    
     this.active = i;
     
     this.index = i;
-    
+    this.resetValues()
     setTimeout(() => {
       
-      this.render.setStyle(this.respond_containerDiv[0], 'display', 'flex');
- 
+     /*  this.render.setStyle(this.respond_containerDiv[0], 'display', 'flex'); */
+    
       this.respondContainer = true;
       this.obj = obj;
     this.obj.description = obj.obj.description;

@@ -163,8 +163,9 @@
       </div>
       <div class="scroll-container">
         <div class="card-horizontal-scroll">
-          <div class="card-list-item">
-              <ion-fab-button size="large" mode="ios" (click)="openModal(1, {})" color="light"><ion-icon name="add"></ion-icon></ion-fab-button>
+          <div class="card-list-item add">
+              <ion-fab-button size="large" mode="ios" (click)="openModal(1, {})" color="light"><ion-icon name="ios-add"></ion-icon></ion-fab-button>
+              <p style="margin-top: 1em;">Click to Upload a tattoo</p>
           </div>
         </div>
         <div class="card-horizontal-scroll" *ngFor="let tattoo of Tattoos">
@@ -204,7 +205,7 @@
             <ion-segment-button value="accepted">
              
               <div class="grow">
-                <ion-badge color="success">{{AcceptedLength}}</ion-badge>
+                <ion-badge mode="ios" color="success">{{AcceptedLength}}</ion-badge>
                 <ion-label>Accepted</ion-label>
                 
               </div>
@@ -212,7 +213,7 @@
             </ion-segment-button>
             <ion-segment-button  value="declined">
               <div class="grow">
-                <ion-badge color="danger">{{declinedLength}}</ion-badge>
+                <ion-badge mode="ios" color="danger">{{declinedLength}}</ion-badge>
                 <ion-label>Declined</ion-label>
                 
               </div>

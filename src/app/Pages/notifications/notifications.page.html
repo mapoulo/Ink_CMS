@@ -143,8 +143,11 @@
                   
             </div>
            
-                 <div class="calendar-container" *ngIf="obj.image"> 
+                 <div class="calendar-container animated bounce" *ngIf="obj.image"> 
                    <div class="header_" style="width: 100%; z-index: 10;">
+                    <ion-button mode="ios" expand="block" shape="round" size="small" fill="clear" (click)="cancelFunction()" size="small" color="danger">
+                      Cancel
+                    </ion-button>
                      <p class="p_header">Manage your Days</p>
                    </div>
                     <div class="calender">
@@ -159,9 +162,9 @@
                           
                         </div>
                        </div>
-                       <ion-row>
+                       <ion-row justify-content-center>
                    
-                        <ion-col col-5 class="holder-calendar">
+                        <ion-col size="12" class="holder-calendar">
                         
                            <calendar
                            [lockSwipeToPrev]="lockSwipeToPrev"
@@ -181,7 +184,7 @@
                         </ion-col>
                       </ion-row> 
                       <ion-row justify-content-center>
-                          <ion-col  size="10">
+                          <ion-col  size="12">
                             <ion-item>
                               <ion-label position="floating">Start Date</ion-label>
                               <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
@@ -189,7 +192,7 @@
                             </ion-item>
                     
                           </ion-col>
-                          <ion-col  size="10">
+                          <ion-col  size="12">
                             
                             <ion-item>
                               <ion-label position="floating">End Date</ion-label>
@@ -198,7 +201,7 @@
                             </ion-item>
                            
                           </ion-col>
-                          <ion-col size="10">
+                          <ion-col size="12">
                             <ion-item style="margin-bottom: 2em;">
                               <ion-label position="floating" >Price</ion-label><br>
                               <ion-input type="tel"  [(ngModel)]="price">R</ion-input>

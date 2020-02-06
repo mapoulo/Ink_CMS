@@ -149,6 +149,8 @@
     display: flex;
     flex-flow: column nowrap;
     position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .header-container   {
     flex-basis: 10%;
@@ -514,6 +516,7 @@ h4 {
         padding: 0;
         margin: 0 !important;
         display: none;
+        transition: 500ms;
         .details-profile {
             padding:  0 !important;
             flex: 0 0 100%;
@@ -542,10 +545,11 @@ h4 {
             display: none;
             padding: 0;
             margin: 0 !important;
-          
+            transition: 500ms;
 
             .calender {
-               width: 100vw; 
+               width: 100vw;
+               height: 100vh; 
                overflow-y: scroll;
                overflow-x: hidden;
             }
