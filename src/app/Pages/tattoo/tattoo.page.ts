@@ -127,25 +127,30 @@ export class TattooPage implements OnInit {
   };
   changeListener(event): void {
     console.log("My Method is Called");
-    
+    this.loader=true;
     const i = event.target.files[0];
     console.log(i);
     const upload = this.storage.child(i.name).put(i);
-    upload.on('state_changed', snapshot => {
-      this.loader=true;
+
+ 
+      upload.on('state_changed', snapshot => {
+
      
-    setTimeout(() => {
-      this.loader = false;
-   }, 1000);
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('upload is: ', progress , '% done.');
-    }, err => {
-    }, () => {
-      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
-        console.log('File avail at: ', dwnURL);
-        this.tattoo.image = dwnURL;
+   
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('upload is: ', progress , '% done.');
+      }, err => {
+      }, () => {
+        upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+          console.log('File avail at: ', dwnURL);
+          this.tattoo.image = dwnURL;
+        });
       });
-    });
+   
+      setTimeout(() => {
+        this.loader = false;
+      }, 5000);
+  
   }
   addtattoo(tattooForm : FormGroup){
     this.tattoo.pricerange=  this.tattoo.startPrice +  + this.tattoo.endPrice;

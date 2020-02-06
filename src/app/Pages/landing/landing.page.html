@@ -113,7 +113,7 @@
       </div>
 </div>
 
-    <div class="full_r" *ngIf="fullscreen">
+    <div class="full_r animated zoomIn" *ngIf="fullscreen">
       <div class="btn-close">
         <ion-button fill="clear" size="large" color="light" (click)="animateClose('')"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
       </div>
@@ -140,7 +140,7 @@
               <ion-button shape="block" color="light" fill="clear" size="large" (click)="goToNotificationsPage()">
                   <ion-icon name="notifications-outline"></ion-icon>
                 </ion-button>
-              <ion-badge class="badge" color="danger">{{notifications}}</ion-badge>
+              <ion-badge class="badge" *ngIf="notifications > 0" color="danger">{{notifications}}</ion-badge>
           </div>
 
         
@@ -298,8 +298,22 @@
                </div>
                <div class="graph-content">
                   <canvas #barChart>Acepted</canvas>
+
+                  <div class="depictGragh">
+                    <div class="first">
+                      <span class="colorCode" style="background: rgba(214, 110, 83, 0.8); color: #fff; font-weight: bolder; padding: .2em;">A-B</span><p> All Bookings</p>
+                      <span class="colorCode" style="background: #F25E5E; color: #fff; font-weight: bolder; padding: .2em;">D-B</span> <p> Declined Bookings</p>
+                    </div>
+                    <div class="first">
+                      <span class="colorCode" style="background: #F2D5C4; color: #fff; font-weight: bolder; padding: .2em;">AC-B</span><p> Accepted Bookings</p>
+                      <span class="colorCode" style="background: rgba(242, 149, 68, 0.5); color: #fff; font-weight: bolder; padding: .2em;">A-U</span> <p> All Users</p>
+                    </div>
+                   </div>
                </div>
+              
+             
             </div>
+            
         </div>
       </div>
     </div>

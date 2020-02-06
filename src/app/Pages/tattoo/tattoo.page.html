@@ -61,7 +61,7 @@
                    <ion-input  color="primary" type="number" formControlName="endPrice"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input>
                    <ion-icon color="primary"  slot="end" size="small" name="ios-cash"></ion-icon>
                  </ion-item>
-                 <p class="error" *ngIf="EndPrice.hasError('required')  && (EndPrice.touched || EndPrice.dirty)">Please enter your maximum price</p>
+                 <p class="error" *ngIf="EndPrice.hasError('required')  && (StartPrice.touched || StartPrice.dirty)">Please enter your maximum price</p>
              <ion-item color="transparent">
                      <ion-label color="primary" >Categories</ion-label>
                      <ion-select  color="primary" formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
