@@ -18,10 +18,10 @@
 
  <!--  <ion-list >
     <ion-item>
-      <p> Name :{{message.mine.name}}</p> <br>
-      <p>Email : {{message.mine.email}}</p>
-      <p>Message : {{message.mine.message}}</p>
-      <p>Time : {{message.mine.time}}</p>
+      <p> Name :{{message.obj.name}}</p> <br>
+      <p>Email : {{message.obj.email}}</p>
+      <p>Message : {{message.obj.message}}</p>
+      <p>Time : {{message.obj.time}}</p>
       <button (click)="updateMessage(message.keys)">Read</button>
     </ion-item>
 </ion-list> -->
@@ -39,11 +39,11 @@
       </div>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.mine.uid, message.keys, message, i)" [ngClass]="{'active': active == i}">
+        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.keys, message.obj, i)" [ngClass]="{'active': active == i}">
          <ion-icon size="small" color="dark" name="mail"></ion-icon>
           <div class="info">
-            <p>{{message.mine.name}}</p>
-            <p>{{message.mine.time}}</p>
+            <p>{{message.obj.name}}</p>
+            <p>{{message.obj.time}}</p>
           </div>
          
         </div>

@@ -40,7 +40,7 @@
             <ion-button (click)="viewMessages()" shape="block" color="light" size="large" fill="clear">
               <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
               </ion-button>
-            <ion-badge class="badge" *ngIf="MyMessages.length != 0" color="warning">{{MyMessages.length}}</ion-badge>
+            <ion-badge class="badge"  color="warning">{{UnreadMessages.length}}</ion-badge>
         </div>
 
        
@@ -237,10 +237,10 @@
                     <div class="info">
                       
                       <p style="font-weight: bold;">{{item.data.name}}</p>
-                      <p>{{item.data.customerName }}</p>
-                      <p>{{item.data.number }}</p>
+                      <p>Name:{{item.data.customerName }}</p>
+                      <p>Number: {{item.data.number }}</p>
                   
-                      <p>Start Date: {{item.data.endingDate | date: 'shortDate'}}</p>
+                    
                         
                       </div>
                 </div>
@@ -266,7 +266,8 @@
                     <p>{{item.data.customerName }}</p>
                     <p>{{item.data.number }}</p>
                    <!--  <p style="background: forestgreen; color: #fff">Status {{item.data.bookingState}}</p> -->
-                    <p>Start Date: {{item.data.endingDate | date: 'shortDate'}}</p>
+                    <p>Start Date: {{item.data.startingDate | date: 'shortDate'}}</p>
+                    <p>End Date: {{item.data.endingDate | date: 'shortDate'}}</p>
                       
 
                   </div>

@@ -52,7 +52,7 @@
             
               <ion-item>
                    <ion-label position="floating">Price start at</ion-label>
-                   <ion-input type="number" formControlName="startPrice"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input>
+                   <ion-input type="number" formControlName="startPrice"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{startPrice}}" s></ion-input>
                    <ion-icon slot="end" size="small" name="ios-cash"></ion-icon>
                  </ion-item>
                  <p class="error" *ngIf="StartPrice.hasError('required') ">Please enter your minimum price</p>

@@ -1,5 +1,4 @@
 import { DataService } from './../../data.service';
-
 import { Component, OnInit} from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
@@ -8,10 +7,6 @@ import { Platform, AlertController } from '@ionic/angular';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
 // import { FileOpener } from '@ionic-native/file-opener/ngx';
-
-
-
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -20,7 +15,6 @@ import { ModalController} from '@ionic/angular';
 export class ProfilePage implements OnInit {
  loader = true;
  pdf;
-
  pdfObj = null;
  tattoo = {
   name: '',
@@ -30,13 +24,12 @@ export class ProfilePage implements OnInit {
   categories:''
   
 }
-
 fullscreen:boolean = false;
-
 fullScreenImage: string = '';
-
 category: string = 'users'
-
+Pending=[]
+AllUsers=[]
+AllUsersLength: number=0;
 image1  = ""
 name=""
 email=""
@@ -44,19 +37,13 @@ phoneNumber=""
  db = firebase.firestore();
  Admin = [];
   profile={
-
     name: '',
     address: '',
     phone: '',
     email: '',
     pdf: ''
-
-
 }
-
-
 profile1 ={
-
   name: '',
   address: '',
   phoneNumber: '',
@@ -64,57 +51,39 @@ profile1 ={
   
   
 }
-
   toastCtrl: any;
   notifications : number = 0;
+  pendingLength: number=0;
  
   storage = firebase.storage().ref();
   constructor(public data : DataService, public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController, public alertCtrl: AlertController) { }
-
-
-
   
   ngOnInit() {
-
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
         this.image1 = item.data().image;
       })
     })
-
  
-
     this.notifications = this.data.notification
-
     setTimeout(() => {
       this.loader = false;
     }, 2000);
-
     console.log("This is your pdf",this.pdf);
     
   }
-
   goToNotificationsPage(){
-
     this.rout.navigateByUrl('/notifications')
-
 }
-
 animateClose(image) {
   this.fullScreenImage = image;
   this.fullscreen = !this.fullscreen;
 }
-
 goProfilePage () {
   this.rout.navigateByUrl('/profile');
 }
-
-
-
-
 image(event){
  
-
   const i = event.target.files[0];
   console.log(i);
   const upload = this.storage.child(i.name).put(i);
@@ -133,8 +102,6 @@ image(event){
       this.image1 = dwnURL;
     });
   });
-
-
   
 }
 editData(){
@@ -145,8 +112,6 @@ editData(){
     email : this.email
   });
 }
-
-
   logout(){
     this.loader = true;
     this.auth.logoutUser().then(()=>{
@@ -156,10 +121,7 @@ editData(){
       }, 4000);
     })
     }
-
-
     ionViewWillEnter(){
-
       firebase.auth().onAuthStateChanged(user => {
         if(user){
           this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(data => {
@@ -170,16 +132,21 @@ editData(){
             this.profile.email = data.data().email;
             this.profile.pdf = data.data().pdf;
              
-
           })
         }
       })
-
    
-
-
+          
+    this.db.collection("Bookings").onSnapshot(data => {
+      data.forEach(item => {
+        this.AllUsers.push(item.data());
       
-
+     
+        console.log( "AllUsers", this.AllUsers );
+        this.AllUsersLength=this.AllUsers.length;
+      })
+    })
+      
     let MyArray = [];
     let Bookings = [];
     let id = {docid: "", auId: "",   obj : {}};
@@ -204,7 +171,6 @@ editData(){
        this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
        
         this.notifications = 0;
-
         i.forEach(o => {
            
          
@@ -219,7 +185,10 @@ editData(){
              this.notifications += 1;
            
             // this.data.notification += 1;
-            console.log( "uuuuuuuuuuuuuuuu", o.data() );
+            
+            this.Pending.push(o.data());
+            this.pendingLength=this.Pending.length;
+            console.log( "uuuuuuuuuuuuuuuu", this.Pending );
             Bookings.push(id);
             id = {docid: "", auId: "", obj : {}};
           }
@@ -228,20 +197,9 @@ editData(){
        })
      })
      })
-
      
-
-
-
   
-
  
-
-
-
-
-
-
    
       // firebase.auth().onAuthStateChanged(user => {
       //   if (user) {
@@ -255,10 +213,8 @@ editData(){
             
       //   }
       // });
-
   
       // this.email=firebase.auth().currentUser.email;
-
       // this.db.collection("Admin").onSnapshot(data => {
       //   this.Admin = [];
       //   data.forEach(item => {
@@ -277,13 +233,9 @@ editData(){
       //   })
       // })
     
-
     
     }
   
-
-
-
     // changeListener(event): void {
     //   const i = event.target.files[0];
     //   console.log(i);
@@ -303,14 +255,10 @@ editData(){
     //     });
     //   });
     // }
-
-
   //   download() {
-
   //     this.fileOpener.open(this.pdf, 'application/pdf')
   // .then(() => console.log('File is opened'))
   // .catch(e => console.log('Error opening file', e));
-
   //     // const fileTransfer: FileTransferObject = this.transfer.create();
   //     // fileTransfer.download(this.pdf, this.file.dataDirectory + 'file.pdf').then((entry) => {
   //     //   console.log('download complete: ' + entry.toURL());
@@ -320,16 +268,11 @@ editData(){
       
   //   }
     
-
   async  createModal(){
        
     }
-
-
-
     
    
-
     async presentModal() {
       const modal = await this.modalController.create({
         component: EditProfilePage
@@ -339,7 +282,6 @@ editData(){
     }
   
       
-
     changeListener(event): void {
       const i = event.target.files[0];
       console.log(i);
@@ -352,23 +294,16 @@ editData(){
         
       }, err => {
       }, () => {
-
         upload.snapshot.ref.getDownloadURL().then(dwnURL => {
           console.log('File avail at: ', dwnURL);
           this.pdf = dwnURL;
-          
         this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
         });
-
       });
     }
-
-
     
-
   
     async DeleteData() {
-
       const alert = await this.alertCtrl.create({
         header: 'Delete',
         message: 'Are you sure you want to delete the Contract?',
@@ -385,18 +320,14 @@ editData(){
               
               this.db.collection("Admin").doc(firebase.auth().currentUser.uid).get().then(data => {
                 console.log("dataaaa ", data.data());
-
                 this.profile1.address = data.data().address;
                 this.profile1.name = data.data().name;
                 this.profile1.email = data.data().email;
                 this.profile1.phoneNumber = data.data().phoneNumber;
-
                 
                 console.log("rrrrrrrrrrrrrr ",  this.profile1);
                 this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set(this.profile1);
-
               })
-
              
             
             }
@@ -408,10 +339,5 @@ editData(){
       await alert.present();
  
     }
-
     
-
-
-
-
 }

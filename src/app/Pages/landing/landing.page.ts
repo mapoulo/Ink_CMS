@@ -30,6 +30,8 @@ export class LandingPage implements OnInit {
   Decline = [];
   declinedLength=0;
   notifications = 0;
+
+   UnreadMessages = []
   
   active: any;
   bars: any;
@@ -79,80 +81,33 @@ Tattoos = [];
      if(this.graph) {
       this.render.setStyle(this.graphDiv[0], 'display', 'block');
      }else {
-     
-       
+       if(this.platform.width() <= 600) {
         this.render.setStyle(this.graphDiv[0], 'display', 'none');
-        this.rout.navigateByUrl('/landing')
-
+       }else {
+        this.render.setStyle(this.graphDiv[0], 'display', 'block');
+       }
+      
      }
    }
 
 
-    UidArray = []
-     AllMessages = []
-    Read = []
-   getValue(){
 
    
- 
-      this.AllMessages.forEach(item => {
-       
-       if(item.status == "Read"){
-        
-        this.Read.push(item)
-       }
-        
-      })
-      console.log("Not read messages is == ", this.AllMessages.length - this.Read.length);
- 
-
-   }
-
   ionViewDidEnter() {
 
 
-    let UidArray = []
-    let  AllMessages = []
-    let Read = []
 
-
-
-  this.db.collection("Message").onSnapshot(data => {
-    data.forEach(key => {
-      UidArray.push(key.id)
-      console.log("dddd ", key.id);
-      
-    })
-  })
-
-setTimeout(() => {
-  
-  UidArray.forEach(i => {
-    this.db.collection("Message").doc(i).collection("All").onSnapshot(data => {
+    this.db.collection("Message").onSnapshot(data => {
+      this.UnreadMessages = []
       data.forEach(item => {
        
-          AllMessages.push(item.data())
-          console.log("sss ", AllMessages.length);
-          this.getValue()
-          
- 
+        if(item.data().status == "NotRead"){
+          this.UnreadMessages.push(item.data())
+         
+        }
+        
       })
- 
     })
-    
-  })
-
- 
-
-}, 1000);
-
-
-
-
-
-
-
-
  
 
 
@@ -322,6 +277,8 @@ setTimeout(() => {
       if(item.data().bookingState === "Decline"){
 
        this.Decline.push({id: item.id, data: item.data()})
+       console.log("data ", this.Decline);
+       
        this.declinedLength=this.Decline.length;
       }
      
@@ -361,7 +318,7 @@ setTimeout(() => {
 
 
   createBarChart() {
-    Chart.defaults.global.defaultFontSize = 11;
+    Chart.defaults.global.defaultFontSize = 8;
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'bar',
     data: {
@@ -417,11 +374,26 @@ setTimeout(() => {
   }
 
 
-  
+  uids=[]
+
   ngOnInit() {
 
    
 
+
+
+   setTimeout(() => {
+ 
+    this.uids.forEach(i => {
+       
+      this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(item => {
+       item.forEach(data => {
+         console.log("wwww ", data.data());
+         
+       })
+      })
+    })
+   }, 2000);
 
  
 
@@ -466,10 +438,7 @@ setTimeout(() => {
          
             number += 1
             this.notifications = number
-        
-            
-            
-            
+ 
           }  
            
          })
@@ -486,22 +455,6 @@ setTimeout(() => {
 
     
 
-    // this.db.collection("Bookings").onSnapshot(data => {
-    //   data.forEach(i => {
-    //          this.db.collection("Messages").doc(i.id).collection("Message").onSnapshot(data => {
-    //           this.messages = 0;
-    //             this.MyMessages = [];
-    //            data.forEach(item => {
-    //              if(item.data().satatus == "NotRead"){
-    //                console.log("Messages ", item.data() );
-    //                this.MyMessages.push(item.data());
-    //       this.messages += 1;
-                   
-    //              }
-    //            })
-    //          })
-    //   })
-    // })
 
   }
 

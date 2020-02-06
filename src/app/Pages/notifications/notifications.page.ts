@@ -122,6 +122,7 @@ notifications  = 0;
 
               id.obj = o.data();
               id.auId = o.id;
+                  console.log("aaaa ", id);
                   
               this.notifications += 1 
               this.Bookings.push(id);

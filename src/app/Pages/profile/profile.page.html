@@ -1,5 +1,3 @@
-
-    
 <ion-content>
   <div class="loader" *ngIf="loader">
     <div class="loader-1">
@@ -12,7 +10,6 @@
     </ion-fab-button>
   </ion-fab>
   <main class="main">
-
     <div class="full_r" *ngIf="fullscreen">
       <div class="btn-close">
         <ion-button fill="clear" size="large" color="light" (click)="animateClose('')"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
@@ -25,8 +22,7 @@
        <div class="profile-container">
            <div class="profile-img-blick">
              
-            <img *ngIf="!image1" src="../../../assets/person-icon.jpg" alt="Image Not Available" >
-
+            <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
             <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
           
           </div>
@@ -49,14 +45,13 @@
          <div class="sub-container">
            <div class="top-profile_c">
             
-
                 
                     <div class="profile_c">
                       <!--  <ion-fab-button class="btn-edit-image" color="light" size="small" >
                          <ion-icon name="create"></ion-icon>
                        </ion-fab-button> -->
                        <div class="wr">
-                        <img *ngIf="!image1" src="../../../assets/person-icon.jpg" alt="Image Not Available" >
+                        <img *ngIf="!image1" src="../../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="Image Not Available" >
    
                         <img  *ngIf="image1" src="{{image1}}" alt="Image Not Available" >
                        </div>
@@ -82,8 +77,6 @@
                 
             
            </div>
-
-
            <div class="list_g">
               <div class="segment_g">
                 <ion-segment [(ngModel)]="category" color="primary">
@@ -91,7 +84,7 @@
                   <ion-segment-button value="pending">
                    
                     <div class="grow">
-                      <ion-badge color="primary">3</ion-badge>
+                      <ion-badge color="primary">{{pendingLength}}</ion-badge>
                       <ion-label>Pending Responses</ion-label>
                       
                     </div>
@@ -99,7 +92,7 @@
                   </ion-segment-button>
                   <ion-segment-button  value="users">
                     <div class="grow">
-                      <ion-badge color="tertiary">0</ion-badge>
+                      <ion-badge color="tertiary">{{AllUsersLength}}</ion-badge>
                       <ion-label>All Users</ion-label>
                       
                     </div>
@@ -112,24 +105,23 @@
                     <p>You do not have users</p>
                   </div> -->
                   
-    <div class="item_r_f">
-
+    <div class="item_r_f" *ngFor="let pending of Pending;">
       <div class="fullscreen">
           
-        <ion-fab-button mode="ios" (click)="animateClose('../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg')" size="small" color="secondary">
+        <ion-fab-button mode="ios" (click)="animateClose(pending.image)" size="small" color="secondary">
           <ion-icon name="qr-scanner"></ion-icon>
         </ion-fab-button>
       
       </div>
+      customerName
                     
-      <img src="../../../assets/clem-onojeghuo-tHEXNI4L4S4-unsplash.jpg" alt="">
+      <img src="{{pending.image}}" alt="">
       <div class="pending_r">
-          <p>Pending...</p>
+          <p>{{ pending.bookingState}}</p>
         <div class="dates">
-          <p>Start date</p>
-          <p>12/05/2020</p>
-          <p>End date</p>
-          <p>20/09/2020</p>
+          <p>Breadth:  {{ pending.breadth}}</p>
+          <p>CustomerName: {{ pending.customerName}}</p>
+          <p>Email: {{ pending.email}}</p>
         </div>
       </div>
   </div>
@@ -138,59 +130,112 @@
                 <!--     <div class="item_g_no_messages_users">
                      <p>You do not have users</p>
                    </div>  -->
-                   <div class="item_r_f">
+                   <!-- <div class="item_r_f">
                     
                     <img src="../../../assets/person-icon.jpg" alt="">
                    
                     <div class="pending_r_user">
+                      <div class="scre_user">
+                          <div class="y_r">
+                            <p>Booked</p>
+                            <ion-badge color="secondary">34</ion-badge>
+                          </div> 
+                
+                          <div class="y_r">
+                            <p>Accepts</p>
+                            <ion-badge color="success">3</ion-badge>
+                          </div>
+                          <div class="y_r">
+                            <p>Denied</p>
+                            <ion-badge color="danger">3</ion-badge>
+                          </div>
+                     
+                    
+                      </div>
                       <div class="name">
-                           <p>Khuty Muenda</p>
+                           
                       </div>
               
                     </div>
-                </div>
-                <div class="item_r_f">
+                </div> -->
+                <div class="item_r_f"  *ngFor="let all of AllUsers;">
                     
-                  <img src="../../../assets/person-icon.jpg" alt="">
+                  <!-- <img src="{{all.image}}" alt=""> -->
+                  <img *ngIf="!all.image" src="../../../assets/person-icon.jpg">
+   
+                  <img  *ngIf="all.image" src="{{all.image}}" alt="Image Not Available" >
+              
                  
                   <div class="pending_r_user">
-                
+                    <div class="scre_user">
+                        <div class="y_r">
+                        
+                          <!-- <ion-badge color="secondary">34</ion-badge> -->
+                        </div> 
+              
+                        <div class="y_r">
+                          
+                          <!-- <ion-badge color="success">3</ion-badge> -->
+                        </div>
+                        <div class="y_r">
+                       
+                          <!-- <ion-badge color="danger">3</ion-badge> -->
+                        </div>
+                   
+                  
+                    </div>
                     <div class="name">
-                         <p>Khuty Muenda</p>
+                      <p>Name: {{ all.name}}</p>
+                      <p>Number: {{ all.number}}</p>
+                      <p>Email: {{ all.email}}</p>
                     </div>
             
                   </div>
               </div>
-              <div class="item_r_f">
+              <!-- <div class="item_r_f">
                     
                 <img src="../../../assets/person-icon.jpg" alt="">
                
                 <div class="pending_r_user">
+                  <div class="scre_user">
+                      <div class="y_r">
+                        <p>Booked</p>
+                        <ion-badge color="secondary">34</ion-badge>
+                      </div> 
+            
+                      <div class="y_r">
+                        <p>Accepts</p>
+                        <ion-badge color="success">3</ion-badge>
+                      </div>
+                      <div class="y_r">
+                        <p>Denied</p>
+                        <ion-badge color="danger">3</ion-badge>
+                      </div>
+                 
+                
+                  </div>
                   <div class="name">
                        <p>Khuty Muenda</p>
                   </div>
           
                 </div>
             </div>
-              
+               -->
             
             
                </div>
               </div>
-
           </div>
                
 <div class="upload-contract">
               <h4>Upload a Contract for your Users</h4>
               <p class="policy">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima dolore qui necessitatibus officia vero voluptatibus, officiis perferendis tempora nesciunt asperiores, sint corrupti unde maiores consequatur, sequi error consequuntur deleniti doloribus!</p>
-
               
               <label class="fileContainer">
                 <ion-icon size="large" name="add"></ion-icon> Click to upload your Contract Here
                 <input type="file" accept="pdf/*" (change)="changeListener($event)"/> 
             </label>
             </div>
-
            
         
            </div>
