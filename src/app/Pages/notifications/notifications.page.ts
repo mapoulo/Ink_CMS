@@ -1,5 +1,5 @@
 import { DataService } from './../../data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController,Platform } from '@ionic/angular';
@@ -70,8 +70,18 @@ notifications  = 0;
   };
   active: any;
   fullscreen = false;
+  
+ 
+ 
+  respond_containerDiv = document.getElementsByClassName('respond-container')
+  details_profileDiv = document.getElementsByClassName('details-profile')
+  calendar_containerDiv = document.getElementsByClassName('calendar-container');
 
-  constructor(public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+  respondContainer = false;
+  detailsProfile = false;
+  calenderContainer = false;
+
+  constructor(private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
 
  
 
@@ -278,6 +288,21 @@ animateClose() {
    
 }
 
+respondFunc() {
+  this.respondContainer = !this.respondContainer;
+  if(this.respondContainer) {
+    this.render.setStyle(this.respond_containerDiv[0], 'display', 'flex');
+ 
+  }else {
+    this.render.setStyle(this.respond_containerDiv[0], 'display', 'none');
+  }
+}
+
+continueFunc() {
+  this.render.setStyle(this.details_profileDiv[0], 'display', 'none');
+  this.render.setStyle(this.calendar_containerDiv[0], 'display', 'flex');
+}
+
 
   save(obj, i){
 
@@ -286,8 +311,12 @@ animateClose() {
     this.active = i;
     
     this.index = i;
-   
+    
     setTimeout(() => {
+      
+      this.render.setStyle(this.respond_containerDiv[0], 'display', 'flex');
+ 
+      this.respondContainer = true;
       this.obj = obj;
     this.obj.description = obj.obj.description;
     this.obj.image = obj.obj.image;
@@ -447,8 +476,7 @@ console.log("My date is", moment().format().slice(0, 10));
 
      })
 
-
-             const alert = await this.alertCtrl.create({
+     const alert = await this.alertCtrl.create({
           header: 'Respond sent',
           message: '',
           buttons: [
@@ -506,7 +534,10 @@ console.log("My date is", moment().format().slice(0, 10));
 
     await alert.present();
    
-
+/* Close Respond container */
+this.render.setStyle(this.respond_containerDiv[0], 'display', 'none');
+             
+     
 
     }else{
      

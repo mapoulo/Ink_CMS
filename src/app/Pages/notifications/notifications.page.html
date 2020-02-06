@@ -102,7 +102,7 @@
 
             <div class="respond-container">
 
-              <div class="details-profile" *ngIf="obj.image">
+              <div class="details-profile animated slideInUp" *ngIf="obj.image">
                 
                   <div class="card-r">
          
@@ -131,10 +131,10 @@
                    </p> 
                   </div>
                   <div class="continue">
-                    <ion-button mode="ios" expand="block" shape="round" (click)="animateClose()" size="small" color="danger">
+                    <ion-button mode="ios" expand="block" shape="round" (click)="respondFunc()" size="small" color="danger">
                       Cancel
                     </ion-button>
-                    <ion-button mode="ios" expand="block" shape="round" (click)="animateClose()" size="small" color="primary">
+                    <ion-button mode="ios" expand="block" shape="round" (click)="continueFunc()" size="small" color="primary">
                       Continue
                     </ion-button>
                   </div>
