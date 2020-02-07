@@ -108,12 +108,16 @@ export class EditProfilePage implements OnInit {
 
   selectSearchResult(item) {
     console.log(item)
-    this.location = item
-    this.placeid = this.location.place_id
+    this.location = item;
+    this.autocomplete.input = item.description;
+    this.placeid = this.location.place_id;
+    this.autocompleteItems = [];
     console.log('placeid'+ this.placeid)
   }
 
-
+  HideList() {
+    
+  }
   
 
 

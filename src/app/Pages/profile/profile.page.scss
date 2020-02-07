@@ -319,6 +319,10 @@ ion-badge {
                     text-align: center;
                 }
 
+                .users {
+                    flex: 0 0 23% !important;
+                }
+
                 .item_r_f {
                     flex: 0 0 30%;
                     border-radius: 5px;
@@ -516,6 +520,8 @@ ion-badge {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    border-radius: 50px !important;
+    padding: .7em !important;
 }
 
 ion-segment {
@@ -542,7 +548,11 @@ ion-segment {
         padding: 1em;
 
     }
-    .item_r_f {
+    .users {
+        min-width: 80% !important;
+        height: 80% !important;
+    }
+    .item_r_f, .item_r_f.users {
         flex: 0 0 80% !important;
         height: 80% !important;
     }

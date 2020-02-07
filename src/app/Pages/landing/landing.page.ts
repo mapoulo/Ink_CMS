@@ -182,49 +182,24 @@ Tattoos = [];
     }
     
     this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
-     
-      data.forEach(item => {
-        this.counter.push(item.data());
-        this.n += 1
-     
-        
-        
-      })
-    this.createBarChart();
+      this.n += data.size;
+      this.createBarChart();
     })
  
     this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {
-      data.forEach(item => {
-        this.count.push(item.data());
-        this.p += 1
-     
-      
-        
-      })
- this.createBarChart();
+      this.p += data.size;
+      this.createBarChart();
     })
  
   
     this.db.collection("Bookings").onSnapshot(data => {
-      data.forEach(item => {
-        this.county.push(item.data());
-        this.r += 1
-     
-     
-        
-      })
- this.createBarChart();
+      this.r += data.size;
+      this.createBarChart();
     })
  
     this.db.collection("Users").onSnapshot(data => {
-      data.forEach(item => {
-        this.county.push(item.data());
-        this.o += 1
-     
-      
-        
-      })
- this.createBarChart();
+      this.o += data.size;
+      this.createBarChart();
     })
     this.db.collection('Tattoo').onSnapshot(data => {
       this.Tattoos = [];
@@ -320,7 +295,8 @@ Tattoos = [];
 
 
   createBarChart() {
-    Chart.defaults.global.defaultFontSize = 8;
+    Chart.defaults.global.defaultFontSize = 13;
+      this.bars = null;
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'line',
     data: {
@@ -352,7 +328,7 @@ Tattoos = [];
         text: 'Bookings made so far.'
     },
       
-        maintainAspectRatio: true,
+      
   scales: {
     yAxes: [{
       stacked: false,
@@ -370,7 +346,9 @@ Tattoos = [];
         display: false
       }
     }]
-  }
+  },
+  responsive: true,
+  maintainAspectRatio: true,
     }
     });
   }

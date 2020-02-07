@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import * as moment from 'moment';
 import { NotificationsService } from 'src/app/notifications.service';
-
-
+import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -81,9 +80,27 @@ notifications  = 0;
   respondContainer = false;
   detailsProfile = false;
   calenderContainer = false;
+  tattooForm : FormGroup;
+  validation_messages = {
+    'price': [
+      { type: 'required', message: 'Price  is required.' },
 
-  constructor(private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+    ],
+    'startPrice': [
+      { type: 'required', message: 'start date  is required.' },
 
+    ],
+    'endTime': [
+      { type: 'required', message: 'end date  is required.' },
+
+    ],
+  }
+  constructor(private fb: FormBuilder,private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+    this.tattooForm = this.fb.group({
+      price: new FormControl('', Validators.compose([Validators.required])),
+      endTime: new FormControl('', Validators.compose([Validators.required])),
+      startTime: new FormControl('', Validators.compose([Validators.required])),
+    })
  
 
   }
