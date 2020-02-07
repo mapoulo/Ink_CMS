@@ -644,7 +644,7 @@ ion-segment-button {
 }
 .graph-content {
     position: relative;
-    margin: auto;
+    margin: 0 auto;
     flex-basis: 100%;
 /*     height: 100%;
     width: 100%; */
@@ -674,7 +674,7 @@ canvas {
   /*   align-items: center; */
     flex-direction: row;
     .first {
-        justify-content: space-between;
+        justify-content: space-evenly;
         align-items: flex-start;
         text-align: left !important;
         display: flex;
@@ -698,6 +698,44 @@ canvas {
 
 
 @media all and (max-width: 600px) {
+
+    .depictGragh {
+        flex: 0;
+        display: flex;
+        background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding: 1em;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+      /*   align-items: center; */
+        flex-direction: column !important;
+        .first {
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: left !important;
+            width: 100%;
+            display: flex !important;
+            /* padding: .5em; */
+            
+
+            p {
+                padding: .5em;
+                .colorCode {
+                    padding: .4em;
+                    color: #fff;
+                    font-weight: bolder;
+                    
+                    margin: 2%;
+                }
+            }
+            
+          
+        }
+
+    }
     .onbording{
         .onboard {
      
@@ -787,7 +825,7 @@ canvas {
         }
         .graph {
             width: 100%;
-            height: 100%;
+            height: 80%;
             position: relative;
             padding: 0 !important;
 
@@ -803,41 +841,7 @@ canvas {
                  
                 }
 
-                .depictGragh {
-                    flex: 0;
-                    display: flex;
-                    background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
-                    background-position: center center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    padding: 1em;
-                    justify-content: space-between;
-                  /*   align-items: center; */
-                    flex-direction: column;
-                    .first {
-                        justify-content: space-between;
-                        align-items: flex-start;
-                        text-align: left !important;
-                        width: 100%;
-                        display: flex !important;
-                        /* padding: .5em; */
-                        
-
-                        p {
-                            padding: .5em;
-                            .colorCode {
-                                padding: .4em;
-                                color: #fff;
-                                font-weight: bolder;
-                                
-                                margin: 2%;
-                            }
-                        }
-                        
-                      
-                    }
-
-                }
+              
 
             }
 
@@ -919,6 +923,15 @@ canvas {
    }
    .header-container, .header-booking {
        justify-content: center;
+       align-items: center;
+    }
+    .header-containerr {
+        background: linear-gradient(-45deg,rgba(0, 0, 0, 0.685), rgba(0, 0, 0, 0.77)), url('../../../assets/background.jpg');
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff;
+        height: 55px !important;
     }
    .h1-header {
        font-size: 17px;

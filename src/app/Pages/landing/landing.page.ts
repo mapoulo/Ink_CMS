@@ -182,24 +182,34 @@ Tattoos = [];
     }
     
     this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
-      this.n += data.size;
-      this.createBarChart();
+      this.n = data.size;
+      console.log('number',this.n);
+      
+    this.createBarChart();
     })
  
     this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {
-      this.p += data.size;
+      this.p = data.size;
+      console.log('number',this.p);
       this.createBarChart();
     })
  
   
     this.db.collection("Bookings").onSnapshot(data => {
-      this.r += data.size;
+      this.r = data.size;
+      console.log('number',this.r);
       this.createBarChart();
     })
  
     this.db.collection("Users").onSnapshot(data => {
-      this.o += data.size;
-      this.createBarChart();
+      data.forEach(item => {
+        this.county.push(item.data());
+        this.o += 1
+     
+      
+        
+      })
+ this.createBarChart();
     })
     this.db.collection('Tattoo').onSnapshot(data => {
       this.Tattoos = [];
@@ -296,7 +306,7 @@ Tattoos = [];
 
   createBarChart() {
     Chart.defaults.global.defaultFontSize = 13;
-      this.bars = null;
+    
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'bar',
     data: {
@@ -327,8 +337,8 @@ Tattoos = [];
         display: true,
         text: 'Bookings made so far.'
     },
-      
-      
+        responsive: true,
+        maintainAspectRatio: true,
   scales: {
     yAxes: [{
       stacked: false,
@@ -346,9 +356,7 @@ Tattoos = [];
         display: false
       }
     }]
-  },
-  responsive: true,
-  maintainAspectRatio: true,
+  }
     }
     });
   }
