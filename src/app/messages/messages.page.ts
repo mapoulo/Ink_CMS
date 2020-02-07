@@ -185,7 +185,7 @@ export class MessagesPage implements OnInit {
     this.ReadMessages = 0
    
 
-    console.log("Your data is here ", key);
+    console.log("Your data is here ", uid);
   
 
     this.uid = uid
@@ -218,8 +218,11 @@ export class MessagesPage implements OnInit {
 
   async deleteMessage() {
 
+    console.log("Key ", this.uid);
+    
 
-    this.db.collection("Messages").doc(this.uid).collection("Message").doc(this.key).delete()
+
+    this.db.collection("Message").doc(this.uid).delete()
     console.log("Message Deleted");
 
 
@@ -233,57 +236,57 @@ export class MessagesPage implements OnInit {
     await alert.present();
     
 
-    let UidArray = []
+    // let UidArray = []
         
 
-    setTimeout(() => {
+    // setTimeout(() => {
    
-     this.db.collection("Bookings").get().then( data => {
-       data.forEach(item => {
-         UidArray.push(item.id)
+    //  this.db.collection("Bookings").get().then( data => {
+    //    data.forEach(item => {
+    //      UidArray.push(item.id)
         
-       })
-     })
+    //    })
+    //  })
      
-    }, 1000)
+    // }, 1000)
    
   
  
  
-    setTimeout(() => {
+    // setTimeout(() => {
        
-     UidArray.forEach(i => {
-       console.log("All My keys ", i);
+    //  UidArray.forEach(i => {
+    //    console.log("All My keys ", i);
  
  
        
-       this.db.collection("Messages").doc(i).collection("Message").get().then(data => {
+    //    this.db.collection("Messages").doc(i).collection("Message").get().then(data => {
 
         
-         data.forEach(i => {
+    //      data.forEach(i => {
           
-           console.log("All My messages ", i.data());
-           this.AllMessages += 1
+    //        console.log("All My messages ", i.data());
+    //        this.AllMessages += 1
           
            
  
-          if(i.data().satatus == "NotRead"){
-            this.unReadMessages += 1
-          }
+    //       if(i.data().satatus == "NotRead"){
+    //         this.unReadMessages += 1
+    //       }
  
-          if(i.data().satatus == "Read"){
-            this.ReadMessages += 1
-          }
-         })
+    //       if(i.data().satatus == "Read"){
+    //         this.ReadMessages += 1
+    //       }
+    //      })
 
-       })
+    //    })
        
-     })
+    //  })
  
   
    
      
-    }, 2000) 
+    // }, 2000) 
     this.messageInfo = {
       name: '',
       email: '',

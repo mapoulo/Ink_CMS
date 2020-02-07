@@ -88,6 +88,7 @@ notifications  = 0;
 
   }
 
+  tt = []
 
 
   ionViewWillEnter() {
@@ -114,42 +115,36 @@ notifications  = 0;
 
     setTimeout(() => {
 
-      
-
       let id = {docid: "", auId: "",  obj : {}};
-      
 
       UidArray.forEach(i => {
         console.log("All My keys ", i);
 
-
-
         this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(data => {
           
+
+          let i = 0
+          this.Bookings = []
           data.forEach(o => {
 
             if(o.data().bookingState === "waiting"){
-
-
               id.obj = o.data();
               id.auId = o.id;
-                  console.log("aaaa ", id);
-                  
               this.notifications += 1 
               this.Bookings.push(id);
-
-              console.log("Your data ",  this.Bookings);
-              id = {docid: "", auId: "", obj : {}};
-
+              
+              
+           
+              //  this.tt[i+1].push(id)
+               id = {docid: "", auId: "", obj : {}};
+               console.log("Your data ", this.tt);
             }
             
-
           })
         })
 
       })
 
-      
      this.loader = false;
 
     }, 3000)
@@ -440,7 +435,11 @@ async alert(){
   async addEvent() {
 
     this.loader = true;
-
+    setTimeout(() => {
+      this.loader = false;
+      this.Bookings.splice(this.index, 1);
+    }, 2000)
+  
     console.log("All index ", this.index);
     console.log("Data auId ", this.obj.auId);
     console.log("Data uid ", this.obj.uid);
@@ -537,11 +536,7 @@ console.log("My date is", moment().format().slice(0, 10));
                 };
                
               
-                setTimeout(() => {
-                  this.loader = false;
-                  this.Bookings.splice(this.index, 1);
-                }, 2000)
-              
+                
 
   
               }
