@@ -3,7 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import * as firebase from 'firebase';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ViewController } from '@ionic/core';
-import { ModalController, ActionSheetController } from '@ionic/angular';
+import { ModalController,AlertController, ActionSheetController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 @Component({
   selector: 'app-tattoo',
@@ -79,9 +79,10 @@ export class TattooPage implements OnInit {
   // }
  
   loader: boolean = false;
-  constructor(private camera: Camera, private modalController: ModalController, private auth: AuthenticationService,public actionSheetController: ActionSheetController, private fb: FormBuilder) { 
-    
-   }
+  constructor(public AlertController:AlertController,private camera: Camera, private modalController: ModalController, private auth: AuthenticationService,public actionSheetController: ActionSheetController, private fb: FormBuilder) { 
+   
+  
+  }
    ionViewWillEnter(){
     
     this.editButton = this.auth.editButton;
@@ -167,7 +168,7 @@ export class TattooPage implements OnInit {
         pricerange:''
       
       }
-     
+     this.reg1();
       this.dismiss();
   
   }else {
@@ -183,5 +184,13 @@ export class TattooPage implements OnInit {
       'dismissed': true
     });
   }
-  
+  async reg1(){
+    const alert = await this.AlertController.create({
+      header: "",
+      subHeader: "",
+      message: "Tattoo added successfully",
+      buttons: ['OK']
+    });
+    alert.present();
+    }
   }
