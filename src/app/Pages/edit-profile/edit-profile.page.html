@@ -67,10 +67,8 @@
                <div class="searchList">
                 <div class="searchItem" [hidden]="autocompleteItems.length == 0" >
                   <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-                    {{ item.description }}
+                  <ion-label>{{ item.description }}</ion-label>  
                   </ion-item>
-              
-                  <ion-button (click)="GoTo()" >Go To Selected Location</ion-button>
                 </div>
                </div>
             
