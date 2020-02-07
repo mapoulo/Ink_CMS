@@ -85,7 +85,7 @@
             <ion-col  size="12">
               <ion-item>
                 <ion-label position="floating">Phone Number</ion-label>
-                <ion-input type="text" formControlName="phoneNumber"  [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}"  ></ion-input>
+                <ion-input type="tel" formControlName="phoneNumber" minlength="10" maxlength="10" [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" ></ion-input>
                 <ion-icon slot="end" name="ios-call"></ion-icon>
               </ion-item>
               <div class="error" *ngFor="let validate of validation_messages.phoneNumber">

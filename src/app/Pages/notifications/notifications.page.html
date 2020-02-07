@@ -107,7 +107,10 @@
                   <div class="card-r">
          
                     <div class="image-r">
-                    <img src="{{obj.image}}" alt="tattoo images"> 
+                      
+                    <!-- <img *ngIf="!obj.image"src="../../assets/person-icon.jpg" alt="tattoo images">  -->
+                    <img  src="{{obj.image}}" alt="tattoo images"> 
+
                     <div class="fullscreen">
                       <ion-fab-button mode="ios" (click)="animateClose()" size="small" color="secondary">
                         <ion-icon name="qr-scanner"></ion-icon>
@@ -115,7 +118,9 @@
                     </div>
                    
                       <div class="profile-container-r">
-                        <img src="{{obj.UserImage}}" alt="tattoo">
+                        <img *ngIf="!obj.UserImage"src="../../assets/person-icon.jpg" alt="tattoo images"> 
+                       <img *ngIf="obj.UserImage" src="{{obj.UserImage}}" alt="tattoo images"> 
+                       
                       <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}, Phone : {{obj.number}}</p>
                       </div>
                     </div>
@@ -183,35 +188,48 @@
                            
                         </ion-col>
                       </ion-row> 
-                      <ion-row justify-content-center>
+                      <ion-row justify-content-center [formGroup]="tattooForm">
                           <ion-col  size="12">
                             <ion-item>
                               <ion-label position="floating">Start Date</ion-label>
-                              <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+                              <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY HH:mm" [(ngModel)]="event.startTime" formControlName="startTime" [min]="minDate"></ion-datetime>
                               <ion-icon  size="small" slot="end" name="ios-calendar"></ion-icon>
                             </ion-item>
-                    
+                            <div class="error" *ngFor="let validate of validation_messages.startTime">
+                              <div class="messages" *ngIf="tattooForm.get('startTime').hasError(validate.type) && (tattooForm.get('startTime').dirty || tattooForm.get('startTime').touched)">
+                                {{validate.message}}
+                            </div>
+                            </div>
                           </ion-col>
                           <ion-col  size="12">
                             
                             <ion-item>
                               <ion-label position="floating">End Date</ion-label>
-                              <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY  HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
+                              <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY  HH:mm" [(ngModel)]="event.endTime" formControlName="endTime" [min]="minDate"></ion-datetime>
                               <ion-icon size="small" slot="end" name="ios-calendar"></ion-icon>
                             </ion-item>
-                           
+                            <div class="error" *ngFor="let validate of validation_messages.price">
+                              <div class="messages" *ngIf="tattooForm.get('endTime').hasError(validate.type) && (tattooForm.get('endTime').dirty || tattooForm.get('endTime').touched)">
+                                {{validate.message}}
+                            </div>
+                            </div>
                           </ion-col>
                           <ion-col size="12">
                             <ion-item style="margin-bottom: 2em;">
                               <ion-label position="floating" >Price</ion-label><br>
-                              <ion-input type="tel"  [(ngModel)]="price" onKeyPress="if(this.value.length==5) return false;">R</ion-input>
+                              <ion-input type="tel"  [(ngModel)]="price" formControlName="price" onKeyPress="if(this.value.length==5) return false;">R</ion-input>
                             </ion-item>
+                            <div class="error" *ngFor="let validate of validation_messages.price">
+                              <div class="messages" *ngIf="tattooForm.get('price').hasError(validate.type) && (tattooForm.get('price').dirty || tattooForm.get('price').touched)">
+                                {{validate.message}}
+                            </div>
+                            </div>
                           </ion-col>
+                          <ion-col size="5"> <ion-button class="btn-respond" shape="round" expand="block" mode="ios" color="success" (click)="addEvent()" [disabled]="!tattooForm.valid">Respond</ion-button></ion-col>
+                     
                       </ion-row>
                      
-                      <ion-row justify-content-center>
-                        <ion-col size="5"> <ion-button class="btn-respond" shape="round" expand="block" mode="ios" color="success" (click)="addEvent()">Respond</ion-button></ion-col>
-                      </ion-row>
+                   
                     
                     </div>
                   

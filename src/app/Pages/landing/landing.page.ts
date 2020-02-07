@@ -65,7 +65,7 @@ Tattoos = [];
   @ViewChild('slides', {static: false}) slides: IonSlides;
   fullscreen: boolean = false;
   fullScreenImage: any;
-  constructor(public data : DataService, private platform: Platform, private store: Storage, private render: Renderer2, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
+  constructor(public data : DataService, private platform: Platform, public AlertController:AlertController,private store: Storage, private render: Renderer2, private callNumber: CallNumber,public rout : Router,private auth: AuthenticationService, public modalController: ModalController, public alertCtrl: AlertController) {
 
  
 
@@ -308,7 +308,7 @@ Tattoos = [];
     Chart.defaults.global.defaultFontSize = 13;
     
     this.bars = new Chart(this.barChart.nativeElement, {
-         type: 'bar',
+         type: 'line',
     data: {
         labels: ['A-B', 'D-B', 'AC-B', 'A-U'],
         
@@ -571,7 +571,7 @@ goProfilePage(){
             text: 'Delete',
             handler: data => {
               this.db.collection("Tattoo").doc(tattoo.docid).delete();
-              
+              this.reg1();
             }
           }
         ]
@@ -582,7 +582,7 @@ goProfilePage(){
     }
     async DeleteHistory(tattoo) {
       console.log(tattoo);
-      
+    
       const alert = await this.alertCtrl.create({
         header: 'DELETE!',
         message: '<strong>Are you sure you want to delete this tattoo?</strong>!!!',
@@ -606,5 +606,13 @@ goProfilePage(){
       await alert.present();
  
     }
-    
+    async reg1(){
+      const alert = await this.AlertController.create({
+        header: "",
+        subHeader: "",
+        message: "Tattoo Deleted successfully",
+        buttons: ['OK']
+      });
+      alert.present();
 }  
+}

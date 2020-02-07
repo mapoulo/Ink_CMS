@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import * as moment from 'moment';
 import { NotificationsService } from 'src/app/notifications.service';
-
-
+import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -81,13 +80,32 @@ notifications  = 0;
   respondContainer = false;
   detailsProfile = false;
   calenderContainer = false;
+  tattooForm : FormGroup;
+  validation_messages = {
+    'price': [
+      { type: 'required', message: 'Price  is required.' },
 
-  constructor(private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+    ],
+    'startPrice': [
+      { type: 'required', message: 'start date  is required.' },
 
+    ],
+    'endTime': [
+      { type: 'required', message: 'end date  is required.' },
+
+    ],
+  }
+  constructor(private fb: FormBuilder,private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+    this.tattooForm = this.fb.group({
+      price: new FormControl('', Validators.compose([Validators.required])),
+      endTime: new FormControl('', Validators.compose([Validators.required])),
+      startTime: new FormControl('', Validators.compose([Validators.required])),
+    })
  
 
   }
 
+  tt = []
 
 
   ionViewWillEnter() {
@@ -114,42 +132,36 @@ notifications  = 0;
 
     setTimeout(() => {
 
-      
-
       let id = {docid: "", auId: "",  obj : {}};
-      
 
       UidArray.forEach(i => {
         console.log("All My keys ", i);
 
-
-
         this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(data => {
           
+
+          let i = 0
+          this.Bookings = []
           data.forEach(o => {
 
             if(o.data().bookingState === "waiting"){
-
-
               id.obj = o.data();
               id.auId = o.id;
-                  console.log("aaaa ", id);
-                  
               this.notifications += 1 
               this.Bookings.push(id);
-
-              console.log("Your data ",  this.Bookings);
-              id = {docid: "", auId: "", obj : {}};
-
+              
+              
+           
+              //  this.tt[i+1].push(id)
+               id = {docid: "", auId: "", obj : {}};
+               console.log("Your data ", this.tt);
             }
             
-
           })
         })
 
       })
 
-      
      this.loader = false;
 
     }, 3000)
@@ -440,7 +452,11 @@ async alert(){
   async addEvent() {
 
     this.loader = true;
-
+    setTimeout(() => {
+      this.loader = false;
+      this.Bookings.splice(this.index, 1);
+    }, 2000)
+  
     console.log("All index ", this.index);
     console.log("Data auId ", this.obj.auId);
     console.log("Data uid ", this.obj.uid);
@@ -537,11 +553,7 @@ console.log("My date is", moment().format().slice(0, 10));
                 };
                
               
-                setTimeout(() => {
-                  this.loader = false;
-                  this.Bookings.splice(this.index, 1);
-                }, 2000)
-              
+                
 
   
               }
