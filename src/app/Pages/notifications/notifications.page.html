@@ -115,8 +115,8 @@
                     </div>
                    
                       <div class="profile-container-r">
-                        <img src="{{obj.userImage}}" alt="tattoo">
-                      <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}</p>
+                        <img src="{{obj.UserImage}}" alt="tattoo">
+                      <p class="paragragh" style="color: rgb(80, 80, 80)">{{obj.customerName}}, Phone : {{obj.number}}</p>
                       </div>
                     </div>
                     <div class="card-details">
@@ -204,7 +204,7 @@
                           <ion-col size="12">
                             <ion-item style="margin-bottom: 2em;">
                               <ion-label position="floating" >Price</ion-label><br>
-                              <ion-input type="tel"  [(ngModel)]="price">R</ion-input>
+                              <ion-input type="tel"  [(ngModel)]="price" onKeyPress="if(this.value.length==5) return false;">R</ion-input>
                             </ion-item>
                           </ion-col>
                       </ion-row>
