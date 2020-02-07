@@ -43,13 +43,14 @@ p, h1, h2,h3,h4,h5,h6,small, ion-label, ion-input, ion-item, input {
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
-
+  border-radius: 50%;
 }
+
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: #92929262;
-  
+
 }
 
 ion-searchbar {

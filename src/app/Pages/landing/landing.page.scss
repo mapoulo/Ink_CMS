@@ -179,7 +179,7 @@ ion-segment-button {
 
 
 .aside {
-    flex-basis: 10%;
+    flex-basis: 4%;
    
     position: relative;
     background: #D66E53;
@@ -582,6 +582,7 @@ ion-segment-button {
 .booking-container {
     flex-basis: 60%;
     height: 60%;
+   
     flex-wrap: nowrap !important;
 
 }
@@ -611,7 +612,7 @@ ion-segment-button {
     height: 100%;
     align-self: flex-end;
     display: flex;
-   /*  justify-content: center;
+  /*   justify-content: center;
     align-items: center; */
     align-content: center;
     flex-direction: column;
@@ -644,7 +645,7 @@ ion-segment-button {
 }
 .graph-content {
     position: relative;
-    margin: 0 auto;
+    margin: auto;
     flex-basis: 100%;
 /*     height: 100%;
     width: 100%; */
@@ -652,8 +653,7 @@ ion-segment-button {
 
 }
 canvas {
-    
-    box-shadow: 0 0 3px #ddd;
+   
     height: 100% !important;
     width: 100% !important;
     
@@ -670,7 +670,7 @@ canvas {
     background-size: cover;
     background-repeat: no-repeat;
     padding: 1em;
-    justify-content: space-between;
+    justify-content: space-evenly;
   /*   align-items: center; */
     flex-direction: row;
     .first {
@@ -698,45 +698,6 @@ canvas {
 
 
 @media all and (max-width: 600px) {
-
-    .depictGragh {
-        flex: 0;
-        display: flex;
-        background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        padding: 1em;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-
-      /*   align-items: center; */
-        flex-direction: column !important;
-        .first {
-            justify-content: space-between;
-            align-items: flex-start;
-            text-align: left !important;
-            width: 100%;
-            display: block !important;
-            /* padding: .5em; */
-            
-
-            p {
-                padding: .5em;
-                text-align: left !important;
-                .colorCode {
-                    padding: .4em;
-                    color: #fff;
-                    font-weight: bolder;
-                    
-                    margin: 2%;
-                }
-            }
-            
-          
-        }
-
-    }
     .onbording{
         .onboard {
      
@@ -842,7 +803,41 @@ canvas {
                  
                 }
 
-              
+                .depictGragh {
+                    flex: 0;
+                    display: flex;
+                    background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
+                    background-position: center center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    padding: 1em;
+                    justify-content: space-between;
+                  /*   align-items: center; */
+                    flex-direction: column;
+                    .first {
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        text-align: left !important;
+                        width: 100%;
+                        display: flex !important;
+                        /* padding: .5em; */
+                        
+
+                        p {
+                            padding: .5em;
+                            .colorCode {
+                                padding: .4em;
+                                color: #fff;
+                                font-weight: bolder;
+                                
+                                margin: 2%;
+                            }
+                        }
+                        
+                      
+                    }
+
+                }
 
             }
 
@@ -924,15 +919,6 @@ canvas {
    }
    .header-container, .header-booking {
        justify-content: center;
-       align-items: center;
-    }
-    .header-containerr {
-        background: linear-gradient(-45deg,rgba(0, 0, 0, 0.685), rgba(0, 0, 0, 0.77)), url('../../../assets/background.jpg');
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        color: #fff;
-        height: 55px !important;
     }
    .h1-header {
        font-size: 17px;
@@ -1098,6 +1084,8 @@ canvas {
     }
     .container {
         flex-basis: 96%;
+        overflow-y: scroll;
+        overflow-x: hidden;
 
     }
     .booking-container {

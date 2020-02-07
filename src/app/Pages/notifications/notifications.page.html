@@ -90,7 +90,7 @@
 
 
                             <div class="select-card-first" *ngIf="Bookings.length == 0">
-                              <img src="../../../assets/icon/3024050.png" alt="">
+                              <img src="../../../assets/icon/3024050.png" alt="" width="50px">
                               <p>You do not have any Notifications.</p>
                             </div> 
                       </div> 
@@ -225,7 +225,9 @@
                             </div>
                             </div>
                           </ion-col>
-                          <ion-col size="5"> <ion-button class="btn-respond" shape="round" expand="block" mode="ios" color="success" (click)="addEvent()" [disabled]="!tattooForm.valid">Respond</ion-button></ion-col>
+                          <ion-col size="5"> 
+                            <ion-button class="btn-respond" shape="round" expand="block" mode="ios" color="success" (click)="addEvent()" [disabled]="!tattooForm.valid">Respond</ion-button>
+                          </ion-col>
                      
                       </ion-row>
                      

@@ -19,8 +19,9 @@
 }
 .tattoo-image {
     position: relative;
-    flex-shrink: 1;
+    flex-shrink: 0;
     flex-grow: 0; 
+    flex-basis: 90%;
     /* border-radius: 0 0 70px 0; */
     overflow: hidden;
  .tatto-pro {

@@ -395,8 +395,7 @@
                         border-right: 5px solid  rgba(34, 34, 34, 0.082);
                         border-bottom: 5px solid rgba(34, 34, 34, 0.082);
                         object-fit: cover;
-                        box-shadow:  6px 6px 12px rgba(0, 0, 0, 0.1),  
-                          -6px -6px 12px  #383838;
+                        box-shadow:  6px 6px 12px rgba(168, 168, 168, 0.1);
 
                     }
 
@@ -525,6 +524,7 @@ h4 {
         margin: 0 !important;
         display: none;
         transition: 500ms;
+        
         .details-profile {
             padding:  0 !important;
             flex: 0 0 100%;
@@ -554,10 +554,10 @@ h4 {
             padding: 0;
             margin: 0 !important;
             transition: 500ms;
-
+            
             .calender {
                width: 100vw;
-               height: 100vh; 
+               height: 150vw; 
                overflow-y: scroll;
                overflow-x: hidden;
             }

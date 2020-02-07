@@ -86,7 +86,7 @@ notifications  = 0;
       { type: 'required', message: 'Price  is required.' },
 
     ],
-    'startPrice': [
+    'startTime': [
       { type: 'required', message: 'start date  is required.' },
 
     ],
