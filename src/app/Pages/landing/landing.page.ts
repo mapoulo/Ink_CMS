@@ -99,9 +99,11 @@ Tattoos = [];
 
     this.db.collection("Message").onSnapshot(data => {
       this.UnreadMessages = []
+      this.messages  = 0
       data.forEach(item => {
        
         if(item.data().status == "NotRead"){
+          this.messages += 1
           this.UnreadMessages.push(item.data())
          
         }

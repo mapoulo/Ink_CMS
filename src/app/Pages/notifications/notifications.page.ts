@@ -64,6 +64,7 @@ notifications  = 0;
     image : '',
     length : '',
     number:'',
+    UserImage : '',
     tattoName : '',
     uid : '',
     auId : ''
@@ -323,6 +324,9 @@ resetValues() {
 
   save(obj, i){
 
+    console.log("ddfsdf ", obj);
+    
+
     this.loader = true;
     
     this.active = i;
@@ -348,6 +352,7 @@ resetValues() {
     this.obj.breadth = obj.obj.breadth;
     this.obj.uid = obj.obj.uid;
     this.obj.auId = obj.auId;
+    this.obj.UserImage = obj.obj.userImage
     console.log("save button clicked", this.obj);
     console.log("index", this.index);
     
@@ -523,6 +528,7 @@ console.log("My date is", moment().format().slice(0, 10));
                   image : '',
                   length : '',
                  endPrice : '',
+                 UserImage : '',
                  startPrice : '',
                   number:'',
                   tattoName : '',
