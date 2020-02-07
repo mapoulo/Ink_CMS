@@ -7,23 +7,16 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-searchbar>
-
+  
   </ion-toolbar>
   <ion-toolbar>
-
+ 
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-list class="search" [hidden]="autocompleteItems.length == 0">
-    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-      {{ item.description }}
-    </ion-item>
-
-    <ion-button (click)="GoTo()" >Go To Selected Location</ion-button>
-  </ion-list>
+  
   <div class="loader" *ngIf="loader">
     <div class="loader-1">
       
@@ -43,6 +36,8 @@
         <ion-icon size="large" name="add"></ion-icon> Edit your picture Here
         <input type="file" accept="image/*"  (change)="changeListener($event)"/> 
     </label>
+
+   
     </div>
     <div class="form-container">
       <ion-list>
@@ -63,13 +58,22 @@
           </ion-row>
           <ion-row justify-content-center>
             <ion-col  size="12">
-              <ion-item>
-                <!-- <ion-label position="floating">Physical Address</ion-label> -->
-               
-                <ion-icon slot="end" name="ios-pin"></ion-icon>
+              <ion-item >
+             <ion-label position="floating">Physical Address</ion-label>
+             <ion-input formControlName="address" (ionBlur)="HideList()" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-input>
+           
+              <ion-icon slot="end" name="ios-pin"></ion-icon>
               </ion-item>
-
-             
+               <div class="searchList">
+                <div class="searchItem" [hidden]="autocompleteItems.length == 0" >
+                  <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+                    {{ item.description }}
+                  </ion-item>
+              
+                  <ion-button (click)="GoTo()" >Go To Selected Location</ion-button>
+                </div>
+               </div>
+            
               <div class="error" *ngFor="let validate of validation_messages.address">
                 <div class="messages" *ngIf="tattooForm.get('address').hasError(validate.type) && (tattooForm.get('address').dirty || tattooForm.get('address').touched)">
                   {{validate.message}}

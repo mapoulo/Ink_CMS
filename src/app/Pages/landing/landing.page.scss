@@ -611,10 +611,10 @@ ion-segment-button {
     height: 100%;
     align-self: flex-end;
     display: flex;
-    justify-content: center;
-    align-items: center;
+   /*  justify-content: center;
+    align-items: center; */
     align-content: center;
-   
+    flex-direction: column;
     position: relative;
 
     .close-btn {
