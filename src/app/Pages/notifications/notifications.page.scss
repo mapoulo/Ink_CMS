@@ -478,9 +478,17 @@ h4 {
 
 }
 
+.btn-close_r {
+    display: none;
+}
+
 
 
 @media all and (max-width: 600px) {
+
+    .btn-close_r {
+        display: block;
+    }
 
     p {
         font-size: 80% !important;

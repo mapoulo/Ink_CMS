@@ -173,6 +173,9 @@
     }
 }
 
+ion-segment-button {
+    padding: .3em;
+}
 
 
 .aside {
@@ -659,6 +662,39 @@ canvas {
 .analytics_btn, .small_device_gragh {
     display: none;
 }
+.depictGragh {
+    flex: 0;
+    display: flex;
+    background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 1em;
+    justify-content: space-between;
+  /*   align-items: center; */
+    flex-direction: row;
+    .first {
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left !important;
+        display: flex;
+        width: 100%;
+        /* padding: .5em; */
+        
+
+        p {
+            padding: .5em;
+            .colorCode {
+                padding: .4em;
+                color: #fff;
+                font-weight: bolder;
+            }
+        }
+        
+      
+    }
+
+}
 
 
 @media all and (max-width: 600px) {
@@ -735,7 +771,7 @@ canvas {
     }
 
     .gragh-container {
-        background: #000;
+      /*   background: #000; */
         position: absolute;
         top: -10%;
         left: 0;
@@ -756,11 +792,51 @@ canvas {
             padding: 0 !important;
 
             .graph-content {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
                 
 
                 canvas {
                     height: 300px !important;
                     width: 100% !important;
+                 
+                }
+
+                .depictGragh {
+                    flex: 0;
+                    display: flex;
+                    background: linear-gradient(rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.87)), url('../../../assets/background.jpg');
+                    background-position: center center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    padding: 1em;
+                    justify-content: space-between;
+                  /*   align-items: center; */
+                    flex-direction: column;
+                    .first {
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        text-align: left !important;
+                        width: 100%;
+                        display: flex !important;
+                        /* padding: .5em; */
+                        
+
+                        p {
+                            padding: .5em;
+                            .colorCode {
+                                padding: .4em;
+                                color: #fff;
+                                font-weight: bolder;
+                                
+                                margin: 2%;
+                            }
+                        }
+                        
+                      
+                    }
+
                 }
 
             }

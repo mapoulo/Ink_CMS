@@ -8,7 +8,7 @@
   </div>
   <main class="main">
 
-    <div class="full_r" *ngIf="fullscreen">
+    <div class="full_r animated zoomIn" *ngIf="fullscreen">
       <div class="btn-close">
         <ion-button fill="clear" size="large" color="light" (click)="animateClose()"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
       </div>
@@ -145,7 +145,7 @@
            
                  <div class="calendar-container animated bounce" *ngIf="obj.image"> 
                    <div class="header_" style="width: 100%; z-index: 10;">
-                    <ion-button mode="ios" expand="block" shape="round" size="small" fill="clear" (click)="cancelFunction()" size="small" color="danger">
+                    <ion-button class="btn-close_r" mode="ios" expand="block" shape="round" size="small" fill="clear" (click)="cancelFunction()" size="small" color="danger">
                       Cancel
                     </ion-button>
                      <p class="p_header">Manage your Days</p>

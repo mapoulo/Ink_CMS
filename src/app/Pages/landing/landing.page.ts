@@ -324,20 +324,20 @@ Tattoos = [];
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'bar',
     data: {
-        labels: ['All Bookings', 'Declined Bookings', 'Accepted Booking', 'All Users'],
+        labels: ['A-B', 'D-B', 'AC-B', 'A-U'],
         
         datasets: [{
-            label: '#-Analytics',
+            label: 'Ink Scribe Tattoo-Analytics',
             data: [this.r, this.p, this.n, this.o],
             backgroundColor: [
-                'rgba(0, 0, 0, 1)', 
-                'rgba(0, 0, 0, 1)',
-                'rgba(0, 0, 0, 1)',
-                'rgba(0, 0, 0, 1)'
+                'rgba(214, 110, 83, 0.8)', 
+                '#F25E5E',
+                '#F2D5C4',
+                'rgba(242, 149, 68, 0.5)'
                 
             ],
             borderColor: [
-                'rgba(225, 159, 64, 0.5)',
+                'rgb(214, 110, 83)',
                 'rgba(225, 159, 64, 0.5)',
                 'rgba(225, 159, 64, 0.5)',
                 'rgba(225, 159, 64, 0.5)'
