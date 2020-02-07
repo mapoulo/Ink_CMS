@@ -127,8 +127,38 @@
   </div>
                 </div>
                 <div class="item_c" *ngSwitchCase="'users'">
-               
-                <div class="item_r_f"  *ngFor="let all of AllUsers;">
+                <!--     <div class="item_g_no_messages_users">
+                     <p>You do not have users</p>
+                   </div>  -->
+                   <!-- <div class="item_r_f">
+                    
+                    <img src="../../../assets/person-icon.jpg" alt="">
+                   
+                    <div class="pending_r_user">
+                      <div class="scre_user">
+                          <div class="y_r">
+                            <p>Booked</p>
+                            <ion-badge color="secondary">34</ion-badge>
+                          </div> 
+                
+                          <div class="y_r">
+                            <p>Accepts</p>
+                            <ion-badge color="success">3</ion-badge>
+                          </div>
+                          <div class="y_r">
+                            <p>Denied</p>
+                            <ion-badge color="danger">3</ion-badge>
+                          </div>
+                     
+                    
+                      </div>
+                      <div class="name">
+                           
+                      </div>
+              
+                    </div>
+                </div> -->
+                <div class="item_r_f users"  *ngFor="let all of AllUsers;">
                     
          
                   <img *ngIf="!all.image" src="../../../assets/person-icon.jpg">
