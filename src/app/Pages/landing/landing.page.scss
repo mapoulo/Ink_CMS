@@ -717,12 +717,13 @@ canvas {
             align-items: flex-start;
             text-align: left !important;
             width: 100%;
-            display: flex !important;
+            display: block !important;
             /* padding: .5em; */
             
 
             p {
                 padding: .5em;
+                text-align: left !important;
                 .colorCode {
                     padding: .4em;
                     color: #fff;

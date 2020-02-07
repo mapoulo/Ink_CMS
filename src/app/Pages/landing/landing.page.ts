@@ -10,6 +10,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { MessagesPageModule } from 'src/app/messages/messages.module';
 import { MessagesPage } from 'src/app/messages/messages.page';
 import { Storage } from '@ionic/storage';
+import { start } from 'repl';
 
 @Component({
   selector: 'app-landing',
@@ -307,6 +308,7 @@ Tattoos = [];
   createBarChart() {
     Chart.defaults.global.defaultFontSize = 13;
     
+    
     this.bars = new Chart(this.barChart.nativeElement, {
          type: 'line',
     data: {
@@ -316,23 +318,23 @@ Tattoos = [];
             label: 'Ink Scribe Tattoo-Analytics',
             data: [this.r, this.p, this.n, this.o],
             backgroundColor: [
-                'rgba(214, 110, 83, 0.8)', 
+                'rgba(214, 110, 83, 0)', 
                 '#F25E5E',
                 '#F2D5C4',
                 'rgba(242, 149, 68, 0.5)'
                 
             ],
             borderColor: [
-                'rgb(214, 110, 83)',
-                'rgba(225, 159, 64, 0.5)',
-                'rgba(225, 159, 64, 0.5)',
-                'rgba(225, 159, 64, 0.5)'
+                'rgba(214, 110, 83, 0.9)'
                
             ],
-            borderWidth: 0
+            borderWidth: 3,
+            
         }]
     },
     options: {
+
+     
       title: {
         display: true,
         text: 'Bookings made so far.'
