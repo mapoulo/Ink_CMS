@@ -316,8 +316,8 @@ Tattoos = [];
     this.onboard = false;
     this.store.set('onboard', true);
   }
-  onNext(i) {
-    this.slides.slideTo(i)
+  onNext() {
+    this.slides.slideNext();
   
   }
 
@@ -328,7 +328,7 @@ Tattoos = [];
 
 
   createBarChart() {
-    Chart.defaults.global.defaultFontSize = 13;
+    Chart.defaults.global.defaultFontSize = 11;
     
     
     this.bars = new Chart(this.barChart.nativeElement, {
@@ -355,7 +355,7 @@ Tattoos = [];
         }]
     },
     options: {
-
+     
      
       title: {
         display: true,
@@ -372,7 +372,8 @@ Tattoos = [];
         
       },
       ticks: {
-        beginAtZero: true
+        beginAtZero: true,
+        fontFamily: 'Montserrat , sans-serif'
     }
     }],
     xAxes: [{

@@ -73,7 +73,7 @@
                                               <div class="info-booking">
                                               <!-- <p class="description">{{item.obj.description }}</p>      -->                                      
                                               <div class="measure">
-                                                <p><strong>Breadth</strong></p>
+                                                <p><strong>Width</strong></p>
                                                 <p>:{{item.obj.breadth}}cm</p>
                                               </div>
                                               <div class="measure">
@@ -129,11 +129,8 @@
                      <p><strong>Length : {{obj.length }}</strong> </p>
                      <p><strong>Breadth : {{obj.breadth}}</strong></p>
                      </div>
-                   <p>
-                     {{obj.description}}
-
-                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat iure deserunt saepe totam! Tempore quo quam exercitationem illum quaerat porro sed nesciunt rerum impedit, voluptate, quis atque, dolorem facilis adipisci.
-                   </p> 
+                   <p class="p_r">
+                     {{obj.description}} </p> 
                   </div>
                   <div class="continue">
                     <ion-button mode="ios" expand="block" shape="round" (click)="respondFunc()" size="small" color="danger">
@@ -148,7 +145,7 @@
                   
             </div>
            
-                 <div class="calendar-container animated bounce" *ngIf="obj.image"> 
+                 <div class="calendar-container animated slideInUp" *ngIf="obj.image"> 
                    <div class="header_" style="width: 100%; z-index: 10;">
                     <ion-button class="btn-close_r" mode="ios" expand="block" shape="round" size="small" fill="clear" (click)="cancelFunction()" size="small" color="danger">
                       Cancel
