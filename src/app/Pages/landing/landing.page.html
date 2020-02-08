@@ -205,7 +205,7 @@
             <ion-segment-button value="accepted">
              
               <div class="grow">
-                <ion-badge mode="ios" color="success">{{AcceptedLength}}</ion-badge>
+                <ion-badge mode="ios" color="success">{{Accepted.length}}</ion-badge>
                 <ion-label>Accepted</ion-label>
                 
               </div>
@@ -213,7 +213,7 @@
             </ion-segment-button>
             <ion-segment-button  value="declined">
               <div class="grow">
-                <ion-badge mode="ios" color="danger">{{declinedLength}}</ion-badge>
+                <ion-badge mode="ios" color="danger">{{Declined.length}}</ion-badge>
                 <ion-label>Declined</ion-label>
                 
               </div>
@@ -223,7 +223,7 @@
         <div class="listings" [ngSwitch]="category">
           <div class="list-booking"  *ngSwitchCase="'declined'">
 
-            <div class="no-bookings" *ngIf="Decline.length == 0">
+            <div class="no-bookings" *ngIf="Declined.length == 0">
               <p >You do not have <span style="color: red;">Declined</span>  bookings yet</p>
             </div>
             
@@ -231,17 +231,17 @@
             
              
              
-              <div class="card_"   *ngFor = "let item of Decline; let i=index;"  (click)="viewTattoo(i)">
+              <div class="card_"   *ngFor = "let item of Declined; let i=index;"  (click)="viewTattoo(i)">
                 <div class="card_t"  [ngClass]="{'active': active==i}">
                   <div class="coloring1"></div>
                     <div class="img-tattoo">
-                      <img src="{{item.data.image}}" alt="">
+                      <img src="{{item.image}}" alt="">
                     </div>
                     <div class="info">
                       
-                      <p style="font-weight: bold;">{{item.data.name}}</p>
-                      <p>Name:{{item.data.customerName }}</p>
-                      <p>Number: {{item.data.number }}</p>
+                      <p style="font-weight: bold;">{{item.name}}</p>
+                      <p>Name:{{item.customerName }}</p>
+                      <p>Number: {{item.number }}</p>
                   
                     
                         
@@ -262,15 +262,15 @@
                   <ion-icon name="ios-checkmark" color="light"></ion-icon>
                 </div>
                   <div class="img-tattoo">
-                    <img src="{{item.data.image}}" alt="">
+                    <img src="{{item.image}}" alt="">
                   </div>
                   <div class="info">
-                    <p style="font-weight: bold;">{{item.data.name}}</p>
-                    <p>{{item.data.customerName }}</p>
-                    <p>{{item.data.number }}</p>
-                   <!--  <p style="background: forestgreen; color: #fff">Status {{item.data.bookingState}}</p> -->
-                    <p>Start Date: {{item.data.startingDate | date: 'shortDate'}}</p>
-                    <p>End Date: {{item.data.endingDate | date: 'shortDate'}}</p>
+                    <p style="font-weight: bold;">{{item.name}}</p>
+                    <p>{{item.customerName }}</p>
+                    <p>{{item.number }}</p>
+                   <!--  <p style="background: forestgreen; color: #fff">Status {{item.bookingState}}</p> -->
+                    <p>Start Date: {{item.startingDate | date: 'shortDate'}}</p>
+                    <p>End Date: {{item.endingDate | date: 'shortDate'}}</p>
                       
 
                   </div>

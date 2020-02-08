@@ -10,7 +10,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { MessagesPageModule } from 'src/app/messages/messages.module';
 import { MessagesPage } from 'src/app/messages/messages.page';
 import { Storage } from '@ionic/storage';
-import { start } from 'repl';
+// import { start } from 'repl';
 
 @Component({
   selector: 'app-landing',
@@ -55,6 +55,9 @@ Tattoos = [];
   isAdmin: any;
   count=[];
   county=[];
+
+  Declined = []
+   
   image1 = ""
   counter  = [];
   n : number = 0;
@@ -96,6 +99,25 @@ Tattoos = [];
    
   ionViewDidEnter() {
 
+
+    this.db.collection("Response").onSnapshot(data => {
+      this.Accepted = []
+      data.forEach(item => {
+        if(item.data().bookingState == "Accepted"){
+            this.Accepted.push(item.data())
+        }
+      })
+    })
+
+
+    this.db.collection("Response").onSnapshot(data => {
+      this.Declined = []
+      data.forEach(item => {
+        if(item.data().bookingState == "Declined"){
+            this.Declined.push(item.data())
+        }
+      })
+    })
 
 
     this.db.collection("Message").onSnapshot(data => {
@@ -182,27 +204,27 @@ Tattoos = [];
       endPrice:''
     }
     
-    this.db.collection('Users').where('bookingState', '==','Accepted').onSnapshot(data => {
+    this.db.collection('Response').where('bookingState', '==','Accepted').onSnapshot(data => {
       this.n = data.size;
       console.log('number',this.n);
       
     this.createBarChart();
     })
  
-    this.db.collection('Users').where('bookingState', '==','Decline').onSnapshot(data => {
+    this.db.collection('Response').where('bookingState', '==','Declined').onSnapshot(data => {
       this.p = data.size;
       console.log('number',this.p);
       this.createBarChart();
     })
  
   
-    this.db.collection("Bookings").onSnapshot(data => {
+    this.db.collection("Response").onSnapshot(data => {
       this.r = data.size;
       console.log('number',this.r);
       this.createBarChart();
     })
  
-    this.db.collection("Users").onSnapshot(data => {
+    this.db.collection("Response").onSnapshot(data => {
       data.forEach(item => {
         this.county.push(item.data());
         this.o += 1
@@ -239,22 +261,22 @@ Tattoos = [];
     })
 
 
-   this.db.collection("Users").onSnapshot(data => {
-     this.Accepted = [];
-     this.AcceptedLength=0;
-     data.forEach(item => {
+  //  this.db.collection("Users").onSnapshot(data => {
+  //    this.Accepted = [];
+  //    this.AcceptedLength=0;
+  //    data.forEach(item => {
        
-       if(item.data().bookingState === "Accepted"){
+  //      if(item.data().bookingState === "Accepted"){
        
         
        
-        this.Accepted.push({id: item.id, data: item.data()})
-        this.AcceptedLength =  this.Accepted.length;
-       }
+  //       this.Accepted.push({id: item.id, data: item.data()})
+  //       this.AcceptedLength =  this.Accepted.length;
+  //      }
       
        
-     })
-   })  
+  //    })
+  //  })  
 
 
    this.db.collection("Users").onSnapshot(data => {
@@ -368,24 +390,15 @@ Tattoos = [];
 
   ngOnInit() {
 
-   
-
-
-
-   setTimeout(() => {
- 
-    this.uids.forEach(i => {
-       
-      this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(item => {
-       item.forEach(data => {
-         console.log("wwww ", data.data());
-         
-       })
+    this.db.collection("Bookings").onSnapshot(data => {
+      this.notifications = 0
+      data.forEach(item => {
+        if(item.data().bookingState == "waiting"){
+          this.notifications += 1
+        }
       })
     })
-   }, 2000);
 
- 
 
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
@@ -393,57 +406,6 @@ Tattoos = [];
       })
     })
 
-
-    
-    let MyArray = []
-    let number = 0
-
-    setTimeout(() => {
-     this.db.collection("Bookings").get().then(data => {
-   
-      
-      data.forEach(item => {
-        MyArray.push(item.id)
-       
-      })
-
-     })
-    }, 1000)
-   
-  
- 
-   
-    setTimeout(() => {
-       
-     
-      MyArray.forEach(i => {
-      
- 
-       this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(data => {
-
-         number = 0
-         data.forEach(i => {
-          
-          if(i.data().bookingState == "waiting"){
-         
-            number += 1
-            this.notifications = number
- 
-          }  
-           
-         })
-        
-       })
-       
-       
-     })
-     
-  }, 2000)
-
-
-
-
-    
 
 
   }

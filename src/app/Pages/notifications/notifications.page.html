@@ -68,7 +68,7 @@
                   </div>
                     
                 <div class="bookings-list">
-                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index;" (click)="save(item, i)" [ngClass]="{'active animated jackInTheBox': active==i}">
+                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index;" (click)="save(item.obj, i, item.id)" [ngClass]="{'active animated jackInTheBox': active==i}">
                                               <div class="tattoo-booking-image"><img src="{{item.obj.image}}"  [ngClass]="{'active': active==i}" alt=""></div>
                                               <div class="info-booking">
                                               <!-- <p class="description">{{item.obj.description }}</p>      -->                                      

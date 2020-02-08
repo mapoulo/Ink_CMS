@@ -113,58 +113,34 @@ notifications  = 0;
     this.loader = true;
 
 
-    let UidArray = []
+  
 
-    setTimeout(() => {
-      this.db.collection("Bookings").onSnapshot(data => {
-       
-        this.Bookings = []
-        data.forEach(item => {
-          UidArray.push(item.id)
 
-        })
+    this.db.collection("Bookings").onSnapshot(data => {
+      this.Bookings = []
+      let obj = {obj : {}, id : ""}
+      data.forEach(item => {
+        if(item.data().bookingState == "waiting"){
+          obj.obj = item.data()
+          obj.id  = item.id
+          this.Bookings.push(obj)
+          obj = {obj : {}, id : ""}
+          console.log("Bookings ", this.Bookings);
+          
+        }
       })
+    })
 
-    }, 2000)
+
 
    
 
 
-    setTimeout(() => {
 
-      let id = {docid: "", auId: "",  obj : {}};
-
-      UidArray.forEach(i => {
-        console.log("All My keys ", i);
-
-        this.db.collection("Bookings").doc(i).collection("Requests").onSnapshot(data => {
-          
-
-          let i = 0
-          this.Bookings = []
-          data.forEach(o => {
-
-            if(o.data().bookingState === "waiting"){
-              id.obj = o.data();
-              id.auId = o.id;
-              this.notifications += 1 
-              this.Bookings.push(id);
-              
-              
-           
-              //  this.tt[i+1].push(id)
-               id = {docid: "", auId: "", obj : {}};
-               console.log("Your data ", this.tt);
-            }
-            
-          })
-        })
-
-      })
 
      this.loader = false;
 
-    }, 3000)
+  
 
     
    
@@ -334,7 +310,7 @@ resetValues() {
 }
 
 
-  save(obj, i){
+  save(obj, i, id){
 
     console.log("ddfsdf ", obj);
     
@@ -351,20 +327,20 @@ resetValues() {
     
       this.respondContainer = true;
       this.obj = obj;
-    this.obj.description = obj.obj.description;
-    this.obj.image = obj.obj.image;
-    this.obj.length = obj.obj.length;
-    this.obj.startPrice = obj.obj.startPrice;
-    this.obj.endPrice = obj.obj.endPrice;
-    this.obj.number=obj.obj.number;
-    this.obj.tattoName = obj.obj.tattoName;
-    this.obj.customerName = obj.obj.customerName;
-    this.obj.bookingState = obj.obj.bookingState;
-    this.obj.category = obj.obj.category;
-    this.obj.breadth = obj.obj.breadth;
-    this.obj.uid = obj.obj.uid;
-    this.obj.auId = obj.auId;
-    this.obj.UserImage = obj.obj.userImage
+    this.obj.description = obj.description;
+    this.obj.image = obj.image;
+    this.obj.length = obj.length;
+    this.obj.startPrice = obj.startPrice;
+    this.obj.endPrice = obj.endPrice;
+    this.obj.number=obj.number;
+    this.obj.tattoName = obj.tattoName;
+    this.obj.customerName = obj.customerName;
+    this.obj.bookingState = obj.bookingState;
+    this.obj.category = obj.category;
+    this.obj.breadth = obj.breadth;
+    this.obj.uid = obj.uid;
+    this.obj.auId = id;
+    this.obj.UserImage = obj.userImage
     console.log("save button clicked", this.obj);
     console.log("index", this.index);
     
@@ -457,6 +433,7 @@ async alert(){
       this.Bookings.splice(this.index, 1);
     }, 2000)
   
+    console.log("All  ", this.obj);
     console.log("All index ", this.index);
     console.log("Data auId ", this.obj.auId);
     console.log("Data uid ", this.obj.uid);
@@ -482,7 +459,7 @@ console.log("My date is", moment().format().slice(0, 10));
           diffrDays = diffDays
   
       
-      this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
+      this.db.collection("Bookings").doc(this.obj.auId).update({
         bookingState : "Accepted",
         description : this.obj.description,
         image : this.obj.image,
@@ -499,7 +476,7 @@ console.log("My date is", moment().format().slice(0, 10));
     
       })
 
-      this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
+      this.db.collection("Response").doc().set({
         startingDate : this.event.startTime,
         endingDate : this.event.endTime,
         price : this.price,
@@ -586,145 +563,7 @@ this.render.setStyle(this.respond_containerDiv[0], 'display', 'none');
             await alert.present();
           }
          
-
- 
-
-
-      
-              
-                
-  
-// let diffrDays = 0; 
-// console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
-// let date = new Date(Date.now());
-// console.log("My date is", moment().format().slice(0, 10));
-//     if( this.event.startTime.slice(0, 10)<= this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) <= this.event.startTime.slice(0, 10) ){
-//       if(this.price !== ""){
-//         console.log("This start time ",this.event.startTime);
-//         console.log("End time ", this.event.endTime);
-//         console.log("5555555555", this.obj);
-//         var eventStartTime = new Date(this.event.startTime);
-//     var eventEndTime = new Date(this.event.endTime);
-//     var diff = Math.abs(eventStartTime.getTime() - eventEndTime.getTime());
-//     var diffDays = Math.ceil(diff / (1000 * 3600 * 24));  
-//     console.log("days" ,diffDays)
-//     diffrDays = diffDays
-  
-//         this.db.collection("Bookings").doc(this.obj.uid).collection("Requests").doc(this.obj.auId).update({
-//           bookingState : "Accepted",
-//           description : this.obj.description,
-//           image : this.obj.image,
-//           length : this.obj.length,
-//           startPrice : this.obj.startPrice,
-//           endingDate : this.obj.endPrice,
-//           tattoName : this.obj.tattoName,
-//           customerName : this.obj.customerName,
-//           category : this.obj.category,
-//           breadth : this.obj.breadth,
-//           uid : this.obj.uid,
-//           auId : this.obj.auId,
-//           number: this.obj.number
-         
-//         })
-          
-//         this.db.collection("Bookings").doc(this.obj.uid).collection("Response").doc(this.obj.auId).set({
-//            startingDate : this.event.startTime,
-//            endingDate : this.event.endTime,
-//            price : this.price,
-//            uid : this.obj.uid,
-//            bookingState : "Pending",
-//            auId : this.obj.auId,
-//            image : this.obj.image,
-//            days : diffrDays,
-//            number: this.obj.number,
-//            customerName : this.obj.customerName,
-//            tokenId : this.notification.token
-  
-//         })
-  
-  
-      
-  
-  
-//         const alert = await this.alertCtrl.create({
-//           header: 'Respond sent',
-//           message: '',
-//           buttons: [
-//             {
-//               text: '',
-//               role: '',
-//               cssClass: '',
-//               handler: (blah) => {
-             
-//               }
-//             }, {
-//               text: 'Ok',
-//               handler: () => {
-
-
-//                 this.event.startTime = ""
-//                 this.event.endTime = ""
-//                 this.price = ""     
-              
-
-//                 this.obj = {
-//                   bookingState : '',
-//                   breadth : '',
-//                   category : '',
-//                   customerName : '',
-//                   description : '',
-//                   image : '',
-//                   length : '',
-//                  endPrice : '',
-//                  startPrice : '',
-//                   number:'',
-//                   tattoName : '',
-//                   uid : '',
-//                   auId : ''
-//                 };
-               
-              
-//                 setTimeout(() => {
-//                   this.Bookings1.splice(this.index, 1);
-//                 }, 2000)
-              
-
-  
-//               }
-//             }
-//           ]
-//         });
-    
-//         await alert.present();
-  
-//       }else{
-//         console.log("Please select a notification");
-//         const alert = await this.alertController.create({
-//           header: '',
-//           subHeader: '',
-//           message: 'Please enter price.',
-//           buttons: ['Ok']
-//         });
-    
-//         await alert.present();
-//       }
- 
-//     }else{
-     
-//       const alert = await this.alertController.create({
-//         header: '',
-//         subHeader: '',
-//         message: 'Please select the correct dates.',
-//         buttons: ['Ok']
-//       });
-  
-//       await alert.present();
-//     }
-   
-  
-    
-   
-                
+           
 
   }
 

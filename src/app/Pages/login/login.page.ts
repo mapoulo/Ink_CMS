@@ -55,61 +55,62 @@ db=firebase.firestore();
 
 
   Login(){
-    this.loader = true;
+    // this.loader = true;
     const {username,password}=this
     firebase.auth().signInWithEmailAndPassword(username, password).then((result) => {
       
 
       this.db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(res =>{
 
-        if (res.exists){
+        // if (res.exists){
 
        
-          this.tokeId = this.notifications.token;
+        //   this.tokeId = this.notifications.token;
 
-          this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(data => {
+        //   this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(data => {
 
-           this.name = data.data().name
-            this.address = data.data().address
-           this.email = data.data().email
-           this.pdf = data.data().pdf
-           this.phoneNumber = data.data().phoneNumber
+        //    this.name = data.data().name
+        //     this.address = data.data().address
+        //    this.email = data.data().email
+        //    this.pdf = data.data().pdf
+        //    this.phoneNumber = data.data().phoneNumber
 
-          })
+        //   })
           
-          setTimeout(() => {
-            this.db.collection("Admin").doc(firebase.auth().currentUser.uid).update({
-              name :this.name,
-              address :this.address,
-              email :this.email,
-              pdf :this.pdf,
-              phoneNumber :this.phoneNumber,
-              tokenId : this.tokeId
-        })
-          }, 4000);
+        //   setTimeout(() => {
+        //     this.db.collection("Admin").doc(firebase.auth().currentUser.uid).update({
+        //       name :this.name,
+        //       address :this.address,
+        //       email :this.email,
+        //       pdf :this.pdf,
+        //       phoneNumber :this.phoneNumber,
+        //       tokenId : this.tokeId
+        // })
+        //   }, 4000);
 
        
-          console.log("Logged in succesful")
-          this.router.navigateByUrl('/landing');
-          setTimeout(() => {
-            this.loader = false;
-          }, 4000);
+        //   console.log("Logged in succesful")
+        //   this.router.navigateByUrl('/landing');
+        //   setTimeout(() => {
+        //     this.loader = false;
+        //   }, 4000);
          
-        }else{
+        // }else{
          
 
             
 
-           this.loader = true;
-           this.auth.logoutUser().then(()=>{
-            this.router.navigateByUrl('login');
-             setTimeout(() => {
-              this.loader = false;
-            }, 4000);
-          })
+        //    this.loader = true;
+        //    this.auth.logoutUser().then(()=>{
+        //     this.router.navigateByUrl('login');
+        //      setTimeout(() => {
+        //       this.loader = false;
+        //     }, 4000);
+        //   })
 
 
-        }
+        // }
+        this.router.navigateByUrl('/landing');
             })
 
 
