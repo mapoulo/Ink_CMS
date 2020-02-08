@@ -268,7 +268,7 @@ ion-segment-button {
     flex-flow: column nowrap;
 }
 .header-container {
-    flex-basis: 10%;
+    flex: 0 0 10%;
     width: 100%;
     display: -webkit-box;
     display: -moz-box;
@@ -393,7 +393,7 @@ ion-segment-button {
     flex-direction: column;
     padding: 1em;
   
-    flex-basis: 50%;
+    flex: 0 0 50%;
 
     .deep {
         flex-basis: 10%;
@@ -951,7 +951,10 @@ canvas {
 
   }
   @media all and (max-width: 768px) {
-
+    .onboard {
+        width: 80% !important;
+        max-width: 80% !important;
+    }
    
     .card-horizontal-scroll {
         flex: 0 0 45%;

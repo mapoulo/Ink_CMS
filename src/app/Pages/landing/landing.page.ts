@@ -10,7 +10,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { MessagesPageModule } from 'src/app/messages/messages.module';
 import { MessagesPage } from 'src/app/messages/messages.page';
 import { Storage } from '@ionic/storage';
-import { start } from 'repl';
+
 
 @Component({
   selector: 'app-landing',
@@ -294,8 +294,8 @@ Tattoos = [];
     this.onboard = false;
     this.store.set('onboard', true);
   }
-  onNext(i) {
-    this.slides.slideTo(i)
+  onNext() {
+    this.slides.slideNext();
   
   }
 
@@ -306,7 +306,7 @@ Tattoos = [];
 
 
   createBarChart() {
-    Chart.defaults.global.defaultFontSize = 13;
+    Chart.defaults.global.defaultFontSize = 11;
     
     
     this.bars = new Chart(this.barChart.nativeElement, {
@@ -333,7 +333,7 @@ Tattoos = [];
         }]
     },
     options: {
-
+     
      
       title: {
         display: true,
@@ -350,7 +350,8 @@ Tattoos = [];
         
       },
       ticks: {
-        beginAtZero: true
+        beginAtZero: true,
+        fontFamily: 'Montserrat , sans-serif'
     }
     }],
     xAxes: [{
