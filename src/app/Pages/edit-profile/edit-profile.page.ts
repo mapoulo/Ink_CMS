@@ -85,6 +85,7 @@ export class EditProfilePage implements OnInit {
 
 
   updateSearchResults(){
+
     if (this.autocomplete.input == '') {
       this.autocompleteItems = [];
       return;
@@ -98,6 +99,8 @@ export class EditProfilePage implements OnInit {
         });
       });
     });
+
+
   }
 
 
@@ -122,8 +125,8 @@ export class EditProfilePage implements OnInit {
 
 
   ngOnInit() {
-    this.db.collection("Admin").onSnapshot(data => {
-      data.forEach(item => {
+    this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(item => {
+     
       
         console.log("Adimd  ddddd ", item.data());
         
@@ -131,10 +134,13 @@ export class EditProfilePage implements OnInit {
     this.MyData.image = item.data().image,
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
+    this.autocomplete.input = item.data().address,
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
-    this.MyData.auId = item.id
-      })
+    this.MyData.auId = item.id,
+    this.placeid = item.data().placeId
+
+      
     })
  
    
@@ -150,18 +156,21 @@ export class EditProfilePage implements OnInit {
   }
 
   editData(){
-    console.log("Method is called", this.MyData.auId);
+
+    console.log("Method is called", this.autocomplete.input);
     
-this.db.collection("Admin").doc(this.MyData.auId).update({
-  address :this.MyData.address,
+this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
+  address :this.autocomplete.input,
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
   image : this.MyData.image,
   placeId : this.placeid
-})
+}, {merge : true})
     this.dismiss() 
   }
+
+
   changeListener(event): void {
     console.log("My Method is Called");
     
