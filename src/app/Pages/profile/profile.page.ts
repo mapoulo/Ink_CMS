@@ -51,6 +51,9 @@ profile1 ={
   
   
 }
+
+Users = []
+
   toastCtrl: any;
   notifications : number = 0;
   pendingLength: number=0;
@@ -59,6 +62,28 @@ profile1 ={
   constructor(public data : DataService, public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController, public alertCtrl: AlertController) { }
   
   ngOnInit() {
+
+    this.db.collection("Response").onSnapshot(data => {
+      this.Pending = []
+      data.forEach(item => {
+        if(item.data().bookingState == "Pending"){
+          this.Pending.push(item.data())
+        }
+           
+      })
+    })
+
+
+    this.db.collection("Users").onSnapshot(data => {
+    
+      this.Users = []
+      data.forEach(item => {
+         
+            this.Users.push(item.data())
+      })
+    })
+
+
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
         this.image1 = item.data().image;
@@ -112,7 +137,10 @@ editData(){
     email : this.email
   });
 }
+
+
   logout(){
+
     this.loader = true;
     this.auth.logoutUser().then(()=>{
       this.rout.navigateByUrl('login');
@@ -120,8 +148,13 @@ editData(){
         this.loader = false;
       }, 4000);
     })
-    }
+
+}
+
+
     ionViewWillEnter(){
+
+
       firebase.auth().onAuthStateChanged(user => {
         if(user){
           this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(data => {
@@ -147,127 +180,12 @@ editData(){
       })
     })
       
-    let MyArray = [];
-    let Bookings = [];
-    let id = {docid: "", auId: "",   obj : {}};
-    let autId = "";
-    
-   
-     this.db.collection('Bookings').onSnapshot(res => {
-      res.forEach(e => {
-        id.docid = e.id;
-        id.obj = e.data();
-        MyArray.push(id);
-        id = {docid: "", auId: "", obj : {}};
- console.log("ssssssss");
- 
-      
-      })
- 
-     
-     
-      // this.data.notification = 0;
-      MyArray.forEach(item => { 
-       this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
-       
-        this.notifications = 0;
-        i.forEach(o => {
-           
-         
-          if(o.data().bookingState === "waiting"){
-            //  Bookingid.docid = o.id;
-            //  Bookingid.obj = o.data();
-           
-             id.obj = o.data();
-             id.auId = o.id;
-      
-           
-             this.notifications += 1;
-           
-            // this.data.notification += 1;
-            
-            this.Pending.push(o.data());
-            this.pendingLength=this.Pending.length;
-            console.log( "uuuuuuuuuuuuuuuu", this.Pending );
-            Bookings.push(id);
-            id = {docid: "", auId: "", obj : {}};
-          }
-        
-        })
-       })
-     })
-     })
+
      
   
- 
-   
-      // firebase.auth().onAuthStateChanged(user => {
-      //   if (user) {
-      //     firebase
-      //       .firestore()
-      //       .doc(`/Admin/${user.uid}`)
-      //       .get()
-      //       .then(AdminSnapshot => {
-      //         this.isAdmin = AdminSnapshot.data().isAdmin;
-      //       });
-            
-      //   }
-      // });
-  
-      // this.email=firebase.auth().currentUser.email;
-      // this.db.collection("Admin").onSnapshot(data => {
-      //   this.Admin = [];
-      //   data.forEach(item => {
-      //     if(item.exists){
-      //       if(item.data().email === this.email){
-              
-      //        this.profile.name = item.data().name;
-      //        this.profile.address = item.data().address;
-      //        this.profile.phone = item.data().phoneNumber;
-      //        this.profile.email = item.data().email;
-      //        this.profile.pdf = item.data().pdf;
-             
-              
-      //       }
-      //     }
-      //   })
-      // })
-    
     
     }
   
-    // changeListener(event): void {
-    //   const i = event.target.files[0];
-    //   console.log(i);
-    //   const upload = this.storage.child(i.name).put(i);
-    //   upload.on('state_changed', snapshot => {
-    //     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //     console.log('upload is: ', progress , '% done.');
-          
-         
-        
-    //   }, err => {
-    //   }, () => {
-    //     upload.snapshot.ref.getDownloadURL().then(dwnURL => {
-    //       console.log('File avail at: ', dwnURL);
-    //       this.pdf = dwnURL;
-    //     this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
-    //     });
-    //   });
-    // }
-  //   download() {
-  //     this.fileOpener.open(this.pdf, 'application/pdf')
-  // .then(() => console.log('File is opened'))
-  // .catch(e => console.log('Error opening file', e));
-  //     // const fileTransfer: FileTransferObject = this.transfer.create();
-  //     // fileTransfer.download(this.pdf, this.file.dataDirectory + 'file.pdf').then((entry) => {
-  //     //   console.log('download complete: ' + entry.toURL());
-  //     // }, (error) => {
-  //     //   // handle error
-  //     // });
-      
-  //   }
-    
   async  createModal(){
        
     }
