@@ -1,4 +1,4 @@
-import { firebaseConfig } from './../../Environment';
+
 import { ModalController } from '@ionic/angular';
 import { DataService } from './../../data.service';
 import { Component, NgZone, OnInit } from '@angular/core';
@@ -21,9 +21,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class EditProfilePage implements OnInit {
 
 
-  GoogleAutocomplete: google.maps.places.AutocompleteService;
+
   autocomplete: { input: string; };
-  autocompleteItems: any[];
+  
   location: any;
   placeid: any;
 
@@ -76,47 +76,45 @@ export class EditProfilePage implements OnInit {
     })
 
 
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
+    // this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    // this.autocomplete = { input: '' };
+    // this.autocompleteItems = [];
 
    
   }
 
 
-  updateSearchResults(){
+  // updateSearchResults(){
 
-    if (this.autocomplete.input == '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
-    (predictions, status) => {
-      this.autocompleteItems = [];
-      this.zone.run(() => {
-        predictions.forEach((prediction) => {
-          this.autocompleteItems.push(prediction);
-        });
-      });
-    });
-
-
-  }
+  //   if (this.autocomplete.input == '') {
+  //     this.autocompleteItems = [];
+  //     return;
+  //   }
+  //   this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+  //   (predictions, status) => {
+  //     this.autocompleteItems = [];
+  //     this.zone.run(() => {
+  //       predictions.forEach((prediction) => {
+  //         this.autocompleteItems.push(prediction);
+  //       });
+  //     });
+  //   });
 
 
+  // }
 
-  GoTo(){
-    return window.location.href = 'https://www.google.com/maps/place/?q=place_id:'+this.placeid;
-  }
 
-  selectSearchResult(item) {
-    console.log(item)
-    this.location = item;
-    this.autocomplete.input = item.description;
-    this.placeid = this.location.place_id;
-    this.autocompleteItems = [];
-    console.log('placeid'+ this.placeid)
-  }
+
+
+
+  // selectSearchResult(item) {
+  //   console.log(item)
+  //   this.location = item;
+  //   this.autocomplete.input = item.description;
+  //   this.placeid = this.location.place_id;
+  //   this.autocompleteItems = [];
+  //   console.log('placeid'+ this.placeid)
+  // }
 
   HideList() {
     
@@ -134,11 +132,10 @@ export class EditProfilePage implements OnInit {
     this.MyData.image = item.data().image,
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
-    this.autocomplete.input = item.data().address,
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
-    this.MyData.auId = item.id,
-    this.placeid = item.data().placeId
+    this.MyData.auId = item.id
+  
 
       
     })
@@ -157,15 +154,15 @@ export class EditProfilePage implements OnInit {
 
   editData(){
 
-    console.log("Method is called", this.autocomplete.input);
+  
     
 this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
-  address :this.autocomplete.input,
+  address :this.MyData.address,
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
   image : this.MyData.image,
-  placeId : this.placeid
+
 }, {merge : true})
     this.dismiss() 
   }
@@ -193,6 +190,8 @@ this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
       });
     });
   }
+
+  
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -207,6 +206,9 @@ this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
       console.log("Camera issue:" + err);
     });
   }
+
+
+
   Editimage(event){
  
     const i = event.target.files[0];

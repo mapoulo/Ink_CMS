@@ -116,20 +116,24 @@ notifications  = 0;
   
 
 
-    this.db.collection("Bookings").onSnapshot(data => {
-      this.Bookings = []
-      let obj = {obj : {}, id : ""}
-      data.forEach(item => {
-        if(item.data().bookingState == "waiting"){
-          obj.obj = item.data()
-          obj.id  = item.id
-          this.Bookings.push(obj)
-          obj = {obj : {}, id : ""}
-          console.log("Bookings ", this.Bookings);
-          
-        }
-      })
+  this.db.collection("Bookings").onSnapshot(data => {
+    this.Bookings = []
+    let obj = {obj : {}, id : ""}
+    data.forEach(item => {
+      if(item.data().bookingState == "waiting"){
+        obj.obj = item.data()
+        obj.id  = item.id
+        this.Bookings.push(obj)
+        obj = {obj : {}, id : ""}
+        console.log("Bookings ", this.Bookings);
+        
+      }
     })
+  })
+
+
+
+    
 
 
 
@@ -418,12 +422,11 @@ async alert(){
     this.NewName = this.name;
     this.NewSurname = this.surname;
   }
-  dd() {
-    this.db.collection('Tattoo').doc().collection('One').doc().set({
-      name: "Lesiba",
-      surname: "Mabe",
-    })
-  }
+
+
+  
+
+
   // Create the right event format and reload source
   async addEvent() {
 
@@ -433,12 +436,7 @@ async alert(){
       this.Bookings.splice(this.index, 1);
     }, 2000)
   
-    console.log("All  ", this.obj);
-    console.log("All index ", this.index);
-    console.log("Data auId ", this.obj.auId);
-    console.log("Data uid ", this.obj.uid);
-
-
+   
 
     let diffrDays = 0; 
 console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
@@ -458,23 +456,25 @@ console.log("My date is", moment().format().slice(0, 10));
           console.log("days" ,diffDays)
           diffrDays = diffDays
   
-      
-      this.db.collection("Bookings").doc(this.obj.auId).update({
-        bookingState : "Accepted",
-        description : this.obj.description,
-        image : this.obj.image,
-        length : this.obj.length,
-        startPrice : this.obj.startPrice,
-        endingDate : this.obj.endPrice,
-        tattoName : this.obj.tattoName,
-        customerName : this.obj.customerName,
-        category : this.obj.category,
-        breadth : this.obj.breadth,
-        uid : this.obj.uid,
-        auId : this.obj.auId,
-        number: this.obj.number
+
+        //   description : this.obj.description,
+        // image : this.obj.image,
+        // length : this.obj.length,
+        // startPrice : this.obj.startPrice,
+        // endingDate : this.obj.endPrice,
+        // tattoName : this.obj.tattoName,
+        // customerName : this.obj.customerName,
+        // category : this.obj.category,
+        // breadth : this.obj.breadth,
+        // uid : this.obj.uid,
+        // auId : this.obj.auId,
+        // number: this.obj.number
+      setTimeout(() => {
+        this.db.collection("Bookings").doc(this.obj.auId).set({
+          bookingState : "Accepted",
+        }, {merge : true})
+      }, 2000);
     
-      })
 
       this.db.collection("Response").doc().set({
         startingDate : this.event.startTime,

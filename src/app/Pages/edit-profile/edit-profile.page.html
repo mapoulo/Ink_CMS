@@ -6,15 +6,12 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-
   
   </ion-toolbar>
   <ion-toolbar>
  
   </ion-toolbar>
-
 </ion-header>
-
 <ion-content fullscreen>
   
   <div class="loader" *ngIf="loader">
@@ -22,7 +19,6 @@
       
     </div>
   </div>
-
     <form  class="main" [formGroup]="tattooForm"> 
     <div class="image-upload">
       <div class="image">
@@ -36,14 +32,11 @@
         <ion-icon size="large" name="add"></ion-icon> Edit your picture Here
         <input type="file" accept="image/*"  (change)="changeListener($event)"/> 
     </label>
-
    
     </div>
     <div class="form-container">
       <ion-list>
         <ion-grid>
-
-          
           <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item>
@@ -58,13 +51,11 @@
             </div>
             </ion-col>
           </ion-row>
-
-
-          <ion-row justify-content-center>
+          <!-- <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item >
              <ion-label position="floating">Physical Address</ion-label>
-             <ion-input formControlName="address" (ionBlur)="HideList()" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-input>
+             <ion-input formControlName="address" (ionBlur)="HideList()" [(ngModel)]="address"  placeholder="Address"></ion-input>
            
               <ion-icon slot="end" name="ios-pin"></ion-icon>
               </ion-item>
@@ -82,9 +73,21 @@
               </div> 
             </div>
             </ion-col>
+          </ion-row> -->
+          <ion-row justify-content-center>
+            <ion-col  size="12">
+              <ion-item>
+                <ion-label position="floating">Physical <Address></Address></ion-label>
+                <ion-input type="text" formControlName="address"  [(ngModel)]="MyData.address" placeholder="{{MyData.address}}" ></ion-input>
+                <ion-icon slot="end" name="ios-call"></ion-icon>
+              </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.address">
+                <div class="messages" *ngIf="tattooForm.get('address').hasError(validate.type) && (tattooForm.get('address').dirty || tattooForm.get('address').touched)">
+                  {{validate.message}}
+              </div> 
+            </div>
+            </ion-col>
           </ion-row>
-
-
           <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item>
@@ -101,7 +104,7 @@
           </ion-row>
 
 
-          <!-- <ion-row justify-content-center>
+        <!--   <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item >
                 <ion-label position="floating">Email address</ion-label>
@@ -116,6 +119,7 @@
             </ion-col>
           </ion-row> -->
 
+          
           <ion-row justify-content-center>
             <ion-col size="7" style="margin-top: 1em;">
              <ion-button mode="ios" shape="round" color="success" expand="block" (click)=" editData()">Edit Profile</ion-button>
@@ -126,11 +130,5 @@
      
     </div>
   </form>
-
-
-
-
-
   
-
 </ion-content>

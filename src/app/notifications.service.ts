@@ -1,9 +1,12 @@
+
 import {Injectable} from '@angular/core';
 import {firebase} from '@firebase/app';
 import '@firebase/messaging';
 //import { firebaseConfig } from 'src/environments/environment';
 //import { firebaseConfig } from 'src/environments/environment';
 import { environment} from '../environments/environment'
+
+
 
 
 
@@ -14,6 +17,7 @@ export class NotificationsService {
 
 
     token = "";
+  
 
   init(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -40,7 +44,7 @@ export class NotificationsService {
             messaging.onTokenRefresh(() => {
                 messaging.getToken().then(
                 (refreshedToken: string) => {
-                    console.log("Tour token Id",refreshedToken);
+                    console.log(refreshedToken);
                 }).catch((err) => {
                     console.error(err);
                 });
@@ -63,19 +67,20 @@ export class NotificationsService {
             resolve();
             return;
         }
+
         try {
             const messaging = firebase.messaging();
             await messaging.requestPermission();
-            this.token = await messaging.getToken();
-            console.log('User notifications token:', this.token);
-            
+            this.token  = await messaging.getToken();
+            console.log('My token Id is here :', this.token);
         } catch (err) {
        console.log('error',err);   
         }
     resolve();
     });
 }
-}
 
+
+}
 
 

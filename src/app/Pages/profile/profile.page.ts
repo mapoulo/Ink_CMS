@@ -129,13 +129,17 @@ image(event){
   });
   
 }
+
 editData(){
+
   console.log("aaaaaaaaaa", this.data.MyData);
   firebase.firestore().collection("Admin").doc(this.data.MyData.id).update( {
     name : this.name,
     phoneNumber : this.phoneNumber,
-    email : this.email
+    email : this.email,
+  
   });
+
 }
 
 
