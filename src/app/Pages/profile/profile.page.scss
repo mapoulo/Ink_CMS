@@ -296,17 +296,20 @@ ion-badge {
             flex-basis: 92%;
             
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            overflow-y: scroll;
+            overflow-x: hidden;
+           
 
             .item_c {
 
-                flex-basis: 100%;
+                flex-basis: 60%;
                 flex-direction: row;
                 flex-wrap: wrap;
                 display: flex;
                 position: relative;
-                overflow-y: scroll;
-                overflow-x: hidden;
+                justify-content: flex-start;
+               
                 
 
                 .item_g_no_messages {
@@ -324,10 +327,12 @@ ion-badge {
                 }
 
                 .item_r_f {
-                    flex: 0 0 30%;
+                    flex: 0 0 32%;
                     border-radius: 5px;
                     height: 50%;
-                    margin: 1%;
+                    margin-top: 1%;
+                    margin-left: 1%;
+                    /* margin: 1%; */
                     position: relative;
                     box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),  
                       -6px -6px 12px  rgba(255, 255, 255, 1);
@@ -428,6 +433,19 @@ ion-badge {
 
                                
                               }
+                          }
+                          .poss {
+                              position: absolute;
+                              width: 30%;
+                              top: -10%;
+                              right: 5%;
+                              height: 20%;
+                              /* border-radius: 50px; */
+                              
+                              margin: 0 !important;
+                              font-size: 100%;
+                                background: #D66E53;
+                            text-align: center;
                           }
                       }
                 }
@@ -536,9 +554,13 @@ ion-segment {
     ion-label {
         font-size: 70% !important;
     }
+    .item_g_c  {
+        overflow-x: initial !important;
+        overflow-y: initial !important;
+    }
 
     .list_g {
-        flex: 0 0 40%;
+        flex: 0 0 80% !important;
     }
     .item_c {
         overflow-x: scroll !important;

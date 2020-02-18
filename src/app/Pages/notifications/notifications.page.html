@@ -77,8 +77,10 @@
                                                 <p>{{item.obj.sizes}}</p>
                                               </div>
                                               <div class="measure">
-                                                <p><strong>Want additional colors :</strong> </p>
-                                               <p>{{item.obj.color}}</p>
+                                                <p><strong>additional colors :</strong> </p>
+                                               <p *ngIf="item.obj.color == 'yes'">Included</p>
+                                               <p *ngIf="item.obj.color == 'no'">Not Included</p>
+                                               <p *ngIf="item.obj.color == ''">Not specified</p>
                                               </div>
                                              </div>
                                     
@@ -127,7 +129,7 @@
                     <div class="card-details">
                      <div class="measure">
                      <p><strong>Tattoo size : {{obj.sizes }}</strong> </p>
-                     <p><strong>Want additional colors : {{obj.color}}</strong></p>
+                     <p><strong> <span *ngIf="obj.color =='yes'">(Include Colors)</span><span *ngIf="obj.color =='no'">(Exclude Colors)</span></strong></p>
                      </div>
                    <p class="p_r">
                      {{obj.description}} </p> 
