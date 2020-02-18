@@ -38,7 +38,7 @@
    <section class="content-container"> 
        <header class="header">
            <h1 class="first-header">Admin Profile</h1>
-           <ion-button mode="ios" color="secondary" (click)="logout()">
+           <ion-button mode="ios" size="small" color="secondary" (click)="logout()">
              <ion-icon name="log-out"></ion-icon> Logout
            </ion-button>
          </header>
@@ -84,7 +84,7 @@
                   <ion-segment-button value="pending">
                    
                     <div class="grow">
-                      <ion-badge color="primary">{{pendingLength}}</ion-badge>
+                      <ion-badge color="primary">{{Pending.length}}</ion-badge>
                       <ion-label>Pending Responses</ion-label>
                       
                     </div>
@@ -92,7 +92,7 @@
                   </ion-segment-button>
                   <ion-segment-button  value="users">
                     <div class="grow">
-                      <ion-badge color="tertiary">{{AllUsersLength}}</ion-badge>
+                      <ion-badge color="tertiary">{{Users.length}}</ion-badge>
                       <ion-label>All Users</ion-label>
                       
                     </div>
@@ -119,9 +119,9 @@
       <div class="pending_r">
           <p>{{ pending.bookingState}}</p>
         <div class="dates">
-          <p>Breadth:  {{ pending.breadth}}</p>
-          <p>CustomerName: {{ pending.customerName}}</p>
-          <p>Email: {{ pending.email}}</p>
+          <!-- <p>Breadth:  {{ pending.breadth}}</p> -->
+          <p>Name: {{ pending.customerName}}</p>
+          <p>Number: {{ pending.number}}</p>
         </div>
       </div>
   </div>
@@ -158,7 +158,7 @@
               
                     </div>
                 </div> -->
-                <div class="item_r_f users"  *ngFor="let all of AllUsers;">
+                <div class="item_r_f users"  *ngFor="let all of Users;">
                     
          
                   <img *ngIf="!all.image" src="../../../assets/person-icon.jpg">

@@ -6,15 +6,12 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-
   
   </ion-toolbar>
   <ion-toolbar>
  
   </ion-toolbar>
-
 </ion-header>
-
 <ion-content fullscreen>
   
   <div class="loader" *ngIf="loader">
@@ -22,7 +19,6 @@
       
     </div>
   </div>
-
     <form  class="main" [formGroup]="tattooForm"> 
     <div class="image-upload">
       <div class="image">
@@ -36,7 +32,6 @@
         <ion-icon size="large" name="add"></ion-icon> Edit your picture Here
         <input type="file" accept="image/*"  (change)="changeListener($event)"/> 
     </label>
-
    
     </div>
     <div class="form-container">
@@ -107,7 +102,9 @@
             </div>
             </ion-col>
           </ion-row>
-          <ion-row justify-content-center>
+
+
+        <!--   <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item >
                 <ion-label position="floating">Email address</ion-label>
@@ -120,8 +117,9 @@
               </div> 
             </div>
             </ion-col>
-          </ion-row>
+          </ion-row> -->
 
+          
           <ion-row justify-content-center>
             <ion-col size="7" style="margin-top: 1em;">
              <ion-button mode="ios" shape="round" color="success" expand="block" (click)=" editData()">Edit Profile</ion-button>
@@ -132,11 +130,5 @@
      
     </div>
   </form>
-
-
-
-
-
   
-
 </ion-content>

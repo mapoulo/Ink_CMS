@@ -1,4 +1,4 @@
-import { firebaseConfig } from './../../Environment';
+// import { firebaseConfig } from './../../Environment';
 import { ModalController ,AlertController} from '@ionic/angular';
 import { DataService } from './../../data.service';
 import { Component, NgZone, OnInit } from '@angular/core';
@@ -21,9 +21,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class EditProfilePage implements OnInit {
 
 
-  GoogleAutocomplete: google.maps.places.AutocompleteService;
+
   autocomplete: { input: string; };
-  autocompleteItems: any[];
+  
   location: any;
   placeid: any;
 
@@ -76,44 +76,45 @@ export class EditProfilePage implements OnInit {
     })
 
 
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
+    // this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    // this.autocomplete = { input: '' };
+    // this.autocompleteItems = [];
 
    
   }
 
 
-  updateSearchResults(){
-    if (this.autocomplete.input == '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
-    (predictions, status) => {
-      this.autocompleteItems = [];
-      this.zone.run(() => {
-        predictions.forEach((prediction) => {
-          this.autocompleteItems.push(prediction);
-        });
-      });
-    });
-  }
+  // updateSearchResults(){
+
+  //   if (this.autocomplete.input == '') {
+  //     this.autocompleteItems = [];
+  //     return;
+  //   }
+  //   this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+  //   (predictions, status) => {
+  //     this.autocompleteItems = [];
+  //     this.zone.run(() => {
+  //       predictions.forEach((prediction) => {
+  //         this.autocompleteItems.push(prediction);
+  //       });
+  //     });
+  //   });
+
+
+  // }
 
 
 
-  GoTo(){
-    return window.location.href = 'https://www.google.com/maps/place/?q=place_id:'+this.placeid;
-  }
 
-  selectSearchResult(item) {
-    console.log(item)
-    this.location = item;
-    this.autocomplete.input = item.description;
-    this.placeid = this.location.place_id;
-    this.autocompleteItems = [];
-    console.log('placeid'+ this.placeid)
-  }
+
+  // selectSearchResult(item) {
+  //   console.log(item)
+  //   this.location = item;
+  //   this.autocomplete.input = item.description;
+  //   this.placeid = this.location.place_id;
+  //   this.autocompleteItems = [];
+  //   console.log('placeid'+ this.placeid)
+  // }
 
   HideList() {
     
@@ -122,8 +123,8 @@ export class EditProfilePage implements OnInit {
 
 
   ngOnInit() {
-    this.db.collection("Admin").onSnapshot(data => {
-      data.forEach(item => {
+    this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(item => {
+     
       
         console.log("Adimd  ddddd ", item.data());
         
@@ -134,7 +135,9 @@ export class EditProfilePage implements OnInit {
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
     this.MyData.auId = item.id
-      })
+  
+
+      
     })
  
    
@@ -150,9 +153,10 @@ export class EditProfilePage implements OnInit {
   }
 
   editData(){
-    console.log("Method is called", this.MyData.auId);
+
+  
     
-this.db.collection("Admin").doc(this.MyData.auId).update({
+this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
   address :this.MyData.address,
   email:this.MyData.email,
   name:this.MyData.name,
@@ -164,6 +168,8 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
     this.reg1();
     this.dismiss() 
   }
+
+
   changeListener(event): void {
     console.log("My Method is Called");
     
@@ -186,6 +192,8 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
       });
     });
   }
+
+  
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -200,6 +208,9 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
       console.log("Camera issue:" + err);
     });
   }
+
+
+
   Editimage(event){
  
     const i = event.target.files[0];

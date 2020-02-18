@@ -36,7 +36,7 @@ db=firebase.firestore();
   }
 
 
-  constructor(private router: Router, private notifications : NotificationsService ,private fb: FormBuilder, public toastCtrl: ToastController,private auth: AuthenticationService) { }
+  constructor(private router: Router,private NotificationsService: NotificationsService, private notifications : NotificationsService ,private fb: FormBuilder, public toastCtrl: ToastController,private auth: AuthenticationService) { }
 
   ngOnInit() {
 
@@ -60,56 +60,16 @@ db=firebase.firestore();
     firebase.auth().signInWithEmailAndPassword(username, password).then((result) => {
       
 
+      this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
+        cmsTokenId : this.NotificationsService.token
+      }, {merge : true})
+
       this.db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(res =>{
 
-        // if (res.exists){
+        
 
        
-        //   this.tokeId = this.notifications.token;
-
-        //   this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(data => {
-
-        //    this.name = data.data().name
-        //     this.address = data.data().address
-        //    this.email = data.data().email
-        //    this.pdf = data.data().pdf
-        //    this.phoneNumber = data.data().phoneNumber
-
-        //   })
-          
-        //   setTimeout(() => {
-        //     this.db.collection("Admin").doc(firebase.auth().currentUser.uid).update({
-        //       name :this.name,
-        //       address :this.address,
-        //       email :this.email,
-        //       pdf :this.pdf,
-        //       phoneNumber :this.phoneNumber,
-        //       tokenId : this.tokeId
-        // })
-        //   }, 4000);
-
-       
-        //   console.log("Logged in succesful")
-        //   this.router.navigateByUrl('/landing');
-        //   setTimeout(() => {
-        //     this.loader = false;
-        //   }, 4000);
-         
-        // }else{
-         
-
-            
-
-        //    this.loader = true;
-        //    this.auth.logoutUser().then(()=>{
-        //     this.router.navigateByUrl('login');
-        //      setTimeout(() => {
-        //       this.loader = false;
-        //     }, 4000);
-        //   })
-
-
-        // }
+      
         this.router.navigateByUrl('/landing');
             })
 

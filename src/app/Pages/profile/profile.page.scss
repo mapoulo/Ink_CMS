@@ -153,7 +153,7 @@ ion-badge {
     flex-flow: column nowrap;
 }
 .header {
-    flex-basis: 30%;
+    flex: 0 0 15%;
     width: 100%;
     display: -webkit-box;
     display: -moz-box;
@@ -191,7 +191,7 @@ ion-badge {
 }
 
 .sub-container {
-    flex-basis: 70%;
+    flex-basis: 85%;
     
     display: flex;
 
