@@ -39,32 +39,7 @@
        
      }
 
-     &::before {
-       position: absolute;
-       top: 2%;
-       left: 2%;
-       width: 96%;
-       height: 96%;
-       background: rgba(0, 0, 0, 0.336);
-       content: '';
-       z-index: 1;
-       border-radius: 5px;
-       
-       box-shadow:  6px 6px 12px rgb(24, 24, 24),  
-       -6px -6px 12px  rgb(29, 29, 29);
-       
-     }
-
-     &::after {
-       position: absolute;
-       bottom: -10px;
-       left: -10px;
-       background: #fff;
-       width: 20px;
-       height: 20px;
-       content: '';
-       transform: rotate(45deg);
-     }
+ 
  }
 }
 

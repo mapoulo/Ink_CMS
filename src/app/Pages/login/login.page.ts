@@ -55,7 +55,7 @@ db=firebase.firestore();
 
 
   Login(){
-    // this.loader = true;
+     this.loader = true;
     const {username,password}=this
     firebase.auth().signInWithEmailAndPassword(username, password).then((result) => {
       
