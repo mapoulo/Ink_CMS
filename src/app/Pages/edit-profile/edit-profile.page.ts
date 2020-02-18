@@ -4,9 +4,9 @@ import { DataService } from './../../data.service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { google } from "google-maps";
+import { google } from 'google-maps';
 
-declare var google : google;
+declare var google: any;
 
 
 
