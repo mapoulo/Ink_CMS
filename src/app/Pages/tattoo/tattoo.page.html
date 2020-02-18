@@ -52,13 +52,13 @@
             
               <ion-item color="transparent">
                    <ion-label color="primary"  position="floating">Price start at</ion-label>
-                   <ion-input color="primary"  type="number" formControlName="startPrice"  name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input >
+                   <ion-input color="primary"  type="number" formControlName="startPrice"  [min]="1" name="priceRange"  [(ngModel)]="tattoo.startPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input >
                    <ion-icon color="primary"  slot="end" size="small" name="ios-cash"></ion-icon>
                  </ion-item>
                  <p class="error" *ngIf="StartPrice.hasError('required') && (StartPrice.touched || StartPrice.dirty)">Please enter your minimum price</p>
                  <ion-item color="transparent">
                    <ion-label color="primary" position="floating">Price end at</ion-label>
-                   <ion-input  color="primary" type="number" formControlName="endPrice"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{startPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input>
+                   <ion-input  color="primary" type="number" formControlName="endPrice" [min]="1"  name="priceRange"  [(ngModel)]="tattoo.endPrice"  placeholder="{{endPrice}}" onKeyPress="if(this.value.length==5) return false;"></ion-input>
                    <ion-icon color="primary"  slot="end" size="small" name="ios-cash"></ion-icon>
                  </ion-item>
                  <p class="error" *ngIf="EndPrice.hasError('required')  && (StartPrice.touched || StartPrice.dirty)">Please enter your maximum price</p>

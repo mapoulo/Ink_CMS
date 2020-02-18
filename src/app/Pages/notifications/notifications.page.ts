@@ -10,8 +10,6 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import * as moment from 'moment';
 import { NotificationsService } from 'src/app/notifications.service';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-
-
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.page.html',
@@ -45,23 +43,20 @@ notifications  = 0;
   Bookings = [];
   Bookings1 = [];
   // number;
-
   loader: boolean = false;
-
   image1="";
-
   ClickedObjeck = {description: "", name : ""};
   MyArray = [];
   obj = {
     bookingState : '',
-    breadth : '',
+    color : '',
     endPrice : '',
     startPrice : '',
     category : '',
     customerName : '',
     description : '',
     image : '',
-    length : '',
+    sizes : '',
     number:'',
     UserImage : '',
     tattoName : '',
@@ -76,7 +71,6 @@ notifications  = 0;
   respond_containerDiv = document.getElementsByClassName('respond-container')
   details_profileDiv = document.getElementsByClassName('details-profile')
   calendar_containerDiv = document.getElementsByClassName('calendar-container');
-
   respondContainer = false;
   detailsProfile = false;
   calenderContainer = false;
@@ -84,15 +78,12 @@ notifications  = 0;
   validation_messages = {
     'price': [
       { type: 'required', message: 'Price  is required.' },
-
     ],
     'startTime': [
       { type: 'required', message: 'start date  is required.' },
-
     ],
     'endTime': [
       { type: 'required', message: 'end date  is required.' },
-
     ],
   }
   constructor(private fb: FormBuilder,private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
@@ -102,49 +93,39 @@ notifications  = 0;
       startTime: new FormControl('', Validators.compose([Validators.required])),
     })
  
-
   }
-
   tt = []
-
-
   ionViewWillEnter() {
-
     this.loader = true;
-
-
   
 
 
-    this.db.collection("Bookings").onSnapshot(data => {
-      this.Bookings = []
-      let obj = {obj : {}, id : ""}
-      data.forEach(item => {
-        if(item.data().bookingState == "waiting"){
-          obj.obj = item.data()
-          obj.id  = item.id
-          this.Bookings.push(obj)
-          obj = {obj : {}, id : ""}
-          console.log("Bookings ", this.Bookings);
-          
-        }
-      })
+  this.db.collection("Bookings").onSnapshot(data => {
+    this.Bookings = []
+    let obj = {obj : {}, id : ""}
+    data.forEach(item => {
+      if(item.data().bookingState == "waiting"){
+        obj.obj = item.data()
+        obj.id  = item.id
+        this.Bookings.push(obj)
+        obj = {obj : {}, id : ""}
+        console.log("Bookings ", this.Bookings);
+        
+      }
     })
+  })
 
 
-
-   
-
-
-
-
-     this.loader = false;
-
-  
 
     
-   
 
+
+
+   
+     this.loader = false;
+  
+    
+   
     // let id = {docid: "", auId: "",  obj : {}};
     // let autId = "";
    
@@ -190,16 +171,10 @@ notifications  = 0;
   
      
    
-
   }
   
-
 ionViewDidEnter(){
-
   
-
-
-
   // let id = {docid: "", auId: "",  obj : {}};
   // let autId = "";
  
@@ -234,50 +209,32 @@ ionViewDidEnter(){
   //       }
       
        
-
   //     })
   //    })
   //  })
   //  })
   
   
-
 }
-
-
-
   ngOnInit() {
     
-
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
         this.image1 = item.data().image;
       })
     })
-
     this.resetEvent();
     this.onCurrentDateChanged(new Date());
-
-
     
     
-
-
   }
-
-
-
-
-
   goToNotificationsPage(){
     this.rout.navigateByUrl('/notifications')
 }
-
 animateClose() {
   this.fullscreen = !this.fullscreen;
    
 }
-
 respondFunc() {
   this.respondContainer = !this.respondContainer;
   if(this.respondContainer) {
@@ -287,34 +244,26 @@ respondFunc() {
     this.render.setStyle(this.respond_containerDiv[0], 'display', 'none');
   }
 }
-
 continueFunc() {
   this.render.setStyle(this.details_profileDiv[0], 'display', 'none');
   this.render.setStyle(this.calendar_containerDiv[0], 'display', 'block');
 }
-
 cancelFunction() {
   this.render.setStyle(this.details_profileDiv[0], 'display', 'flex');
   this.render.setStyle(this.calendar_containerDiv[0], 'display', 'none');
 }
-
 resetValues() {
   
   
   this.render.setStyle(this.respond_containerDiv[0], 'display', 'flex');
-
   setTimeout(() => {
     this.render.setStyle(this.calendar_containerDiv[0], 'display', 'block');
     this.render.setStyle(this.details_profileDiv[0], 'display', 'flex');
   }, 2000);
 }
-
-
   save(obj, i, id){
-
     console.log("ddfsdf ", obj);
     
-
     this.loader = true;
     
     this.active = i;
@@ -329,7 +278,7 @@ resetValues() {
       this.obj = obj;
     this.obj.description = obj.description;
     this.obj.image = obj.image;
-    this.obj.length = obj.length;
+    this.obj.sizes = obj.sizes;
     this.obj.startPrice = obj.startPrice;
     this.obj.endPrice = obj.endPrice;
     this.obj.number=obj.number;
@@ -337,7 +286,7 @@ resetValues() {
     this.obj.customerName = obj.customerName;
     this.obj.bookingState = obj.bookingState;
     this.obj.category = obj.category;
-    this.obj.breadth = obj.breadth;
+    this.obj.color = obj.color;
     this.obj.uid = obj.uid;
     this.obj.auId = id;
     this.obj.UserImage = obj.userImage
@@ -349,24 +298,16 @@ resetValues() {
       this.price = ""; 
       this.loader = false; 
     }, 1000)
-
   }
-
-
-
   call(numbers){
     console.log("Your Numbers ", numbers);
   }
-
-
   displayData(item){
     console.log("Item ", item);
     
    this.ClickedObjeck.name = item.name;
    this.ClickedObjeck.description = item.description;
   }
-
-
   goProfilePage(){
     this.rout.navigateByUrl('/profile')
   }
@@ -383,8 +324,6 @@ callNow(number) {
 }
 })
 }
-
-
 async alert(){
   const alert = await this.alertController.create({
     header: 'Calling',
@@ -401,8 +340,6 @@ async alert(){
   });
   await alert.present();
 }
-
-
   resetEvent() {
     this.event = {
       title: '',
@@ -412,33 +349,24 @@ async alert(){
       allDay: false
     };
   }
-
-
   takeData() {
     this.NewName = this.name;
     this.NewSurname = this.surname;
   }
-  dd() {
-    this.db.collection('Tattoo').doc().collection('One').doc().set({
-      name: "Lesiba",
-      surname: "Mabe",
-    })
-  }
+
+
+  
+
+
   // Create the right event format and reload source
   async addEvent() {
-
     this.loader = true;
     setTimeout(() => {
       this.loader = false;
       this.Bookings.splice(this.index, 1);
     }, 2000)
   
-    console.log("All  ", this.obj);
-    console.log("All index ", this.index);
-    console.log("Data auId ", this.obj.auId);
-    console.log("Data uid ", this.obj.uid);
-
-
+   
 
     let diffrDays = 0; 
 console.log(this.event.startTime.slice(0, 10) < this.event.endTime.slice(0, 10));
@@ -446,11 +374,7 @@ let date = new Date(Date.now());
 console.log("My date is", moment().format().slice(0, 10));
     if( this.event.startTime.slice(0, 10)<= this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) <= this.event.startTime.slice(0, 10) )
     
-
     if( this.event.startTime.slice(0, 10)<= this.event.endTime.slice(0, 10) && moment().format().slice(0, 10) <= this.event.startTime.slice(0, 10) ){
-
-
-
       var eventStartTime = new Date(this.event.startTime);
           var eventEndTime = new Date(this.event.endTime);
           var diff = Math.abs(eventStartTime.getTime() - eventEndTime.getTime());
@@ -458,23 +382,25 @@ console.log("My date is", moment().format().slice(0, 10));
           console.log("days" ,diffDays)
           diffrDays = diffDays
   
-      
-      this.db.collection("Bookings").doc(this.obj.auId).update({
-        bookingState : "Accepted",
-        description : this.obj.description,
-        image : this.obj.image,
-        length : this.obj.length,
-        startPrice : this.obj.startPrice,
-        endingDate : this.obj.endPrice,
-        tattoName : this.obj.tattoName,
-        customerName : this.obj.customerName,
-        category : this.obj.category,
-        breadth : this.obj.breadth,
-        uid : this.obj.uid,
-        auId : this.obj.auId,
-        number: this.obj.number
+
+        //   description : this.obj.description,
+        // image : this.obj.image,
+        // length : this.obj.length,
+        // startPrice : this.obj.startPrice,
+        // endingDate : this.obj.endPrice,
+        // tattoName : this.obj.tattoName,
+        // customerName : this.obj.customerName,
+        // category : this.obj.category,
+        // breadth : this.obj.breadth,
+        // uid : this.obj.uid,
+        // auId : this.obj.auId,
+        // number: this.obj.number
+      setTimeout(() => {
+        this.db.collection("Bookings").doc(this.obj.auId).set({
+          bookingState : "Accepted",
+        }, {merge : true})
+      }, 2000);
     
-      })
 
       this.db.collection("Response").doc().set({
         startingDate : this.event.startTime,
@@ -488,9 +414,7 @@ console.log("My date is", moment().format().slice(0, 10));
         number: this.obj.number,
         customerName : this.obj.customerName,
         tokenId : this.notification.token
-
      })
-
      const alert = await this.alertCtrl.create({
           header: 'Respond sent',
           message: '',
@@ -505,21 +429,18 @@ console.log("My date is", moment().format().slice(0, 10));
             }, {
               text: 'Ok',
               handler: () => {
-
-
                 this.event.startTime = ""
                 this.event.endTime = ""
                 this.price = ""     
               
-
                 this.obj = {
                   bookingState : '',
-                  breadth : '',
+                  sizes : '',
                   category : '',
                   customerName : '',
                   description : '',
                   image : '',
-                  length : '',
+                  color : '',
                  endPrice : '',
                  UserImage : '',
                  startPrice : '',
@@ -531,26 +452,21 @@ console.log("My date is", moment().format().slice(0, 10));
                
               
                 
-
   
               }
             }
           ]
         });
-
         
  
      
     
-
-
     await alert.present();
    
 /* Close Respond container */
 this.render.setStyle(this.respond_containerDiv[0], 'display', 'none');
              
      
-
     }else{
      
             const alert = await this.alertController.create({
@@ -564,11 +480,7 @@ this.render.setStyle(this.respond_containerDiv[0], 'display', 'none');
           }
          
            
-
   }
-
-
-
   home(){
     this.rout.navigateByUrl('/landing')
   }
@@ -619,3 +531,6 @@ this.render.setStyle(this.respond_containerDiv[0], 'display', 'none');
  
   }
 }
+
+
+

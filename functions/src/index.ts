@@ -3,26 +3,24 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore()
 
-exports.test = functions.firestore.document('Bookings/{docid}/Requests/{id}').onCreate((snap: { data: () => any; }, context: any) => {
-    console.log('Document change', snap.data());
+exports.test = functions.firestore.document('Bookings/{id}').onCreate((snap: { data: () => any; }, context: any) => {
+    console.log('Document change is here', snap.data());
     const dataR = snap.data();
 
    
 
-        const token = dataR.cmsTokenId
+        const token = dataR.tokenId
 
         const payload = {
             notification: {
                 title: 'New Booking!',
-                body: `name of customer: ${dataR.customerName} TattooName   ${dataR.tattoName}`,
-                icon: 'https://goo.gl/Fz9nrQ'
+                body: `name of customer:  ${dataR.customerName}`
             }
         }
 
         return admin.messaging().sendToDevice(token, payload)
 
-  
- 
- 
 
 })
+
+

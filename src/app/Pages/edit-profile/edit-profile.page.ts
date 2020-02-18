@@ -1,5 +1,5 @@
-import { firebaseConfig } from './../../Environment';
-import { ModalController } from '@ionic/angular';
+// import { firebaseConfig } from './../../Environment';
+import { ModalController ,AlertController} from '@ionic/angular';
 import { DataService } from './../../data.service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
@@ -21,11 +21,16 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class EditProfilePage implements OnInit {
 
 
-  GoogleAutocomplete: google.maps.places.AutocompleteService;
+
   autocomplete: { input: string; };
-  autocompleteItems: any[];
+  
   location: any;
   placeid: any;
+
+  GoogleAutocomplete: google.maps.places.AutocompleteService;
+
+  autocompleteItems: any[];
+ 
 
 
   address  = "";
@@ -41,8 +46,11 @@ export class EditProfilePage implements OnInit {
     address : "",
     phoneNumber : "",
     auId : "",
-    pdf: ""
+    pdf: "",
+    placeId : ""
+
   };
+
   storage = firebase.storage().ref();
   image1 = "";
   tattooForm : FormGroup;
@@ -66,7 +74,7 @@ export class EditProfilePage implements OnInit {
       
     ]
   }
-  constructor( public zone: NgZone,  public data : DataService, private camera: Camera,  private modalController: ModalController,private fb: FormBuilder) {
+  constructor( public zone: NgZone,  public data : DataService, private camera: Camera,  private modalController: ModalController,private fb: FormBuilder,public AlertController:AlertController) {
     this.tattooForm = this.fb.group({
       name: new FormControl('', Validators.compose([Validators.required])),
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+$')])),
@@ -105,15 +113,13 @@ export class EditProfilePage implements OnInit {
 
 
 
-  GoTo(){
-    return window.location.href = 'https://www.google.com/maps/place/?q=place_id:'+this.placeid;
-  }
+
 
   selectSearchResult(item) {
-    console.log(item)
+    console.log("My Item here is ",item.description)
     this.location = item;
     this.autocomplete.input = item.description;
-    this.placeid = this.location.place_id;
+    this.MyData.placeId = this.location.place_id;
     this.autocompleteItems = [];
     console.log('placeid'+ this.placeid)
   }
@@ -134,11 +140,11 @@ export class EditProfilePage implements OnInit {
     this.MyData.image = item.data().image,
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
-    this.autocomplete.input = item.data().address,
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
     this.MyData.auId = item.id,
-    this.placeid = item.data().placeId
+    this.MyData.placeId = item.data().placeId
+  
 
       
     })
@@ -157,16 +163,18 @@ export class EditProfilePage implements OnInit {
 
   editData(){
 
-    console.log("Method is called", this.autocomplete.input);
+  
     
 this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
-  address :this.autocomplete.input,
+  address :this.MyData.address,
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
   image : this.MyData.image,
-  placeId : this.placeid
-}, {merge : true})
+  placeId : this.MyData.placeId
+})
+
+    this.reg1();
     this.dismiss() 
   }
 
@@ -193,6 +201,8 @@ this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
       });
     });
   }
+
+  
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -207,6 +217,9 @@ this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
       console.log("Camera issue:" + err);
     });
   }
+
+
+
   Editimage(event){
  
     const i = event.target.files[0];
@@ -228,6 +241,19 @@ this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
     
   }
   
+
+
+  async reg1(){
+    const alert = await this.AlertController.create({
+      header: "",
+      subHeader: "",
+      message: "Updated successfully",
+      buttons: ['OK']
+    });
+    alert.present();
+}
+
+
   dismiss() {
     this.modalController.dismiss({
       'dismissed': true
