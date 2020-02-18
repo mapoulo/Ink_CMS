@@ -1,5 +1,5 @@
 import { firebaseConfig } from './../../Environment';
-import { ModalController } from '@ionic/angular';
+import { ModalController ,AlertController} from '@ionic/angular';
 import { DataService } from './../../data.service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
@@ -66,7 +66,7 @@ export class EditProfilePage implements OnInit {
       
     ]
   }
-  constructor( public zone: NgZone,  public data : DataService, private camera: Camera,  private modalController: ModalController,private fb: FormBuilder) {
+  constructor( public zone: NgZone,  public data : DataService, private camera: Camera,  private modalController: ModalController,private fb: FormBuilder,public AlertController:AlertController) {
     this.tattooForm = this.fb.group({
       name: new FormControl('', Validators.compose([Validators.required])),
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+$')])),
@@ -157,9 +157,11 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
-  image : this.MyData.image,
-  placeId : this.placeid
+  image : this.MyData.image
+  // placeId : this.placeid
 })
+
+    this.reg1();
     this.dismiss() 
   }
   changeListener(event): void {
@@ -219,6 +221,19 @@ this.db.collection("Admin").doc(this.MyData.auId).update({
     
   }
   
+
+
+  async reg1(){
+    const alert = await this.AlertController.create({
+      header: "",
+      subHeader: "",
+      message: "Updated successfully",
+      buttons: ['OK']
+    });
+    alert.present();
+}
+
+
   dismiss() {
     this.modalController.dismiss({
       'dismissed': true
