@@ -179,7 +179,7 @@ ion-segment-button {
 
 
 .aside {
-    flex-basis: 4%;
+    flex:0 0 4%;
    
     position: relative;
     background: #D66E53;
@@ -891,7 +891,7 @@ canvas {
        flex-flow: column nowrap;
    }
       .aside {
-           flex-basis: 4%;
+           flex: 0 0 10%;
            display: flex;
            flex-direction: row;
            justify-content: space-between;
@@ -1063,7 +1063,7 @@ canvas {
         flex: 0 0 28%;
     }
     .aside {
-        flex-basis: 4%;
+        flex:0 0 4%;
     }
     .container {
         flex-basis: 96%;
@@ -1083,7 +1083,7 @@ canvas {
         flex: 0 0 22%;
     }
     .aside {
-        flex-basis: 4%;
+        flex: 0 0 4%;
     }
     .container {
         flex-basis: 96%;

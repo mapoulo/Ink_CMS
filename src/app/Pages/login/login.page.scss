@@ -70,8 +70,11 @@
 
 
 
-ion-list, ion-item, ion-label {
+ion-list {
   background-color: transparent;
+}
+ion-item {
+  --background: transparent !important;
 }
 .login {
     width: 400px;

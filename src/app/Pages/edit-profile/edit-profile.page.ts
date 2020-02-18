@@ -119,13 +119,14 @@ export class EditProfilePage implements OnInit {
     console.log("My Item here is ",item.description)
     this.location = item;
     this.autocomplete.input = item.description;
+    this.MyData.address = item.description;
     this.MyData.placeId = this.location.place_id;
     this.autocompleteItems = [];
     console.log('placeid'+ this.placeid)
   }
 
   HideList() {
-    
+    this.autocompleteItems = [];
   }
   
 
@@ -140,6 +141,7 @@ export class EditProfilePage implements OnInit {
     this.MyData.image = item.data().image,
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
+    this.autocomplete.input = item.data().address
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
     this.MyData.auId = item.id,
