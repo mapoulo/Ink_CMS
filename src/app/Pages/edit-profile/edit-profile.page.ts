@@ -27,6 +27,11 @@ export class EditProfilePage implements OnInit {
   location: any;
   placeid: any;
 
+  GoogleAutocomplete: google.maps.places.AutocompleteService;
+
+  autocompleteItems: any[];
+ 
+
 
   address  = "";
   name = "";
@@ -41,8 +46,11 @@ export class EditProfilePage implements OnInit {
     address : "",
     phoneNumber : "",
     auId : "",
-    pdf: ""
+    pdf: "",
+    placeId : ""
+
   };
+
   storage = firebase.storage().ref();
   image1 = "";
   tattooForm : FormGroup;
@@ -76,45 +84,45 @@ export class EditProfilePage implements OnInit {
     })
 
 
-    // this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    // this.autocomplete = { input: '' };
-    // this.autocompleteItems = [];
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    this.autocomplete = { input: '' };
+    this.autocompleteItems = [];
 
    
   }
 
 
-  // updateSearchResults(){
+  updateSearchResults(){
 
-  //   if (this.autocomplete.input == '') {
-  //     this.autocompleteItems = [];
-  //     return;
-  //   }
-  //   this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
-  //   (predictions, status) => {
-  //     this.autocompleteItems = [];
-  //     this.zone.run(() => {
-  //       predictions.forEach((prediction) => {
-  //         this.autocompleteItems.push(prediction);
-  //       });
-  //     });
-  //   });
-
-
-  // }
+    if (this.autocomplete.input == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+    (predictions, status) => {
+      this.autocompleteItems = [];
+      this.zone.run(() => {
+        predictions.forEach((prediction) => {
+          this.autocompleteItems.push(prediction);
+        });
+      });
+    });
 
 
+  }
 
 
 
-  // selectSearchResult(item) {
-  //   console.log(item)
-  //   this.location = item;
-  //   this.autocomplete.input = item.description;
-  //   this.placeid = this.location.place_id;
-  //   this.autocompleteItems = [];
-  //   console.log('placeid'+ this.placeid)
-  // }
+
+
+  selectSearchResult(item) {
+    console.log("My Item here is ",item.description)
+    this.location = item;
+    this.autocomplete.input = item.description;
+    this.MyData.placeId = this.location.place_id;
+    this.autocompleteItems = [];
+    console.log('placeid'+ this.placeid)
+  }
 
   HideList() {
     
@@ -134,7 +142,8 @@ export class EditProfilePage implements OnInit {
     this.MyData.address = item.data().address,
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
-    this.MyData.auId = item.id
+    this.MyData.auId = item.id,
+    this.MyData.placeId = item.data().placeId
   
 
       
@@ -161,8 +170,8 @@ this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
   email:this.MyData.email,
   name:this.MyData.name,
   phoneNumber:this.MyData.phoneNumber,
-  image : this.MyData.image
-  // placeId : this.placeid
+  image : this.MyData.image,
+  placeId : this.MyData.placeId
 })
 
     this.reg1();
