@@ -10,7 +10,7 @@
 
     
   </ion-toolbar>
-
+<!-- 
   <ion-toolbar color="primary">
     <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-searchbar>
   </ion-toolbar>
@@ -19,7 +19,7 @@
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
       {{ item.description }}
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
 </ion-header>
 <ion-content fullscreen>
@@ -61,11 +61,11 @@
             </div>
             </ion-col>
           </ion-row>
-          <!-- <ion-row justify-content-center>
+          <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item >
              <ion-label position="floating">Physical Address</ion-label>
-             <ion-input formControlName="address" (ionBlur)="HideList()" [(ngModel)]="address"  placeholder="Address"></ion-input>
+             <ion-input formControlName="address"  [(ngModel)]="autocomplete.input" (oinBlur)="HideList()" (ionInput)="updateSearchResults()" placeholder="Address"></ion-input>
            
               <ion-icon slot="end" name="ios-pin"></ion-icon>
               </ion-item>
@@ -83,25 +83,8 @@
               </div> 
             </div>
             </ion-col>
-          </ion-row> -->
-          <ion-row justify-content-center>
-            <ion-col  size="12">
-
-              <ion-item>
-                <ion-label position="floating">Physical <Address></Address></ion-label>
-                <ion-input type="text" formControlName="address"  [(ngModel)]="MyData.address" placeholder="{{MyData.address}}" ></ion-input>
-                <ion-icon slot="end" name="ios-call"></ion-icon>
-              </ion-item>
-
-              <div class="error" *ngFor="let validate of validation_messages.address">
-                <div class="messages" *ngIf="tattooForm.get('address').hasError(validate.type) && (tattooForm.get('address').dirty || tattooForm.get('address').touched)">
-                  {{validate.message}}
-              </div> 
-            </div>
-
-
-            </ion-col>
           </ion-row>
+       
           <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item>
