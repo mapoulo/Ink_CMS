@@ -9,7 +9,7 @@ import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
 // import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { MessagesPageModule } from 'src/app/messages/messages.module';
-import { MessagesPage } from 'src/app/messages/messages.page';
+
 
 @Component({
   selector: 'app-profile',
@@ -33,7 +33,7 @@ export class ProfilePage implements OnInit {
 }
 
 notifications = 0;
-  messages = 0
+
 
 fullscreen:boolean = false;
 fullScreenImage: string = '';
@@ -134,17 +134,7 @@ Users = []
     
   }
 
-  async  viewMessages(){
-
-    const modal = await this.modalController.create({
-      component: MessagesPage,
-      cssClass:'modalMessages'
-
-    });
-    return await  modal.present();
-
-  }
-
+ 
 
 
   goToNotificationsPage(){
