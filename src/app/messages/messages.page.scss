@@ -64,8 +64,8 @@
        position: relative;
        cursor: pointer;
    
-       &::before {
-           content: '';
+       .statuss {
+         
            top: 0;
            left: 0;
            width: 5px;
@@ -75,7 +75,25 @@
        }
    
    
+       .notRead {
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: rgb(219, 114, 88);
+        position: absolute;
+      }
+     
+      .Read {
         
+        content: '';
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: rgb(72, 255, 81);
+        position: absolute;
+      }
        
       
       
@@ -95,13 +113,15 @@
   padding-left: 1em;  */
 
  .active {
-  box-shadow: inset 6px 6px 18px rgba(0, 0, 0, 0.1),  
-  inset -6px 18px  rgba(255, 255, 255, 1) !important;
-   background: #eeeeee !important;
-  
+  box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.1),  
+   -6px 18px  rgba(255, 255, 255, 1) !important;
+   background: #a0a0a0 !important;
+    color: #fff;
 
 
  }
+
+
 
 
   .content-messages {
