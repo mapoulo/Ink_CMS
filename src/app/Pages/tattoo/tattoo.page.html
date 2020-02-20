@@ -67,7 +67,7 @@
                      <ion-select  color="primary" formControlName="categories" name="categories" [(ngModel)]="tattoo.categories" >
                        <ion-select-option value="Art Works" >Art Works</ion-select-option>
                        <ion-select-option value="Portraits">Portraits</ion-select-option>
-                       <ion-select-option value="Letters">Letters</ion-select-option>
+                       <!-- <ion-select-option value="Letters">Letters</ion-select-option> -->
                      </ion-select>
                    </ion-item>
                    <p class="error" *ngIf="Categories.hasError('required') && (Categories.touched || Categories.dirty)">Please enter categories</p>
