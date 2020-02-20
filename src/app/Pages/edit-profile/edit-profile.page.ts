@@ -4,15 +4,13 @@ import { DataService } from './../../data.service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { google } from 'google-maps';
+import { google } from "google-maps";
 
-declare var google: any;
-
-
-
+declare var google : any;
 
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
@@ -23,14 +21,12 @@ export class EditProfilePage implements OnInit {
 
 
   autocomplete: { input: string; };
+
+  autoCompSearch = document.getElementsByClassName('search');
+  autocom : any;
   
   location: any;
   placeid: any;
-
-  GoogleAutocomplete: google.maps.places.AutocompleteService;
-
-  autocompleteItems: any[];
- 
 
 
   address  = "";
@@ -38,6 +34,7 @@ export class EditProfilePage implements OnInit {
   phoneNumber = "";
   email = "";
   currentImage: any;
+
   MyData = {
      
     name : "",
@@ -50,7 +47,6 @@ export class EditProfilePage implements OnInit {
     placeId : ""
 
   };
-
   storage = firebase.storage().ref();
   image1 = "";
   tattooForm : FormGroup;
@@ -84,54 +80,76 @@ export class EditProfilePage implements OnInit {
     })
 
 
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
+    // this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    // this.autocomplete = { input: '' };
+    // this.autocompleteItems = [];
 
    
   }
 
 
-  updateSearchResults(){
-
-    if (this.autocomplete.input == '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
-    (predictions, status) => {
-      this.autocompleteItems = [];
-      this.zone.run(() => {
-        predictions.forEach((prediction) => {
-          this.autocompleteItems.push(prediction);
-        });
-      });
-    });
-
-
+  autoComplete(){
+    console.log('loc in',this.autoCompSearch);
+    this.autocom = new google.maps.places.Autocomplete(this.autoCompSearch[0], { types: ['geocode'] });
+    this.autocom.addListener('place_changed', () => {
+      let place = this.autocom.getPlace();
+      console.log('place',place);
+      // this.tournamentObj.address.address = place.formatted_address
+      // this.tournamentObj.address.placeID = place.place_id;
+      // this.placeID =  place.place_id;
+      this.MyData.address = place.formatted_address;
+      this.MyData.placeId = place.place_id
+      console.log('form',place.formatted_address);
+      
+      // this.searchResults.push(place)
+    })  
+    
+    
   }
 
 
+  // updateSearchResults(){
+
+  //   if (this.autocomplete.input == '') {
+  //     this.autocompleteItems = [];
+  //     return;
+  //   }
+  //   this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+  //   (predictions, status) => {
+  //     this.autocompleteItems = [];
+  //     this.zone.run(() => {
+  //       predictions.forEach((prediction) => {
+  //         this.autocompleteItems.push(prediction);
+  //       });
+  //     });
+  //   });
+
+
+  // }
 
 
 
-  selectSearchResult(item) {
-    console.log("My Item here is ",item.description)
-    this.location = item;
-    this.autocomplete.input = item.description;
-    this.MyData.address = item.description;
-    this.MyData.placeId = this.location.place_id;
-    this.autocompleteItems = [];
-    console.log('placeid'+ this.placeid)
-  }
+
+
+  // selectSearchResult(item) {
+  //   console.log(item)
+  //   this.location = item;
+  //   this.autocomplete.input = item.description;
+  //   this.placeid = this.location.place_id;
+  //   this.autocompleteItems = [];
+  //   console.log('placeid'+ this.placeid)
+  // }
 
   HideList() {
-    this.autocompleteItems = [];
+    
   }
   
 
 
   ngOnInit() {
+
+    this.autoComplete();
+    
     this.db.collection("Admin").doc(firebase.auth().currentUser.uid).onSnapshot(item => {
      
       
@@ -141,11 +159,9 @@ export class EditProfilePage implements OnInit {
     this.MyData.image = item.data().image,
     this.MyData.email = item.data().email,
     this.MyData.address = item.data().address,
-    this.autocomplete.input = item.data().address
     this.MyData.phoneNumber = item.data().phoneNumber,
     this.MyData.pdf = item.data().pdf,
-    this.MyData.auId = item.id,
-    this.MyData.placeId = item.data().placeId
+    this.MyData.auId = item.id
   
 
       
@@ -175,6 +191,7 @@ this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
   image : this.MyData.image,
   placeId : this.MyData.placeId
 })
+
 
     this.reg1();
     this.dismiss() 

@@ -21,6 +21,7 @@ export class LandingPage implements OnInit {
  
   
   // @ViewChild('barChart',  { static: false }) barChart;
+  
   messages = 0
   category: string = 'accepted'
   MyMessages = [];
@@ -421,6 +422,8 @@ Tattoos = [];
     return await  modal.present();
 
   }
+
+  
     call(){
       console.log('number')
     } 

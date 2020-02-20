@@ -7,6 +7,9 @@ import { Platform, AlertController } from '@ionic/angular';
 import { EditProfilePage } from '../edit-profile/edit-profile.page';
 import { ModalController} from '@ionic/angular';
 // import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { MessagesPageModule } from 'src/app/messages/messages.module';
+import { MessagesPage } from 'src/app/messages/messages.page';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -24,6 +27,10 @@ export class ProfilePage implements OnInit {
   categories:''
   
 }
+
+notifications = 0;
+  messages = 0
+
 fullscreen:boolean = false;
 fullScreenImage: string = '';
 category: string = 'users'
@@ -55,13 +62,38 @@ profile1 ={
 Users = []
 
   toastCtrl: any;
-  notifications : number = 0;
+ 
   pendingLength: number=0;
  
   storage = firebase.storage().ref();
-  constructor(public data : DataService, public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController, public alertCtrl: AlertController) { }
+  constructor(public AlertController:AlertController,public data : DataService, public rout : Router,private auth: AuthenticationService,private plt: Platform,public modalController: ModalController, public alertCtrl: AlertController) { }
   
   ngOnInit() {
+
+    this.db.collection("Bookings").onSnapshot(data => {
+      this.notifications = 0
+      data.forEach(item => {
+        if(item.data().bookingState == "waiting"){
+          this.notifications += 1
+        }
+      })
+    })
+
+
+    this.db.collection("Message").onSnapshot(data => {
+    
+      this.messages  = 0
+      data.forEach(item => {
+       
+        if(item.data().status == "NotRead"){
+          this.messages += 1
+        
+         
+        }
+        
+      })
+    })
+
 
     this.db.collection("Response").onSnapshot(data => {
       this.Pending = []
@@ -97,6 +129,20 @@ Users = []
     console.log("This is your pdf",this.pdf);
     
   }
+
+  async  viewMessages(){
+
+    const modal = await this.modalController.create({
+      component: MessagesPage,
+      cssClass:'modalMessages'
+
+    });
+    return await  modal.present();
+
+  }
+
+
+
   goToNotificationsPage(){
     this.rout.navigateByUrl('/notifications')
 }
@@ -203,8 +249,8 @@ editData(){
       
     }
   
-      
     changeListener(event): void {
+      this.loader=true;
       const i = event.target.files[0];
       console.log(i);
       const upload = this.storage.child(i.name).put(i);
@@ -222,10 +268,38 @@ editData(){
         this.db.collection('Admin').doc(firebase.auth().currentUser.uid).set({pdf: this.pdf}, {merge: true});
         });
       });
+      setTimeout(() => {
+        this.loader = false;
+       this.reg1();  
+      }, 3000);
+     
     }
     
+    async reg1(){
+      const alert = await this.AlertController.create({
+        header: "",
+        subHeader: "",
+        message: "Contract Form Uploaded successfully",
+        buttons: ['OK']
+      });
+      alert.present();
+  }  
+  async del(){
+    const alert = await this.AlertController.create({
+      header: "",
+      subHeader: "",
+      message: "Contract Form deleted successfully",
+      buttons: ['OK']
+    });
+    alert.present()
+   
+}
   
     async DeleteData() {
+
+    
+      
+
       const alert = await this.alertCtrl.create({
         header: 'Delete',
         message: 'Are you sure you want to delete the Contract?',
@@ -239,17 +313,10 @@ editData(){
           }, {
             text: 'Delete',
             handler: data => {
+
+              this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({pdf : ""}, {merge : true})
               
-              this.db.collection("Admin").doc(firebase.auth().currentUser.uid).get().then(data => {
-                console.log("dataaaa ", data.data());
-                this.profile1.address = data.data().address;
-                this.profile1.name = data.data().name;
-                this.profile1.email = data.data().email;
-                this.profile1.phoneNumber = data.data().phoneNumber;
-                
-                console.log("rrrrrrrrrrrrrr ",  this.profile1);
-                this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set(this.profile1);
-              })
+             this.del();
              
             
             }

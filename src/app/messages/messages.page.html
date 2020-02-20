@@ -39,7 +39,7 @@
       </div>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.keys, message.obj, i)" [ngClass]="{'active': active == i}">
+        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.id, message.obj, i)" [ngClass]="{'active': active == i}">
          <ion-icon size="small" color="dark" name="mail"></ion-icon>
           <div class="info">
             <p>{{message.obj.name}}</p>
