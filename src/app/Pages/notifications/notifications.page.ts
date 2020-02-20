@@ -1,8 +1,9 @@
+
 import { DataService } from './../../data.service';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
-import { AlertController,Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
@@ -302,6 +303,13 @@ resetValues() {
   goProfilePage(){
     this.rout.navigateByUrl('/profile')
   }
+
+
+    gotToLandingPage(){
+      this.rout.navigateByUrl('/landing')
+      }
+
+    
   
 callNow(number) {
 

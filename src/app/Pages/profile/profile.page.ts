@@ -1,3 +1,4 @@
+import { MessagesPage } from 'src/app/messages/messages.page';
 import { DataService } from './../../data.service';
 import { Component, OnInit} from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -17,6 +18,9 @@ import { MessagesPage } from 'src/app/messages/messages.page';
 })
 export class ProfilePage implements OnInit {
  loader = true;
+ messages = 0
+ MyMessages = [];
+ UnreadMessages = [];
  pdf;
  pdfObj = null;
  tattoo = {
@@ -204,6 +208,30 @@ editData(){
 
     ionViewWillEnter(){
 
+      this.db.collection("Bookings").onSnapshot(data => {
+        this.notifications = 0
+        data.forEach(item => {
+          if(item.data().bookingState == "waiting"){
+            this.notifications += 1
+          }
+        })
+      })
+      
+      this.db.collection("Message").onSnapshot(data => {
+        this.UnreadMessages = []
+        this.messages  = 0
+        data.forEach(item => {
+         
+          if(item.data().status == "NotRead"){
+            this.messages += 1
+            this.UnreadMessages.push(item.data())
+           
+          }
+          
+        })
+      })
+      
+
 
       firebase.auth().onAuthStateChanged(user => {
         if(user){
@@ -273,6 +301,18 @@ editData(){
        this.reg1();  
       }, 3000);
      
+    }
+
+
+    async  viewMessages(){
+
+      const modal = await this.modalController.create({
+        component: MessagesPage,
+        cssClass:'modalMessages'
+  
+      });
+      return await  modal.present();
+  
     }
     
     async reg1(){

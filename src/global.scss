@@ -89,10 +89,16 @@ ion-searchbar {
 
 
 .fileContainer {
-  background: #383838;
-  color: #fff;
+  background: #c9c9c9;
+  color: rgb(54, 54, 54);
   float: left;
   padding: 1em !important;
+  transition: all 500ms;
+}
+
+.fileContainer:hover {  
+  background: #888;
+  color: #fff;
 }
 
 .fileContainer [type=file] {

@@ -302,7 +302,7 @@
         justify-content: space-between;
         padding: .2em;
         background: rgba(3, 3, 3, 0.529);
-
+        flex-wrap: wrap;
         .measure {
             display: flex;
             flex: 1;
@@ -485,6 +485,18 @@ h4 {
 
 @media only screen and (max-width: 600px) {
 
+    .aside {
+        flex: 0 0 10% !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      flex-wrap: wrap;
+      height: 100%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.301);
+      
+     
+    }
+
     .btn-close_r {
         display: block !important;
     }
@@ -597,12 +609,13 @@ h4 {
     .main {
         position: relative;
     }
+    
     .main, .sub-container{
         flex-direction: column;
       
     }
 
-
+  
   
 
     
