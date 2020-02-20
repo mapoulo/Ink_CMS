@@ -8,7 +8,7 @@
     </ion-buttons>
   
 
-    <input type="text " class="search" style="color: black !important;">
+
     
   </ion-toolbar>
   <ion-toolbar>
@@ -42,20 +42,39 @@
     <div class="form-container">
       <ion-list>
         <ion-grid>
+         
           <ion-row justify-content-center>
-            <ion-col  size="12">
+            <ion-col  size="10">
               <ion-item>
                 <ion-label position="floating">Full Name</ion-label>
                 <ion-input type="text"  formControlName="name" [(ngModel)]="MyData.name" onkeypress="return /[a-zA-Z\s]/i.test(event.key)"  placeholder="{{MyData.name}}"></ion-input>
                 <ion-icon slot="end" name="ios-person"></ion-icon>
               </ion-item>
               <div class="error" *ngFor="let validate of validation_messages.address">
-                <div class="messages" *ngIf="tattooForm.get('name').hasError(validate.type) && (tattooForm.get('name').dirty || tattooForm.get('name').touched)">
+                <div class="messages"  style="padding:0.5em;" *ngIf="tattooForm.get('name').hasError(validate.type) && (tattooForm.get('name').dirty || tattooForm.get('name').touched)">
                   {{validate.message}}
               </div> 
             </div>
             </ion-col>
+        
           </ion-row>
+          <ion-row justify-content-center style="margin: 0.5em 0;">
+              
+            <div class="ion-col" class="physical">
+              <ion-text>Physical</ion-text>
+              <input  formControlName="address" id="google-input" type="text " class="search" style="color: rgb(73, 73, 73) !important;">
+              <div class="pin">
+                <ion-icon slot="end" color="primary" size="medium" name="ios-pin"></ion-icon>
+              </div>
+              
+            </div>
+            <div class="error physical" *ngFor="let validate of validation_messages.address">
+              <div class="messages" style="padding:0.5em;" *ngIf="tattooForm.get('address').hasError(validate.type) && (tattooForm.get('address').dirty || tattooForm.get('address').touched)">
+                {{validate.message}}
+            </div> 
+            </div>
+            
+        </ion-row>
           <!-- <ion-row justify-content-center>
             <ion-col  size="12">
               <ion-item >
@@ -80,7 +99,7 @@
             </ion-col>
           </ion-row> -->
           <ion-row justify-content-center>
-            <ion-col  size="12">
+            <ion-col  size="10">
               <!-- <ion-item>
                 <ion-label position="floating">Physical <Address></Address></ion-label>
                 <ion-input type="text" formControlName="address"  [(ngModel)]="MyData.address" placeholder="{{MyData.address}}" ></ion-input>
@@ -94,14 +113,14 @@
             </ion-col>
           </ion-row>
           <ion-row justify-content-center>
-            <ion-col  size="12">
+            <ion-col  size="10">
               <ion-item>
                 <ion-label position="floating">Phone Number</ion-label>
                 <ion-input type="tel" formControlName="phoneNumber" minlength="10" maxlength="10" [(ngModel)]="MyData.phoneNumber" placeholder="{{MyData.phoneNumber}}" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" ></ion-input>
                 <ion-icon slot="end" name="ios-call"></ion-icon>
               </ion-item>
               <div class="error" *ngFor="let validate of validation_messages.phoneNumber">
-                <div class="messages" *ngIf="tattooForm.get('phoneNumber').hasError(validate.type) && (tattooForm.get('phoneNumber').dirty || tattooForm.get('phoneNumber').touched)">
+                <div class="messages"  style="padding:0.5em;" *ngIf="tattooForm.get('phoneNumber').hasError(validate.type) && (tattooForm.get('phoneNumber').dirty || tattooForm.get('phoneNumber').touched)">
                   {{validate.message}}
               </div> 
             </div>
