@@ -1,8 +1,9 @@
+import { MessagesPage } from 'src/app/messages/messages.page';
 import { DataService } from './../../data.service';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { ViewChild, Inject, LOCALE_ID } from '@angular/core';
-import { AlertController,Platform } from '@ionic/angular';
+import { AlertController, Platform, ModalController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
@@ -17,6 +18,9 @@ import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 })
 export class NotificationsPage implements OnInit {
   db = firebase.firestore();
+
+  messages = 0;
+  UnreadMessages = [];
 notifications  = 0;
   index : number;
   event = {
@@ -86,7 +90,7 @@ notifications  = 0;
       { type: 'required', message: 'end date  is required.' },
     ],
   }
-  constructor(private fb: FormBuilder,private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
+  constructor(private fb: FormBuilder,private render: Renderer2, public modalController: ModalController, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
     this.tattooForm = this.fb.group({
       price: new FormControl('', Validators.compose([Validators.required])),
       endTime: new FormControl('', Validators.compose([Validators.required])),
@@ -174,45 +178,29 @@ notifications  = 0;
   }
   
 ionViewDidEnter(){
+
+  this.db.collection("Bookings").onSnapshot(data => {
+    this.notifications = 0
+    data.forEach(item => {
+      if(item.data().bookingState == "waiting"){
+        this.notifications += 1
+      }
+    })
+  })
   
-  // let id = {docid: "", auId: "",  obj : {}};
-  // let autId = "";
- 
-  //  this.db.collection('Bookings').onSnapshot(res => {
-  //   res.forEach(e => {
-  //     id.docid = e.id;
-  //     id.obj = e.data();
-  //     this.MyArray.push(id);
-  //     id = {docid: "", auId: "", obj : {}};
-  //     console.log("wwwwwwwwwwww", this.MyArray);
-  //   })
-   
-  //   this.MyArray.forEach(item => { 
-  //    this.db.collection("Bookings").doc(item.docid).collection("Requests").onSnapshot(i => {
-    
-  //     this.notifications = 0;
-  //     this.Bookings = [] 
+  this.db.collection("Message").onSnapshot(data => {
+    this.UnreadMessages = []
+    this.messages  = 0
+    data.forEach(item => {
      
-  //     i.forEach(o => {
+      if(item.data().status == "NotRead"){
+        this.messages += 1
+        this.UnreadMessages.push(item.data())
        
-  //       if(o.data().bookingState === "waiting"){
-         
-  //         id.obj = o.data();
-  //         id.auId = o.id;
-         
-  //          this.notifications += 1;
-           
-  //           this.Bookings.push(id);
-  //           console.log("Your data ",  this.Bookings);
-  //         id = {docid: "", auId: "", obj : {}};
-         
-  //       }
+      }
       
-       
-  //     })
-  //    })
-  //  })
-  //  })
+    })
+  })
   
   
 }
@@ -311,6 +299,22 @@ resetValues() {
   goProfilePage(){
     this.rout.navigateByUrl('/profile')
   }
+
+
+    gotToLandingPage(){
+      this.rout.navigateByUrl('/landing')
+      }
+
+      async  viewMessages(){
+
+        const modal = await this.modalController.create({
+          component: MessagesPage,
+          cssClass:'modalMessages'
+    
+        });
+        return await  modal.present();
+    
+      }
   
 callNow(number) {
   this.platform.ready().then(() => {

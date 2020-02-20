@@ -31,15 +31,27 @@
           <p class="paragragh">Admin</p>
           </div>
 
-
           <div class="notifation">
             <ion-button  (click)="home()" shape="block" color="light" size="large" fill="clear">
               <ion-icon mode="ios" name="home"></ion-icon>
               </ion-button>
+            
           
         </div>
 
+        <div class="notifation">
+          <ion-button shape="block" color="light" fill="clear" size="large" (click)="goToNotificationsPage()">
+              <ion-icon name="notifications-outline"></ion-icon>
+            </ion-button>
+          <ion-badge class="badge" *ngIf="notifications > 0" color="danger">{{notifications}}</ion-badge>
+      </div>
 
+      <div class="notifation">
+        <ion-button (click)="viewMessages()" shape="block" color="light" size="large" fill="clear">
+          <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
+          </ion-button>
+        <ion-badge class="badge" *ngIf="messages > 0" color="warning">{{messages}}</ion-badge>
+    </div>
       
           <!-- <div class="notifation">
               <ion-button shape="block" color="light" size="large" fill="clear">
@@ -104,7 +116,7 @@
 
             <div class="respond-container">
 
-              <div class="details-profile animated slideInUp" *ngIf="obj.image">
+              <div class="details-profile animated zoomIn" *ngIf="obj.image">
                 
                   <div class="card-r">
          

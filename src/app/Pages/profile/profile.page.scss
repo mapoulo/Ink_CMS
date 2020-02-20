@@ -549,7 +549,17 @@ ion-segment {
 
 @media all and (max-width: 600px) {
 
-
+    .aside {
+        flex: 0 0 10% !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      flex-wrap: wrap;
+      height: 100%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.301);
+      
+     
+    }
 
     ion-label {
         font-size: 70% !important;
