@@ -37,7 +37,7 @@ notifications = 0;
 
 fullscreen:boolean = false;
 fullScreenImage: string = '';
-category: string = 'users'
+category: string = 'pending'
 Pending=[]
 AllUsers=[]
 AllUsersLength: number=0;

@@ -183,7 +183,7 @@ ion-segment-button {
    
     position: relative;
     background: #D66E53;
-   
+    padding-top: 2em;
 
     &::after {
         position: absolute;
@@ -898,7 +898,7 @@ canvas {
          flex-wrap: wrap;
          height: 100%;
          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.301);
-         
+         padding-top: 0; 
         
        }
        .profile-container {
