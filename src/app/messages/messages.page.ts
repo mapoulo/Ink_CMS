@@ -233,7 +233,7 @@ console.log("localeCompare first :" + index );
 
     this.db.collection('Message').doc(this.uid).delete();
     console.log('Message Deleted');
-
+ 
 
     const alert = await this.alertController.create({
       header: '',
