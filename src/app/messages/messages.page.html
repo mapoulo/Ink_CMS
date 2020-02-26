@@ -39,12 +39,12 @@
       </div>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.id, message.obj, i)" [ngClass]="{'active': active == i}">
+        <div class="item" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid,  i)" [ngClass]="{'active': active == i}">
           <div class="statuss" [ngClass]="{'notRead': message.stat=='NotRead', 'Read': message.stat=='Read'}"></div>
           <ion-icon size="small" color="dark" name="mail"></ion-icon>
           <div class="info">
-            <p>{{message.obj.name}}</p>
-            <p>{{message.obj.time}}</p>
+            <p>{{message.name}}</p>
+            <p>{{message.time}}</p>
           </div>
          
         </div>
@@ -70,6 +70,8 @@
         </div>
         </div>
 
+        <textarea   *ngIf="messageInfo.message" class="no-selected animated" [ngClass]="{'zoomInLeft': messageInfo.message}"  [(ngModel)]="response" name="" id="" cols="30" rows="5"></textarea>
+<button  *ngIf="messageInfo.message" class="no-selected animated" [ngClass]="{'zoomInLeft': messageInfo.message}"  (click)="Respond()">Send</button>
 
         <div class="options" >
           <!-- <ion-button fill="clear" color="danger"  ><ion-icon name="trash" ></ion-icon></ion-button> -->

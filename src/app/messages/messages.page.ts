@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import * as firebase from 'firebase';
+import * as moment from 'moment';
 import { AlertController, ModalController } from '@ionic/angular';
 
 @Component({
@@ -14,6 +15,7 @@ export class MessagesPage implements OnInit {
 
   key = ''
   uid = ''
+  response = ""
   messages = 0;
   fonts = 0;
   MessagesId = [];
@@ -28,11 +30,14 @@ export class MessagesPage implements OnInit {
   ReadMessages = 0;
   unReadMessages = 0;
 
+  Names = []
+  NamesSorted = []
+
   db = firebase.firestore();
   active;
   constructor(private render: Renderer2, public alertController: AlertController, public modalController: ModalController) {
 
-
+    
 
   }
 
@@ -46,38 +51,114 @@ export class MessagesPage implements OnInit {
     };
   }
 
+
+check(){
+
+let str1 = new String( "This" );
+  
+let index = str1.localeCompare( "This "); 
+console.log("localeCompare first :" + index );
+
+  }
+
   ngOnInit() {
 
+    
 
-    this.db.collection('Message').orderBy('time', 'desc').onSnapshot(data => {
+    this.db.collection("Message").orderBy('time', 'desc').onSnapshot(data => {
 
-      this.MyMessages = [];
-      this.unReadMessages = 0;
-      this.ReadMessages  = 0;
-      this.AllMessages = 0;
-
-      let obj = {obj: {}, id: '', stat: ''};
-      data.forEach(item => {
-
-        obj.obj = item.data();
-        obj.id = item.id;
-        obj.stat = item.data().status;
-        this.AllMessages += 1;
-
-        this.MyMessages.push(obj);
-        console.log(this.MyMessages);
+      this.Names = []
+      let index = 0
+      let obj = {name : "", uid : ""}
+  
+       data.forEach(item => {
+  
+         if(item.data().name != "" && item.data().name != undefined && item.data().name != null){
+      
+          obj.name = item.data().name
         
-        // tslint:disable-next-line: triple-equals
-        if (item.data().status == 'NotRead') {
-          this.unReadMessages += 1;
-        } else {
-           this.ReadMessages += 1;
-        }
+          obj.uid = item.data().uid               
+          this.Names.push(obj)
+          obj = {name : "", uid : ""}   
 
 
-        obj = {obj: {}, id: '', stat: ''};
-      });
-    });
+ 
+         } 
+                       
+       })
+  
+     
+       const  data1 =  this.Names
+
+
+       const finalOut = []
+
+
+       data1.forEach((value) => {
+           if (!finalOut.some(x=> (x.name === value.name || x.uid === value.uid))) 
+         {
+               finalOut.push(value)
+               
+           }
+       })
+           
+           console.log("testing",finalOut);
+           finalOut.forEach(item => {
+             this.NamesSorted.push(item)
+           })
+           console.log("data ",  this.NamesSorted);
+           
+
+  
+     })
+
+  
+
+
+  
+
+
+
+
+            
+             
+
+    // this.db.collection('Message').orderBy('time', 'desc').onSnapshot(data => {
+
+    //   this.MyMessages = [];
+    //   this.unReadMessages = 0;
+    //   this.ReadMessages  = 0;
+    //   this.AllMessages = 0;
+
+    //   let obj = {obj: {}, id: '', stat: ''};
+    //   data.forEach(item => {
+
+    //     obj.obj = item.data();
+    //     obj.id = item.id;
+    //     obj.stat = item.data().status;
+       
+
+    //     if(item.data().cmsUid != null){
+    //       this.AllMessages += 1;
+    //     }
+
+    //     if(item.data().cmsUid != null){
+    //       this.MyMessages.push(obj);
+    //     }
+       
+      
+        
+    //     // tslint:disable-next-line: triple-equals
+    //     if (item.data().status == 'NotRead' && item.data().cmsUid != null) {
+    //       this.unReadMessages += 1;
+    //     } else if(item.data().cmsUid != null) {
+    //        this.ReadMessages += 1;
+    //     }
+
+
+    //     obj = {obj: {}, id: '', stat: ''};
+    //   });
+    // });
 
 
   }
@@ -87,36 +168,59 @@ export class MessagesPage implements OnInit {
   }
 
 
+  async Respond(){
 
-  updateMessage(uid, key, data, i) {
-
-
-
-    // setTimeout(() => {
-    //   console.log("Not Sorted ",this.MyMessages);
-    //   this.MyMessages.sort();
-    //   console.log("Sorted ",this.MyMessages);
-
-    // }, 1000);
-
-    console.log('Your data is here ', key);
+   
+    this.db.collection("Message").doc().set({
+      message : this.response,
+       uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm:ss a'),
+    cmsUid : null ,
+    status : "NotRead"
+  })
 
 
-    this.uid = uid;
-    this.key = key;
+  const alert = await this.alertController.create({
+    header: '',
+    subHeader: '',
+    message: 'Message Sent',
+    buttons: [ 'Ok']
+  });
 
-    this.active = i;
-
-    this.messageInfo.name = data.name;
-    this.messageInfo.message = data.message;
-    this.messageInfo.email = data.email;
-    this.messageInfo.time = data.time;
+  await alert.present();
+  }
 
 
-    this.render.setStyle(this.contentMessages[0], 'display', 'flex');
 
-    this.db.collection('Message').doc(key).set({status: 'Read' }, {merge : true});
-    console.log('Message updated');
+  updateMessage(uid) {
+
+
+    this.db.collection("Message").orderBy('time', 'desc').onSnapshot(
+      data => {
+        data.forEach(item => {
+          if(item.data().uid == uid){
+            console.log('Your data is here ', item.data());
+            
+          }
+        })
+      }
+    )
+
+
+    // this.uid = uid;
+    // this.key = key;
+
+    // this.active = i;
+
+    // this.messageInfo.name = data.name;
+    // this.messageInfo.message = data.message;
+    // this.messageInfo.email = data.email;
+    // this.messageInfo.time = data.time;
+
+
+    // this.render.setStyle(this.contentMessages[0], 'display', 'flex');
+
+    // this.db.collection('Message').doc(key).set({status: 'Read' }, {merge : true});
+    // console.log('Message updated');
 
   }
 
