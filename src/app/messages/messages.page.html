@@ -5,21 +5,25 @@
 
     <div class="read-not-container">
       <ion-toolbar>
-        <div class="searchbar">
-          <ion-searchbar mode="md" class="searchbar-input" no-border></ion-searchbar>
-        </div>
+        <!-- <div class="searchbar">
+          <ion-searchbar mode="md" class="searchbar-input" (ionInput)="sear($event)" no-border></ion-searchbar>
+        </div> -->
        </ion-toolbar>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of MyMessages; let i=index;" (click)="updateMessage(message.obj.uid, message.id, message.obj, i)" [ngClass]="{'active': active == i, 'fontBig': message.stat=='NotRead', 'fontSmall': message.stat=='Read'}">
+        <div class="item" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid)" [ngClass]="{'active': active == i}">
           <div class="statuss" [ngClass]="{'notRead': message.stat=='NotRead', 'Read': message.stat=='Read'}"></div>
           <div class="profile-list">
-            <img src="../../assets/2837077.jpg" alt="">
+
+            <img *ngIf = "!message.image" src="../../assets/person-icon.jpg" alt="">
+
+            <img *ngIf = "message.image" src="{{message.image}}" alt="">
+            
           </div>
           <div class="info">
-            <p>{{message.obj.name}}</p>
-            <p>{{message.obj.time}}</p>
-          </div> 
+            <p>{{message.name}}</p>
+            <p>{{message.time}}</p>
+          </div>
          
         </div>
         
@@ -34,11 +38,17 @@
         <ion-buttons slot="start">
          <div class="pro-main">
            <div class="profile">
-            <img src="../../assets/2837077.jpg" alt="">
+           
+
+            <img *ngIf = "!image" src="../../assets/person-icon.jpg" alt="">
+
+            <img *ngIf = "image" src="{{image}}" alt="">
+
+
             </div>
             <div class="names">
-              <p style="font-weight: bold;">Muenda Khuthadzo</p>
-              <p>072 578 3324</p>
+              <p style="font-weight: bold;">{{name}}</p>
+              <p>{{number}}</p>
             </div>
 
          </div>
@@ -56,37 +66,53 @@
 
         <div class="message-text">
         <!-- <p  *ngIf="messageInfo.message" class="no-selected animated" [ngClass]="{'zoomInLeft': messageInfo.message}">{{messageInfo.message}}</p> -->
+          
+          <div class="chat" *ngFor="let chat of DisplayMessages; let i=index">
 
-          <div class="chat">
-            <div class="user">
+            <div class="user" *ngIf="chat.cmsUid !== null">
               <div class="i_chat">
-                <img src="../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="">
+
+                <img *ngIf = "!image" src="../../assets/person-icon.jpg" alt="">
+
+                <img *ngIf = "image" src="{{image}}" alt="">
+
+
               </div>
               <div class="user-text">
                 <div class="inner-text">
-                  <p>Hi</p>
+                  <p>{{chat.message}}</p>
                 </div>
-                <div class="time"><p><small>11:00 AM</small></p></div>
+                <div class="time"><p><small>{{chat.time}}</small></p></div>
               </div>
             </div>
-            <div class="artist">
+
+
+            <div class="artist" *ngIf="chat.cmsUid == null">
               <div class="i_chat">
-                <img src="../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="">
+                
+                <img *ngIf = "!cmsImage" src="../../assets/person-icon.jpg" alt="">
+
+                <img *ngIf = "cmsImage" src="{{cmsImage}}" alt="">
+
               </div>
               <div class="artist-text">
                 <div class="inner-text">
-                  <p>HHow are you doing? Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui molestias odio, ratione reprehenderit excepturi aspernatur nam, iste in impedit quos libero consequatur deserunt consequuntur fugit itaque porro repudiandae nemo animi.</p>
+                  <p>{{chat.message}}</p>
                 </div>
                 <div class="time">
-                  <p><small>12:00 AM</small></p>
+                  <p><small>{{chat.time}}</small></p>
                 </div>
               </div>
             
             </div>
+
+
           </div>
          
          
 
+
+        
 
 
         <!-- <div class="no-selected" *ngIf="!messageInfo.message">
@@ -98,12 +124,14 @@
             
              
                 <div class="col-row">
-                  <ion-textarea placeholder="Type a Message"></ion-textarea>
+                  <textarea      [(ngModel)]="response"></textarea>
                 </div>
                 <div class="col-btn">
-                 <ion-button fill="clear">
-                   <ion-icon name="send"></ion-icon>
-                 </ion-button>
+               
+                  
+                 
+
+                 <button fill="clear" class="no-selected animated"   (click)="Respond()"> <ion-icon name="send"></ion-icon></button>
                 </div>
              
     

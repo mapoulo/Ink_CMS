@@ -61,7 +61,10 @@ db=firebase.firestore();
       
 
       this.db.collection("Admin").doc(firebase.auth().currentUser.uid).set({
-        cmsTokenId : this.NotificationsService.token
+
+        cmsTokenId : this.NotificationsService.token,
+        uid : firebase.auth().currentUser.uid
+        
       }, {merge : true})
 
       this.db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(res =>{
