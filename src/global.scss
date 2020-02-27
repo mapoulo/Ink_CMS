@@ -33,6 +33,10 @@ p, h1, h2,h3,h4,h5,h6,small, ion-label, ion-input, ion-item, input {
 .swiper-pagination-bullet {
   background: #353535 !important;
 }
+.searchbar-input {
+  border: 0 !important;
+  box-shadow: none !important;
+}
 
 *, *::after, *::before {
   margin: 0;
@@ -54,10 +58,6 @@ p, h1, h2,h3,h4,h5,h6,small, ion-label, ion-input, ion-item, input {
 }
 
 
-.searchbar-input {
-  border: 0 !important;
-  box-shadow: none !important;
-}
 
 
 
