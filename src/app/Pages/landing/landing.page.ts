@@ -81,6 +81,9 @@ Tattoos = [];
      console.log('kjasdbjkasbdas khuthy',i);
      
    }
+
+   
+
    showGraph() {
      this.graph = !this.graph;
      if(this.graph) {
