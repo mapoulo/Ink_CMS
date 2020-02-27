@@ -17,6 +17,8 @@ export class MessagesPage implements OnInit {
   uid = ''
   response = ""
   messages = 0;
+  image = ""
+  number = ""
   fonts = 0;
   MessagesId = [];
   messageInfo = {
@@ -30,8 +32,12 @@ export class MessagesPage implements OnInit {
   ReadMessages = 0;
   unReadMessages = 0;
 
+  DisplayMessages = []
+
   Names = []
   NamesSorted = []
+  name : ""
+  cmsImage : ""
 
   db = firebase.firestore();
   active;
@@ -68,18 +74,20 @@ console.log("localeCompare first :" + index );
     this.db.collection("Message").orderBy('time', 'desc').onSnapshot(data => {
 
       this.Names = []
+      this.NamesSorted = []
+     
       let index = 0
-      let obj = {name : "", uid : ""}
+      let obj = {name : "", uid : "", image : ""}
   
        data.forEach(item => {
   
          if(item.data().name != "" && item.data().name != undefined && item.data().name != null){
       
           obj.name = item.data().name
-        
+          obj.image = item.data().image;
           obj.uid = item.data().uid               
           this.Names.push(obj)
-          obj = {name : "", uid : ""}   
+          obj = {name : "", uid : "", image : ""}  
 
 
  
@@ -89,8 +97,6 @@ console.log("localeCompare first :" + index );
   
      
        const  data1 =  this.Names
-
-
        const finalOut = []
 
 
@@ -177,16 +183,9 @@ console.log("localeCompare first :" + index );
     cmsUid : null ,
     status : "NotRead"
   })
+this.response = "";
+  this.updateMessage(this.uid)
 
-
-  const alert = await this.alertController.create({
-    header: '',
-    subHeader: '',
-    message: 'Message Sent',
-    buttons: [ 'Ok']
-  });
-
-  await alert.present();
   }
 
 
@@ -194,17 +193,45 @@ console.log("localeCompare first :" + index );
   updateMessage(uid) {
 
 
-    this.db.collection("Message").orderBy('time', 'desc').onSnapshot(
+    this.uid = uid;
+    this.DisplayMessages = []
+
+    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
       data => {
+
+        this.DisplayMessages = []
+
         data.forEach(item => {
+
+          this.db.collection("Message").doc(item.id).set({
+            status : "Read"
+          }, {merge : true})
+
           if(item.data().uid == uid){
-            console.log('Your data is here ', item.data());
-            
+            this.DisplayMessages.push(item.data())
           }
         })
       }
     )
+    console.log('Your data is here ', this.DisplayMessages);
 
+
+    this.db.collection("Users").doc(uid).onSnapshot(data => {
+      this.image = data.data().image;
+      this.number = data.data().number;
+      this.name = data.data().name;
+      console.log("Image ", this.image);
+      console.log("Number ",  this.number);
+      
+      
+    })
+
+
+    this.db.collection("Admin").onSnapshot(data => {
+      data.forEach(item => {
+        this.cmsImage = item.data().image
+      })
+    })
 
     // this.uid = uid;
     // this.key = key;
@@ -223,6 +250,36 @@ console.log("localeCompare first :" + index );
     // console.log('Message updated');
 
   }
+  
+  sear(ev){
+    console.log(ev.target.value);
+    let query = ev.target.value
+    if(query === ''){
+      this.data = this.NamesSorted
+    }else{
+      this.searchResult(query)
+    }
+  //   for(let i = 0; i < this.NamesSorted.length; i++){
+      
+  //     if(this.NamesSorted[i].name === ev.detail.data) {
+  //       //  if( num % 1 != 0){
+  //       //     alert("Enter a whole number!")
+  //       //     --i;  // reset the counter for amount of numbers entered
+  //       //  }else{
+  //       //     numbers.push(num);
+  //       //  }
+  //     } // console.log(ev.detail.data);
+  // }
+}
+data : Array<any>
+searchResult(event){
+  let array : Array<any> =[]
+  let search = event.toLowerCase()
+  this.data = this.NamesSorted.filter(item => item.name.toLowerCase().indexOf(search))
+  console.log(this.data);
+  
+}
+
 
 
   async deleteMessage() {

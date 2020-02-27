@@ -5,16 +5,20 @@
 
     <div class="read-not-container">
       <ion-toolbar>
-        <div class="searchbar">
-          <ion-searchbar mode="md" class="searchbar-input" no-border></ion-searchbar>
-        </div>
+        <!-- <div class="searchbar">
+          <ion-searchbar mode="md" class="searchbar-input" (ionInput)="sear($event)" no-border></ion-searchbar>
+        </div> -->
        </ion-toolbar>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid,  i)" [ngClass]="{'active': active == i}">
+        <div class="item" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid)" [ngClass]="{'active': active == i}">
           <div class="statuss" [ngClass]="{'notRead': message.stat=='NotRead', 'Read': message.stat=='Read'}"></div>
           <div class="profile-list">
-            <img src="../../assets/2837077.jpg" alt="">
+
+            <img *ngIf = "!message.image" src="../../assets/person-icon.jpg" alt="">
+
+            <img *ngIf = "message.image" src="{{message.image}}" alt="">
+            
           </div>
           <div class="info">
             <p>{{message.name}}</p>
@@ -34,11 +38,17 @@
         <ion-buttons slot="start">
          <div class="pro-main">
            <div class="profile">
-            <img src="../../assets/2837077.jpg" alt="">
+           
+
+            <img *ngIf = "!image" src="../../assets/person-icon.jpg" alt="">
+
+            <img *ngIf = "image" src="{{image}}" alt="">
+
+
             </div>
             <div class="names">
-              <p style="font-weight: bold;">{{message.name}}</p>
-              <p>{{message.name}}</p>
+              <p style="font-weight: bold;">{{name}}</p>
+              <p>{{number}}</p>
             </div>
 
          </div>
@@ -61,7 +71,12 @@
 
             <div class="user" *ngIf="chat.cmsUid !== null">
               <div class="i_chat">
-                <img src="../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="">
+
+                <img *ngIf = "!image" src="../../assets/person-icon.jpg" alt="">
+
+                <img *ngIf = "image" src="{{image}}" alt="">
+
+
               </div>
               <div class="user-text">
                 <div class="inner-text">
@@ -74,7 +89,11 @@
 
             <div class="artist" *ngIf="chat.cmsUid == null">
               <div class="i_chat">
-                <img src="../../assets/allef-vinicius-vKIc4k6dm10-unsplash.jpg" alt="">
+                
+                <img *ngIf = "!cmsImage" src="../../assets/person-icon.jpg" alt="">
+
+                <img *ngIf = "cmsImage" src="{{cmsImage}}" alt="">
+
               </div>
               <div class="artist-text">
                 <div class="inner-text">
