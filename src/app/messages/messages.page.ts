@@ -129,7 +129,7 @@ export class MessagesPage implements OnInit {
 
     this.db.collection('Message').doc(this.uid).delete();
     console.log('Message Deleted');
-
+ 
 
     const alert = await this.alertController.create({
       header: '',

@@ -53,9 +53,12 @@ p, h1, h2,h3,h4,h5,h6,small, ion-label, ion-input, ion-item, input {
 
 }
 
-ion-searchbar {
+
+.searchbar-input {
+  border: 0 !important;
   box-shadow: none !important;
 }
+
 
 
 /* Handle */
@@ -179,9 +182,13 @@ ion-searchbar {
 
      .modalMessages .modal-wrapper {
         
-          --width: 60%;
+          --width: 80%;
+          --height: 80%;
+          --border-radius: 10px;
          
      }
+
+   
     
   @media only screen and (max-width: 600px) {
     .custom-modal .modal-wrapper {
@@ -191,14 +198,33 @@ ion-searchbar {
     .modalMessages .modal-wrapper {
         
       --width: 100%;
+      --height: 100%;
      
  }
-    .modalMessages .modal-wrapper {
-      position: unset;
-   
- }
+  
   }
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: 600px) and (max-width: 768px) {
+    .modalMessages .modal-wrapper {
+        
+      --width: 100%;
+      --height: 100%;
+    }
+  } 
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .modalMessages .modal-wrapper {
+        
+      --width: 100%;
+      --height: 100%;
+    }
+  } 
+  @media only screen and (min-width: 1024px) and (max-width: 1200px) {
+    .modalMessages .modal-wrapper {
+        
+      --width: 90%;
+      --height: 90%;
+    }
+  } 
+/*   @media only screen and (min-width: 700px) {
     .custom-modal .modal-wrapper {
       width: 40%;
     }
@@ -208,19 +234,15 @@ ion-searchbar {
      
  }
 
-  }
-  @media only screen and (min-width: 1200px) {
+  } */
+/*   @media only screen and (min-width: 1200px) {
     .custom-modal .modal-wrapper {
       width: 20%;
     }
   }
   @media only screen and (max-width: 1200px) {
- /*    .modalMessages .modal-wrapper {
-        
-      --width: 80%;
-     
- } */
-  }
+
+  } */
 
   
 /* Loader */
