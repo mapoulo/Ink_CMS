@@ -75,6 +75,7 @@ console.log("localeCompare first :" + index );
 
       this.Names = []
       this.NamesSorted = []
+      
      
       let index = 0
       let obj = {name : "", uid : "", image : ""}
@@ -187,7 +188,7 @@ console.log("localeCompare first :" + index );
 
      this.response = "";
 
- // this.updateMessage(this.uid)
+//  this.updateMessage(this.uid)
 
   }
 
@@ -198,16 +199,16 @@ console.log("localeCompare first :" + index );
     this.uid = uid;
     this.DisplayMessages = []
 
-    this.db.collection("Message").orderBy('time', 'asc').get().then(
+    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
       data => {
 
         this.DisplayMessages = []
 
         data.forEach(item => {
 
-          this.db.collection("Message").doc(item.id).set({
-            status : "Read"
-          }, {merge : true})
+          // this.db.collection("Message").doc(item.id).set({
+          //   status : "Read"
+          // }, {merge : true})
 
           if(item.data().uid == uid){
             this.DisplayMessages.push(item.data())
@@ -238,9 +239,9 @@ console.log("localeCompare first :" + index );
 
     this.db.collection("Message").get().then(item => {
       item.forEach(data => {
-        if(data.data().uid == uid && data.data().cmsUid != null){
-          this.db.collection("Message").doc(data.id).set({status : "Read"}, {merge : true})
-        }
+        // if(data.data().uid == uid && data.data().cmsUid != null){
+        //   this.db.collection("Message").doc(data.id).set({status : "Read"}, {merge : true})
+        // }
       })
     })
 
