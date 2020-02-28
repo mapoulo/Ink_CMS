@@ -125,16 +125,12 @@ Tattoos = [];
 
 
     this.db.collection("Message").onSnapshot(data => {
-      this.UnreadMessages = []
-      this.messages  = 0
+      this.messages = 0
       data.forEach(item => {
-       
-        if(item.data().status == "NotRead"){
-          this.messages += 1
-          this.UnreadMessages.push(item.data())
-         
+        if( item.data().status == "NotRead"  && item.data().cmsUid != null  ){
+             this.messages += 1
+             console.log("Called  ssss");                
         }
-        
       })
     })
  

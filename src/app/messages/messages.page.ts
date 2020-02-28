@@ -78,6 +78,7 @@ console.log("localeCompare first :" + index );
 
       this.Names = []
       this.NamesSorted = []
+      
      
       let index = 0
       let obj = {name : "", uid : "", image : ""}
@@ -187,10 +188,12 @@ console.log("localeCompare first :" + index );
       message : this.response,
        uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm:ss a'),
     cmsUid : null ,
-    status : "NotRead"
+    status: "NotRead"
   })
-this.response = "";
-  this.updateMessage(this.uid)
+
+     this.response = "";
+
+//  this.updateMessage(this.uid)
 
     if(!shouldScroll) {
       console.log('scrolling');
@@ -204,7 +207,6 @@ this.response = "";
 
   updateMessage(uid) {
 
-
     this.uid = uid;
     this.DisplayMessages = []
 
@@ -215,9 +217,9 @@ this.response = "";
 
         data.forEach(item => {
 
-          this.db.collection("Message").doc(item.id).set({
-            status : "Read"
-          }, {merge : true})
+          // this.db.collection("Message").doc(item.id).set({
+          //   status : "Read"
+          // }, {merge : true})
 
           if(item.data().uid == uid){
             this.DisplayMessages.push(item.data())
@@ -245,23 +247,19 @@ this.response = "";
       })
     })
 
-    // this.uid = uid;
-    // this.key = key;
 
-    // this.active = i;
+    this.db.collection("Message").get().then(item => {
+      item.forEach(data => {
+        // if(data.data().uid == uid && data.data().cmsUid != null){
+        //   this.db.collection("Message").doc(data.id).set({status : "Read"}, {merge : true})
+        // }
+      })
+    })
 
-    // this.messageInfo.name = data.name;
-    // this.messageInfo.message = data.message;
-    // this.messageInfo.email = data.email;
-    // this.messageInfo.time = data.time;
-
-
-    // this.render.setStyle(this.contentMessages[0], 'display', 'flex');
-
-    // this.db.collection('Message').doc(key).set({status: 'Read' }, {merge : true});
-    // console.log('Message updated');
 
   }
+
+
   
   sear(ev){
     console.log(ev.target.value);
@@ -283,8 +281,14 @@ this.response = "";
   //     } // console.log(ev.detail.data);
   // }
 }
+
+
+
 data : Array<any>
+
+
 searchResult(event){
+  
   let array : Array<any> =[]
   let search = event.toLowerCase()
   this.data = this.NamesSorted.filter(item => item.name.toLowerCase().indexOf(search))
