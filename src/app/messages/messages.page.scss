@@ -54,9 +54,8 @@
 
       .item {
         flex: 0 0 10%;
-       /*  background: rgb(255, 255, 255); */
-        /* box-shadow:  6px 6px 12px rgba(0, 0, 0, 0.1),  
-         -6px -6px 12px  rgba(255, 255, 255, 1); */
+        box-shadow: 0 .25rem .25rem rgba(189, 189, 189, 0.2),
+        0 0 1rem rgba(196, 196, 196, 0.2);
         margin: 1%;
         display: flex;
         align-items: center;
@@ -118,6 +117,16 @@
         .info, ion-icon {
                padding: 1em; 
         }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+
+          p {
+            margin: .3em;
+          }
+        }
         
         
      }
@@ -157,7 +166,7 @@
 
 
   .content-messages {
-    flex-basis: 60%;
+    flex-basis: 80%;
  
     display: flex;
     flex-direction: column;
@@ -208,25 +217,24 @@
         }
     }
     .options {
-        flex-basis: 2%;
-        
-        background: linear-gradient(-45deg,rgba(255, 255, 255, 0.685), rgba(255, 255, 255, 0.77)), url('../../assets/background.jpg');
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
-        padding: 1em;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      background: #eeeeee;
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
+      padding: 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
   
-        p {
-            display: flex;
-            align-items: center;
-            margin: 1%;
-            color: rgb(168, 168, 168);
-        }
-    }
+      .textrear {
+        flex: 0 0 90%;
+        height: 100%;
+       border-radius: 50px;
+       background: #eeeeee;
+       box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.089), -6px -6px 16px rgba(255, 255, 255, 0.918);
+      }
+  }
   }
 }
 
@@ -264,6 +272,7 @@
     flex-direction: column;
     font-size: 80%;
     margin-left: 1em;
+  
   }
 }
 
