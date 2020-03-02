@@ -232,7 +232,7 @@ setTimeout(() => {
     this.uid = uid;
     this.DisplayMessages = []
     this.active = i;
-    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
+    this.db.collection("Message").orderBy('time', 'asc').get().then(
       data => {
 
         this.DisplayMessages = [];
