@@ -70,6 +70,23 @@
        transition: all 500ms;
        cursor: pointer;
 
+       .envelop {
+         position: absolute;
+         top: 0;
+         right: 0;
+         width: 10%;
+/*          background: red; */
+         height: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+
+         ion-icon {
+           --width: 100%;
+         }
+
+       }
+
        .profile-list {
          height: 40px;
          width: 40px;
