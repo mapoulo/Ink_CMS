@@ -239,9 +239,9 @@ setTimeout(() => {
 
         data.forEach(item => {
 
-          // this.db.collection("Message").doc(item.id).set({
-          //   status : "Read"
-          // }, {merge : true})
+          this.db.collection("Message").doc(item.id).set({
+            status : "Read"
+          }, {merge : true})
 
           if(item.data().uid == uid){
             this.DisplayMessages.push(item.data())
