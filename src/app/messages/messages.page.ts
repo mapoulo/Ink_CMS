@@ -89,7 +89,7 @@ console.log("localeCompare first :" + index );
       
      
       let index = 0
-      let obj = {name : "", uid : "", image : "", status: "", phone: ""}
+      let obj = {name : "", uid : "", image : "", status: ""}
   
        data.forEach(item => {
   
@@ -99,9 +99,9 @@ console.log("localeCompare first :" + index );
           obj.image = item.data().image;
           obj.uid = item.data().uid;
           obj.status = item.data().status;  
-          obj.phone = item.data().phoneNumber;             
+                  
           this.Names.push(obj)
-          obj = {name : "", uid : "", image : "", status: "", phone: ""}  
+          obj = {name : "", uid : "", image : "", status: ""}  
 
 
  
