@@ -23,7 +23,7 @@
           </div>
           <div class="info">
             <p style="font-weight: bolder;">{{message.name}}</p>
-            <p>{{message.status}}</p>
+            <p>{{message.number}}</p>
           </div>
           <div class="envelop">
             <ion-button fill="clear" *ngIf="message.status == 'NotRead'" mode="ios" color="dark"><ion-icon name="mail-unread"></ion-icon></ion-button>
@@ -70,7 +70,7 @@
       </ion-toolbar>
 
         <ion-content padding #content>
-         <div class="no-messages" *ngIf="DisplayMessages.length == 0">
+         <div class="no-messages" *ngIf="DisplayMessages.length == 0 && imgchat">
             <img src="../../assets/chat.svg" width="350px" alt="">
          </div>
           
