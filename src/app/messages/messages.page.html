@@ -1,16 +1,19 @@
 
-<ion-content>
+
 
   <div class="list">
 
     <div class="read-not-container">
-      <ion-toolbar color="secondary">
+      <ion-toolbar color="secondary" class="tool-h">
+        <ion-buttons slot="right">
+          <ion-button color="light" fill="icon-only"><ion-icon name="ios-chatbubbles"></ion-icon></ion-button>
+        </ion-buttons>
           <ion-title class="ion-text-center">Chats</ion-title>
        </ion-toolbar>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid)" [ngClass]="{'active':  active == i}">
-         
+        <div class="item animated" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid, i)" [ngClass]="{'pulse active': active==i}">
+          <div  [ngClass]="{'statuss': active==i}"></div>
           <div class="profile-list">
 
             <img *ngIf = "!message.image" src="../../assets/person-icon.jpg" alt="">
@@ -31,8 +34,11 @@
    
   
 
-    <div class="content-messages animated slideInUp">
+    <div class="content-messages animated zoomInUp">
       <ion-toolbar color="light">
+        <ion-buttons slot="start" class="hidered">
+          <ion-button  class="hide" fill="clear" color="dark" (click)="back()"><ion-icon color="dark" name="arrow-back"></ion-icon></ion-button>
+        </ion-buttons>
         <ion-buttons slot="start">
          <div class="pro-main">
            <div class="profile">
@@ -51,9 +57,7 @@
 
          </div>
         </ion-buttons>
-        <ion-buttons slot="start" *ngIf="messageInfo.message">
-          <ion-button  class="hide" fill="clear" color="light" (click)="back()"><ion-icon color="light" name="arrow-back"></ion-icon></ion-button>
-        </ion-buttons>
+       
         
     
         <ion-buttons slot="end">
@@ -62,8 +66,10 @@
     
       </ion-toolbar>
 
-        <div class="message-text">
-        <!-- <p  *ngIf="messageInfo.message" class="no-selected animated" [ngClass]="{'zoomInLeft': messageInfo.message}">{{messageInfo.message}}</p> -->
+        <ion-content padding #content>
+         <div class="no-messages" *ngIf="DisplayMessages.length == 0">
+            <img src="../../assets/chat.svg" width="350px" alt="">
+         </div>
           
           <div class="chat" *ngFor="let chat of DisplayMessages; let i=index">
 
@@ -116,7 +122,7 @@
         <!-- <div class="no-selected" *ngIf="!messageInfo.message">
           <p>Please select a message card on the left hand side to read</p>
         </div> -->
-        </div>
+      </ion-content>
         <ion-toolbar>
           <div class="options">
             <div class="textrear">
@@ -144,4 +150,3 @@
 
 
   
-</ion-content>

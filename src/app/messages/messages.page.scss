@@ -1,4 +1,10 @@
-
+.no-messages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 
 .list {
   height: 100%;
@@ -146,9 +152,9 @@
   padding-left: 1em;  */
 
  .active {
-  margin-right: 1%;
-   background: #b6b6b6 !important;
-    color: #fff;
+  
+   background: #e0e0e05e !important;
+   
 
 
  }
@@ -200,8 +206,7 @@
         flex-basis: 90%;
         background: #fff;
         padding: 1em;
-        overflow-y: scroll;
-        overflow-x: hidden;
+       
         .no-selected {
           height: 100%;
           width: 100%;
@@ -275,8 +280,18 @@
   
   }
 }
+.hidered {
+  display: none;
+}
 
 @media only screen and (max-width: 600px) {
+  .hidered {
+    display: block;
+  }
+  ion-toolbar.tool-h {
+    --display: none;
+  }
+
 
   ion-segment {
     font-size: 70% !important;

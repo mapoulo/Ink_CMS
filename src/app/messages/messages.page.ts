@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-messages',
@@ -9,10 +9,10 @@ import { AlertController, ModalController } from '@ionic/angular';
   styleUrls: ['./messages.page.scss'],
 })
 export class MessagesPage implements OnInit {
-   content: any = document.documentElement.getElementsByClassName('documentElement');
+  @ViewChild('content', {static: false}) private content: any;
   itemDiv: any = document.documentElement.getElementsByClassName('item');
   contentMessages: any = document.getElementsByClassName('content-messages');
-
+  contentChat: any = document.getElementsByClassName('read-not-container');
   key = ''
   uid = ''
   response = ""
@@ -41,14 +41,18 @@ export class MessagesPage implements OnInit {
 
   db = firebase.firestore();
   active;
-  constructor(private render: Renderer2, public alertController: AlertController, public modalController: ModalController) {
+  constructor(private render: Renderer2, public alertController: AlertController, public modalController: ModalController, public plt: Platform) {
 
     
 
   }
 
   back() {
-    this.render.setStyle(this.contentMessages[0], 'display', 'none');
+    setTimeout(() => {
+      this.render.setStyle(this.contentMessages[0], 'display', 'none');
+      this.render.setStyle(this.contentChat[0], 'display', 'flex');
+    }, 20);
+
     this.messageInfo = {
       name: '',
       email: '',
@@ -58,7 +62,9 @@ export class MessagesPage implements OnInit {
   }
 
   scrollToBottomOnInit() {
-    this.content.scrollTop = this.content.scrollHeight;
+    console.log('RAN');
+    
+    this.content.scrollToBottom(300);
     
   }
 check(){
@@ -72,7 +78,9 @@ console.log("localeCompare first :" + index );
 
   ngOnInit() {
 
-    
+    setTimeout(() => {
+      this.scrollToBottomOnInit(); 
+    }, 20);
 
     this.db.collection("Message").orderBy('time', 'desc').onSnapshot(data => {
 
@@ -81,7 +89,7 @@ console.log("localeCompare first :" + index );
       
      
       let index = 0
-      let obj = {name : "", uid : "", image : ""}
+      let obj = {name : "", uid : "", image : "", status: "", phone: ""}
   
        data.forEach(item => {
   
@@ -89,9 +97,11 @@ console.log("localeCompare first :" + index );
       
           obj.name = item.data().name
           obj.image = item.data().image;
-          obj.uid = item.data().uid               
+          obj.uid = item.data().uid;
+          obj.status = item.data().status;  
+          obj.phone = item.data().phoneNumber;             
           this.Names.push(obj)
-          obj = {name : "", uid : "", image : ""}  
+          obj = {name : "", uid : "", image : "", status: "", phone: ""}  
 
 
  
@@ -114,6 +124,8 @@ console.log("localeCompare first :" + index );
            
            console.log("testing",finalOut);
            finalOut.forEach(item => {
+             console.log( 'big data',item);
+             
              this.NamesSorted.push(item)
            })
            console.log("data ",  this.NamesSorted);
@@ -175,14 +187,16 @@ console.log("localeCompare first :" + index );
 
   ionViewDidEnter() {
    
-      this.scrollToBottomOnInit();
+    setTimeout(() => {
+      this.scrollToBottomOnInit(); 
+    }, 20);
   
   }
 
 
   async Respond(){
-    let shouldScroll = this.content.scrollTop + this.content.clientHeight === this.content.scrollHeight;
-    console.log('scroll nOW', shouldScroll);
+    
+  
     
     this.db.collection("Message").doc().set({
       message : this.response,
@@ -191,25 +205,33 @@ console.log("localeCompare first :" + index );
     status: "NotRead"
   })
 
-     this.response = "";
+     
 
 //  this.updateMessage(this.uid)
-
-    if(!shouldScroll) {
-      console.log('scrolling');
-      
-      this.scrollToBottomOnInit();
-    }
+setTimeout(() => {
+  this.response = "";
+  this.scrollToBottomOnInit(); 
+}, 20);
 
   }
 
 
 
-  updateMessage(uid) {
+  updateMessage(uid, i) {
+    setTimeout(() => {
+      this.scrollToBottomOnInit(); 
 
+      if(this.plt.width() < 600) {
+        this.render.setStyle(this.contentChat[0], 'display', 'none');
+      }else {
+        this.render.setStyle(this.contentChat[0], 'display', 'flex');
+      }
+     
+      this.render.setStyle(this.contentMessages[0], 'display', 'flex');
+    }, 20);
     this.uid = uid;
     this.DisplayMessages = []
-
+    this.active = i;
     this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
       data => {
 
