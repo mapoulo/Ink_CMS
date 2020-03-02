@@ -235,7 +235,11 @@ setTimeout(() => {
     this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
       data => {
 
-        this.DisplayMessages = []
+        this.DisplayMessages = [];
+
+       setTimeout(() => {
+        this.scrollToBottomOnInit(); 
+       }, 20);
 
         data.forEach(item => {
 
