@@ -4,15 +4,13 @@
   <div class="list">
 
     <div class="read-not-container">
-      <ion-toolbar>
-        <!-- <div class="searchbar">
-          <ion-searchbar mode="md" class="searchbar-input" (ionInput)="sear($event)" no-border></ion-searchbar>
-        </div> -->
+      <ion-toolbar color="secondary">
+          <ion-title class="ion-text-center">Chats</ion-title>
        </ion-toolbar>
       <div class="messages">
        
-        <div class="item" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid)" [ngClass]="{'active': active == i}">
-          <div class="statuss" [ngClass]="{'notRead': message.stat=='NotRead', 'Read': message.stat=='Read'}"></div>
+        <div class="item" *ngFor = "let message of NamesSorted; let i=index;" (click)="updateMessage(message.uid)" [ngClass]="{'active':  active == i}">
+         
           <div class="profile-list">
 
             <img *ngIf = "!message.image" src="../../assets/person-icon.jpg" alt="">
@@ -21,8 +19,8 @@
             
           </div>
           <div class="info">
-            <p>{{message.name}}</p>
-            <p>{{message.time }}</p>
+            <p style="font-weight: bolder;">{{message.name}}</p>
+            <p>(+27) 74 892 9034</p>
           </div>
          
         </div>
@@ -34,7 +32,7 @@
   
 
     <div class="content-messages animated slideInUp">
-      <ion-toolbar color="primary">
+      <ion-toolbar color="light">
         <ion-buttons slot="start">
          <div class="pro-main">
            <div class="profile">
@@ -59,7 +57,7 @@
         
     
         <ion-buttons slot="end">
-          <ion-button fill="clear" color="light"  (click)="dismiss()"><ion-icon name="close"></ion-icon></ion-button>
+          <ion-button fill="clear" (click)="dismiss()"><ion-icon name="close"></ion-icon></ion-button>
         </ion-buttons>
     
       </ion-toolbar>
@@ -121,20 +119,15 @@
         </div>
         <ion-toolbar>
           <div class="options">
-            
-             
-                <div class="col-row">
-                  <textarea      [(ngModel)]="response"></textarea>
-                </div>
-                <div class="col-btn">
-               
-                  
-                 
-
-                 <button fill="clear" class="no-selected animated"   (click)="Respond()"> <ion-icon name="send"></ion-icon></button>
-                </div>
-             
-    
+            <div class="textrear">
+              <ion-textarea  placeholder="Type a message"  [(ngModel)]="response" name="" id="" rows="1"></ion-textarea>
+            </div>
+            <div class="btn-send">
+              <ion-button fill="clear" mode="ios" color="success" (click)="Respond()">
+                <ion-icon name="send"></ion-icon>
+              </ion-button>
+            </div>
+          
           </div>
         </ion-toolbar>
        

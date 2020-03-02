@@ -9,7 +9,7 @@ import { AlertController, ModalController } from '@ionic/angular';
   styleUrls: ['./messages.page.scss'],
 })
 export class MessagesPage implements OnInit {
-
+   content: any = document.documentElement.getElementsByClassName('documentElement');
   itemDiv: any = document.documentElement.getElementsByClassName('item');
   contentMessages: any = document.getElementsByClassName('content-messages');
 
@@ -57,7 +57,10 @@ export class MessagesPage implements OnInit {
     };
   }
 
-
+  scrollToBottomOnInit() {
+    this.content.scrollTop = this.content.scrollHeight;
+    
+  }
 check(){
 
 let str1 = new String( "This" );
@@ -170,14 +173,16 @@ console.log("localeCompare first :" + index );
   }
 
   ionViewDidEnter() {
-
+   
+      this.scrollToBottomOnInit();
+  
   }
 
 
   async Respond(){
-
-  
-   
+    let shouldScroll = this.content.scrollTop + this.content.clientHeight === this.content.scrollHeight;
+    console.log('scroll nOW', shouldScroll);
+    
     this.db.collection("Message").doc().set({
       message : this.response,
        uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -188,6 +193,12 @@ console.log("localeCompare first :" + index );
      this.response = "";
 
 //  this.updateMessage(this.uid)
+
+    if(!shouldScroll) {
+      console.log('scrolling');
+      
+      this.scrollToBottomOnInit();
+    }
 
   }
 
