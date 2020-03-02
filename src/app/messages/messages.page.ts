@@ -75,7 +75,6 @@ console.log("localeCompare first :" + index );
 
       this.Names = []
       this.NamesSorted = []
-      
      
       let index = 0
       let obj = {name : "", uid : "", image : ""}
@@ -199,16 +198,16 @@ console.log("localeCompare first :" + index );
     this.uid = uid;
     this.DisplayMessages = []
 
-    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
+    this.db.collection("Message").orderBy('time', 'asc').get().then(
       data => {
 
         this.DisplayMessages = []
 
         data.forEach(item => {
 
-          // this.db.collection("Message").doc(item.id).set({
-          //   status : "Read"
-          // }, {merge : true})
+          this.db.collection("Message").doc(item.id).set({
+            status : "Read"
+          }, {merge : true})
 
           if(item.data().uid == uid){
             this.DisplayMessages.push(item.data())
