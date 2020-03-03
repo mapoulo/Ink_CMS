@@ -129,10 +129,10 @@
         <ion-toolbar>
           <div class="options">
             <div class="textrear">
-              <ion-textarea  placeholder="Type a message"  [(ngModel)]="response" name="" id="" rows="1"></ion-textarea>
+              <ion-textarea [disabled]="uid== ''"  placeholder="Type a message"  [(ngModel)]="response" name="" id="" rows="1"></ion-textarea>
             </div>
             <div class="btn-send">
-              <ion-button fill="clear" mode="ios" color="success" (click)="Respond()">
+              <ion-button [disabled]="uid == ''" fill="clear" mode="ios" color="success" (click)="Respond()">
                 <ion-icon name="send"></ion-icon>
               </ion-button>
             </div>
