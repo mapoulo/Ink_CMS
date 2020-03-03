@@ -201,14 +201,14 @@ console.log("localeCompare first :" + index );
     
     this.db.collection("Message").doc().set({
       message : this.response,
-       uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm:ss a'),
+       uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm a'),
     cmsUid : null ,
     status: "NotRead"
   })
 
      
 
- this.updateMessage(this.uid, this.active)
+ this.updateMessage1(this.uid, this.active)
 setTimeout(() => {
   this.response = "";
   this.scrollToBottomOnInit(); 
@@ -217,6 +217,61 @@ setTimeout(() => {
   }
 
 
+
+  updateMessage1(uid, i) {
+     
+    setTimeout(() => {
+      this.scrollToBottomOnInit(); 
+
+      if(this.plt.width() < 600) {
+        this.render.setStyle(this.contentChat[0], 'display', 'none');
+      }else {
+        this.render.setStyle(this.contentChat[0], 'display', 'flex');
+      }
+     
+      this.render.setStyle(this.contentMessages[0], 'display', 'flex');
+    }, 20);
+    this.uid = uid;
+    this.DisplayMessages = []
+    this.active = i;
+    this.db.collection("Message").orderBy('time', 'asc').get().then(
+      data => {
+
+        this.DisplayMessages = [];
+
+        setTimeout(() => {
+          this.scrollToBottomOnInit(); 
+        }, 20);
+
+        data.forEach(item => {
+          if(item.data().uid == uid){
+            this.DisplayMessages.push(item.data())
+          }
+        })
+      }
+    )
+    console.log('Your data is here ', this.DisplayMessages);
+
+
+    this.db.collection("Users").doc(uid).onSnapshot(data => {
+      this.image = data.data().image;
+      this.number = data.data().number;
+      this.name = data.data().name;
+      console.log("Image ", this.image);
+      console.log("Number ",  this.number);
+      
+      
+    })
+
+
+    this.db.collection("Admin").onSnapshot(data => {
+      data.forEach(item => {
+        this.cmsImage = item.data().image
+      })
+    })
+
+
+  }
 
   updateMessage(uid, i) {
      
