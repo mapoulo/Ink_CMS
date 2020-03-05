@@ -28,6 +28,7 @@ export class MessagesPage implements OnInit {
     message: '',
     time: ''
   };
+  buttonDisabled: boolean = false;
   MyMessages = [];
   AllMessages = 0;
   ReadMessages = 0;
@@ -82,6 +83,24 @@ console.log("localeCompare first :" + index );
     setTimeout(() => {
       this.scrollToBottomOnInit(); 
     }, 20);
+
+    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
+      data => {
+
+        this.DisplayMessages = [];
+
+        setTimeout(() => {
+          this.scrollToBottomOnInit(); 
+        }, 20);
+
+        data.forEach(item => {
+          if(item.data().uid == this.uid){
+            this.DisplayMessages.push(item.data())
+          }
+        })
+      }
+      
+    )
 
     this.db.collection("Message").orderBy('time', 'desc').onSnapshot(data => {
 
@@ -198,10 +217,13 @@ console.log("localeCompare first :" + index );
   async Respond(){
     
   this.imgchat = false;
-    
-    this.db.collection("Message").doc().set({
+  if (this.response==""){
+    this.buttonDisabled=false;
+      }else{
+        this.buttonDisabled=true;
+        this.db.collection("Message").doc().set({
       message : this.response,
-       uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm a'),
+       uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm:ss a'),
     cmsUid : null ,
     status: "NotRead"
   })
@@ -213,7 +235,9 @@ setTimeout(() => {
   this.response = "";
   this.scrollToBottomOnInit(); 
 }, 20);
-
+ 
+      }
+   
   }
 
 
@@ -249,6 +273,7 @@ setTimeout(() => {
           }
         })
       }
+
     )
     console.log('Your data is here ', this.DisplayMessages);
 
