@@ -26,8 +26,15 @@
             <p>{{message.number}}</p>
           </div>
           <div class="envelop">
-            <ion-button fill="clear" *ngIf="message.status == 'NotRead'" mode="ios" color="dark"><ion-icon name="mail-unread"></ion-icon></ion-button>
-            <ion-button fill="clear" *ngIf="message.status == 'Read'" mode="ios" color="dark"><ion-icon name="mail-open"></ion-icon></ion-button>
+
+            <ion-button fill="clear" *ngIf="message.status == 'NotRead'" mode="ios" color="dark"><ion-icon name="mail-unread">
+            </ion-icon></ion-button>
+
+
+            <ion-button fill="clear" *ngIf="message.status == 'Read'" mode="ios" color="dark"><ion-icon name="mail-open"></ion-icon>
+            </ion-button>
+
+            
           </div>
         </div>
         

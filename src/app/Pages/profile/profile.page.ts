@@ -18,6 +18,7 @@ import { MessagesPageModule } from 'src/app/messages/messages.module';
 })
 export class ProfilePage implements OnInit {
  loader = true;
+ noPdf : boolean
  messages = 0
  MyMessages = [];
  UnreadMessages = [];
@@ -123,6 +124,11 @@ Users = []
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
         this.image1 = item.data().image;
+        if(item.data().pdf == "" || item.data().pdf == undefined || item.data().pdf == null){
+          this.noPdf = true
+        }else{
+          this.noPdf = false
+        }
       })
     })
  
@@ -289,7 +295,7 @@ editData(){
       setTimeout(() => {
         this.loader = false;
        this.reg1();  
-      }, 3000);
+      }, 1000);
      
     }
 
@@ -331,7 +337,7 @@ editData(){
       
 
       const alert = await this.alertCtrl.create({
-        header: 'Delete',
+        header: '',
         message: 'Are you sure you want to delete the Contract?',
         buttons: [
           {

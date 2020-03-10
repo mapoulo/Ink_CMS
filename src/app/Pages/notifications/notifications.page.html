@@ -237,7 +237,7 @@
                               <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY  HH:mm" [(ngModel)]="event.endTime" formControlName="endTime" [min]="minDate"></ion-datetime>
                               <ion-icon size="small" slot="end" name="ios-calendar"></ion-icon>
                             </ion-item>
-                            <div class="error" *ngFor="let validate of validation_messages.price">
+                            <div class="error" *ngFor="let validate of validation_messages.endTime">
                               <div class="messages" *ngIf="tattooForm.get('endTime').hasError(validate.type) && (tattooForm.get('endTime').dirty || tattooForm.get('endTime').touched)">
                                 {{validate.message}}
                             </div>

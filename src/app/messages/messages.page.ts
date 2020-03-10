@@ -38,6 +38,7 @@ export class MessagesPage implements OnInit {
 
   Names = []
   NamesSorted = []
+  TheUid = ""
   name : ""
   cmsImage : ""
 
@@ -89,6 +90,13 @@ console.log("localeCompare first :" + index );
 
         this.DisplayMessages = [];
 
+            // data.forEach(item => {   
+            //   this.db.collection("Message").doc(item.id).set({
+            //     status : "Read"
+            //   }, {merge : true})           
+            // })
+       
+
         setTimeout(() => {
           this.scrollToBottomOnInit(); 
         }, 20);
@@ -102,7 +110,7 @@ console.log("localeCompare first :" + index );
       
     )
 
-    this.db.collection("Message").orderBy('time', 'desc').onSnapshot(data => {
+    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(data => {
 
       this.Names = []
       this.NamesSorted = []
@@ -142,11 +150,16 @@ console.log("localeCompare first :" + index );
                
            }
        })
+
+
+       
            
            console.log("testing",finalOut);
            finalOut.forEach(item => {
                       
-             this.NamesSorted.push(item)
+             this.NamesSorted.push(item);
+             console.log("DATA sdsdsds ", this.NamesSorted[0].uid);
+             this.TheUid = this.NamesSorted[0].uid
            })
            
            

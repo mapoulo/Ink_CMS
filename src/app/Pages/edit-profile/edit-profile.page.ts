@@ -66,7 +66,7 @@ export class EditProfilePage implements OnInit {
       {type: 'validEmail', message: 'Email address already exists in the system.'},
     ],
     'address': [
-      {type: 'required', message: 'address is required.'},
+      {type: 'required', message: 'Address is required.'},
       
     ]
   }

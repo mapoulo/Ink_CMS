@@ -525,7 +525,7 @@ goProfilePage(){
       console.log(tattoo);
       
       const alert = await this.alertCtrl.create({
-        header: 'DELETE!',
+        header: '',
         message: '<strong>Are you sure you want to delete this tattoo?</strong>',
         buttons: [
           {
@@ -551,7 +551,7 @@ goProfilePage(){
       console.log(tattoo);
     
       const alert = await this.alertCtrl.create({
-        header: 'DELETE!',
+        header: '',
         message: '<strong>Are you sure you want to delete this tattoo?</strong>!!!',
         buttons: [
           {

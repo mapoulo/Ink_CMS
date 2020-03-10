@@ -69,18 +69,11 @@ db=firebase.firestore();
 
       this.db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(res =>{
 
-        
-
-       
-      
         this.router.navigateByUrl('/landing');
             })
-
-
-
-
-      
+    
   }).catch((error) => {
+
     setTimeout(() => {
       this.loader = false;
     }, 4000);
