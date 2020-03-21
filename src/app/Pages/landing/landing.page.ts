@@ -81,9 +81,6 @@ Tattoos = [];
      console.log('kjasdbjkasbdas khuthy',i);
      
    }
-
-   
-
    showGraph() {
      this.graph = !this.graph;
      if(this.graph) {
@@ -125,12 +122,16 @@ Tattoos = [];
 
 
     this.db.collection("Message").onSnapshot(data => {
-      this.messages = 0
+      this.UnreadMessages = []
+      this.messages  = 0
       data.forEach(item => {
-        if( item.data().status == "NotRead"  && item.data().cmsUid != null  ){
-             this.messages += 1
-             console.log("Called  ssss");                
+       
+        if(item.data().status == "NotRead"){
+          this.messages += 1
+          this.UnreadMessages.push(item.data())
+         
         }
+        
       })
     })
  
@@ -234,6 +235,8 @@ Tattoos = [];
       })
  this.createBarChart();
     })
+
+
     this.db.collection('Tattoo').onSnapshot(data => {
       this.Tattoos = [];
       data.forEach(item => {
@@ -466,15 +469,26 @@ Tattoos = [];
 
 
   goToNotificationsPage(){
+
 this.rout.navigateByUrl('/notifications')
+
 }
+
+
 gotToLandingPage(){
+
   this.rout.navigateByUrl('/landing')
+
   }
+
+
 goProfilePage(){
+
   this.rout.navigateByUrl('/profile')
  
 }
+
+
   async openModal(CheckNumber, obj) {
 
     console.log("ssss ", obj);
@@ -489,15 +503,18 @@ goProfilePage(){
       this.auth.myObj.obj.image = "";
       this.auth.myObj.obj.name = "";
       this.auth.myObj.obj.docid = "";
+
     if(CheckNumber == 1){
     
       this.auth.myObj.obje = {};
       this.auth.addTattoo = true;
    this.auth.myObj.Button = "Add Tattoo";
+
       const modal = await this.modalController.create({
         component: TattooPage
       });
       return await  modal.present();
+
     }else{
      
       this.auth.editButton = true;
@@ -518,9 +535,12 @@ goProfilePage(){
         component: TattooPage
       });
       return await  modal.present();
+
     }
       
     }
+
+
     async DeleteData(tattoo) {
       console.log(tattoo);
       
@@ -573,6 +593,8 @@ goProfilePage(){
       await alert.present();
  
     }
+
+
     async reg1(){
       const alert = await this.AlertController.create({
         header: "",
@@ -582,4 +604,6 @@ goProfilePage(){
       });
       alert.present();
 }  
+
+
 }
