@@ -8,6 +8,8 @@
   </div>
   <main class="main">
 
+  
+
     <div class="full_r animated zoomIn" *ngIf="fullscreen">
       <div class="btn-close">
         <ion-button fill="clear" size="large" color="light" (click)="animateClose()"><ion-icon size="large" name="ios-close"></ion-icon></ion-button>
@@ -90,22 +92,28 @@
                   </div>
                     
                 <div class="bookings-list">
-                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index;" (click)="save(item.obj, i, item.id)" [ngClass]="{'active animated jackInTheBox': active==i}">
-                                              <div class="tattoo-booking-image"><img src="{{item.obj.image}}"  [ngClass]="{'active': active==i}" alt=""></div>
-                                              <div class="info-booking">
+                                          <div class="booking-item" *ngFor = "let item of Bookings; let i = index;"[ngClass]="{'active animated pulse': active==i}">
+                                              <div class="tattoo-booking-image"  (click)="save(item.obj, i, item.id)" ><img src="{{item.obj.image}}"  [ngClass]="{'active': active==i}" alt=""></div>
+                                              <div class="info-booking"  (click)="save(item.obj, i, item.id)" >
                                               <!-- <p class="description">{{item.obj.description }}</p>      -->                                      
                                               <div class="measure">
-                                                <p><strong>Tattoo size :</strong></p>
+                                                <p><strong>Tattoo size</strong></p>
                                                 <p>{{item.obj.sizes}}</p>
                                               </div>
                                               <div class="measure">
-                                                <p><strong>additional colors :</strong> </p>
+                                                <p><strong>additional colors</strong> </p>
                                                <p *ngIf="item.obj.color == 'yes'">Included</p>
                                                <p *ngIf="item.obj.color == 'no'">Not Included</p>
                                                <p *ngIf="item.obj.color == ''">Not specified</p>
                                               </div>
+                                              <!-- <div class="measure">
+                                                <p>Dates: 02/03/2020</p>
+                                              </div> -->
                                              </div>
-                                    
+                                           <!--   <div class="btn-chat">
+                                              <ion-fab-button size="small" mode="ios" (click)="chatNow()"><ion-icon mode="ios" name="chatbubbles"></ion-icon></ion-fab-button>
+                                            </div>   
+                                     -->
                             </div>
 
                             
@@ -169,7 +177,7 @@
                   
             </div>
            
-                 <div class="calendar-container animated slideInUp" *ngIf="obj.image"> 
+                 <div class="calendar-container animated zoomIn" *ngIf="obj.image"> 
                    <div class="header_" style="width: 100%; z-index: 10;">
                     <ion-button class="btn-close_r" mode="ios" expand="block" shape="round" size="small" fill="clear" (click)="cancelFunction()" size="small" color="danger">
                       Cancel
@@ -229,7 +237,7 @@
                               <ion-datetime displayFormat="MMMM DDD YYYY HH:mm" pickerFormat="MMMM DDD YYYY  HH:mm" [(ngModel)]="event.endTime" formControlName="endTime" [min]="minDate"></ion-datetime>
                               <ion-icon size="small" slot="end" name="ios-calendar"></ion-icon>
                             </ion-item>
-                            <div class="error" *ngFor="let validate of validation_messages.price">
+                            <div class="error" *ngFor="let validate of validation_messages.endTime">
                               <div class="messages" *ngIf="tattooForm.get('endTime').hasError(validate.type) && (tattooForm.get('endTime').dirty || tattooForm.get('endTime').touched)">
                                 {{validate.message}}
                             </div>

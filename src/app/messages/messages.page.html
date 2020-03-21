@@ -23,11 +23,18 @@
           </div>
           <div class="info">
             <p style="font-weight: bolder;">{{message.name}}</p>
-            <p>{{message.status}}</p>
+            <p>{{message.number}}</p>
           </div>
           <div class="envelop">
-            <ion-button fill="clear" *ngIf="message.status == 'NotRead'" mode="ios" color="dark"><ion-icon name="mail-unread"></ion-icon></ion-button>
-            <ion-button fill="clear" *ngIf="message.status == 'Read'" mode="ios" color="dark"><ion-icon name="mail-open"></ion-icon></ion-button>
+
+            <ion-button fill="clear" *ngIf="message.status == 'NotRead'" mode="ios" color="dark"><ion-icon name="mail-unread">
+            </ion-icon></ion-button>
+
+
+            <ion-button fill="clear" *ngIf="message.status == 'Read'" mode="ios" color="dark"><ion-icon name="mail-open"></ion-icon>
+            </ion-button>
+
+            
           </div>
         </div>
         
@@ -70,7 +77,7 @@
       </ion-toolbar>
 
         <ion-content padding #content>
-         <div class="no-messages" *ngIf="DisplayMessages.length == 0">
+         <div class="no-messages" *ngIf="DisplayMessages.length == 0 && imgchat">
             <img src="../../assets/chat.svg" width="350px" alt="">
          </div>
           
@@ -129,10 +136,10 @@
         <ion-toolbar>
           <div class="options">
             <div class="textrear">
-              <ion-textarea  placeholder="Type a message"  [(ngModel)]="response" name="" id="" rows="1"></ion-textarea>
+              <ion-textarea [disabled]="uid== ''"  placeholder="Type a message"  [(ngModel)]="response" name="" id="" rows="1"></ion-textarea>
             </div>
             <div class="btn-send">
-              <ion-button fill="clear" mode="ios" color="success" (click)="Respond()">
+              <ion-button [disabled]="uid == ''" fill="clear" mode="ios" color="success" (click)="Respond()" disabled={{buttonDisabled}}>
                 <ion-icon name="send"></ion-icon>
               </ion-button>
             </div>

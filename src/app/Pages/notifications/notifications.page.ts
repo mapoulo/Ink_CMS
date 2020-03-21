@@ -87,10 +87,10 @@ export class NotificationsPage implements OnInit {
       { type: 'required', message: 'Price  is required.' },
     ],
     'startTime': [
-      { type: 'required', message: 'start date  is required.' },
+      { type: 'required', message: 'Start date  is required.' },
     ],
     'endTime': [
-      { type: 'required', message: 'end date  is required.' },
+      { type: 'required', message: 'End date  is required.' },
     ],
   }
   constructor(private fb: FormBuilder, public modalController: ModalController, private render: Renderer2, public alertController:AlertController, public notification : NotificationsService,  public data : DataService,private callNumber: CallNumber,private platform: Platform,private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,public rout : Router) { 
@@ -311,42 +311,10 @@ resetValues() {
 
     
   
-callNow(number) {
-
-  this.platform.ready().then(() => {
-  if (this.platform.is('cordova')){
-  this.callNumber.callNumber(number, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
-}else {
-  console.log('you are calling now');
-  this.alert() 
-}
-})
-
-
-}
 
 
 
-async alert(){
 
-  const alert = await this.alertController.create({
-    header: 'Calling',
-    subHeader: 'Call funcion is not supported on the browser ',
-    buttons: [{
-      text: 'Ok',
-      role: 'Ok',
-      cssClass: 'secondary',
-      handler: (result) => {
-        
-      
-      }
-    }]
-  });
-  await alert.present();
-
-}
 
 
   resetEvent() {
@@ -424,8 +392,8 @@ async alert(){
 
 
      const alert = await this.alertCtrl.create({
-          header: 'Respond sent',
-          message: '',
+          header: '',
+          message: 'Respond sent',
           buttons: [
             {
               text: '',

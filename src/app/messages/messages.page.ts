@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ElementRef, ViewChild, ViewChildren, Quer
 import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { AlertController, ModalController, Platform } from '@ionic/angular';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-messages',
@@ -27,15 +28,17 @@ export class MessagesPage implements OnInit {
     message: '',
     time: ''
   };
+  buttonDisabled: boolean = false;
   MyMessages = [];
   AllMessages = 0;
   ReadMessages = 0;
   unReadMessages = 0;
-
+  imgchat = true;
   DisplayMessages = []
 
   Names = []
   NamesSorted = []
+  TheUid = ""
   name : ""
   cmsImage : ""
 
@@ -64,7 +67,7 @@ export class MessagesPage implements OnInit {
   scrollToBottomOnInit() {
     console.log('RAN');
     
-    this.content.scrollToBottom(300);
+    this.content.scrollToBottom(100);
     
   }
 check(){
@@ -82,26 +85,52 @@ console.log("localeCompare first :" + index );
       this.scrollToBottomOnInit(); 
     }, 20);
 
-    this.db.collection("Message").orderBy('time', 'desc').onSnapshot(data => {
+    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
+      data => {
+
+        this.DisplayMessages = [];
+
+            // data.forEach(item => {   
+            //   this.db.collection("Message").doc(item.id).set({
+            //     status : "Read"
+            //   }, {merge : true})           
+            // })
+       
+
+        setTimeout(() => {
+          this.scrollToBottomOnInit(); 
+        }, 20);
+
+        data.forEach(item => {
+          if(item.data().uid == this.uid){
+            this.DisplayMessages.push(item.data())
+          }
+        })
+      }
+      
+    )
+
+    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(data => {
 
       this.Names = []
       this.NamesSorted = []
       
      
       let index = 0
-      let obj = {name : "", uid : "", image : "", status: ""}
+      let obj = {name : "", uid : "", image : "", status: "", number : ""}
   
        data.forEach(item => {
   
          if(item.data().name != "" && item.data().name != undefined && item.data().name != null){
-      
+         
           obj.name = item.data().name
           obj.image = item.data().image;
           obj.uid = item.data().uid;
-          obj.status = item.data().status;  
-                  
+          obj.status = item.data().status; 
+          obj.number = item.data().number; 
+          console.log("data ", item.data().number);
           this.Names.push(obj)
-          obj = {name : "", uid : "", image : "", status: ""}  
+          obj = {name : "", uid : "", image : "", status: "", number : ""} 
 
 
  
@@ -121,14 +150,18 @@ console.log("localeCompare first :" + index );
                
            }
        })
+
+
+       
            
            console.log("testing",finalOut);
            finalOut.forEach(item => {
-             console.log( 'big data',item);
-             
-             this.NamesSorted.push(item)
+                      
+             this.NamesSorted.push(item);
+             console.log("DATA sdsdsds ", this.NamesSorted[0].uid);
+             this.TheUid = this.NamesSorted[0].uid
            })
-           console.log("data ",  this.NamesSorted);
+           
            
 
   
@@ -196,9 +229,12 @@ console.log("localeCompare first :" + index );
 
   async Respond(){
     
-  
-    
-    this.db.collection("Message").doc().set({
+  this.imgchat = false;
+  if (this.response==""){
+    this.buttonDisabled=false;
+      }else{
+        this.buttonDisabled=true;
+        this.db.collection("Message").doc().set({
       message : this.response,
        uid : this.uid,  time : moment().format('MMMM Do YYYY, h:mm:ss a'),
     cmsUid : null ,
@@ -207,17 +243,20 @@ console.log("localeCompare first :" + index );
 
      
 
-//  this.updateMessage(this.uid)
+ this.updateMessage1(this.uid, this.active)
 setTimeout(() => {
   this.response = "";
   this.scrollToBottomOnInit(); 
 }, 20);
-
+ 
+      }
+   
   }
 
 
 
-  updateMessage(uid, i) {
+  updateMessage1(uid, i) {
+     
     setTimeout(() => {
       this.scrollToBottomOnInit(); 
 
@@ -232,10 +271,70 @@ setTimeout(() => {
     this.uid = uid;
     this.DisplayMessages = []
     this.active = i;
-    this.db.collection("Message").orderBy('time', 'asc').onSnapshot(
+    this.db.collection("Message").orderBy('time', 'asc').get().then(
       data => {
 
-        this.DisplayMessages = []
+        this.DisplayMessages = [];
+
+        setTimeout(() => {
+          this.scrollToBottomOnInit(); 
+        }, 20);
+
+        data.forEach(item => {
+          if(item.data().uid == uid){
+            this.DisplayMessages.push(item.data())
+          }
+        })
+      }
+
+    )
+    console.log('Your data is here ', this.DisplayMessages);
+
+
+    this.db.collection("Users").doc(uid).onSnapshot(data => {
+      this.image = data.data().image;
+      this.number = data.data().number;
+      this.name = data.data().name;
+      console.log("Image ", this.image);
+      console.log("Number ",  this.number);
+      
+      
+    })
+
+
+    this.db.collection("Admin").onSnapshot(data => {
+      data.forEach(item => {
+        this.cmsImage = item.data().image
+      })
+    })
+
+
+  }
+
+  updateMessage(uid, i) {
+     
+    setTimeout(() => {
+      this.scrollToBottomOnInit(); 
+
+      if(this.plt.width() < 600) {
+        this.render.setStyle(this.contentChat[0], 'display', 'none');
+      }else {
+        this.render.setStyle(this.contentChat[0], 'display', 'flex');
+      }
+     
+      this.render.setStyle(this.contentMessages[0], 'display', 'flex');
+    }, 20);
+    this.uid = uid;
+    this.DisplayMessages = []
+    this.active = i;
+    this.db.collection("Message").orderBy('time', 'asc').get().then(
+      data => {
+
+        this.DisplayMessages = [];
+
+        setTimeout(() => {
+          this.scrollToBottomOnInit(); 
+        }, 20);
 
         data.forEach(item => {
 
@@ -266,15 +365,6 @@ setTimeout(() => {
     this.db.collection("Admin").onSnapshot(data => {
       data.forEach(item => {
         this.cmsImage = item.data().image
-      })
-    })
-
-
-    this.db.collection("Message").get().then(item => {
-      item.forEach(data => {
-        // if(data.data().uid == uid && data.data().cmsUid != null){
-        //   this.db.collection("Message").doc(data.id).set({status : "Read"}, {merge : true})
-        // }
       })
     })
 
